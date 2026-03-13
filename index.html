@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rich Robertson | Software Engineer</title>
+    <meta
+      name="description"
+      content="Portfolio website for Rich Robertson: software engineer focused on scalable systems, product delivery, and engineering leadership."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="#top">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">Software Engineer • Product Builder</p>
+        <h1>Rich Robertson</h1>
+        <p class="intro">
+          I design and deliver reliable software products, balancing architecture,
+          performance, and user experience to ship business outcomes.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#experience">View Experience</a>
+          <a class="btn secondary" href="#projects">Browse Projects</a>
+          <a class="btn secondary" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="about" class="section">
+        <h2>About</h2>
+        <p>
+          This site is structured to mirror a resume + LinkedIn profile format, so hiring
+          managers and recruiters can quickly scan professional summary, work history,
+          technical depth, and impact.
+        </p>
+        <p>
+          To finalize this with your exact details, update the content in the Experience,
+          Projects, and Contact sections using your source documents.
+        </p>
+      </section>
+
+      <section id="experience" class="section">
+        <h2>Experience</h2>
+        <div class="timeline">
+          <article class="card">
+            <p class="date">Most Recent Role</p>
+            <h3>Senior Software Engineer</h3>
+            <ul>
+              <li>Led end-to-end delivery of customer-facing platform features.</li>
+              <li>Improved reliability through stronger observability and incident workflows.</li>
+              <li>Collaborated cross-functionally across engineering, product, and design.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <p class="date">Previous Role</p>
+            <h3>Software Engineer</h3>
+            <ul>
+              <li>Built full-stack services and APIs for core product workflows.</li>
+              <li>Introduced testing and CI practices to improve release confidence.</li>
+              <li>Partnered with stakeholders to translate requirements into milestones.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <p class="date">Earlier Role</p>
+            <h3>Junior Developer</h3>
+            <ul>
+              <li>Developed reusable front-end components and fixed production defects.</li>
+              <li>Contributed to performance and UX improvements across key pages.</li>
+              <li>Built a foundation in team collaboration and software craftsmanship.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="projects" class="section">
+        <h2>Selected Projects</h2>
+        <div class="grid">
+          <article class="project">
+            <h3>Platform Modernization</h3>
+            <p>
+              Refactored legacy systems into modular services to improve maintainability
+              and reduce release risk.
+            </p>
+            <span>TypeScript • Node.js • PostgreSQL • Docker</span>
+          </article>
+          <article class="project">
+            <h3>Operational Analytics Dashboard</h3>
+            <p>
+              Delivered real-time KPI visibility for internal teams to support faster,
+              data-informed decisions.
+            </p>
+            <span>React • GraphQL • Redis • Cloudflare Pages</span>
+          </article>
+          <article class="project">
+            <h3>CI/CD Optimization</h3>
+            <p>
+              Streamlined build and test workflows to reduce deployment lead time and
+              improve release consistency.
+            </p>
+            <span>GitHub Actions • Playwright • Terraform</span>
+          </article>
+        </div>
+      </section>
+
+      <section id="skills" class="section">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+          <article class="card"><h3>Languages</h3><p>JavaScript, TypeScript, Python, SQL</p></article>
+          <article class="card"><h3>Frameworks</h3><p>React, Node.js, Express, REST/GraphQL APIs</p></article>
+          <article class="card"><h3>Cloud & DevOps</h3><p>Cloudflare, Docker, CI/CD, Observability</p></article>
+        </div>
+      </section>
+
+      <section id="contact" class="section contact">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:hello@myrobertson.com">hello@myrobertson.com</a></p>
+        <p>
+          LinkedIn:
+          <a href="https://www.linkedin.com/in/rich-robertson" target="_blank" rel="noreferrer">linkedin.com/in/rich-robertson</a>
+        </p>
+        <p>
+          GitHub:
+          <a href="https://github.com/myrobertson" target="_blank" rel="noreferrer">github.com/myrobertson</a>
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson. Hosted on Cloudflare Pages.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
