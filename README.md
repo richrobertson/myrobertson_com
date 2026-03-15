@@ -1,35 +1,23 @@
 # myrobertson.com portfolio site
 
-Static portfolio website for **myrobertson.com**, optimized for deployment on Cloudflare Pages.
+This portfolio site is now served by a Go web server using `html/template` and static assets.
 
 ## Run locally
 
 ```bash
-python3 -m http.server 4173
+go run ./cmd/site
 ```
 
-Open <http://localhost:4173>.
+Then open <http://localhost:4173>.
 
-## Personalize from resume + LinkedIn files
+## Project structure
 
-Use this quick mapping process to copy your exact content into `index.html`:
+- `cmd/site/main.go` — HTTP server and route handlers.
+- `templates/index.html` — portfolio page template.
+- `static/styles.css` — site styles.
+- `static/script.js` — footer year script.
 
-1. **Professional summary** → `#about` section.
-2. **Work history bullets** → `#experience` cards (most recent to oldest).
-3. **Top projects/case studies** → `#projects` cards (include stack + outcomes).
-4. **Skills block** → `#skills` cards.
-5. **Contact links** → `#contact` section.
+## Deploy notes
 
-Tip: prefer quantified bullets (latency, costs, revenue, uptime, cycle time, adoption).
-
-## Deploy to Cloudflare Pages
-
-1. Push this repo to GitHub.
-2. In Cloudflare Dashboard, go to **Workers & Pages** → **Create** → **Pages**.
-3. Connect your repository.
-4. Use:
-   - Framework preset: **None**
-   - Build command: *(leave blank)*
-   - Build output directory: `/`
-5. Add custom domain `myrobertson.com` in Pages settings.
-6. Update Cloudflare DNS records to point to the Pages project.
+Cloudflare Pages is for static output, while this repo now runs as a Go server.
+To host this under `myrobertson.com`, deploy the Go app to a Go-capable host (e.g., Fly.io, Render, Railway, VPS) and point Cloudflare DNS for your domain to that service.
