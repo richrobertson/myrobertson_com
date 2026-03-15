@@ -12,6 +12,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   margin: 0;
@@ -143,6 +147,7 @@ h1 {
 
 .card,
 .project {
+  background: var(--panel);
   background: color-mix(in srgb, var(--panel) 88%, transparent);
   border: 1px solid var(--border);
   border-radius: 16px;
@@ -169,9 +174,16 @@ footer {
 }
 
 @media (min-width: 780px) {
-  .timeline,
   .grid,
   .skills-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+
+  .timeline {
+    grid-template-columns: 1fr;
+  }
+}
+
+section[id] {
+  scroll-margin-top: 1.5rem;
 }
