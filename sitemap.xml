@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://myrobertson.com/</loc>
+  </url>
+  <url>
+    <loc>https://myrobertson.com/blog/</loc>
+  </url>
+  <url>
+    <loc>https://myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</loc>
+  </url>
+  <url>
+    <loc>https://myrobertson.com/blog/kafka-at-hyperscale.html</loc>
+  </url>
+</urlset>
