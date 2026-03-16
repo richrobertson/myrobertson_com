@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kafka at Hyperscale: Architectural Limits of Log-Partitioned Streaming Systems | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A concise technical article explaining why Kafka's partition-centric architecture encounters coordination, rebalance, storage-compute coupling, and geo-replication limits at hyperscale."
+    />
+    <meta
+      name="keywords"
+      content="Kafka, hyperscale, distributed systems, streaming systems, partitioned logs, consumer rebalancing, geo-replication"
+    />
+    <meta name="author" content="Rich Robertson" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="Kafka at Hyperscale: Architectural Limits of Log-Partitioned Streaming Systems"
+    />
+    <meta
+      property="og:description"
+      content="A concise technical article explaining why Kafka's partition-centric architecture encounters coordination, rebalance, storage-compute coupling, and geo-replication limits at hyperscale."
+    />
+    <meta
+      property="og:url"
+      content="https://myrobertson.com/blog/kafka-at-hyperscale-architectural-limits-of-log-partitioned-streaming-systems.html"
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta
+      name="twitter:title"
+      content="Kafka at Hyperscale: Architectural Limits of Log-Partitioned Streaming Systems"
+    />
+    <meta
+      name="twitter:description"
+      content="A concise technical article explaining why Kafka's partition-centric architecture encounters coordination, rebalance, storage-compute coupling, and geo-replication limits at hyperscale."
+    />
+    <link
+      rel="canonical"
+      href="https://myrobertson.com/blog/kafka-at-hyperscale-architectural-limits-of-log-partitioned-streaming-systems.html"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">Blog Post</p>
+        <h1>Kafka at Hyperscale: Architectural Limits of Log-Partitioned Streaming Systems</h1>
+        <p class="intro">
+          A concise technical article explaining why Kafka&rsquo;s partition-centric architecture
+          encounters coordination, rebalance, storage-compute coupling, and geo-replication limits
+          at hyperscale.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <article class="card blog-post">
+          <p class="date">March 2026 • Rich Robertson</p>
+          <p>
+            Apache Kafka is one of the most influential distributed systems of the past decade. It
+            provides a partitioned, replicated, append-only log with strong ordering guarantees and
+            high throughput. For most organizations, its design offers an excellent balance between
+            durability, performance, and operational simplicity.
+          </p>
+          <p>
+            However, when workloads approach hyperscale regimes, several architectural constraints
+            emerge. These are not implementation flaws, but rather limits inherent to Kafka&rsquo;s design
+            model.
+          </p>
+
+          <h3>Partition-Centric Scaling</h3>
+          <p>
+            Kafka achieves horizontal scalability through partitioned logs. Each partition has a
+            single leader responsible for ordering and replication.
+          </p>
+          <p>
+            As system scale increases, partition counts must grow proportionally to maintain
+            throughput. At very large scales this introduces:
+          </p>
+          <ul>
+            <li>large metadata surfaces</li>
+            <li>controller coordination overhead</li>
+            <li>increased leader election frequency</li>
+          </ul>
+          <p>
+            The result is that partitions transition from a scaling primitive into a coordination
+            constraint.
+          </p>
+
+          <h3>Global Consumer Rebalancing</h3>
+          <p>Kafka&rsquo;s consumer group model relies on coordinated partition assignment.</p>
+          <p>In large deployments, rebalance events can induce:</p>
+          <ul>
+            <li>temporary processing stalls</li>
+            <li>cascading lag accumulation</li>
+            <li>cluster-wide coordination events</li>
+          </ul>
+          <p>
+            This leads some hyperscale systems to prefer incremental ownership models or static
+            partition assignment to reduce synchronization costs.
+          </p>
+
+          <h3>Coupled Storage and Compute</h3>
+          <p>
+            Kafka brokers simultaneously manage persistent log storage, replication, read serving,
+            and write serving.
+          </p>
+          <p>
+            This tight coupling means scaling storage capacity also scales compute resources, which
+            can lead to resource inefficiency and hotspot amplification. Modern large-scale
+            streaming systems increasingly adopt decoupled architectures where log storage and
+            processing layers evolve independently.
+          </p>
+
+          <h3>Geo-Distributed Replication</h3>
+          <p>
+            Kafka was originally optimized for single-region fault domains. Cross-region replication
+            introduces additional operational complexity and consistency tradeoffs. Hyperscale
+            infrastructures increasingly require native geo-replication models with stronger
+            locality control.
+          </p>
+
+          <h3>Conclusion</h3>
+          <p>
+            Kafka remains an extremely effective system for the majority of streaming workloads.
+          </p>
+          <p>
+            But at extreme scale, architectural assumptions shift. Systems begin optimizing for
+            massive shard counts, elastic compute layers, globally replicated logs, and reduced
+            coordination overhead.
+          </p>
+          <p>
+            This is why many large technology companies evolve toward custom streaming
+            infrastructures or alternative log architectures.
+          </p>
+          <p>
+            In distributed systems engineering, success is often scale-relative: an architecture
+            that is optimal at one order of magnitude may require fundamental redesign at the next.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
