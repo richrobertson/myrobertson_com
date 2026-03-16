@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://myrobertson.com/sitemap.xml
+Sitemap: https://www.myrobertson.com/sitemap.xml
