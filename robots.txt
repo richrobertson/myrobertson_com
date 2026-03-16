@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
 
+# Keep robots.txt limited to standard directives recognized by crawlers.
 Sitemap: https://myrobertson.com/sitemap.xml
