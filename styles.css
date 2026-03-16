@@ -187,3 +187,16 @@ footer {
 section[id] {
   scroll-margin-top: 1.5rem;
 }
+
+.nav-links a[aria-current="page"] {
+  color: #fff;
+}
+
+.blog-post {
+  max-width: 780px;
+}
+
+.blog-post h3 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.75rem;
+}

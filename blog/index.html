@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rich Robertson | Blog</title>
+    <meta
+      name="description"
+      content="Thoughts, lessons learned, and deep dives from Rich Robertson on software engineering, cloud platforms, and distributed systems."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">Blog Subsite</p>
+        <h1>Engineering Notes &amp; Posts</h1>
+        <p class="intro">
+          A dedicated space for longer-form writing on architecture decisions,
+          migration stories, and practical lessons from building large-scale systems.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>Featured Post</h2>
+        <article class="card blog-post">
+          <p class="date">March 2026 • 10 min read</p>
+          <h3>What It Took to Modernize a Legacy Service Across 32 Global Regions</h3>
+          <p>
+            Modernizing a mature service is rarely about one technical choice. In this post,
+            I break down the practical sequence that worked: tightening dependency control,
+            standardizing runtime assumptions, introducing release gates, and rolling changes
+            progressively by region.
+          </p>
+          <p>
+            The goal was straightforward: move from Java 8-era constraints to a Java 17 baseline
+            without disrupting customer-facing reliability. The path included CI/CD hardening,
+            compatibility checks, runtime observability upgrades, and careful coordination with
+            platform and operations stakeholders.
+          </p>
+          <p>
+            If you are planning a similar modernization, this post shares a field-tested framework
+            you can adapt for your own distributed services.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
