@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designing Distributed Caches for Low Latency Without Violating Correctness | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A rigorous engineering analysis of distributed caching as a latency-correctness tradeoff, with consistency models, invalidation failure modes, architectural patterns, and practical design principles."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/designing-distributed-caches-latency-correctness.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Designing Distributed Caches for Low Latency Without Violating Correctness",
+        "description": "A rigorous engineering analysis of distributed caching as a latency-correctness tradeoff, with consistency models, invalidation failure modes, architectural patterns, and practical design principles.",
+        "url": "https://www.myrobertson.com/blog/designing-distributed-caches-latency-correctness.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/designing-distributed-caches-latency-correctness.html",
+        "datePublished": "2026-03-17",
+        "dateModified": "2026-03-17",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Designing Distributed Caches for Low Latency Without Violating Correctness</h1>
+        <p class="intro">Caching reduces read latency, but every cached value is a coordination decision under concurrency and failure.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h2>Designing Distributed Caches for Low Latency Without Violating Correctness</h2>
+
+        <p>
+          Distributed caching is usually introduced as a latency optimization, but at scale it is equally a correctness discipline. Caches reduce round trips and backend load by serving frequently requested data from memory or network-proximate layers, which is often necessary to meet production latency targets (Saleemi et al., 2025; Sultan et al., 2024). Yet a cache is derived state rather than source of truth, so every hit trades retrieval cost for a risk of staleness unless coherence is actively maintained (Meta Engineering, 2022; Repin, 2025).
+        </p>
+        <p>
+          The practical consequence is that distributed caching must be designed as a latency-correctness tradeoff under asynchronous updates, concurrent writes, and partial failure, not as a standalone performance feature (Meta Engineering, 2022; Repin, 2025).
+        </p>
+
+        <h3>Why Caching Is Valuable</h3>
+        <p>
+          In-memory and geographically distributed caches shorten critical read paths, reduce pressure on primary stores, and absorb read bursts that would otherwise propagate into the persistence tier (Saleemi et al., 2025; Sultan et al., 2024). These effects compound in multi-tier architectures, where client, edge, application, and data-adjacent caches can each remove a segment of latency from end-to-end response time (Crasta, 2025).
+        </p>
+        <p>
+          For high read-to-write workloads, this often turns an otherwise storage-bound system into one that can satisfy throughput and tail-latency objectives with lower marginal infrastructure cost (Saleemi et al., 2025; Sultan et al., 2024). The performance case for caching is therefore strong, but it is not the full design problem.
+        </p>
+
+        <h3>Why Caching Threatens Correctness</h3>
+        <p>
+          A cache entry is useful only while it remains acceptably aligned with the authoritative state; once divergence exceeds application tolerance, low-latency reads become semantically incorrect reads (Sultan et al., 2024; Meta Engineering, 2022). Under concurrency, updates and invalidations can race with fills and reads, and under network failure, invalidation signals can be delayed, duplicated, or lost, creating durable inconsistency if protocols are weak (Meta Engineering, 2022).
+        </p>
+        <p>
+          Production experience shows these are routine failure modes rather than pathological edge cases, especially when systems rely on optimistic assumptions about message ordering or delivery (Meta Engineering, 2022). This is why cache design has to start from invariants and failure semantics, then optimize latency within those boundaries.
+        </p>
+
+        <h3>Consistency Models and Their Implications</h3>
+        <p>
+          Eventual consistency minimizes coordination by allowing asynchronous propagation and convergent replicas, including designs that use CRDT properties to reconcile concurrent updates without central arbitration (Sosnowski, 2024). It offers strong availability and low write latency, but it necessarily permits read-time divergence until propagation completes (Sosnowski, 2024; Repin, 2025).
+        </p>
+        <p>
+          Strong consistency, typically expressed as linearizability, requires explicit coordination such as consensus-backed ordering, which can be integrated into cache layers when correctness requirements justify the added latency and operational complexity (Repin, 2025). This model simplifies application reasoning at the cost of tighter coupling to quorum health and coordination overhead (Repin, 2025).
+        </p>
+        <p>
+          Bounded staleness occupies the middle ground by permitting controlled divergence windows, commonly implemented with TTL and related expiration policies (Sultan et al., 2024). TTL is operationally simple and decentralized, but it bounds staleness in time rather than in relation to actual write events, so freshness remains probabilistic with respect to source-of-truth mutations (Sultan et al., 2024).
+        </p>
+
+        <h3>Cache Invalidation and Failure Modes</h3>
+        <p>
+          Invalidation is difficult because it must preserve ordering semantics across independently failing components while retaining low latency in the steady state (Meta Engineering, 2022). If a newer invalidation overtakes an older response, or if an invalidation is missed during transient partition, a stale value can be reintroduced and persist beyond its intended lifetime unless versioning or sequencing closes the race (Meta Engineering, 2022).
+        </p>
+        <p>
+          Recent work in microservice contexts argues for declarative and event-driven invalidation paths that make coherence rules explicit and less entangled with business logic, improving auditability and reducing ad hoc invalidation code paths (Falkevych &amp; Lisniak, 2025). The central point is architectural: invalidation correctness is a system property, not a helper function.
+        </p>
+
+        <h3>Architectural Patterns and Tradeoffs</h3>
+        <p>
+          Cache-aside remains dominant because it is simple to adopt incrementally and can deliver immediate read-path gains, but writes that bypass the cache create familiar windows of inconsistency unless invalidation is reliable and timely (Sultan et al., 2024). Write-through reduces this window by coupling writes across cache and backing store, improving coherence while adding write-path latency and coupling (Sultan et al., 2024).
+        </p>
+        <p>
+          Write-back improves write latency by deferring persistence, but under failure it introduces risk of data loss or externally visible inconsistency unless durability and replay guarantees are engineered carefully (Sultan et al., 2024). Invalidation strategy choice also matters: write-driven invalidate-or-update schemes have been shown to outperform naive TTL for freshness-sensitive workloads, though the optimal decision depends on read/write ratio and key popularity distribution (Mao et al., 2024).
+        </p>
+        <p>
+          Multi-layer caching further sharpens the tradeoff: each additional layer can remove latency, but it also expands the coherence surface and failure matrix that must be reasoned about end to end (Crasta, 2025; Meta Engineering, 2022).
+        </p>
+
+        <h3>Emerging Directions</h3>
+        <p>
+          Current research trends point toward adaptive freshness control, where systems switch between update and invalidate behavior in response to observed workload dynamics rather than fixed policy (Mao et al., 2024). Parallel work explores strongly consistent cache designs that move linearizability into the caching tier itself, reducing the need for application-level repair logic in correctness-critical paths (Repin, 2025).
+        </p>
+        <p>
+          Another direction is decentralized coherence mechanisms that align cache consistency behavior with system semantics while avoiding fully centralized coordination, aiming to lower overhead without abandoning correctness guarantees (Zhang et al., 2025). None of these approaches removes tradeoffs; they make those tradeoffs more explicit and tunable.
+        </p>
+
+        <h3>Design Principles</h3>
+        <p>
+          Effective cache designs begin by treating cached data as derived and potentially stale, then specifying acceptable staleness and consistency requirements per operation rather than globally (Meta Engineering, 2022; Repin, 2025). Freshness-sensitive paths generally benefit from write-driven invalidation or update propagation, while TTL is best reserved for domains where bounded temporal staleness is acceptable (Mao et al., 2024; Sultan et al., 2024).
+        </p>
+        <p>
+          Correctness also depends on engineering for message reordering, duplication, and loss through explicit versioning, idempotency, and recovery semantics, because these failure modes are common in distributed environments (Meta Engineering, 2022). Finally, policy should be adaptive: static settings are rarely stable across changing traffic shapes, key locality, and write intensity (Mao et al., 2024).
+        </p>
+
+        <h3>Conclusion</h3>
+        <p>
+          Distributed caching is a latency technique, but it is fundamentally a coordination problem under concurrency and failure. The engineering objective is not zero staleness at any cost; it is explicit, testable control over staleness and coherence consistent with application correctness requirements (Repin, 2025; Sultan et al., 2024). Systems that treat cache behavior as part of their correctness model, rather than as an opaque optimization layer, are the ones that remain both fast and predictable at scale (Meta Engineering, 2022; Zhang et al., 2025).
+        </p>
+
+        <h3>References</h3>
+        <ul>
+          <li>
+            Crasta, C. R. (2025). <em>Global distributed client-side cache for DAOS</em>. ACM.
+          </li>
+          <li>
+            Falkevych, V., &amp; Lisniak, A. (2025). <em>Cache invalidation based on a declarative approach for microservices</em>. <em>Eastern-European Journal of Enterprise Technologies</em>.
+          </li>
+          <li>
+            Mao, Z., Iyer, R., Shenker, S., &amp; Stoica, I. (2024). <em>Revisiting cache freshness for real-time applications</em>. ACM HotNets.
+          </li>
+          <li>
+            Meta Engineering. (2022). <em>Cache made consistent</em>.
+          </li>
+          <li>
+            Repin, V. (2025). <em>Distributed caching system with strong consistency model</em>. <em>Frontiers in Computer Science</em>.
+          </li>
+          <li>
+            Saleemi, A., et al. (2025). <em>RAM-based caching model improving performance of distributed systems</em>.
+          </li>
+          <li>
+            Sosnowski, M. (2024). <em>CRDT web caching for distributed systems</em>. IFIP.
+          </li>
+          <li>
+            Sultan, S., et al. (2024). <em>Cache freshness and TTL-based systems</em>. ACM.
+          </li>
+          <li>
+            Zhang, H., et al. (2025). <em>DiFache: decentralized coherence for distributed caching</em>.
+          </li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
