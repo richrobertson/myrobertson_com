@@ -44,6 +44,11 @@ function extractCanonical(html) {
   return match?.[1]?.trim() ?? '';
 }
 
+function extractRobotsMeta(html) {
+  const match = html.match(/<meta\s+name=["']robots["']\s+content=["']([^"']+)["']\s*\/?\s*>/i);
+  return match?.[1]?.trim().toLowerCase() ?? '';
+}
+
 async function loadPosts() {
   const entries = await readdir(BLOG_DIR, { withFileTypes: true });
   const posts = [];
@@ -65,9 +70,19 @@ async function loadPosts() {
     const title = jsonLd.headline;
     const description = jsonLd.description || extractMetaDescription(html);
     const published = jsonLd.datePublished;
+    const isDraft = jsonLd.draft === true || extractRobotsMeta(html).includes('noindex');
+
+    if (isDraft) {
+      continue;
+    }
 
     if (!link || !title || !published || !description) {
       continue;
+    }
+
+    const publishedDate = new Date(published);
+    if (!Number.isFinite(publishedDate.getTime())) {
+      throw new Error(`Invalid datePublished for ${entry.name}: ${published}`);
     }
 
     if (!link.startsWith(SITE_URL)) {
@@ -78,7 +93,7 @@ async function loadPosts() {
       title,
       link,
       description,
-      pubDate: new Date(published).toUTCString()
+      pubDate: publishedDate.toUTCString()
     });
   }
 

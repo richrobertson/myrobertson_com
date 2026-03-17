@@ -38,7 +38,7 @@ Tip: prefer quantified bullets (latency, costs, revenue, uptime, cycle time, ado
 
 - Feed output lives at `/rss.xml` (generated file committed to the repo).
 - Source of truth for items is each published `blog/*.html` post with `BlogPosting` JSON-LD metadata (`headline`, `description`, `url`, `datePublished`).
-- Drafts are excluded automatically because only real post files with `BlogPosting` metadata are included.
+- Drafts are excluded automatically when a post has `"draft": true` in JSON-LD or `<meta name="robots" content="noindex">` in the document head.
 - Canonical site URL is configured in `scripts/generate-rss.mjs` as `SITE_URL` and must remain `https://www.myrobertson.com` for production-canonical links.
 
 Regenerate the feed after publishing or updating posts:
