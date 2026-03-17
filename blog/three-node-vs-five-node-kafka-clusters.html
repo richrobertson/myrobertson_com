@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three-Node vs. Five-Node Kafka Clusters | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A distributed-systems analysis of why three-node Kafka clusters are often preferable to five-node deployments under common replication and acknowledgment configurations."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster",
+        "description": "A distributed-systems analysis of why three-node Kafka clusters are often preferable to five-node deployments under common replication and acknowledgment configurations.",
+        "url": "https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html",
+        "datePublished": "2026-03-17",
+        "dateModified": "2026-03-17",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster</h1>
+        <p class="intro">A Distributed Systems Perspective</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h2>Introduction</h2>
+        <p>
+          A common design assumption in distributed systems is that increasing node count
+          necessarily improves scalability, availability, and fault tolerance. In Apache Kafka,
+          however, behavior is governed less by broker count alone than by the interaction of
+          partition topology, replication factor, quorum semantics, and control-plane
+          coordination. Under common production configurations, a three-node deployment often
+          provides a more effective balance of durability, latency, and operational stability than
+          a five-node deployment, particularly when replication factor is three and strict
+          acknowledgment semantics are used (Apache Kafka, 2026a; Confluent, n.d.-a; Kreps et al.,
+          2011).
+        </p>
+
+        <h2>Partition Topology as the Primary Scaling Constraint</h2>
+        <p>
+          Kafka is a distributed append-only log in which throughput is achieved primarily through
+          partition-level parallelism rather than broker count in isolation. Its performance model
+          relies on sequential disk access, topic partitioning, and distributed consumption
+          (Kreps et al., 2011). Consequently, adding brokers yields limited benefit unless the
+          workload also scales in partition count and consumer parallelism.
+        </p>
+        <p>
+          Recent work on partition optimization reinforces this constraint. Broker count must be
+          interpreted jointly with partitioning strategy, replication overhead, and offered load;
+          otherwise, additional brokers may remain underutilized while coordination complexity grows
+          (Raptis &amp; Passarella, 2024).
+        </p>
+
+        <h2>Durability Is a Function of Replication Semantics</h2>
+        <p>
+          Kafka durability is determined primarily by replication factor, in-sync replica (ISR)
+          membership, and acknowledgment policy. With replication factor three,
+          <code>min.insync.replicas=2</code>, and <code>acks=all</code>, a record is considered
+          committed when replicated to the required ISR quorum (Apache Kafka, 2026a; Confluent,
+          n.d.-a).
+        </p>
+        <p>
+          Under this configuration, a five-broker cluster does not increase partition-level
+          durability relative to a three-broker cluster, because each partition is still replicated
+          to three brokers. The additional brokers do not participate in the fault tolerance of
+          that partition and therefore do not strengthen its durability guarantee.
+        </p>
+
+        <h2>Quorum Size and Latency-Fault Tolerance Tradeoffs</h2>
+        <p>
+          Kafka's KRaft architecture applies quorum-based control-plane reasoning informed by Raft
+          consensus principles (Apache Kafka, 2026b; Ongaro &amp; Ousterhout, 2014). In such systems,
+          configurations with <em>2f+1</em> replicas tolerate <em>f</em> failures: three replicas
+          tolerate one failure, whereas five replicas tolerate two.
+        </p>
+        <p>
+          This additional fault tolerance is not free. Larger replica sets require larger quorums
+          and increase coordination overhead in commit paths. In many workloads, single-failure
+          tolerance is sufficient, and the operational and latency costs required to tolerate two
+          simultaneous failures are not always justified.
+        </p>
+
+        <h2>Write-Path Sensitivity to Slow Replicas</h2>
+        <p>
+          Kafka's write path must satisfy configured durability semantics before acknowledging
+          producer requests. With <code>acks=all</code>, completion depends on replication to all
+          required in-sync replicas (Confluent, n.d.-a). As participating replica count increases,
+          commit latency becomes more sensitive to stragglers.
+        </p>
+        <p>
+          Under common production conditions with network variability and uneven resource
+          contention, this sensitivity often appears as higher tail latency. Kafka performance
+          guidance consistently frames this as a durability-throughput-latency tradeoff rather than
+          an implementation anomaly (Confluent, 2020).
+        </p>
+
+        <h2>Control-Plane Growth with Cluster Size</h2>
+        <p>
+          In KRaft mode, Kafka maintains metadata through a controller quorum that tracks topics,
+          partition leadership, ISR state, and configuration changes (Apache Kafka, 2026b;
+          Confluent, n.d.-b). Increasing broker count expands the state space that this control
+          plane must manage.
+        </p>
+        <p>
+          A larger cluster introduces more communication paths, more placement combinations, and
+          more transitions during rebalance and recovery events. Even when per-partition durability
+          is unchanged, the control plane must converge a more complex system state, which can
+          reduce operational stability under degraded conditions.
+        </p>
+
+        <h2>ISR Dynamics Under Larger Replica Sets</h2>
+        <p>
+          Kafka relies on ISR membership to determine replicas eligible for committed writes.
+          Replicas that lag beyond configured bounds leave the ISR until they catch up (Apache
+          Kafka, 2026a; Confluent, n.d.-a). As replica set size increases, opportunities for one or
+          more replicas to fall behind also increase.
+        </p>
+        <p>
+          The result is often greater ISR churn, which can influence write availability and
+          increase behavior variability during transient faults or load spikes.
+        </p>
+
+        <h2>Efficiency of Resource Utilization</h2>
+        <p>
+          Kafka is optimized for high-throughput sequential I/O and partition-local processing
+          (Kreps et al., 2011). Efficient operation therefore depends on matching broker count to
+          partition density and workload distribution.
+        </p>
+        <p>
+          In many deployments, a three-node cluster with appropriate partitioning achieves high
+          utilization and predictable performance. By contrast, a five-node cluster may distribute
+          the same workload more thinly, increasing metadata and coordination overhead without
+          proportional throughput benefit. Empirical partitioning studies similarly emphasize
+          alignment between workload characteristics and cluster topology rather than maximizing node
+          count in isolation (Raptis &amp; Passarella, 2024).
+        </p>
+
+        <h2>Conditions That Justify Five Nodes</h2>
+        <p>
+          A five-node deployment is appropriate when explicit requirements demand it, including
+          tolerance for two simultaneous broker failures, very high partition counts, distribution
+          across multiple failure domains, or additional storage and workload-isolation capacity.
+          Under those constraints, higher complexity is an intentional trade for stronger resilience
+          or scale properties.
+        </p>
+
+        <h2>Conclusion</h2>
+        <p>
+          Kafka cluster design is shaped principally by replication semantics, quorum behavior, and
+          partition topology rather than broker count alone. Under common production configurations,
+          three-node clusters with replication factor three frequently deliver sufficient durability
+          with lower coordination overhead and lower latency variance than five-node alternatives.
+          Five-node designs remain valuable where stricter failure tolerance or larger capacity
+          targets are explicit system requirements.
+        </p>
+
+        <h2>References</h2>
+        <p>
+          Apache Kafka. (2026a). <em>Design</em>. Apache Software Foundation.
+        </p>
+        <p>
+          Apache Kafka. (2026b). <em>KRaft</em>. Apache Software Foundation.
+        </p>
+        <p>
+          Confluent. (2020, February 25). <em>99th percentile latency at scale with Apache Kafka</em>.
+        </p>
+        <p>
+          Confluent. (n.d.-a). <em>Kafka replication and committed messages</em>.
+        </p>
+        <p>
+          Confluent. (n.d.-b). <em>KRaft overview for Confluent Platform</em>.
+        </p>
+        <p>
+          Kleppmann, M. (2015). <em>Kafka, Samza and the Unix philosophy of distributed data</em>.
+          <em>IEEE Data Engineering Bulletin, 38</em>(4), 4–14.
+        </p>
+        <p>
+          Kreps, J., Narkhede, N., &amp; Rao, J. (2011). <em>Kafka: A distributed messaging system for
+          log processing</em>. Proceedings of the NetDB Workshop.
+        </p>
+        <p>
+          Ongaro, D., &amp; Ousterhout, J. (2014). <em>In search of an understandable consensus
+          algorithm (extended version)</em>. Proceedings of the USENIX Annual Technical Conference.
+        </p>
+        <p>
+          Raptis, T. P., &amp; Passarella, A. (2024). <em>Efficient topic partitioning of Apache Kafka
+          for high-reliability low-latency communication</em>. <em>Future Generation Computer Systems,
+          151</em>, 526–538.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
