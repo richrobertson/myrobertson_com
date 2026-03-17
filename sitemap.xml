@@ -13,6 +13,9 @@
     <loc>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</loc>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</loc>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</loc>
   </url>
   <url>
