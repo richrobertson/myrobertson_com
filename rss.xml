@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</title>
+      <link>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</link>
+      <description>A technical analysis of backpressure as a stability and correctness mechanism in distributed systems, with practical guidance on admission control, bounded queues, load shedding, and adaptive concurrency.</description>
+      <guid>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</guid>
+      <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster</title>
       <link>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</link>
       <description>A distributed-systems analysis of why three-node Kafka clusters are often preferable to five-node deployments under common replication and acknowledgment configurations.</description>

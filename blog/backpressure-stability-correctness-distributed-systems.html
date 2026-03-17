@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A technical analysis of backpressure as a stability and correctness mechanism in distributed systems, with practical guidance on admission control, bounded queues, load shedding, and adaptive concurrency."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation",
+        "description": "A technical analysis of backpressure as a stability and correctness mechanism in distributed systems, with practical guidance on admission control, bounded queues, load shedding, and adaptive concurrency.",
+        "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html",
+        "datePublished": "2026-03-17",
+        "dateModified": "2026-03-17",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</h1>
+        <p class="intro">Designing systems that can say “not now” before they collapse.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h2>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</h2>
+
+        <p>
+          Distributed systems rarely fail because average demand is slightly above average capacity.
+          They fail when arrival rates outrun service rates, queues accumulate faster than they can
+          drain, and retries or fan-out amplify the initial disturbance. In that regime,
+          backpressure is not a minor throughput optimization; it is the control mechanism that
+          keeps throughput, latency, and resource usage inside a stable operating envelope
+          (IBM, 2026; Reactive Streams, 2022).
+        </p>
+
+        <h3>Backpressure as Flow-Control Feedback</h3>
+        <p>
+          Backpressure is best modeled as feedback that propagates downstream capacity limits
+          upstream. Producers are not permitted to emit unbounded work; instead, the system signals
+          when demand must be delayed, reduced, or rejected. Reactive Streams formalizes this
+          requirement for asynchronous boundaries, where unchecked producers would otherwise force
+          receivers to buffer unbounded data (Reactive Streams, 2022). The same control principle
+          applies to RPC chains, event pipelines, brokered messaging, and service meshes.
+        </p>
+
+        <h3>Queueing Stability, Not Just Performance Tuning</h3>
+        <p>
+          Queueing fundamentals explain why this matters: when offered load persistently exceeds
+          effective service capacity, queue length and response time become nonlinear near
+          saturation. IBM guidance highlights the practical implication: as utilization approaches
+          limits, latency rises sharply, and backlog itself becomes a failure source through memory
+          pressure, timeout cascades, and degraded dependency behavior (IBM, 2026; Amazon Web
+          Services, 2022).
+        </p>
+        <p>
+          This is why unbounded queues are hazardous. They often postpone visible failure while
+          silently increasing tail latency and resource debt. AWS reliability guidance recommends
+          failing fast and limiting queues specifically to avoid insurmountable backlog states
+          (Amazon Web Services, 2022). A bounded queue is therefore not a concession; it is an
+          explicit overload signal that enables timely corrective action.
+        </p>
+
+        <h3>Autoscaling Cannot Replace Immediate Overload Control</h3>
+        <p>
+          Autoscaling is necessary but temporally mismatched with burst-driven overload.
+          Requirements-driven studies of microservice autoscaling show that generic threshold-based
+          policies can react slowly and allocate capacity suboptimally under dynamic workloads
+          (Nunes et al., 2024). Scale-out decisions require observation windows, control decisions,
+          scheduling, and startup latency. Overload can materialize much faster through retries,
+          correlated bursts, and dependency regressions. Stable systems therefore combine
+          medium-timescale capacity adaptation with millisecond-timescale flow control.
+        </p>
+
+        <h3>Operational Backpressure Primitives</h3>
+        <p>
+          Four mechanisms recur across robust architectures. Admission control limits accepted work
+          to protect critical resources under contention. Bounded buffering exposes pressure instead
+          of concealing it. Load shedding discards lower-priority work so critical paths stay within
+          service objectives. Adaptive concurrency adjusts in-flight work based on observed latency,
+          making admission limits responsive to current system stress rather than static guesses
+          (Amazon Web Services, n.d.-a; Amazon Web Services, n.d.-b; Netflix, 2025).
+        </p>
+        <p>
+          Recent practice adds policy awareness to these primitives. Netflix reports
+          service-level-prioritized shedding that preserves high-value requests while trimming less
+          critical traffic only when needed. The objective is not indiscriminate reduction; it is
+          selective reduction aligned with user and business criticality (Gancarz, 2024).
+        </p>
+
+        <h3>Asynchronous Pipelines and Backlog Liability</h3>
+        <p>
+          Event-driven topologies improve decoupling and failure isolation, but they also enable
+          producers to outpace consumers for prolonged intervals. Reactive Streams treats this as a
+          first-order correctness constraint for asynchronous processing (Reactive Streams, 2022).
+          AWS operational guidance reaches the same conclusion in queue-backed systems: durability
+          benefits collapse if backlog growth is unmanaged during spikes or partial outages
+          (Amazon Web Services, n.d.-b).
+        </p>
+
+        <h3>Fairness and Isolation in Shared Infrastructure</h3>
+        <p>
+          Backpressure is also an isolation mechanism. In multi-tenant systems, aggregate stability
+          is insufficient if one tenant or request class can consume disproportionate shared
+          capacity. AWS links admission control and rate limiting directly to fairness and
+          predictable performance in shared environments (Amazon Web Services, n.d.-a). Effective
+          overload control therefore enforces both platform protection and workload isolation.
+        </p>
+
+        <h3>From Thresholds to Closed-Loop Regulation</h3>
+        <p>
+          A consistent industry direction is visible: fixed thresholds are yielding to closed-loop
+          regulation driven by observed latency, queue depth, concurrency, and service objectives.
+          Autoscaling research, adaptive concurrency control, and prioritized shedding all converge
+          on the same systems insight: stability under load must be actively governed
+          (Nunes et al., 2024; Netflix, 2025; Gancarz, 2024).
+        </p>
+        <p>
+          The engineering conclusion is straightforward. A system is not meaningfully scalable unless
+          it can refuse or defer work when required. Designs that can only accept additional load are
+          not resilient; they are temporarily lucky. Backpressure is what converts capacity
+          uncertainty into disciplined behavior and graceful degradation (IBM, 2026; Reactive
+          Streams, 2022; Nunes et al., 2024).
+        </p>
+
+        <h3>References</h3>
+        <ul>
+          <li>
+            Amazon Web Services. (2022). <em>REL05-BP04: Fail fast and limit queues</em>. AWS
+            Well-Architected Framework.
+          </li>
+          <li>
+            Amazon Web Services. (n.d.-a). <em>Fairness in multi-tenant systems</em>. Amazon
+            Builders’ Library.
+          </li>
+          <li>
+            Amazon Web Services. (n.d.-b). <em>Avoiding insurmountable queue backlogs</em>. Amazon
+            Builders’ Library.
+          </li>
+          <li>
+            Gancarz, R. (2024, November 23). <em>Netflix rolls out service-level prioritized load
+            shedding to improve resiliency</em>. InfoQ.
+          </li>
+          <li>
+            IBM. (2026). <em>WebSphere Application Server performance cookbook: Statistics</em>.
+            IBM.
+          </li>
+          <li>
+            Netflix. (2025). <em>concurrency-limits</em> [Software repository]. GitHub.
+          </li>
+          <li>
+            Nunes, J. P. K. S., Nejati, S., Sabetzadeh, M., &amp; Nakagawa, E. Y. (2024).
+            <em>Self-adaptive, requirements-driven autoscaling of microservices</em>. ACM/ArXiv.
+          </li>
+          <li>
+            Reactive Streams. (2022). <em>Reactive Streams 1.0.4</em>.
+          </li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
