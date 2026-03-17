@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rich Robertson Blog</title>
+    <link>https://www.myrobertson.com/blog/</link>
+    <description>Thoughts, lessons learned, and deep dives from Rich Robertson on software engineering, cloud platforms, and distributed systems.</description>
+    <language>en</language>
+    <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster</title>
+      <link>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</link>
+      <description>A distributed-systems analysis of why three-node Kafka clusters are often preferable to five-node deployments under common replication and acknowledgment configurations.</description>
+      <guid>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</guid>
+      <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Architecting a Multitenant Control Plane for a Next-Generation Data Tier</title>
+      <link>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</link>
+      <description>A staff-level engineering article on designing a multitenant control plane for a next-generation data tier using durable command queues, workflow orchestration, distributed workers, and partition-based tenant isolation.</description>
+      <guid>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</guid>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Kafka at Hyperscale</title>
+      <link>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</link>
+      <description>A staff-level analysis of why partition-centric streaming systems encounter coordination, rebalancing, storage-compute coupling, and workflow-orchestration limits at hyperscale.</description>
+      <guid>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</guid>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>
