@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Three-Node vs. Five-Node Kafka Clusters | Rich Robertson</title>
+    <title>Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster | Rich Robertson</title>
     <meta
       name="description"
       content="A distributed-systems analysis of why three-node Kafka clusters are often preferable to five-node deployments under common replication and acknowledgment configurations."
@@ -115,7 +115,7 @@
         <h3>Quorum Size and Latency-Fault Tolerance Tradeoffs</h3>
         <p>
           Kafka's KRaft architecture applies quorum-based control-plane reasoning informed by Raft
-          consensus principles (Apache Kafka, 2026b; Ongaro &amp; Ousterhout, 2014). The discussion of
+          consensus principles (Apache Kafka, 2026b; Ongaro &amp; Ousterhout, 2014). The comparison of
           three versus five replicas in this section refers specifically to controller quorum sizing,
           not broker count by itself. In combined-mode deployments, where broker nodes also host
           controller roles, these counts may coincide; in deployments with dedicated controllers,
@@ -134,14 +134,17 @@
         <p>
           Kafka's write path must satisfy configured durability semantics before acknowledging
           producer requests. With <code>acks=all</code>, completion depends on replication to all
-          required in-sync replicas (Confluent, n.d.-a). As participating replica count increases,
-          commit latency becomes more sensitive to stragglers.
+          required in-sync replicas (Confluent, n.d.-a). Sensitivity to slow replicas increases when
+          the per-partition replica set is expanded, such as when replication factor increases from
+          three to five; this effect does not follow from broker count growth alone when replication
+          factor remains fixed.
         </p>
         <p>
           Under common production conditions with network variability and uneven resource
-          contention, this sensitivity often appears as higher tail latency. Kafka performance
-          guidance consistently frames this as a durability-throughput-latency tradeoff rather than
-          an implementation anomaly (Confluent, 2020).
+          contention, larger replica sets can increase tail latency due to higher straggler
+          exposure. Kafka performance guidance consistently frames this as a
+          durability-throughput-latency tradeoff rather than an implementation anomaly (Confluent,
+          2020).
         </p>
 
         <h3>Control-Plane Growth with Cluster Size</h3>
@@ -162,12 +165,15 @@
         <p>
           Kafka relies on ISR membership to determine replicas eligible for committed writes.
           Replicas that lag beyond configured bounds leave the ISR until they catch up (Apache
-          Kafka, 2026a; Confluent, n.d.-a). As replica set size increases, opportunities for one or
-          more replicas to fall behind also increase.
+          Kafka, 2026a; Confluent, n.d.-a). Increased ISR churn is most directly associated with
+          larger per-partition replica sets (for example, higher replication factors), not with
+          broker count increases alone under a fixed replication factor.
         </p>
         <p>
-          The result is often greater ISR churn, which can influence write availability and
-          increase behavior variability during transient faults or load spikes.
+          Larger clusters can still experience more ISR-related events through other mechanisms,
+          including higher total partition counts, more leaders to monitor, and greater aggregate
+          rebalance activity, all of which can increase behavior variability during transient faults
+          or load spikes.
         </p>
 
         <h3>Efficiency of Resource Utilization</h3>
@@ -208,31 +214,39 @@
         <ol>
           <li>
             Apache Kafka. (2026a). <em>Design</em>. Apache Software Foundation.
+            <a href="https://kafka.apache.org/documentation/#design" target="_blank" rel="noopener noreferrer">https://kafka.apache.org/documentation/#design</a>
           </li>
           <li>
             Apache Kafka. (2026b). <em>KRaft</em>. Apache Software Foundation.
+            <a href="https://kafka.apache.org/documentation/#kraft" target="_blank" rel="noopener noreferrer">https://kafka.apache.org/documentation/#kraft</a>
           </li>
           <li>
             Confluent. (2020, February 25). <em>99th percentile latency at scale with Apache Kafka</em>.
+            <a href="https://www.confluent.io/blog/kafka-latency-large-scale-message-systems/" target="_blank" rel="noopener noreferrer">https://www.confluent.io/blog/kafka-latency-large-scale-message-systems/</a>
           </li>
           <li>
             Confluent. (n.d.-a). <em>Kafka replication and committed messages</em>.
+            <a href="https://docs.confluent.io/kafka/design/replication.html" target="_blank" rel="noopener noreferrer">https://docs.confluent.io/kafka/design/replication.html</a>
           </li>
           <li>
             Confluent. (n.d.-b). <em>KRaft overview for Confluent Platform</em>.
+            <a href="https://docs.confluent.io/platform/current/kafka-metadata/kraft.html" target="_blank" rel="noopener noreferrer">https://docs.confluent.io/platform/current/kafka-metadata/kraft.html</a>
           </li>
           <li>
             Kreps, J., Narkhede, N., &amp; Rao, J. (2011). <em>Kafka: A distributed messaging system for
             log processing</em>. Proceedings of the NetDB Workshop.
+            <a href="https://notes.stephenholiday.com/Kafka.pdf" target="_blank" rel="noopener noreferrer">https://notes.stephenholiday.com/Kafka.pdf</a>
           </li>
           <li>
             Ongaro, D., &amp; Ousterhout, J. (2014). <em>In search of an understandable consensus
             algorithm (extended version)</em>. Proceedings of the USENIX Annual Technical Conference.
+            <a href="https://www.usenix.org/system/files/conference/atc14/atc14-paper-ongaro.pdf" target="_blank" rel="noopener noreferrer">https://www.usenix.org/system/files/conference/atc14/atc14-paper-ongaro.pdf</a>
           </li>
           <li>
             Raptis, T. P., &amp; Passarella, A. (2024). <em>Efficient topic partitioning of Apache Kafka
             for high-reliability low-latency communication</em>. <em>Future Generation Computer Systems,
             151</em>, 526–538.
+            <a href="https://doi.org/10.1016/j.future.2023.10.011" target="_blank" rel="noopener noreferrer">https://doi.org/10.1016/j.future.2023.10.011</a>
           </li>
         </ol>
       </article>
