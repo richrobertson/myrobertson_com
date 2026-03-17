@@ -19,6 +19,9 @@
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</loc>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/designing-distributed-caches-latency-correctness.html</loc>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/rss.xml</loc>
   </url>
 </urlset>

@@ -68,6 +68,7 @@
     <main>
       <article class="card blog-post">
         <h2>Designing Distributed Caches for Low Latency Without Violating Correctness</h2>
+        <h3>Caching reduces read latency, but every cached value is a coordination decision under concurrency and failure.</h3>
 
         <p>
           Distributed caching is usually introduced as a latency optimization, but at scale it is equally a correctness discipline. Caches reduce round trips and backend load by serving frequently requested data from memory or network-proximate layers, which is often necessary to meet production latency targets (Saleemi et al., 2025; Sultan et al., 2024). Yet a cache is derived state rather than source of truth, so every hit trades retrieval cost for a risk of staleness unless coherence is actively maintained (Meta Engineering, 2022; Repin, 2025).
