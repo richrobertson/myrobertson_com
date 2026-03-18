@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designing Backpressure in GraphQL Using CDN Latency Signals | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Using CDN latency signals to implement adaptive backpressure in GraphQL systems and maintain stability under adversarial load."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Designing Backpressure in GraphQL Using CDN Latency Signals",
+        "description": "Using CDN latency signals to implement adaptive backpressure in GraphQL systems and maintain stability under adversarial load.",
+        "url": "https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html",
+        "datePublished": "2026-03-18",
+        "dateModified": "2026-03-18",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Designing Backpressure in GraphQL Using CDN Latency Signals</h1>
+        <p class="intro">Using Edge Latency as a Real-Time Control Signal for Adaptive Load Shedding</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h2>Designing Backpressure in GraphQL Using CDN Latency Signals</h2>
+        <h3>Using Edge Latency as a Real-Time Control Signal for Adaptive Load Shedding</h3>
+
+        <h2>Abstract</h2>
+        <p>
+          Modern GraphQL services face unique challenges under load due to their flexible query model and unpredictable execution cost. Traditional backpressure mechanisms—queue limits, rate limiting, and circuit breakers—are often insufficient when adversarial or malformed queries exploit resolver fan-out and backend amplification. This paper proposes a latency-aware backpressure framework that leverages CDN-provided server timing headers (e.g., from Cloudflare) as a real-time control signal. By propagating edge-observed latency into GraphQL execution policy, systems can dynamically shed load, degrade gracefully, and maintain service health even under malicious traffic patterns. We present architecture, algorithms, and implementation guidance grounded in distributed systems principles.
+        </p>
+
+        <h2>1. Introduction</h2>
+        <p>
+          GraphQL’s expressive power introduces a fundamental asymmetry:
+        </p>
+        <ul>
+          <li>Client cost: O(1) request</li>
+          <li>Server cost: O(N × depth × fan-out)</li>
+        </ul>
+        <p>
+          Under normal conditions, this asymmetry is manageable through caching, batching, and query cost analysis. However, under adversarial conditions—such as intentionally deep queries or high-cardinality fan-out—this imbalance becomes a vector for resource exhaustion.
+        </p>
+        <p>Traditional mitigations include:</p>
+        <ul>
+          <li>Static query complexity limits</li>
+          <li>Rate limiting at the edge</li>
+          <li>Resolver-level timeouts</li>
+        </ul>
+        <p>
+          These approaches are reactive or static and fail to adapt to real-time system stress.
+        </p>
+        <p>
+          Latency is the most reliable signal of system pressure, and CDN edge telemetry provides a globally distributed, low-latency feedback loop for controlling GraphQL execution.
+        </p>
+
+        <h2>2. Background</h2>
+        <h3>2.1 Backpressure in Distributed Systems</h3>
+        <p>
+          Backpressure is the mechanism by which a system regulates incoming work based on its capacity.
+        </p>
+        <p>Effective backpressure systems:</p>
+        <ul>
+          <li>Prevent queue buildup</li>
+          <li>Bound tail latency</li>
+          <li>Maintain fairness across tenants</li>
+        </ul>
+
+        <h3>2.2 CDN Latency Headers as a Signal</h3>
+        <p>
+          Modern CDNs expose detailed timing information via the Server-Timing HTTP header:
+        </p>
+        <pre><code>Server-Timing: cfCacheStatus;desc=MISS, cfEdge;dur=12, cfOrigin;dur=240</code></pre>
+        <p>These include:</p>
+        <ul>
+          <li>Edge processing latency</li>
+          <li>Origin latency</li>
+          <li>Cache status</li>
+        </ul>
+        <p>
+          CDN-observed origin latency is an early indicator of backend saturation.
+        </p>
+
+        <h2>3. Problem: GraphQL Under Malicious Load</h2>
+        <h3>3.1 Resolver Amplification</h3>
+        <p>A single query can trigger:</p>
+        <ul>
+          <li>Many downstream calls</li>
+          <li>Unbounded joins</li>
+          <li>Deep execution trees</li>
+        </ul>
+
+        <h3>3.2 Cache Busting</h3>
+        <p>
+          Attackers can vary query structure to bypass caching.
+        </p>
+
+        <h3>3.3 Latency Collapse</h3>
+        <p>Without control:</p>
+        <ul>
+          <li>Queues grow</li>
+          <li>Tail latency spikes</li>
+          <li>Cascading failures occur</li>
+        </ul>
+
+        <h2>4. Latency-Driven Backpressure</h2>
+        <p>Define:</p>
+        <pre><code>P = L_origin / L_baseline</code></pre>
+        <p>Policy:</p>
+        <ul>
+          <li>P &lt; 1.2 → normal execution</li>
+          <li>1.2–2 → reduce depth and fan-out</li>
+          <li>2–3 → partial responses</li>
+          <li>&gt;3 → reject requests</li>
+        </ul>
+
+        <h2>5. Architecture</h2>
+        <p>Client → CDN → GraphQL Gateway → Execution Engine → Services</p>
+        <p>Key principles:</p>
+        <ul>
+          <li>Edge-driven feedback</li>
+          <li>Stateless decisions</li>
+          <li>Graceful degradation</li>
+        </ul>
+
+        <h2>6. Implementation</h2>
+        <p>Example latency extraction:</p>
+        <pre><code>function extractLatency(headers) {
+  const timing = headers['server-timing'];
+  const originMatch = /cfOrigin;dur=(\d+)/.exec(timing);
+  return originMatch ? parseFloat(originMatch[1]) : null;
+}
+
+function computeMaxDepth(p) {
+  if (p &lt; 1.2) return 10;
+  if (p &lt; 2) return 6;
+  if (p &lt; 3) return 3;
+  return 1;
+}</code></pre>
+
+        <h2>7. Advanced Techniques</h2>
+        <ul>
+          <li>Multi-signal fusion (latency + errors + queues)</li>
+          <li>Adaptive caching</li>
+          <li>Edge query normalization</li>
+        </ul>
+
+        <h2>8. Tradeoffs</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Pros</th>
+              <th>Cons</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Real-time adaptation</td>
+              <td>Increased complexity</td>
+            </tr>
+            <tr>
+              <td>Improved tail latency</td>
+              <td>Potential partial responses</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>9. Conclusion</h2>
+        <p>
+          Latency-driven backpressure transforms GraphQL from a static system into an adaptive one that can respond to real-time conditions and maintain stability under extreme load.
+        </p>
+
+        <h2>References</h2>
+        <ul>
+          <li>Dean &amp; Barroso (2013)</li>
+          <li>Kleppmann (2020)</li>
+          <li>Cloudflare documentation</li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
