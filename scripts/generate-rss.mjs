@@ -118,6 +118,7 @@ async function loadPosts() {
       return b.publishedAt - a.publishedAt;
     }
 
+    // Use direct string comparison for a deterministic, locale-independent URL tie-breaker.
     if (a.link < b.link) return -1;
     if (a.link > b.link) return 1;
     return 0;
