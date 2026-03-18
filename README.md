@@ -37,7 +37,7 @@ Tip: prefer quantified bullets (latency, costs, revenue, uptime, cycle time, ado
 ## RSS feed
 
 - Feed output lives at `/rss.xml` (generated file committed to the repo).
-- Source of truth for items is each published `blog/*.html` post with `BlogPosting` JSON-LD metadata (`headline`, `description`, `url`, `datePublished`). `datePublished` may be an ISO 8601 date (`YYYY-MM-DD`) or an ISO 8601/RFC 3339 timestamp; if a time is present it must include `Z` or an explicit `±HH:MM` offset, and offset forms like `+0000` are rejected. RSS generation uses the post URL as a stable tie-breaker when multiple posts share the same published instant.
+- Source of truth for items is each published `blog/*.html` post with `BlogPosting` JSON-LD metadata (`headline`, `description`, `url`, `datePublished`). `datePublished` may be a date-only ISO string (`YYYY-MM-DD`) or an RFC 3339 timestamp like `YYYY-MM-DDTHH:MMZ`, `YYYY-MM-DDTHH:MM:SSZ`, or `YYYY-MM-DDTHH:MM:SS.sss±HH:MM`; surrounding whitespace is trimmed, but timestamps must include `Z` or an explicit `±HH:MM` offset, and offset forms like `+0000` are rejected. RSS generation uses the post URL as a stable tie-breaker when multiple posts share the same published instant.
 - Drafts are excluded automatically when a post has `"draft": true` in JSON-LD or `<meta name="robots" content="noindex">` in the document head.
 - Canonical site URL is configured in `scripts/generate-rss.mjs` as `SITE_URL` and must remain `https://www.myrobertson.com` for production-canonical links.
 

@@ -6,6 +6,9 @@ const FEED_URL = `${SITE_URL}/rss.xml`;
 const BLOG_DIR = path.resolve('blog');
 const OUTPUT_FILE = path.resolve('rss.xml');
 
+const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const RFC3339_TIMESTAMP_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/;
+
 const channel = {
   title: 'Rich Robertson Blog',
   link: `${SITE_URL}/blog/`,
@@ -50,16 +53,17 @@ function extractRobotsMeta(html) {
 }
 
 function parsePublishedDate(value, entryName) {
-  const hasExplicitTime = value.includes('T');
-  const hasTimezoneOffset = /(?:Z|[+-]\d{2}:\d{2})$/i.test(value);
+  const normalizedValue = value.trim();
+  const isDateOnly = DATE_ONLY_PATTERN.test(normalizedValue);
+  const isTimestampWithTimezone = RFC3339_TIMESTAMP_PATTERN.test(normalizedValue);
 
-  if (hasExplicitTime && !hasTimezoneOffset) {
+  if (!isDateOnly && !isTimestampWithTimezone) {
     throw new Error(
-      `Invalid datePublished for ${entryName}: ${value} (expected an ISO 8601 date or an ISO 8601/RFC 3339 timestamp with Z or an explicit ±HH:MM offset)`
+      `Invalid datePublished for ${entryName}: ${value} (expected YYYY-MM-DD or an RFC 3339 timestamp with Z or an explicit ±HH:MM offset)`
     );
   }
 
-  const publishedDate = new Date(value);
+  const publishedDate = new Date(normalizedValue);
   if (!Number.isFinite(publishedDate.getTime())) {
     throw new Error(`Invalid datePublished for ${entryName}: ${value}`);
   }
