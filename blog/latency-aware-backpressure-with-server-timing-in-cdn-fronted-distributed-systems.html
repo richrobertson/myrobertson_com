@@ -68,6 +68,8 @@
     <main>
       <article class="card blog-post">
         <h2>Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems</h2>
+        <h3>Using HTTP latency attribution as a practical control signal for overload response.</h3>
+
         <p>
           End-to-end latency is one of the most visible signals in a distributed system, but it is a
           poor control input when treated as a single number. In CDN-fronted architectures, the same
@@ -284,33 +286,66 @@ else:
         </p>
 
         <h3>References</h3>
-        <p>
-          Amazon Web Services. (2022). <em>Timeouts, retries, and backoff with jitter</em>. AWS
-          Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/
-        </p>
-        <p>
-          Cloudflare. (n.d.-a). <em>Cloudflare response headers</em>.
-          https://developers.cloudflare.com/fundamentals/reference/http-response-headers/
-        </p>
-        <p>
-          Cloudflare. (n.d.-b). <em>Performance and caching documentation</em>.
-          https://developers.cloudflare.com/cache/
-        </p>
-        <p>
-          Cloudflare. (n.d.-c). <em>CF-Cache-Status</em>.
-          https://developers.cloudflare.com/cache/concepts/cache-responses/
-        </p>
-        <p>
-          Envoy. (n.d.). <em>Adaptive concurrency filter</em>.
-          https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/adaptive_concurrency_filter
-        </p>
-        <p>
-          MDN Web Docs. (n.d.). <em>Server-Timing header</em>.
-          https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing
-        </p>
-        <p>
-          W3C. (2023). <em>Server Timing</em>. https://www.w3.org/TR/server-timing/
-        </p>
+        <ul>
+          <li>
+            Amazon Web Services. (2022). <em>Timeouts, retries, and backoff with jitter</em>. AWS
+            Builders' Library.
+            <a
+              href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</a
+            >
+          </li>
+          <li>
+            Cloudflare. (n.d.-a). <em>Cloudflare response headers</em>.
+            <a
+              href="https://developers.cloudflare.com/fundamentals/reference/http-response-headers/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://developers.cloudflare.com/fundamentals/reference/http-response-headers/</a
+            >
+          </li>
+          <li>
+            Cloudflare. (n.d.-b). <em>Performance and caching documentation</em>.
+            <a href="https://developers.cloudflare.com/cache/" target="_blank" rel="noopener noreferrer"
+              >https://developers.cloudflare.com/cache/</a
+            >
+          </li>
+          <li>
+            Cloudflare. (n.d.-c). <em>CF-Cache-Status</em>.
+            <a
+              href="https://developers.cloudflare.com/cache/concepts/cache-responses/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://developers.cloudflare.com/cache/concepts/cache-responses/</a
+            >
+          </li>
+          <li>
+            Envoy. (n.d.). <em>Adaptive concurrency filter</em>.
+            <a
+              href="https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/adaptive_concurrency_filter"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/adaptive_concurrency_filter</a
+            >
+          </li>
+          <li>
+            MDN Web Docs. (n.d.). <em>Server-Timing header</em>.
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing"
+              target="_blank"
+              rel="noopener noreferrer"
+              >https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing</a
+            >
+          </li>
+          <li>
+            W3C. (2023). <em>Server Timing</em>.
+            <a href="https://www.w3.org/TR/server-timing/" target="_blank" rel="noopener noreferrer"
+              >https://www.w3.org/TR/server-timing/</a
+            >
+          </li>
+        </ul>
       </article>
     </main>
 
