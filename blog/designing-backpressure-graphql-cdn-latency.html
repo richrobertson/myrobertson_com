@@ -113,9 +113,10 @@
 
         <h3>2.2 CDN Latency Headers as a Signal</h3>
         <p>
-          Modern CDNs expose detailed timing information via the Server-Timing HTTP header:
+          Modern CDNs expose detailed timing information via the Server-Timing HTTP header, while cache state is published separately in response headers such as CF-Cache-Status:
         </p>
-        <pre><code>Server-Timing: cfCacheStatus;desc=MISS, cfEdge;dur=12, cfOrigin;dur=240</code></pre>
+        <pre><code>CF-Cache-Status: MISS
+Server-Timing: edge;dur=12, origin;dur=240</code></pre>
         <p>These include:</p>
         <ul>
           <li>Edge processing latency</li>
@@ -171,9 +172,16 @@
         <h2>6. Implementation</h2>
         <p>Example latency extraction:</p>
         <pre><code>function extractLatency(headers) {
-  const timing = headers['server-timing'];
-  const originMatch = /cfOrigin;dur=(\d+)/.exec(timing);
-  return originMatch ? parseFloat(originMatch[1]) : null;
+  const timing = headers['server-timing'] || '';
+  const cacheStatus = headers['cf-cache-status'] || null;
+  const originMatch = /(?:^|,)\s*origin;dur=(\d+)/.exec(timing);
+  const edgeMatch = /(?:^|,)\s*edge;dur=(\d+)/.exec(timing);
+
+  return {
+    cacheStatus,
+    originLatency: originMatch ? parseFloat(originMatch[1]) : null,
+    edgeLatency: edgeMatch ? parseFloat(edgeMatch[1]) : null
+  };
 }
 
 function computeMaxDepth(p) {
