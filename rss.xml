@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</link>
+      <description>A staff-level analysis of how Server-Timing and CDN edge timing can improve backpressure decisions through latency attribution, even when full distributed tracing is unavailable.</description>
+      <guid>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</guid>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</title>
       <link>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</link>
       <description>A technical analysis of backpressure as a stability and correctness mechanism in distributed systems, with practical guidance on admission control, bounded queues, load shedding, and adaptive concurrency.</description>
