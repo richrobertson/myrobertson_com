@@ -225,10 +225,15 @@ section[id] {
 .blog-post pre {
   max-width: 100%;
   overflow-x: auto;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
+  white-space: pre;
 }
 
-.blog-post code {
-  word-break: break-word;
+.blog-post pre code {
+  word-break: normal;
+}
+
+.blog-post p code,
+.blog-post li code {
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
