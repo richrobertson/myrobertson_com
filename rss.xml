@@ -7,9 +7,16 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Designing Backpressure in GraphQL Using CDN Latency Signals</title>
+      <link>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</link>
+      <description>Using CDN latency signals to implement adaptive backpressure in GraphQL systems and maintain stability under adversarial load.</description>
+      <guid>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</guid>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems</title>
       <link>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</link>
-      <description>A staff-level analysis of how Server-Timing and CDN edge timing can improve backpressure decisions through latency attribution, even when full distributed tracing is unavailable.</description>
+      <description>An analysis of how Server-Timing and CDN edge timing can improve backpressure decisions through latency attribution, even when full distributed tracing is unavailable.</description>
       <guid>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</guid>
       <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
     </item>
@@ -30,14 +37,14 @@
     <item>
       <title>Architecting a Multitenant Control Plane for a Next-Generation Data Tier</title>
       <link>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</link>
-      <description>A staff-level engineering article on designing a multitenant control plane for a next-generation data tier using durable command queues, workflow orchestration, distributed workers, and partition-based tenant isolation.</description>
+      <description>An engineering article on designing a multitenant control plane for a next-generation data tier using durable command queues, workflow orchestration, distributed workers, and partition-based tenant isolation.</description>
       <guid>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</guid>
       <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Kafka at Hyperscale</title>
       <link>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</link>
-      <description>A staff-level analysis of why partition-centric streaming systems encounter coordination, rebalancing, storage-compute coupling, and workflow-orchestration limits at hyperscale.</description>
+      <description>An analysis of why partition-centric streaming systems encounter coordination, rebalancing, storage-compute coupling, and workflow-orchestration limits at hyperscale.</description>
       <guid>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</guid>
       <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
     </item>
