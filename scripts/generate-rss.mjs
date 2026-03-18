@@ -62,6 +62,24 @@ function compareStringsByCodePoint(a, b) {
   return a.length - b.length;
 }
 
+function parsePublishedDate(value, entryName) {
+  const hasExplicitTime = value.includes('T');
+  const hasTimezoneOffset = /(?:Z|[+-]\d{2}:\d{2})$/i.test(value);
+
+  if (hasExplicitTime && !hasTimezoneOffset) {
+    throw new Error(
+      `Invalid datePublished for ${entryName}: ${value} (timestamps with a time component must include Z or an explicit UTC offset)`
+    );
+  }
+
+  const publishedDate = new Date(value);
+  if (!Number.isFinite(publishedDate.getTime())) {
+    throw new Error(`Invalid datePublished for ${entryName}: ${value}`);
+  }
+
+  return publishedDate;
+}
+
 async function loadPosts() {
   const entries = await readdir(BLOG_DIR, { withFileTypes: true });
   const posts = [];
@@ -93,10 +111,7 @@ async function loadPosts() {
       continue;
     }
 
-    const publishedDate = new Date(published);
-    if (!Number.isFinite(publishedDate.getTime())) {
-      throw new Error(`Invalid datePublished for ${entry.name}: ${published}`);
-    }
+    const publishedDate = parsePublishedDate(published, entry.name);
 
     if (!link.startsWith(SITE_URL)) {
       continue;
