@@ -49,6 +49,19 @@ function extractRobotsMeta(html) {
   return match?.[1]?.trim().toLowerCase() ?? '';
 }
 
+function compareStringsByCodePoint(a, b) {
+  const length = Math.min(a.length, b.length);
+
+  for (let index = 0; index < length; index += 1) {
+    const difference = a.charCodeAt(index) - b.charCodeAt(index);
+    if (difference !== 0) {
+      return difference;
+    }
+  }
+
+  return a.length - b.length;
+}
+
 async function loadPosts() {
   const entries = await readdir(BLOG_DIR, { withFileTypes: true });
   const posts = [];
@@ -103,7 +116,7 @@ async function loadPosts() {
       return b.publishedAt - a.publishedAt;
     }
 
-    return a.link.localeCompare(b.link);
+    return compareStringsByCodePoint(a.link, b.link);
   });
   return posts;
 }
