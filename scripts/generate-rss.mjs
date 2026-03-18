@@ -49,26 +49,13 @@ function extractRobotsMeta(html) {
   return match?.[1]?.trim().toLowerCase() ?? '';
 }
 
-function compareStringsByCodePoint(a, b) {
-  const length = Math.min(a.length, b.length);
-
-  for (let index = 0; index < length; index += 1) {
-    const difference = a.charCodeAt(index) - b.charCodeAt(index);
-    if (difference !== 0) {
-      return difference;
-    }
-  }
-
-  return a.length - b.length;
-}
-
 function parsePublishedDate(value, entryName) {
   const hasExplicitTime = value.includes('T');
   const hasTimezoneOffset = /(?:Z|[+-]\d{2}:\d{2})$/i.test(value);
 
   if (hasExplicitTime && !hasTimezoneOffset) {
     throw new Error(
-      `Invalid datePublished for ${entryName}: ${value} (timestamps with a time component must include Z or an explicit UTC offset)`
+      `Invalid datePublished for ${entryName}: ${value} (expected YYYY-MM-DD, YYYY-MM-DDTHH:mm:ssZ, or YYYY-MM-DDTHH:mm:ss±HH:MM)`
     );
   }
 
@@ -131,7 +118,9 @@ async function loadPosts() {
       return b.publishedAt - a.publishedAt;
     }
 
-    return compareStringsByCodePoint(a.link, b.link);
+    if (a.link < b.link) return -1;
+    if (a.link > b.link) return 1;
+    return 0;
   });
   return posts;
 }
