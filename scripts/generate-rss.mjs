@@ -55,7 +55,7 @@ function parsePublishedDate(value, entryName) {
 
   if (hasExplicitTime && !hasTimezoneOffset) {
     throw new Error(
-      `Invalid datePublished for ${entryName}: ${value} (expected YYYY-MM-DD, YYYY-MM-DDTHH:mm:ssZ, or YYYY-MM-DDTHH:mm:ss±HH:MM)`
+      `Invalid datePublished for ${entryName}: ${value} (expected an ISO 8601 date or an ISO 8601/RFC 3339 timestamp with Z or an explicit ±HH:MM offset)`
     );
   }
 
