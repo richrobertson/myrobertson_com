@@ -221,3 +221,14 @@ section[id] {
   margin-top: 0.25rem;
   margin-bottom: 0.75rem;
 }
+
+.blog-post pre {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.blog-post code {
+  word-break: break-word;
+}
