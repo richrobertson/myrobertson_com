@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A staff-level analysis of how Server-Timing and CDN edge timing can improve backpressure decisions through latency attribution, even when full distributed tracing is unavailable."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems",
+        "description": "A staff-level analysis of how Server-Timing and CDN edge timing can improve backpressure decisions through latency attribution, even when full distributed tracing is unavailable.",
+        "url": "https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html",
+        "datePublished": "2026-03-18",
+        "dateModified": "2026-03-18",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems</h1>
+        <p class="intro">Using HTTP latency attribution as a practical control signal for overload response.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h2>Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems</h2>
+        <p>
+          End-to-end latency is one of the most visible signals in a distributed system, but it is a
+          poor control input when treated as a single number. In CDN-fronted architectures, the same
+          elevated time to first byte can reflect origin saturation, edge processing overhead, cache
+          misses, or plain network inflation. Server-Timing provides a lightweight standards-based
+          mechanism for surfacing partial latency attribution through HTTP headers, and when combined
+          with CDN metadata and browser timing it can materially improve backpressure decisions even
+          in systems that do not have complete distributed tracing (W3C, 2023; MDN Web Docs, n.d.;
+          Cloudflare, n.d.-a).
+        </p>
+
+        <h3>Introduction</h3>
+        <p>
+          Backpressure is fundamentally a control problem. An admission controller tries to keep a
+          service inside a stable operating region by reducing offered load before queue growth,
+          timeout amplification, and retry storms turn transient stress into a cascading failure
+          (Amazon Web Services, 2022; Envoy, n.d.). The difficulty is observability. Most production
+          systems can measure request rate, queue depth, CPU, and aggregate latency, but those
+          signals do not explain where latency inflation is occurring. A system that throttles on
+          total latency alone risks pushing on the wrong actuator.
+        </p>
+        <p>
+          HTTP already contains a useful observability channel for this problem. The Server-Timing
+          response header lets servers and intermediaries publish named timing metrics to the browser
+          and to application code, while browser performance APIs expose client-observed milestones
+          such as TTFB and response start (W3C, 2023; MDN Web Docs, n.d.). In a path such as Browser
+          → Cloudflare Edge → optional cache → Origin → backend services → response, those signals
+          can be combined into a coarse but actionable latency decomposition. The goal is not perfect
+          measurement. The goal is to drive better overload policy under uncertainty.
+        </p>
+
+        <h3>Why aggregate latency is an insufficient backpressure signal</h3>
+        <p>
+          Aggregate latency compresses multiple queueing domains and transport segments into one
+          scalar. That compression is convenient for dashboards, but it is too coarse for robust
+          backpressure because distinct causes imply different control actions. Queueing delay at the
+          origin often justifies tighter admission control. Elevated edge processing may instead call
+          for reducing expensive edge logic or tuning cache behavior. Network inflation between the
+          client and the edge usually should not trigger global origin throttling because the origin
+          may be healthy while paths to a subset of users are not (Amazon Web Services, 2022;
+          Cloudflare, n.d.-b).
+        </p>
+        <p>
+          Queue depth and CPU are also lagging indicators. By the time a saturated service shows
+          sustained CPU pressure or a visibly growing work queue, latency may already be in the steep
+          nonlinear region where retries, hedging, or connection churn increase the effective load on
+          the system (Amazon Web Services, 2022; Envoy, n.d.). Latency decomposition can surface the
+          onset of stress earlier. If origin-attributed latency rises while request mix and cache
+          state remain stable, that is often an earlier sign of contention than an absolute queue
+          threshold.
+        </p>
+
+        <h3>Server-Timing and CDN-assisted latency decomposition</h3>
+        <p>
+          Server-Timing is a W3C-defined response header that carries one or more named metrics,
+          optionally with durations and descriptions, from the serving path back to the client
+          (W3C, 2023). Browsers expose these metrics through the PerformanceServerTiming interface,
+          which means the data can be inspected in developer tools and consumed programmatically
+          alongside navigation timing and resource timing data (MDN Web Docs, n.d.).
+        </p>
+        <p>
+          In a CDN-fronted system, this is useful because multiple layers can contribute timing
+          metadata. Cloudflare documents cache status and other request handling metadata through its
+          response headers, and origin applications can emit their own Server-Timing values to expose
+          processing phases or aggregate origin work (Cloudflare, n.d.-a; Cloudflare, n.d.-c). The
+          result is a form of latency attribution that sits between black-box request timing and full
+          distributed tracing. It is cheaper to deploy than end-to-end spans and often available on
+          every request path that already terminates over HTTP.
+        </p>
+        <pre><code>Server-Timing: cfEdge;dur=12.4, origin;dur=84.7, app;dur=61.3, db;dur=18.9
+CF-Cache-Status: MISS
+Timing-Allow-Origin: https://www.myrobertson.com</code></pre>
+        <p>
+          This example shows the basic pattern. The CDN can surface an edge-related metric or pass
+          through origin timing, the origin can expose a rolled-up origin metric and subcomponents,
+          and cache metadata provides the context needed to interpret the result. Timing-Allow-Origin
+          controls whether browsers can expose those metrics across origins through performance APIs
+          (MDN Web Docs, n.d.).
+        </p>
+
+        <h3>Cloudflare example: decomposing TTFB into edge, origin, and network effects</h3>
+        <p>
+          Consider a browser request that traverses Cloudflare before reaching an origin service. The
+          browser observes a TTFB of 145 ms. The response includes <code>Server-Timing: cfEdge;dur=15,
+          origin;dur=90</code> and <code>CF-Cache-Status: MISS</code>. A useful engineering approximation is:
+        </p>
+        <pre><code>L_total ≈ L_network + L_edge + L_origin</code></pre>
+        <p>
+          With the values above, a rough decomposition is <code>145 ms ≈ 40 ms + 15 ms + 90 ms</code>. The
+          inferred network term is the residual after subtracting attributed edge and origin duration
+          from the client-observed total. That residual is not a direct network measurement. It may
+          include browser scheduling, TLS effects, buffering, or measurement boundary mismatch, but
+          it still provides a useful estimate when tracked over time rather than read as a literal
+          physics-grade quantity (MDN Web Docs, n.d.; W3C, 2023).
+        </p>
+        <p>
+          Cloudflare makes this decomposition operationally interesting because the edge sits at a
+          meaningful control boundary. A cache HIT can terminate at the edge with little or no origin
+          contribution, while a MISS forwards work to the origin and may include edge-to-origin
+          transit plus origin-side processing in the origin-attributed term depending on how the
+          metric is produced (Cloudflare, n.d.-a; Cloudflare, n.d.-c). Browser TTFB and server timing
+          also live on different clocks. They cannot be added and subtracted with perfect fidelity.
+          The right interpretation is therefore attribution-aware and probabilistic rather than exact.
+        </p>
+
+        <h3>Using decomposed latency signals for backpressure algorithms</h3>
+        <p>
+          Once latency is decomposed, an admission controller can react to the dominant source of
+          inflation instead of treating every slow request as origin overload. A simple policy can be
+          written as a rate or concurrency target that changes over time:
+        </p>
+        <pre><code>R(t) = f(L_origin(t), L_edge(t), L_network(t), cache_status(t))</code></pre>
+        <p>
+          The practical logic is straightforward. If <code>L_origin</code> rises persistently on cache MISS
+          traffic while <code>L_edge</code> stays flat, the origin path is likely saturating and the controller
+          should tighten concurrency limits, shed lower-priority work, or slow retries. If
+          <code>L_edge</code> rises while origin timing is stable, the system should hesitate before globally
+          throttling the origin because the problem may be edge compute, WAF processing, compression,
+          or a regional CDN condition rather than backend saturation (Cloudflare, n.d.-b; Envoy,
+          n.d.). If the inferred network residual rises while edge and origin remain stable, global
+          origin backpressure is usually the wrong response; localized routing changes, region-aware
+          alerting, or simply tolerance of transient client-path degradation are safer actions.
+        </p>
+        <pre><code>if cache_status == MISS and L_origin p95 is rising and L_edge is stable:
+    reduce origin concurrency budget
+elif L_edge p95 is rising and L_origin is stable:
+    avoid global origin throttling; inspect edge features or affected PoPs
+elif L_network_est p95 is rising and L_origin is stable:
+    do not shed globally; prefer localized routing or observability actions
+else:
+    hold policy steady and continue sampling</code></pre>
+        <p>
+          This style of controller is attractive because it works without requiring universal span
+          propagation or perfectly instrumented downstream services. It uses HTTP response headers and
+          client-observed timing, both of which are already available in many web-facing systems. The
+          controller still needs smoothing, percentiles, and hysteresis to avoid oscillation, but the
+          control input is materially better than raw TTFB alone (Amazon Web Services, 2022; Envoy,
+          n.d.).
+        </p>
+
+        <h3>Cache-aware interpretation of latency</h3>
+        <p>
+          Cache HIT and MISS must be interpreted differently because they exercise different resource
+          paths. A HIT with elevated edge latency and near-zero origin contribution points toward edge
+          processing cost, cache lookup behavior, or user-path effects. A MISS with the same TTFB may
+          reflect healthy edge handling and a slow origin path instead. Collapsing those requests into
+          one latency bucket can hide the fact that only a subset of traffic is actually placing load
+          on the origin tier (Cloudflare, n.d.-c; Cloudflare, n.d.-a).
+        </p>
+        <p>
+          This distinction matters for control policy. If MISS latency rises while HIT latency stays
+          flat, increasing cache effectiveness, widening cache eligibility, or protecting specific
+          origin-heavy routes may be more effective than broad throttling. If HIT latency rises too,
+          the issue may be farther upstream in the edge or network path. Cache metadata therefore
+          turns latency from a generic symptom into a signal with workload context.
+        </p>
+
+        <h3>Limits and correctness concerns</h3>
+        <p>
+          The main limitation is partial observability. Server-Timing exposes only the metrics that an
+          intermediary or origin chooses to publish, and those metrics may use local clocks, local
+          definitions, and different start-stop boundaries. Consequently, the terms in a latency
+          decomposition are not guaranteed to be additive, and inferred network latency is a residual
+          rather than a direct observation (W3C, 2023; MDN Web Docs, n.d.).
+        </p>
+        <p>
+          That matters for correctness. If a controller misclassifies client-path inflation as origin
+          overload, it can reduce healthy backend capacity exactly when users are already paying a
+          latency penalty. The result is unnecessary shedding, worse utilization, and a misleading
+          operational picture. Likewise, if origin timing includes edge-to-origin transit and part of
+          backend fan-out, treating it as pure application service time may overstate local saturation.
+          The system should therefore use these signals as bounded evidence, not as ground truth.
+        </p>
+        <p>
+          A second concern is policy stability. Attribution-aware signals improve control, but they do
+          not remove the need for smoothing, guard bands, and explicit rollback conditions. Any policy
+          that reacts to short-term latency movement without filtering can oscillate, especially under
+          bursty traffic or changing cache mix. Control-plane correctness still depends on conservative
+          actuation and good failure-mode design (Amazon Web Services, 2022; Envoy, n.d.).
+        </p>
+
+        <h3>Practical design guidance</h3>
+        <p>
+          In practice, the most useful pattern is to export a small, stable set of timings rather than
+          an exhaustive breakdown. One edge metric, one origin aggregate, and cache status are often
+          enough to improve decisions materially. The next step is to evaluate them separately for HIT
+          and MISS traffic and to compare trends across regions or points of presence instead of only
+          at global scope. That keeps the control plane aligned with the actual fault domains.
+        </p>
+        <p>
+          I would also keep the first control actions narrow. Use origin-attributed inflation to tune
+          admission and retries on origin-bound paths. Use edge-attributed inflation to investigate
+          CDN-side features, compression, or route-local anomalies. Use inferred network inflation for
+          diagnosis and localized mitigations rather than system-wide throttling. This is a better fit
+          for resilient control planes because it preserves capacity where the system is healthy while
+          still responding quickly where it is not.
+        </p>
+        <p>
+          The broader lesson is that tail-latency management benefits from attribution. Even an
+          imperfect decomposition gives the control plane a better prior about where contention or
+          delay is emerging. In distributed systems, better priors often matter more than perfect
+          measurements because actuation always happens under uncertainty.
+        </p>
+
+        <h3>Conclusion</h3>
+        <p>
+          Server-Timing is not a replacement for tracing, and CDN timing is not a complete latency
+          model. But together they provide a practical, standards-based way to decompose HTTP latency
+          into edge, origin, and inferred network effects. That decomposition is useful precisely
+          because end-to-end latency is composite. When backpressure policy can distinguish origin
+          saturation from edge overhead or client-path inflation, it is less likely to shed the wrong
+          traffic or throttle the wrong tier. For modern CDN-fronted systems, that is often enough to
+          make overload control noticeably more correct.
+        </p>
+
+        <h3>References</h3>
+        <p>
+          Amazon Web Services. (2022). <em>Timeouts, retries, and backoff with jitter</em>. AWS
+          Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/
+        </p>
+        <p>
+          Cloudflare. (n.d.-a). <em>Cloudflare response headers</em>.
+          https://developers.cloudflare.com/fundamentals/reference/http-response-headers/
+        </p>
+        <p>
+          Cloudflare. (n.d.-b). <em>Performance and caching documentation</em>.
+          https://developers.cloudflare.com/cache/
+        </p>
+        <p>
+          Cloudflare. (n.d.-c). <em>CF-Cache-Status</em>.
+          https://developers.cloudflare.com/cache/concepts/cache-responses/
+        </p>
+        <p>
+          Envoy. (n.d.). <em>Adaptive concurrency filter</em>.
+          https://www.envoyproxy.io/docs/envoy/latest/configuration/http/http_filters/adaptive_concurrency_filter
+        </p>
+        <p>
+          MDN Web Docs. (n.d.). <em>Server-Timing header</em>.
+          https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Server-Timing
+        </p>
+        <p>
+          W3C. (2023). <em>Server Timing</em>. https://www.w3.org/TR/server-timing/
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
