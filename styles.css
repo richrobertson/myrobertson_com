@@ -237,3 +237,138 @@ section[id] {
   overflow-wrap: anywhere;
   word-break: normal;
 }
+
+.blog-post .blog-dek {
+  margin: 0 0 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #cbd5e1;
+}
+
+.blog-post .cost-placement-callout {
+  margin: 1.75rem 0;
+  padding: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.blog-post .cost-placement-callout h3 {
+  margin-top: 0;
+}
+
+.blog-post .cost-placement-callout blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 3px solid rgba(148, 163, 184, 0.35);
+}
+
+.blog-post .cost-placement-callout ul {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+}
+
+.blog-post table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.blog-post th,
+.blog-post td {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 0.85rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.blog-post th {
+  background: rgba(15, 23, 42, 0.72);
+}
+
+/* Blog post comparison table: desktop table + mobile card/list view */
+.table-responsive-wrapper {
+  width: 100%;
+}
+
+.responsive-comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.responsive-comparison-table th,
+.responsive-comparison-table td {
+  vertical-align: top;
+  text-align: left;
+}
+
+.responsive-comparison-table tbody td:first-child {
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.responsive-comparison-table tbody tr:last-child td {
+  border-bottom: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+.responsive-comparison-table caption {
+  caption-side: top;
+  text-align: left;
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+@media (max-width: 768px) {
+  .responsive-comparison-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .responsive-comparison-table,
+  .responsive-comparison-table tbody,
+  .responsive-comparison-table tr,
+  .responsive-comparison-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .responsive-comparison-table tbody tr {
+    margin: 0 0 1rem;
+    padding: 1rem;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+    border-radius: 1rem;
+    background: rgba(15, 23, 42, 0.35);
+  }
+
+  .responsive-comparison-table td {
+    border: 0;
+    padding: 0.5rem 0;
+    overflow-wrap: anywhere;
+  }
+
+  .responsive-comparison-table td::before {
+    content: attr(data-label);
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    opacity: 0.9;
+  }
+
+  .responsive-comparison-table td:first-child {
+    padding-top: 0;
+    font-size: 1.02rem;
+  }
+
+  .responsive-comparison-table td:first-child::before {
+    margin-bottom: 0.35rem;
+  }
+}
