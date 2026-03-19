@@ -160,6 +160,18 @@ Server-Timing: edge;dur=12, origin;dur=240</code></pre>
           <li>&gt;3 → reject requests</li>
         </ul>
 
+        <figure class="blog-diagram">
+          <img
+            src="../static/graphql-backpressure-latency-loop.png"
+            alt="Diagram showing a GraphQL client request entering an API gateway, fanning out to downstream services, while CDN edge latency signals feed a backpressure loop that observes edge latency, detects saturation, applies backpressure, and adjusts thresholds."
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>
+            Latency-informed backpressure in GraphQL: request fan-out increases systemic risk, while CDN-observed latency provides an early signal for adaptive load control.
+          </figcaption>
+        </figure>
+
         <h3>5. Architecture</h3>
         <p>Client → CDN → GraphQL Gateway → Execution Engine → Services</p>
         <p>Key principles:</p>
