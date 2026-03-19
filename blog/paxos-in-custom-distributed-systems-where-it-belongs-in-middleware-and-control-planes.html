@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paxos in Custom Distributed Systems: Where It Belongs in Middleware and Control Planes | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A practical engineering article on where Paxos belongs in custom distributed systems, with a focus on control planes, metadata authority, leases, epochs, reconfiguration, observability, and failure testing."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/paxos-in-custom-distributed-systems-where-it-belongs-in-middleware-and-control-planes.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Paxos in Custom Distributed Systems: Where It Belongs in Middleware and Control Planes",
+        "description": "A practical engineering article on where Paxos belongs in custom distributed systems, with a focus on control planes, metadata authority, leases, epochs, reconfiguration, observability, and failure testing.",
+        "url": "https://www.myrobertson.com/blog/paxos-in-custom-distributed-systems-where-it-belongs-in-middleware-and-control-planes.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/paxos-in-custom-distributed-systems-where-it-belongs-in-middleware-and-control-planes.html",
+        "datePublished": "2026-03-18",
+        "dateModified": "2026-03-18",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Paxos in Custom Distributed Systems: Where It Belongs in Middleware and Control Planes</h1>
+        <p class="intro">Consensus is best used to protect authority, not to become the architecture of the entire system.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h2>Paxos in Custom Distributed Systems: Where It Belongs in Middleware and Control Planes</h2>
+        <h3>Consensus should defend the narrow correctness-critical authority surface of a distributed system.</h3>
+
+        <p>
+          Paxos is most useful when treated as an authority-preservation mechanism rather than a
+          universal architecture. In custom distributed systems, the hard problem is usually not
+          “make everything consensual.” It is “make sure exactly one subsystem at a time has the
+          right to decide something correctness-critical, and make that decision survive crashes,
+          failovers, and operator mistakes.” That is the surface where Paxos belongs (Lamport,
+          1998, 2001).
+        </p>
+        <p>
+          In practice, that means middleware, control planes, and middle-tier coordination logic:
+          shard ownership, primary election for write paths, lease authority, durable metadata,
+          configuration activation, task-assignment epochs, and other places where multiple actors
+          must agree on who is authoritative before they act. It usually does <em>not</em> mean
+          placing every business operation, every read, or every repairable transient state update
+          behind consensus.
+        </p>
+        <p>
+          This is the pattern visible in serious production systems. Chubby used consensus-backed
+          coordination around locks, naming, and small metadata, not around bulk serving traffic
+          (Burrows, 2006). Spanner uses many replicated consensus groups, each responsible for a
+          subset of the data and metadata surface, rather than one giant global consensus domain
+          (Google Cloud, n.d.). The design lesson is straightforward: consensus is too expensive,
+          too operationally delicate, and too semantically important to spray across every code
+          path.
+        </p>
+
+        <h3>Where Paxos Is Appropriate in Custom Systems</h3>
+        <p>
+          Paxos is appropriate where a system needs durable agreement on authority and ordering, and
+          where ambiguity would cause externally visible corruption rather than a recoverable local
+          defect. Several coordination surfaces recur across custom middleware and control-plane
+          implementations.
+        </p>
+
+        <h3>Shard Ownership</h3>
+        <p>
+          If a shard can only have one writer, one placement authority, or one active owner at a
+          time, ownership must be protected by a durable agreement mechanism. A consensus-backed
+          ownership record gives the system a stable answer to “who may act for shard S right now?”
+          and prevents split-brain ownership during failover or controller churn. This is one of the
+          cleanest applications of Paxos because the object under agreement is small, long-lived,
+          and correctness-critical.
+        </p>
+
+        <h3>Primary Election for Write Paths</h3>
+        <p>
+          Many custom systems still expose a single logical primary for a write path, even if the
+          data plane later replicates or fan-outs updates. Paxos is well suited to electing that
+          primary and serializing leadership transitions. The goal is not merely to pick a leader;
+          it is to ensure that only a leader chosen under the latest accepted ballot can safely emit
+          writes. Without that property, failover turns into dual-primary corruption.
+        </p>
+
+        <h3>Lease Authority</h3>
+        <p>
+          Leases are attractive because they reduce read and write coordination during steady state,
+          but the authority to grant a lease must itself be trustworthy. Consensus-backed lease
+          authority lets subsystems rely on a bounded period of exclusive control while preserving a
+          durable record of who granted it, under which term, and against which configuration.
+          Lease-based fast paths are often a performance optimization layered on top of consensus,
+          not a substitute for it.
+        </p>
+
+        <h3>Durable Metadata</h3>
+        <p>
+          Durable metadata is where consensus earns its keep: routing tables, namespace ownership,
+          replica membership, shard maps, configuration pointers, schema activation markers, and
+          small coordination records that many actors consult before touching the data plane.
+          Chubby is the canonical example. It provided a reliable coordination substrate for systems
+          that needed consistent small files, lock state, and master election; it was explicitly not
+          the path for bulk data traffic (Burrows, 2006).
+        </p>
+
+        <h3>Configuration Activation</h3>
+        <p>
+          In distributed systems, configuration activation is a correctness event. The dangerous
+          question is not whether a config file exists, but whether the system agrees that version
+          <code>V</code> is active for a given authority domain. Consensus is appropriate for
+          flipping that activation record, especially when configuration changes affect routing,
+          replica eligibility, capacity limits, or safety policy. Rolling out the bytes is an
+          operations problem; deciding which version is authoritative is a correctness problem.
+        </p>
+
+        <h3>Task-Assignment Epochs</h3>
+        <p>
+          Many middle-tier systems assign durable tasks to workers or coordinators, then need to
+          survive worker crashes, delayed retries, and stale recovery logic. Consensus is often best
+          applied not to every assignment itself, but to the epoch that makes an assignment valid.
+          If task ownership is stamped with a term or epoch from the consensus subsystem, stale
+          workers can be fenced out when they wake up and try to continue acting on obsolete state.
+        </p>
+
+        <h3>Control-Plane Coordination</h3>
+        <p>
+          Control planes are full of authority decisions: which replica set is serving, which shard
+          has moved, which workflow step is active, which scheduler instance is authoritative, which
+          region is primary, which version of metadata is published. Those are exactly the places
+          where Paxos belongs. They change far less often than data-plane requests, but their
+          correctness determines whether the rest of the system remains coherent.
+        </p>
+
+        <h3>Where Paxos Usually Should Not Be Used</h3>
+        <p>
+          A good Paxos deployment is intentionally narrow. If consensus appears in every hot path,
+          the architecture usually reflects a failure to separate correctness-critical authority from
+          ordinary execution.
+        </p>
+        <ul>
+          <li>
+            <strong>Not every business operation.</strong> Most application-level state transitions
+            do not require system-wide authority agreement. They need durable storage, idempotence,
+            and good transactional boundaries, not a fresh round of consensus for each semantic
+            event.
+          </li>
+          <li>
+            <strong>Not every read path.</strong> Reads should usually consume an already agreed
+            authority result: the current leader, active config, or published metadata version.
+            Putting consensus on every read turns a coordination primitive into a serving bottleneck.
+          </li>
+          <li>
+            <strong>Not ephemeral state that can be repaired.</strong> Cache contents, soft
+            placement hints, short-lived work queues, and reconstructable coordination artifacts are
+            poor candidates. If the state can be rebuilt deterministically or lazily repaired, it
+            should usually stay outside consensus.
+          </li>
+          <li>
+            <strong>Not high-volume non-critical coordination.</strong> Frequent low-consequence
+            coordination traffic is better handled with local heuristics, heartbeats, leases backed
+            by prior authority, or repair loops. Consensus should be reserved for the narrow set of
+            decisions where ambiguity is unacceptable.
+          </li>
+        </ul>
+
+        <h3>Why Narrow Control-Plane Usage Is the Right Pattern</h3>
+        <p>
+          Consensus introduces latency, quorum dependence, persistence costs, and complex failure
+          semantics. Those costs are justifiable when the protected object is an authority boundary
+          whose corruption would break the system. They are wasteful when applied to work that can
+          be retried, recomputed, or validated after the fact.
+        </p>
+        <p>
+          Chubby demonstrates the narrow-pattern well. Google used it to protect metadata,
+          coarse-grained locking, and leader election for other systems; those systems then used the
+          resulting authority information to drive their own serving paths (Burrows, 2006). Spanner
+          demonstrates the same principle at larger scale: replication is organized into many
+          independent groups, each with its own leader and replicated log, rather than one giant
+          consensus domain for the whole system (Google Cloud, n.d.). Even highly sophisticated
+          distributed systems decompose consensus so the blast radius, latency, and throughput costs
+          remain bounded.
+        </p>
+
+        <h3>Multi-Paxos in Practical Terms</h3>
+        <p>
+          In production conversation, “Paxos” often really means Multi-Paxos: once a stable leader
+          has been established, the system avoids paying the full leader-selection cost for every
+          subsequent log entry. The steady-state optimization is the important operational fact.
+          After leadership is established, the leader can usually drive a sequence of proposals to a
+          quorum without re-running the expensive parts of the protocol on every operation
+          (Lamport, 2001).
+        </p>
+        <p>
+          The practical consequence is that a healthy, stable-leader deployment can behave much more
+          like an efficient replicated log than the naïve textbook reading suggests. But that
+          optimization does not eliminate the underlying complexity. The system still has to deal
+          with leadership changes, stale acceptors, persistence ordering, quorum loss, and
+          reconfiguration. Stable leader optimization improves steady-state cost; it does not make
+          the hard edges disappear.
+        </p>
+
+        <h3>Why Fencing Tokens, Epochs, and Ballots Matter at Subsystem Boundaries</h3>
+        <p>
+          Consensus only protects correctness if downstream subsystems respect its decisions. That is
+          why ballots, terms, epochs, and fencing tokens matter. When the consensus layer says
+          “leader L under epoch E is authoritative,” storage engines, task runners, control loops,
+          and external effectors need a way to reject work issued under older authority.
+        </p>
+        <p>
+          This is the subsystem-boundary discipline many designs miss. If an old leader can keep
+          sending writes to storage, or a recovered worker can keep executing commands stamped with
+          yesterday’s assignment epoch, the consensus layer may be internally correct while the
+          broader system is still wrong. Fencing is what extends the correctness proof across those
+          boundaries. In practice, the token often appears in write headers, lease IDs, metadata
+          versions, workflow epochs, or monotonically increasing term numbers checked by receivers.
+        </p>
+
+        <h3>Reconfiguration Is a Correctness Problem</h3>
+        <p>
+          Engineers often treat reconfiguration as an operational convenience: add a node, replace a
+          node, move a shard, change a replica set. In consensus-backed systems, reconfiguration is
+          instead part of the correctness story. The system must define exactly when a membership or
+          configuration change becomes authoritative, under which prior configuration it was
+          accepted, and how in-flight leaders or leases interact with the new configuration.
+        </p>
+        <p>
+          This matters because reconfiguration changes the very quorum rules that define safety.
+          During membership transitions, careless implementations can momentarily create overlapping
+          authorities, admit proposals under incompatible assumptions, or strand a log behind a
+          leader that still believes it has legitimacy. Treating reconfiguration as a first-class
+          protocol event is therefore essential, especially in control planes that regularly add,
+          replace, or drain nodes.
+        </p>
+
+        <h3>Paxos on Paper Versus Paxos in Production</h3>
+        <p>
+          Paxos on paper is compact. Paxos in production is a system. The paper protocol gives the
+          safety skeleton; the production implementation has to solve log management, snapshots,
+          persistence semantics, membership evolution, crash recovery, duplicate suppression,
+          backpressure, observability, rollout strategy, and operator ergonomics. This gap is why
+          engineering teams often underestimate the real cost of “just implementing Paxos”
+          (Lamport, 1998, 2001).
+        </p>
+        <p>
+          Raft is often preferred because its decomposition and terminology can be easier for teams
+          to reason about, especially around log replication and membership changes (Ongaro &amp;
+          Ousterhout, 2014). That is a useful implementation consideration, but it does not change
+          the architectural question. Whether a team chooses Paxos or Raft, the key decision is
+          still where consensus belongs: on the narrow authority surface, not across the whole
+          system.
+        </p>
+
+        <h3>Operational Observability Requirements</h3>
+        <p>
+          A production consensus subsystem cannot be a black box. At minimum, operators need direct
+          visibility into the fields and timings that explain authority, liveness, and performance:
+        </p>
+        <ul>
+          <li><strong>leader identity</strong> for each consensus group or authority domain</li>
+          <li><strong>ballot, term, or epoch</strong> currently in force</li>
+          <li><strong>quorum health</strong> including reachable voters and recent vote failures</li>
+          <li><strong>replication lag</strong> across followers or acceptors</li>
+          <li><strong>commit latency</strong> for accepted proposals</li>
+          <li><strong>persistence latency</strong> on the leader and followers</li>
+          <li><strong>rejected proposals</strong> due to stale terms, invalid configs, or quorum loss</li>
+          <li><strong>lease validity</strong> and time remaining for lease-based fast paths</li>
+          <li><strong>configuration version</strong> and configuration activation state</li>
+        </ul>
+        <p>
+          Without these signals, operators are left guessing whether a system is unhealthy because
+          of a bad leader, a slow disk, a partition, a stale follower, or an invalid rollout.
+          Consensus failures are rarely silent in retrospect; they are silent only when systems do
+          not expose the state required to diagnose them.
+        </p>
+
+        <h3>Testing the Real Failure Modes</h3>
+        <p>
+          Consensus implementations must be tested against the failures that actually produce stale
+          authority and unsafe execution, not just process crashes in happy-path unit tests. For
+          custom middleware and control planes, that includes:
+        </p>
+        <ul>
+          <li><strong>fault injection</strong> across leader, follower, disk, and RPC boundaries</li>
+          <li><strong>asymmetric network failures</strong> where reachability is not uniform</li>
+          <li><strong>duplicate requests</strong> and retried proposals after partial completion</li>
+          <li><strong>stale recovery state</strong> after restart from lagging local persistence</li>
+          <li><strong>slow disks, slow followers, and leader churn</strong> under sustained load</li>
+        </ul>
+        <p>
+          Those tests should be tied to observable invariants: no two leaders can issue valid work
+          for the same authority domain, no stale worker can execute after being fenced, no
+          configuration becomes active without the expected quorum history, and no recovered node can
+          regress authority after replay. If the system cannot survive those experiments, it is not
+          operationally ready regardless of how clean the protocol implementation looks.
+        </p>
+
+        <h3>Practical Takeaway</h3>
+        <p>
+          Paxos is not a universal architecture for custom distributed systems. It is the mechanism
+          you use when the system must preserve a small number of durable, correctness-critical
+          authority decisions under failure. That usually means middleware coordination, metadata
+          authority, control-plane leadership, lease issuance, configuration activation, and epoch
+          management—not every business transaction and not every read.
+        </p>
+        <p>
+          The strongest pattern from real systems is consistent: keep consensus narrow, make the
+          authority surface explicit, propagate epochs and fencing tokens across subsystem
+          boundaries, and instrument the result as if it will fail in production—because eventually
+          it will. Paxos should protect the narrow correctness-critical authority surface of a
+          distributed system.
+        </p>
+
+        <h3>References</h3>
+        <ul>
+          <li>
+            Burrows, M. (2006). <em>The Chubby lock service for loosely-coupled distributed
+            systems</em>. In <em>Proceedings of the 7th symposium on Operating systems design and
+            implementation</em> (pp. 335–350).
+          </li>
+          <li>
+            Google Cloud. (n.d.). <em>Spanner replication</em>.
+          </li>
+          <li>
+            Lamport, L. (1998). <em>The part-time parliament</em>. <em>ACM Transactions on Computer
+            Systems</em>, <em>16</em>(2), 133–169.
+          </li>
+          <li>
+            Lamport, L. (2001). <em>Paxos made simple</em>.
+          </li>
+          <li>
+            Ongaro, D., &amp; Ousterhout, J. (2014). <em>In search of an understandable consensus
+            algorithm (Raft)</em>. In <em>USENIX Annual Technical Conference</em> (pp. 305–319).
+          </li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

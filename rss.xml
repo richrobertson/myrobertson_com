@@ -21,6 +21,13 @@
       <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Paxos in Custom Distributed Systems: Where It Belongs in Middleware and Control Planes</title>
+      <link>https://www.myrobertson.com/blog/paxos-in-custom-distributed-systems-where-it-belongs-in-middleware-and-control-planes.html</link>
+      <description>A practical engineering article on where Paxos belongs in custom distributed systems, with a focus on control planes, metadata authority, leases, epochs, reconfiguration, observability, and failure testing.</description>
+      <guid>https://www.myrobertson.com/blog/paxos-in-custom-distributed-systems-where-it-belongs-in-middleware-and-control-planes.html</guid>
+      <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</title>
       <link>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</link>
       <description>A technical analysis of backpressure as a stability and correctness mechanism in distributed systems, with practical guidance on admission control, bounded queues, load shedding, and adaptive concurrency.</description>
