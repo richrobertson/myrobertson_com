@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Programming Language Selection in Distributed Systems: A Strategic, Long-Term Perspective</title>
+      <link>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html</link>
+      <description>An analysis of Go, Rust, Java, and Python for distributed systems, examining concurrency, memory safety, performance predictability, ecosystem maturity, and long-term architectural trade-offs.</description>
+      <guid>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html</guid>
+      <pubDate>Thu, 19 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Designing Backpressure in GraphQL Using CDN Latency Signals</title>
       <link>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</link>
       <description>Using CDN latency signals to implement adaptive backpressure in GraphQL systems and maintain stability under adversarial load.</description>

@@ -237,3 +237,21 @@ section[id] {
   overflow-wrap: anywhere;
   word-break: normal;
 }
+
+.blog-post table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.blog-post th,
+.blog-post td {
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 0.85rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.blog-post th {
+  background: rgba(15, 23, 42, 0.72);
+}
