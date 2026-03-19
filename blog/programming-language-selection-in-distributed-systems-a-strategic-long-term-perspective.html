@@ -147,28 +147,28 @@
             </thead>
             <tbody>
               <tr>
-                <td data-label="Dimension"><strong>Concurrency Model</strong></td>
+                <th scope="row" data-label="Dimension"><strong>Concurrency Model</strong></th>
                 <td data-label="Go">Lightweight goroutines and channels, encouraging fine-grained concurrency (Chabbi et al., 2022)</td>
                 <td data-label="Rust">Ownership-constrained async and threading, forcing explicit sharing discipline (Qin et al., 2023)</td>
                 <td data-label="Java">Threads, executors, and newer lightweight concurrency mechanisms such as virtual threads (Pandita, 2025; Ponnampalam, 2025)</td>
                 <td data-label="Python">Async I/O and multiprocessing, often used for coordination rather than high-efficiency parallel execution (Beierlieb et al., 2023)</td>
               </tr>
               <tr>
-                <td data-label="Dimension"><strong>Memory Safety Approach</strong></td>
+                <th scope="row" data-label="Dimension"><strong>Memory Safety Approach</strong></th>
                 <td data-label="Go">Managed runtime with garbage collection, which prevents broad classes of unsafe memory access while leaving concurrency correctness to developer discipline and tooling (Chabbi et al., 2022)</td>
                 <td data-label="Rust">Compile-time ownership and borrowing, which pushes many memory-safety and sharing constraints into the type system (Qin et al., 2023; Harris et al., 2023)</td>
                 <td data-label="Java">Managed runtime with garbage collection and runtime-enforced memory safety, with concurrency behavior increasingly shaped by newer JVM threading models (Pandita, 2025; Ponnampalam, 2025)</td>
                 <td data-label="Python">Managed runtime with interpreter/runtime controls, favoring safety and ease of use over low-level memory control (Beierlieb et al., 2023)</td>
               </tr>
               <tr>
-                <td data-label="Dimension"><strong>Latency Predictability</strong></td>
+                <th scope="row" data-label="Dimension"><strong>Latency Predictability</strong></th>
                 <td data-label="Go">Generally strong for service workloads, but runtime behavior and allocation patterns can still affect high-percentile latency (Chabbi et al., 2022; Wang et al., 2023)</td>
                 <td data-label="Rust">High predictability due to absence of GC pauses and explicit memory control (Qin et al., 2023; Wang et al., 2023)</td>
                 <td data-label="Java">Strong potential performance, but sensitive to runtime tuning, workload shape, and concurrency model choices (Pandita, 2025; Ponnampalam, 2025)</td>
                 <td data-label="Python">Less predictable under concurrency-heavy or CPU-bound load (Beierlieb et al., 2023)</td>
               </tr>
               <tr>
-                <td data-label="Dimension"><strong>Observed Failure Tendencies</strong></td>
+                <th scope="row" data-label="Dimension"><strong>Observed Failure Tendencies</strong></th>
                 <td data-label="Go">Real-world race and concurrency defects appear in production Go systems (Chabbi et al., 2022)</td>
                 <td data-label="Rust">Fewer memory-safety defects, but remaining risks include logic bugs, panics, and unsafe-boundary issues (Qin et al., 2023)</td>
                 <td data-label="Java">Configuration, abstraction, and runtime-complexity risks, especially where concurrency model choice and framework layering increase operational variability (Pandita, 2025; Ponnampalam, 2025)</td>
