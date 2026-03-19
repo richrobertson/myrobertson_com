@@ -320,7 +320,7 @@ section[id] {
   color: #cbd5e1;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 780px) {
   .responsive-comparison-table thead {
     position: absolute;
     width: 1px;
