@@ -10,6 +10,9 @@
     <loc>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</loc>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/paxos-in-custom-distributed-systems-where-it-belongs-in-middleware-and-control-planes.html</loc>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</loc>
   </url>
   <url>
