@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Polyglot Architectures: A Case for Functional Languages in Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</link>
+      <description>A deep, systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems.</description>
+      <guid>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</guid>
+      <pubDate>Fri, 20 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Programming Language Selection in Distributed Systems: A Strategic, Long-Term Perspective</title>
       <link>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html</link>
       <description>A comparative analysis of Go, Rust, Java, and Python for distributed systems through the lens of concurrency, memory safety, tail-latency behavior, workload fit, and architectural cost placement.</description>
