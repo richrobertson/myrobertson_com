@@ -90,7 +90,7 @@
       </nav>
 
       <div class="hero-content">
-        <p class="eyebrow">March 2026 â€¢ Rich Robertson</p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
         <h1>Polyglot Architectures: A Case for Functional Languages in Distributed Systems</h1>
         <p class="intro">Why functional languages remain strategically valuable in distributed systems, and where they fit alongside object-oriented platforms.</p>
       </div>
@@ -103,7 +103,7 @@
         <section class="cost-placement-callout" aria-labelledby="polyglot-placement-model">
           <h3 id="polyglot-placement-model">Architectural Placement Model</h3>
           <blockquote>
-            <p><strong>The right question is not whether a functional language is â€œbetterâ€ than an object-oriented one.</strong></p>
+            <p><strong>The right question is not whether a functional language is “better” than an object-oriented one.</strong></p>
             <p>The better question is:</p>
             <ul>
               <li>where is the system most exposed to shared-state ambiguity?</li>
@@ -139,7 +139,7 @@
 
         <h2>Fault Tolerance Is a Design Philosophy, Not Just a Runtime Feature</h2>
 
-        <p>The strongest argument for languages such as Erlang or Elixir in distributed environments is often not syntax or purity. It is fault semantics. â€œLet it crashâ€ is frequently misunderstood as carelessness; in practice, it is a discipline built on fast failure detection, isolated process state, and supervision trees that make recovery explicit. That model contrasts with defensive designs that attempt to preserve local continuity at all costs, sometimes by allowing partially corrupted state or ambiguous error propagation to linger in process memory (Armstrong, 2003).</p>
+        <p>The strongest argument for languages such as Erlang or Elixir in distributed environments is often not syntax or purity. It is fault semantics. “Let it crash” is frequently misunderstood as carelessness; in practice, it is a discipline built on fast failure detection, isolated process state, and supervision trees that make recovery explicit. That model contrasts with defensive designs that attempt to preserve local continuity at all costs, sometimes by allowing partially corrupted state or ambiguous error propagation to linger in process memory (Armstrong, 2003).</p>
 
         <p>Crash-only software makes a related point from another direction: systems are often more reliable when start, stop, and restart behavior are treated as normal control paths rather than exceptional ones (Candea &amp; Fox, 2003). Functional and actor-oriented runtimes tend to pair naturally with that posture because state is more frequently externalized, process lifetimes are cheaper, and recovery policies are a first-class architectural tool.</p>
 
@@ -208,7 +208,7 @@
 
         <h2>What Production Systems Actually Show</h2>
 
-        <p>WhatsApp is the canonical example because it demonstrated, at very large scale, that Erlangâ€™s process model and fault semantics were not niche curiosities but operationally meaningful tools for real-time distributed messaging. The lesson is not that every service should be written in Erlang. It is that concurrency-heavy coordination problems can justify a language/runtime optimized for process isolation and recovery.</p>
+        <p>WhatsApp is the canonical example because it demonstrated, at very large scale, that Erlang’s process model and fault semantics were not niche curiosities but operationally meaningful tools for real-time distributed messaging. The lesson is not that every service should be written in Erlang. It is that concurrency-heavy coordination problems can justify a language/runtime optimized for process isolation and recovery.</p>
 
         <p>By contrast, organizations such as Netflix illustrate the opposite but equally important lesson: object-oriented ecosystems such as Java remain extremely strong when paired with disciplined operational design, resilient service patterns, and a mature runtime/tooling stack. The practical takeaway is not OO versus FP. It is that different system boundaries reward different cost placement decisions.</p>
 
@@ -222,7 +222,7 @@
 
         <p>Polyglot architecture is not a sign that an organization failed to standardize. More often, it is evidence that different parts of the platform face different failure surfaces. Functional languages earn their place where immutability, message passing, supervision, and explicit state transitions reduce the real cost of distributed behavior. Object-oriented systems continue to earn theirs where ecosystem depth, integration breadth, and long-lived domain structure dominate.</p>
 
-        <p>The strategic question is therefore not â€œShould we adopt functional programming?â€ It is â€œWhich parts of this distributed system benefit from functional semantics enough to justify their cost?â€ That is a much narrower question, and a much more useful one.</p>
+        <p>The strategic question is therefore not “Should we adopt functional programming?” It is “Which parts of this distributed system benefit from functional semantics enough to justify their cost?” That is a much narrower question, and a much more useful one.</p>
 
         <h3>References</h3>
         <ul class="references">
@@ -230,13 +230,13 @@
           <li>Brewer, E. A. (2000). <em>Towards robust distributed systems</em>. PODC Keynote. <a href="https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf">https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf</a></li>
           <li>Candea, G., &amp; Fox, A. (2003). <em>Crash-only software</em>. In Proceedings of HotOS IX. <a href="https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf">https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf</a></li>
           <li>Hewitt, C., Bishop, P., &amp; Steiger, R. (1973). <em>A universal modular actor formalism for artificial intelligence</em>. In IJCAI 1973. <a href="https://www.ijcai.org/Proceedings/73/Papers/027B.pdf">https://www.ijcai.org/Proceedings/73/Papers/027B.pdf</a></li>
-          <li>Shapiro, M., PreguiÃ§a, N., Baquero, C., &amp; Zawirski, M. (2011). <em>Conflict-free replicated data types</em>. In SSS 2011. <a href="https://hal.inria.fr/inria-00609399/document">https://hal.inria.fr/inria-00609399/document</a></li>
+          <li>Shapiro, M., Preguiça, N., Baquero, C., &amp; Zawirski, M. (2011). <em>Conflict-free replicated data types</em>. In SSS 2011. <a href="https://hal.inria.fr/inria-00609399/document">https://hal.inria.fr/inria-00609399/document</a></li>
         </ul>
       </article>
     </main>
 
     <footer>
-      <p>Â© <span id="year"></span> Rich Robertson.</p>
+      <p>© <span id="year"></span> Rich Robertson.</p>
     </footer>
 
     <script src="../script.js"></script>
