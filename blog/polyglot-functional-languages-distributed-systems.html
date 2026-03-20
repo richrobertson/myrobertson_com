@@ -153,7 +153,7 @@
 
         <h2>Concurrency Models and Their Failure Surfaces</h2>
 
-        <p>Concurrency is where the argument stops being philosophical and becomes operational. Traditional object-oriented platforms often scale through shared-memory concurrency with locks, pools, and carefully managed contention. That can work extremely well, but it also means correctness depends on teams repeatedly winning arguments against aliasing, lock scope, scheduler behavior, and race exposure.</p>
+        <p>Concurrency is where the argument stops being philosophical and becomes operational. Traditional object-oriented platforms often scale through shared-memory concurrency with locks, pools, and carefully managed contention. That can work extremely well, but it also means correctness depends on teams repeatedly winning arguments against aliasing, lock scope, scheduler behavior, and race exposure. Modern Java has improved that trade space materially with virtual threads for high-throughput, mostly blocking workloads and structured concurrency for cancellation, task scoping, and observability across related work (Oracle, 2024; Oracle, 2023). Those are serious advances, but they improve the ergonomics of the model more than they erase the underlying cost of shared-state coordination.</p>
 
         <p>Functional ecosystems often narrow that surface rather than asking teams to master it everywhere. The actor model replaces broad shared-memory interaction with isolated processes communicating by message passing. That shifts the engineering problem from protecting shared mutable state to designing mailbox flow, supervision, and message protocols (Hewitt et al., 1973). Erlang and the BEAM runtime mattered in production for exactly that reason: they made high-concurrency failure isolation a default behavior, not a framework aspiration. That is why coordination-heavy systems such as WhatsApp could treat massive concurrency as an operational problem to shape, rather than a constant invitation to shared-state collapse (Armstrong, 2003).</p>
 
@@ -210,7 +210,7 @@
             <path d="M625 328 L625 395" stroke="#64748b" stroke-width="4" fill="none"></path>
           </svg>
           <figcaption>
-            The architectural lesson is simple: place functional languages where they buy clearer concurrency boundaries, stronger fault isolation, or more explicit workflow control, and keep object-oriented platforms where ecosystem breadth and integration depth matter more.
+            The architectural lesson is simple: place functional languages where they create clearer concurrency boundaries, stronger fault isolation, or more explicit workflow control, and keep object-oriented platforms where ecosystem breadth and integration depth matter more.
           </figcaption>
         </figure>
 
@@ -220,7 +220,7 @@
 
         <h3>Streaming and Data Pipelines</h3>
 
-        <p>Scala is often the pragmatic bridge language in the broader enterprise ecosystem. It is not purely functional in ordinary use, but it brings immutability-friendly design, algebraic modeling, and strong concurrency tooling into environments that still need the JVM’s libraries, operational maturity, and hiring base. That makes it a credible fit for streaming and data-heavy systems where composable transformations, replayability, and backpressure-aware execution matter more than framework familiarity.</p>
+        <p>Scala is often the pragmatic bridge language in the broader enterprise ecosystem. It is not purely functional in ordinary use, but it brings immutability-friendly design, algebraic modeling, and strong concurrency tooling into environments that still need the JVM’s libraries, operational maturity, and hiring base. Its Futures model also keeps the concurrency story current by emphasizing composable, non-blocking asynchronous work rather than thread management as the primary design surface (Scala, 2025). That makes it a credible fit for streaming and data-heavy systems where composable transformations, replayability, and backpressure-aware execution matter more than framework familiarity.</p>
 
         <h3>Core Business Logic</h3>
 
@@ -234,7 +234,7 @@
 
         <p>WhatsApp remains the clearest proof that Erlang’s process model and fault semantics were not niche curiosities. At enormous messaging scale, the BEAM delivered exactly what the workload demanded: isolation, resilience, and concurrency that operators could survive. The lesson is not “rewrite everything in Erlang.” It is that a coordination-heavy system can justify a runtime designed around process isolation and recovery when those properties sit directly on the critical path.</p>
 
-        <p>By contrast, organizations such as Netflix show the opposite but equally important lesson. Large production systems can stay firmly rooted in the JVM and still be world-class because Java’s ecosystem, tooling, and operational maturity are enormous strategic assets when the problem is service breadth, resilience engineering, and long-lived platform evolution. Scala, meanwhile, has repeatedly found a home in data-intensive and streaming-heavy environments because it lets teams stay close to that ecosystem while using more composable concurrency and transformation models. The architectural takeaway is not OO versus FP. It is that different boundaries reward different cost placement decisions, and mature platforms exploit that fact instead of arguing with it.</p>
+        <p>By contrast, organizations such as Netflix show the opposite but equally important lesson. Large production systems can stay firmly rooted in the JVM and still be world-class because Java’s ecosystem, tooling, and operational maturity are enormous strategic assets when the problem is service breadth, resilience engineering, and long-lived platform evolution. That statement is even stronger now that the modern JVM has better primitives for high-volume concurrency and task coordination than it did a decade ago (Oracle, 2024; Oracle, 2023). Scala, meanwhile, has repeatedly found a home in data-intensive and streaming-heavy environments because it lets teams stay close to that ecosystem while using more composable concurrency and transformation models. The architectural takeaway is not OO versus FP. It is that different boundaries reward different cost placement decisions, and mature platforms exploit that fact instead of arguing with it.</p>
 
         <h2>Trade-Offs That Still Matter</h2>
 
@@ -255,6 +255,9 @@
           <li>Candea, G., &amp; Fox, A. (2003). <em>Crash-only software</em>. In Proceedings of HotOS IX. <a href="https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf">https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf</a></li>
           <li>Hewitt, C., Bishop, P., &amp; Steiger, R. (1973). <em>A universal modular actor formalism for artificial intelligence</em>. In IJCAI 1973. <a href="https://www.ijcai.org/Proceedings/73/Papers/027B.pdf">https://www.ijcai.org/Proceedings/73/Papers/027B.pdf</a></li>
           <li>Shapiro, M., Preguiça, N., Baquero, C., &amp; Zawirski, M. (2011). <em>Conflict-free replicated data types</em>. In SSS 2011. <a href="https://hal.inria.fr/inria-00609399/document">https://hal.inria.fr/inria-00609399/document</a></li>
+          <li>Oracle. (2023). <em>Structured Concurrency</em>. <a href="https://docs.oracle.com/en/java/javase/21/core/structured-concurrency.html">https://docs.oracle.com/en/java/javase/21/core/structured-concurrency.html</a></li>
+          <li>Oracle. (2024). <em>Virtual Threads</em>. <a href="https://docs.oracle.com/en/java/javase/22/core/virtual-threads.html">https://docs.oracle.com/en/java/javase/22/core/virtual-threads.html</a></li>
+          <li>Scala. (2025). <em>Futures and Promises</em>. <a href="https://docs.scala-lang.org/overviews/core/futures.html">https://docs.scala-lang.org/overviews/core/futures.html</a></li>
         </ul>
       </article>
     </main>
