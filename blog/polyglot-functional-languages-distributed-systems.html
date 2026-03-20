@@ -6,7 +6,7 @@
     <title>Polyglot Architectures: A Case for Functional Languages in Distributed Systems | Rich Robertson</title>
     <meta
       name="description"
-      content="A deep, systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems."
+      content="A systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems."
     />
     <meta name="robots" content="index, follow" />
     <link
@@ -21,16 +21,47 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .blog-dek {
+        margin: 0 0 1.5rem;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #cbd5e1;
+      }
+
+      .cost-placement-callout {
+        margin: 1.75rem 0;
+        padding: 1.25rem;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 1rem;
+        background: rgba(15, 23, 42, 0.35);
+      }
+
+      .cost-placement-callout h3 {
+        margin-top: 0;
+      }
+
+      .cost-placement-callout blockquote {
+        margin: 0;
+        padding-left: 1rem;
+        border-left: 3px solid rgba(148, 163, 184, 0.35);
+      }
+
+      .cost-placement-callout ul {
+        margin: 0.75rem 0;
+        padding-left: 1.25rem;
+      }
+    </style>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": "Polyglot Architectures: A Case for Functional Languages in Distributed Systems",
-        "description": "A deep, systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems.",
+        "description": "A systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems.",
         "url": "https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html",
         "mainEntityOfPage": "https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html",
-        "datePublished": "2026-03-20",
-        "dateModified": "2026-03-20",
+        "datePublished": "2026-03-19",
+        "dateModified": "2026-03-19",
         "author": {
           "@type": "Person",
           "name": "Rich Robertson",
@@ -59,81 +90,153 @@
       </nav>
 
       <div class="hero-content">
-        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <p class="eyebrow">March 2026 â€¢ Rich Robertson</p>
         <h1>Polyglot Architectures: A Case for Functional Languages in Distributed Systems</h1>
-        <p class="intro">A deep, systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems.</p>
+        <p class="intro">Why functional languages remain strategically valuable in distributed systems, and where they fit alongside object-oriented platforms.</p>
       </div>
     </header>
 
     <main>
       <article class="card blog-post">
-        <h2>Polyglot Architectures: A Case for Functional Languages in Distributed Systems</h2>
-        <h3>A systems-level analysis of where functional languages improve distributed architectures, and where object-oriented systems remain the better fit.</h3>
-        <p class="blog-dek">Polyglot architectures are usually not a sign of weak standardization. They are the natural result of distributed systems decomposing into components that face different consistency, concurrency, latency, and failure constraints. CAP theorem makes that clear at the architectural level: once systems are partitioned and failure is non-optional, implementation choices become subordinate to where state lives, how it replicates, and how each component degrades under stress.</p>
+        <p class="blog-dek">Polyglot architectures are usually not a sign of organizational disorder. They are often the natural result of different components paying different prices for coordination, state management, fault isolation, and operational predictability. Functional languages matter in that landscape not because they are universally superior, but because immutability, message passing, and explicit control over side effects can materially improve how some distributed workloads behave under concurrency and failure (Brewer, 2000; Shapiro et al., 2011; Armstrong, 2003).</p>
 
-        <p>That framing matters because language selection is often argued at the team-preference layer when the real decision sits at the system-boundary layer. Functional languages are compelling in distributed systems not because immutability is aesthetically cleaner, but because deterministic state transitions, explicit message passing, and supervision-oriented runtimes map well to replication, recovery, and concurrency control. Object-oriented systems remain strong where rich domain modeling, broad ecosystems, and institutional durability dominate. The practical question is placement, not ideology.</p>
+        <section class="cost-placement-callout" aria-labelledby="polyglot-placement-model">
+          <h3 id="polyglot-placement-model">Architectural Placement Model</h3>
+          <blockquote>
+            <p><strong>The right question is not whether a functional language is â€œbetterâ€ than an object-oriented one.</strong></p>
+            <p>The better question is:</p>
+            <ul>
+              <li>where is the system most exposed to shared-state ambiguity?</li>
+              <li>where does concurrency create coordination risk?</li>
+              <li>where do failures need to be isolated rather than hidden?</li>
+              <li>and where does operational predictability matter more than framework breadth?</li>
+            </ul>
+            <p><strong>Language choice becomes strategic when it aligns runtime behavior with the failure surface of the workload.</strong></p>
+          </blockquote>
+        </section>
 
-        <h3>Introduction</h3>
-        <p>Distributed systems become polyglot as soon as they stop being a single workload. Edge services, streaming layers, control planes, and business applications optimize for different failure envelopes. CAP theorem is the opening constraint: once partitions are possible, a system must decide where to preserve availability, where to preserve stronger consistency, and where to absorb reconciliation cost. Those decisions propagate into language choice because languages shape how engineers encode state, reason about concurrency, and recover from failure.</p>
+        <h2>Polyglot as an Architectural Primitive</h2>
 
-        <h3>State and Identity</h3>
-        <p>Object-oriented systems tend to organize around identity-rich mutable objects. That is often effective for transactional business workflows, but it creates more ambiguity when state must be replicated, merged, or replayed across nodes. Functional systems bias toward immutable data and explicit state transitions, which reduces hidden mutation and makes behavior easier to reproduce under replay and recovery. In distributed environments, determinism is not an academic virtue; it is what allows replicas, logs, and recovery paths to converge on the same answer.</p>
-        <p>That is why functional approaches frequently align better with replicated data structures and event-driven models. CRDT research is the clearest example: convergence under concurrent updates depends on algebraic properties and merge semantics, not on object identity preserved through locks. Functional languages do not automatically solve distributed state, but they make it easier to express state as values, updates as pure transformations, and merge logic as something testable outside runtime timing accidents.</p>
+        <p>Distributed systems do not fail as monoliths. They fail across boundaries: between services, between queues and workers, between coordinators and executors, and between local correctness assumptions and cross-service reality. That is why language choice becomes architectural. Different parts of a distributed system absorb different costs in consistency, concurrency, and recovery, and a single language does not necessarily express all of those constraints equally well (Brewer, 2000).</p>
 
-        <h3>Concurrency Models</h3>
-        <p>Traditional object-oriented platforms often expose concurrency through shared-memory threads, locks, futures, and executor frameworks. That model can scale well, but it pushes engineers toward synchronization disciplines that become fragile under fan-out and partial failure. Functional concurrency models more often treat processes, tasks, or actors as isolated units whose interaction occurs through explicit messages. That shift narrows the surface for accidental shared-state corruption and makes failure domains easier to reason about.</p>
-        <p>BEAM is the canonical production example. Erlang and Elixir pair lightweight processes with actor-style message passing and supervision trees, so concurrency, fault containment, and recovery are part of the runtime contract rather than a framework layered on top. That does not make BEAM universally superior. It does mean that workloads dominated by coordination, high connection counts, soft real-time messaging, or supervision-heavy recovery often map more naturally to BEAM than to thread-centric object-oriented runtimes.</p>
+        <p>This is also why polyglot architectures persist in mature platforms. A workflow engine, an edge-facing coordination layer, a data pipeline, and an integration-heavy business service do not share the same dominant risk. Treating them as if they do often produces accidental complexity in code or compensating complexity in operations. The more honest design move is often constrained polyglotism: a small number of languages aligned to materially different workload shapes.</p>
 
-        <h3>Fault Tolerance</h3>
-        <p>Defensive design in object-oriented systems often accumulates as increasingly elaborate exception handling, retries, and compensating logic inside long-lived service processes. Functional and actor-oriented runtimes frequently invert that posture. The "let it crash" model assumes failure is inevitable, so the goal is not to preserve every local process at all costs but to restart cleanly from a known-good state under supervision. That is a very different reliability philosophy.</p>
-        <p>Crash-only software sharpens the same idea. If normal execution and recovery execution use materially different paths, correctness drifts over time and operators inherit the mismatch. Functional systems are not uniquely capable of crash-only design, but immutable state, isolated processes, and explicit supervision make it materially easier to enforce. In distributed systems, restartability is often more valuable than intricate in-process survivability.</p>
+        <h2>State and Identity: Where Functional Semantics Change the Problem</h2>
 
-        <h3>Placement in Architecture</h3>
-        <h3>Edge and Request Handling</h3>
-        <p>Functional runtimes are often strongest at the edge when the problem is high concurrency, connection management, protocol adaptation, and resilience to bursty traffic. Elixir and Erlang are particularly strong fits for websockets, gateways, and messaging ingress because per-connection state can remain isolated, schedulers handle large process counts efficiently, and node-level failure recovery is built into operational practice.</p>
-        <h3>Streaming and Data Pipelines</h3>
-        <p>Streaming layers benefit from functional ideas even when they run on mixed paradigms. Scala is the practical example: immutable collections, algebraic data types, and stream-processing frameworks make it easier to express transformations, windowing logic, and backpressure-aware pipelines. Functional discipline reduces incidental mutation in systems where replay, partition rebalancing, and exactly-once-adjacent semantics already create enough complexity.</p>
-        <h3>Core Business Logic</h3>
-        <p>Core business systems frequently remain better in object-oriented platforms because the dominant problem is not scheduler behavior or supervision semantics. It is long-lived domain modeling, integration breadth, developer availability, and institutional maintainability. Functional techniques still help inside these systems, especially around immutable domain events and side-effect isolation, but a full functional stack is not automatically the right organizational choice.</p>
-        <h3>Control Planes</h3>
-        <p>Control planes are where the placement argument becomes most interesting. They benefit from functional design when orchestration, durable workflow transitions, and failure containment dominate, especially if the control plane must coordinate many asynchronous operations. Yet they also often need broad SDK support, ecosystem maturity, and integration-heavy service composition. A mixed architecture is therefore common: functional components for orchestration-heavy and event-driven slices, object-oriented services for enterprise integration and domain-heavy APIs.</p>
+        <p>Object-oriented systems tend to organize logic around identity and encapsulated mutable state. That can be effective in long-lived domain models and integration-heavy business software, but mutable state becomes progressively harder to reason about as concurrency increases and state must be replicated, reconciled, or recovered after failure. Functional systems instead bias toward value semantics and immutability, which narrows the number of state transitions that can happen implicitly and makes state propagation easier to reason about under concurrency.</p>
+
+        <p>This difference matters in distributed settings because replication favors structures that converge predictably. CRDT research is a good example: state models that are monotonic, associative, commutative, or otherwise merge-friendly are easier to replicate safely across nodes with intermittent coordination (Shapiro et al., 2011). Functional design does not automatically give a team correct replication, but it does tend to push state transitions into forms that are easier to test, replay, and reconcile.</p>
+
+        <p>That is the practical contrast with object-oriented design in distributed systems. OO often makes local state management convenient. Functional design often makes distributed state behavior easier to audit. Neither is universally right. The question is whether the expensive part of the system is local modeling convenience or cross-boundary state correctness.</p>
+
+        <h2>Concurrency Models and Their Failure Surfaces</h2>
+
+        <p>Concurrency is where the difference becomes operational rather than philosophical. Traditional object-oriented platforms often grew around shared-memory concurrency with locks, monitors, pools, and careful discipline around contention. That model can work extremely well, but it also makes correctness dependent on teams consistently reasoning about aliasing, lock scope, scheduling, and race exposure.</p>
+
+        <p>Functional ecosystems often narrow that surface. The actor model, for example, replaces broad shared-memory interaction with isolated processes communicating by message passing. That changes the engineering problem from protecting shared mutable state to designing mailbox flow, supervision, and message protocols (Hewitt et al., 1973). Erlang and the BEAM runtime became important not because message passing is academically elegant, but because the runtime makes high-concurrency failure isolation a first-class operational concern rather than an afterthought (Armstrong, 2003).</p>
+
+        <p>This is one reason functional or functionally influenced languages often show up in request orchestration, telecom-style coordination, event processing, and other systems where the dominant risk is not raw computation but concurrency under failure. Message passing does not remove complexity. It relocates it to protocol design, backpressure, and process topology. In the right workload, that is a favorable trade.</p>
+
+        <h2>Fault Tolerance Is a Design Philosophy, Not Just a Runtime Feature</h2>
+
+        <p>The strongest argument for languages such as Erlang or Elixir in distributed environments is often not syntax or purity. It is fault semantics. â€œLet it crashâ€ is frequently misunderstood as carelessness; in practice, it is a discipline built on fast failure detection, isolated process state, and supervision trees that make recovery explicit. That model contrasts with defensive designs that attempt to preserve local continuity at all costs, sometimes by allowing partially corrupted state or ambiguous error propagation to linger in process memory (Armstrong, 2003).</p>
+
+        <p>Crash-only software makes a related point from another direction: systems are often more reliable when start, stop, and restart behavior are treated as normal control paths rather than exceptional ones (Candea &amp; Fox, 2003). Functional and actor-oriented runtimes tend to pair naturally with that posture because state is more frequently externalized, process lifetimes are cheaper, and recovery policies are a first-class architectural tool.</p>
+
+        <p>This does not mean object-oriented systems cannot be fault tolerant. They clearly can. It means that some functional ecosystems align the programming model more directly with the operational model of failure containment and restart.</p>
 
         <h2>Architecture Placement of Functional Languages</h2>
-        <p>[Client]<br />
-          ↓<br />
-          [Edge: Elixir/Erlang]<br />
-          ↓<br />
-          [Messaging Layer]<br />
-          ↓<br />
-          [Streaming: Scala]<br />
-          ↓<br />
-          [OO Services]</p>
 
-        <h3>Real-World Systems</h3>
-        <p>WhatsApp remains the strongest shorthand for why functional runtimes matter. Erlang let the system map millions of concurrent messaging sessions onto isolated processes with strong fault isolation and straightforward horizontal scaling. The important lesson is not that every system should adopt Erlang. It is that a messaging workload with extreme concurrency and failure sensitivity benefited from a runtime built around those exact constraints.</p>
-        <p>Netflix demonstrates the complementary side of the polyglot argument. Its architecture has long relied on the JVM ecosystem for broad service development, but streaming, data, and resiliency concerns have repeatedly pulled functional techniques and JVM-adjacent languages into specific layers where they improve composability and concurrency reasoning. Scala and Akka became relevant because reactive, actor-oriented, and stream-oriented components occupy a different architectural niche than general service development.</p>
-        <p>Scala and Akka systems more broadly show where functional and actor-inspired design can sit inside enterprise architectures without forcing a full language monoculture. They are useful where message-driven coordination, stream processing, and explicit concurrency boundaries matter enough to justify a steeper learning curve and more specialized operational practice.</p>
+        <figure class="blog-diagram">
+          <svg
+            viewBox="0 0 960 540"
+            width="960"
+            height="540"
+            role="img"
+            aria-labelledby="polyglot-architecture-title polyglot-architecture-desc"
+          >
+            <title id="polyglot-architecture-title">Architecture placement of functional languages in a distributed stack</title>
+            <desc id="polyglot-architecture-desc">Diagram showing clients entering an edge layer implemented with Erlang or Elixir, feeding a messaging backbone, then streaming and data systems in Scala, and finally object-oriented core services, with observability and contracts spanning all layers.</desc>
+            <rect x="0" y="0" width="960" height="540" rx="24" fill="#0f172a"></rect>
+            <rect x="80" y="70" width="220" height="88" rx="18" fill="#1e293b"></rect>
+            <rect x="370" y="70" width="220" height="88" rx="18" fill="#1e293b"></rect>
+            <rect x="660" y="70" width="220" height="88" rx="18" fill="#1e293b"></rect>
+            <rect x="225" y="240" width="220" height="88" rx="18" fill="#1e293b"></rect>
+            <rect x="515" y="240" width="220" height="88" rx="18" fill="#1e293b"></rect>
+            <rect x="225" y="395" width="220" height="88" rx="18" fill="#1e293b"></rect>
+            <rect x="515" y="395" width="220" height="88" rx="18" fill="#1e293b"></rect>
+            <text x="190" y="115" fill="#e2e8f0" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">Clients</text>
+            <text x="480" y="105" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Edge / Request Layer</text>
+            <text x="480" y="132" fill="#94a3b8" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">Elixir / Erlang</text>
+            <text x="770" y="105" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Messaging Backbone</text>
+            <text x="770" y="132" fill="#94a3b8" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">queues, events, mailboxes</text>
+            <text x="335" y="275" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Streaming / Data</text>
+            <text x="335" y="302" fill="#94a3b8" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">Scala / JVM</text>
+            <text x="625" y="275" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Core Services</text>
+            <text x="625" y="302" fill="#94a3b8" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">Java / OO platforms</text>
+            <text x="335" y="430" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Control Plane</text>
+            <text x="335" y="457" fill="#94a3b8" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">workflow, schedulers, policy</text>
+            <text x="625" y="430" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Observability / Contracts</text>
+            <text x="625" y="457" fill="#94a3b8" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">traceability across boundaries</text>
+            <path d="M300 114 L370 114" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M590 114 L660 114" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M770 158 L625 240" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M480 158 L335 240" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M335 328 L335 395" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M625 328 L625 395" stroke="#64748b" stroke-width="4" fill="none"></path>
+          </svg>
+          <figcaption>
+            Functional languages tend to fit best where concurrency, fault isolation, or control-plane coordination dominate, while object-oriented platforms often remain strong in integration-heavy business services.
+          </figcaption>
+        </figure>
 
-        <h3>Trade-offs</h3>
-        <p>The trade-offs are organizational before they are technical. Hiring is harder for specialized functional ecosystems than for mainstream object-oriented stacks. Debugging can also be harder, especially when teams lack fluency in actor supervision, eventual consistency reasoning, or the abstractions common in languages like Scala. Interoperability is another constraint: the best placement for a functional language may still be rejected if foreign-function boundaries, service contracts, or deployment tooling create disproportionate drag.</p>
-        <p>Operational complexity matters as well. A polyglot estate increases the number of runtimes, build pipelines, observability conventions, and incident-response paths an organization must own. Functional languages reduce some classes of state and concurrency errors, but they can increase the cost of platform standardization and cross-team mobility. The right comparison is therefore not "functional versus object-oriented"; it is whether the system-level gains exceed the organizational load introduced by another runtime and programming model.</p>
+        <h3>Edge and Request Handling</h3>
 
-        <h3>Conclusion</h3>
-        <p>Functional languages belong in distributed systems where their semantics align with the system's dominant constraints: deterministic state transitions, isolated concurrency, replayable workflows, and supervision-oriented failure handling. Object-oriented systems remain highly effective where ecosystem depth, domain complexity, and institutional maintainability are the real bottlenecks. Language choice should follow system constraints, because in distributed architectures the expensive mistake is not using multiple languages. It is forcing one language to solve problems it is poorly shaped to absorb.</p>
+        <p>At the edge, systems frequently need to absorb bursty concurrency, isolate request-local failure, and translate network behavior into policy. Erlang and Elixir are attractive here because lightweight processes, mailbox isolation, and supervision semantics match coordination-heavy workloads unusually well. The value is less about raw throughput than about shaping concurrency into something operationally survivable.</p>
+
+        <h3>Streaming and Data Pipelines</h3>
+
+        <p>Scala is often the most pragmatic example of a functional language in the broader enterprise ecosystem. It is not purely functional in ordinary use, but it brings functional abstractions, immutability-friendly design, and strong concurrency tooling into environments that also need JVM interoperability. That makes it a credible fit for streaming systems and data-adjacent execution where declarative transformations and composable pipelines are valuable.</p>
+
+        <h3>Core Business Logic</h3>
+
+        <p>This is where object-oriented systems often remain the right default. Integration breadth, ecosystem maturity, framework stability, and long-lived domain modeling still matter. The point of a polyglot architecture is not to force functional languages into every component. It is to place them where their semantics materially reduce risk.</p>
+
+        <h3>Control Planes</h3>
+
+        <p>Control planes often benefit from more explicit treatment of state transitions, workflow progression, and failure handling than request-serving business systems do. Functional design can help here by making state evolution more explicit and by making orchestration logic easier to test as deterministic transformations rather than opaque object interaction graphs.</p>
+
+        <h2>What Production Systems Actually Show</h2>
+
+        <p>WhatsApp is the canonical example because it demonstrated, at very large scale, that Erlangâ€™s process model and fault semantics were not niche curiosities but operationally meaningful tools for real-time distributed messaging. The lesson is not that every service should be written in Erlang. It is that concurrency-heavy coordination problems can justify a language/runtime optimized for process isolation and recovery.</p>
+
+        <p>By contrast, organizations such as Netflix illustrate the opposite but equally important lesson: object-oriented ecosystems such as Java remain extremely strong when paired with disciplined operational design, resilient service patterns, and a mature runtime/tooling stack. The practical takeaway is not OO versus FP. It is that different system boundaries reward different cost placement decisions.</p>
+
+        <h2>Trade-Offs That Still Matter</h2>
+
+        <p>Functional languages are not free wins. Hiring is narrower. Debugging across multiple paradigms increases organizational load. Interoperability introduces more contracts that must be versioned and observed carefully. In some teams, those costs are larger than the runtime or correctness benefits.</p>
+
+        <p>That is why the strongest case for functional languages in distributed systems is selective, not universal. They become most compelling when the dominant engineering pain is shared-state ambiguity, concurrency isolation, or failure recovery semantics. They are much less compelling when the main problem is straightforward CRUD-style business integration on a mature platform with broad staffing depth.</p>
+
+        <h2>Conclusion</h2>
+
+        <p>Polyglot architecture is not a sign that an organization failed to standardize. More often, it is evidence that different parts of the platform face different failure surfaces. Functional languages earn their place where immutability, message passing, supervision, and explicit state transitions reduce the real cost of distributed behavior. Object-oriented systems continue to earn theirs where ecosystem depth, integration breadth, and long-lived domain structure dominate.</p>
+
+        <p>The strategic question is therefore not â€œShould we adopt functional programming?â€ It is â€œWhich parts of this distributed system benefit from functional semantics enough to justify their cost?â€ That is a much narrower question, and a much more useful one.</p>
 
         <h3>References</h3>
         <ul class="references">
-          <li>Brewer, E. A. (2000). <em>Towards robust distributed systems</em>. Proceedings of the Annual ACM Symposium on Principles of Distributed Computing. <a href="https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf">https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf</a></li>
-          <li>Candea, G., &amp; Fox, A. (2003). <em>Crash-only software</em>. In Proceedings of the 9th Workshop on Hot Topics in Operating Systems. <a href="https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf">https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf</a></li>
-          <li>Hewitt, C., Bishop, P., &amp; Steiger, R. (1973). <em>A universal modular actor formalism for artificial intelligence</em>. In Proceedings of the 3rd International Joint Conference on Artificial Intelligence. <a href="https://www.ijcai.org/Proceedings/73/Papers/027B.pdf">https://www.ijcai.org/Proceedings/73/Papers/027B.pdf</a></li>
-          <li>Erlang/OTP Documentation. <em>Design Principles</em>. <a href="https://www.erlang.org/doc/system/design_principles.html">https://www.erlang.org/doc/system/design_principles.html</a></li>
-          <li>Shapiro, M., Preguiça, N., Baquero, C., &amp; Zawirski, M. (2011). <em>Conflict-free replicated data types</em>. In Stabilization, Safety, and Security of Distributed Systems. <a href="https://hal.inria.fr/inria-00609399/document">https://hal.inria.fr/inria-00609399/document</a></li>
+          <li>Armstrong, J. (2003). <em>Making reliable distributed systems in the presence of software errors</em> (Doctoral dissertation). KTH Royal Institute of Technology. <a href="https://erlang.org/download/armstrong_thesis_2003.pdf">https://erlang.org/download/armstrong_thesis_2003.pdf</a></li>
+          <li>Brewer, E. A. (2000). <em>Towards robust distributed systems</em>. PODC Keynote. <a href="https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf">https://people.eecs.berkeley.edu/~brewer/cs262b-2004/PODC-keynote.pdf</a></li>
+          <li>Candea, G., &amp; Fox, A. (2003). <em>Crash-only software</em>. In Proceedings of HotOS IX. <a href="https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf">https://www.usenix.org/legacy/events/hotos03/tech/full_papers/candea/candea.pdf</a></li>
+          <li>Hewitt, C., Bishop, P., &amp; Steiger, R. (1973). <em>A universal modular actor formalism for artificial intelligence</em>. In IJCAI 1973. <a href="https://www.ijcai.org/Proceedings/73/Papers/027B.pdf">https://www.ijcai.org/Proceedings/73/Papers/027B.pdf</a></li>
+          <li>Shapiro, M., PreguiÃ§a, N., Baquero, C., &amp; Zawirski, M. (2011). <em>Conflict-free replicated data types</em>. In SSS 2011. <a href="https://hal.inria.fr/inria-00609399/document">https://hal.inria.fr/inria-00609399/document</a></li>
         </ul>
       </article>
     </main>
 
     <footer>
-      <p>© <span id="year"></span> Rich Robertson.</p>
+      <p>Â© <span id="year"></span> Rich Robertson.</p>
     </footer>
 
     <script src="../script.js"></script>
