@@ -96,6 +96,14 @@ h1 {
   line-height: 1.75;
 }
 
+.hero-fit {
+  margin: 0 0 0.9rem;
+  color: #f8fafc;
+  font-size: 1.08rem;
+  line-height: 1.6;
+  font-weight: 600;
+}
+
 .highlights {
   margin: 1.2rem 0;
   padding-left: 1rem;
@@ -143,6 +151,17 @@ h1 {
 .section p {
   font-size: 1.03rem;
   line-height: 1.8;
+}
+
+.recruiter-summary .card h3,
+.project h3 {
+  margin-top: 0.2rem;
+  margin-bottom: 0.65rem;
+}
+
+.recruiter-summary .card p,
+.project p {
+  margin-top: 0;
 }
 
 
