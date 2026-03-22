@@ -103,20 +103,12 @@
       }
 
       .diagram-surface {
-        border: 1px solid rgba(148, 163, 184, 0.22);
-        border-radius: 1.1rem;
-        background:
-          linear-gradient(180deg, rgba(30, 41, 59, 0.16), rgba(15, 23, 42, 0.08)),
-          rgba(15, 23, 42, 0.28);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.03),
-          0 18px 40px rgba(2, 6, 23, 0.24);
         overflow: hidden;
       }
 
       .diagram-scroll {
         overflow-x: auto;
-        padding: 0.9rem;
+        padding: 0;
         scrollbar-width: thin;
         scrollbar-color: rgba(148, 163, 184, 0.4) transparent;
       }
@@ -446,28 +438,31 @@
             <title id="sm-title">Lease state transitions between free and held</title>
             <desc id="sm-desc">State machine showing transitions from Free to Held on acquire, renew as a self-loop for the same owner, expire and release back to Free, and a rejected acquire while held and unexpired.</desc>
             <rect x="0" y="0" width="1000" height="620" rx="28" fill="#0f172a"></rect>
-            <circle cx="280" cy="300" r="110" fill="#1e293b" stroke="#60a5fa" stroke-width="4"></circle>
-            <circle cx="730" cy="300" r="130" fill="#1d4ed8" stroke="#93c5fd" stroke-width="4"></circle>
-            <text x="280" y="290" fill="#e2e8f0" font-size="42" text-anchor="middle" font-family="Inter, sans-serif">Free</text>
-            <text x="280" y="328" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">no owner</text>
-            <text x="730" y="286" fill="#eff6ff" font-size="42" text-anchor="middle" font-family="Inter, sans-serif">Held</text>
-            <text x="730" y="324" fill="#dbeafe" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">owner, expiry, token</text>
+            <rect x="70" y="50" width="860" height="84" rx="18" fill="#211325" stroke="#ef4444" stroke-width="2"></rect>
+            <text x="500" y="86" fill="#fecaca" font-size="25" text-anchor="middle" font-family="Inter, sans-serif">Acquire rejected while Held and unexpired</text>
+            <text x="500" y="114" fill="#fca5a5" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">A different owner must wait for expiry or release.</text>
 
-            <path d="M390 255 C500 180, 620 180, 620 240" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#sm-green)"></path>
-            <text x="510" y="176" fill="#bbf7d0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Acquire</text>
-            <text x="510" y="205" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">Free → Held</text>
+            <circle cx="260" cy="320" r="108" fill="#1e293b" stroke="#60a5fa" stroke-width="5"></circle>
+            <circle cx="720" cy="320" r="128" fill="#2448c9" stroke="#93c5fd" stroke-width="5"></circle>
+            <text x="260" y="309" fill="#e2e8f0" font-size="42" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">Free</text>
+            <text x="260" y="348" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">no owner</text>
+            <text x="720" y="306" fill="#eff6ff" font-size="42" font-weight="700" text-anchor="middle" font-family="Inter, sans-serif">Held</text>
+            <text x="720" y="344" fill="#dbeafe" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">owner, expiry, token</text>
 
-            <path d="M640 410 C580 500, 420 500, 360 360" stroke="#f59e0b" stroke-width="5" fill="none" marker-end="url(#sm-amber)"></path>
-            <text x="505" y="520" fill="#fde68a" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Expire / Release</text>
-            <text x="505" y="548" fill="#fde68a" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">Held → Free</text>
+            <path d="M368 256 C455 194, 555 194, 626 254" stroke="#34d399" stroke-width="7" fill="none" marker-end="url(#sm-green)"></path>
+            <rect x="394" y="158" width="190" height="64" rx="16" fill="#0f2c25" stroke="#34d399" stroke-width="2"></rect>
+            <text x="489" y="186" fill="#bbf7d0" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">Acquire</text>
+            <text x="489" y="211" fill="#bbf7d0" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">Free -&gt; Held</text>
 
-            <path d="M815 200 C900 170, 930 255, 880 320 C840 372, 790 365, 790 365" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#sm-blue)"></path>
-            <text x="895" y="220" fill="#bfdbfe" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">Renew</text>
-            <text x="895" y="246" fill="#bfdbfe" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">same owner</text>
+            <path d="M630 446 C574 526, 430 530, 338 404" stroke="#f59e0b" stroke-width="7" fill="none" marker-end="url(#sm-amber)"></path>
+            <rect x="382" y="500" width="226" height="70" rx="16" fill="#3a2605" stroke="#f59e0b" stroke-width="2"></rect>
+            <text x="495" y="530" fill="#fde68a" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">Expire / Release</text>
+            <text x="495" y="556" fill="#fde68a" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">Held -&gt; Free</text>
 
-            <path d="M560 90 L860 90" stroke="#ef4444" stroke-width="5" fill="none" marker-end="url(#sm-red)"></path>
-            <text x="710" y="62" fill="#fecaca" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Acquire rejected while Held and unexpired</text>
-            <text x="710" y="118" fill="#fecaca" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">different owner must wait</text>
+            <path d="M820 230 C920 198, 948 330, 832 438" stroke="#60a5fa" stroke-width="7" fill="none" marker-end="url(#sm-blue)"></path>
+            <rect x="816" y="246" width="132" height="66" rx="16" fill="#11203e" stroke="#60a5fa" stroke-width="2"></rect>
+            <text x="882" y="274" fill="#bfdbfe" font-size="21" text-anchor="middle" font-family="Inter, sans-serif">Renew</text>
+            <text x="882" y="299" fill="#bfdbfe" font-size="17" text-anchor="middle" font-family="Inter, sans-serif">same owner</text>
 
             <defs>
               <marker id="sm-green" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
