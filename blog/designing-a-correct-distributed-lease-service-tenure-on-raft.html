@@ -508,27 +508,27 @@
             <title id="time-title">Leader-based time authority for lease expiry</title>
             <desc id="time-desc">Diagram showing client and follower clocks ignored while the leader clock determines expiry as leader time plus requested TTL.</desc>
             <rect x="0" y="0" width="1040" height="560" rx="28" fill="#0f172a"></rect>
-            <rect x="70" y="170" width="210" height="170" rx="20" fill="#1e293b"></rect>
-            <rect x="415" y="120" width="210" height="250" rx="20" fill="#1d4ed8"></rect>
-            <rect x="760" y="170" width="210" height="170" rx="20" fill="#1e293b"></rect>
-            <text x="175" y="220" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Client</text>
-            <text x="175" y="262" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">clock = 12:00:03</text>
-            <text x="175" y="300" fill="#fca5a5" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">ignored for expiry</text>
+            <rect x="55" y="158" width="245" height="194" rx="24" fill="#1e293b"></rect>
+            <rect x="392" y="104" width="256" height="284" rx="24" fill="#1d4ed8"></rect>
+            <rect x="740" y="158" width="245" height="194" rx="24" fill="#1e293b"></rect>
+            <text x="177" y="220" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Client</text>
+            <text x="177" y="274" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">clock = 12:00:03</text>
+            <text x="177" y="328" fill="#fca5a5" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">ignored for expiry</text>
 
-            <text x="520" y="185" fill="#eff6ff" font-size="32" text-anchor="middle" font-family="Inter, sans-serif">Leader</text>
-            <text x="520" y="228" fill="#dbeafe" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">clock = 12:00:00</text>
-            <text x="520" y="272" fill="#dbeafe" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">ttl = 10s</text>
-            <text x="520" y="316" fill="#bfdbfe" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">expiry = 12:00:10</text>
+            <text x="520" y="172" fill="#eff6ff" font-size="32" text-anchor="middle" font-family="Inter, sans-serif">Leader</text>
+            <text x="520" y="236" fill="#dbeafe" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">clock = 12:00:00</text>
+            <text x="520" y="294" fill="#dbeafe" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">ttl = 10s</text>
+            <text x="520" y="352" fill="#bfdbfe" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">expiry = 12:00:10</text>
 
-            <text x="865" y="220" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Follower</text>
-            <text x="865" y="262" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">clock = 11:59:58</text>
-            <text x="865" y="300" fill="#fca5a5" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">ignored for grant</text>
+            <text x="862" y="220" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Follower</text>
+            <text x="862" y="274" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">clock = 11:59:58</text>
+            <text x="862" y="328" fill="#fca5a5" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">ignored for grant</text>
 
-            <path d="M280 255 L415 255" stroke="#64748b" stroke-width="5" fill="none" marker-end="url(#time-arrow)"></path>
-            <path d="M625 255 L760 255" stroke="#64748b" stroke-width="5" fill="none" marker-end="url(#time-arrow)"></path>
-            <rect x="350" y="420" width="340" height="80" rx="18" fill="#1e293b"></rect>
-            <text x="520" y="452" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Committed lease carries expiry chosen by leader</text>
-            <text x="520" y="482" fill="#94a3b8" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">clients do not negotiate time truth</text>
+            <path d="M300 255 L392 255" stroke="#64748b" stroke-width="5" fill="none" marker-end="url(#time-arrow)"></path>
+            <path d="M648 255 L740 255" stroke="#64748b" stroke-width="5" fill="none" marker-end="url(#time-arrow)"></path>
+            <rect x="300" y="424" width="440" height="88" rx="18" fill="#1e293b"></rect>
+            <text x="520" y="458" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Committed lease carries expiry chosen by leader</text>
+            <text x="520" y="492" fill="#94a3b8" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">clients do not negotiate time truth</text>
             <defs>
               <marker id="time-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
                 <path d="M0,0 L0,6 L9,3 z" fill="#64748b"></path>
