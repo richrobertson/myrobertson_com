@@ -161,6 +161,55 @@
         word-wrap: break-word;
       }
 
+      .code-comparison {
+        display: grid;
+        gap: 1rem;
+        margin: 1.75rem 0;
+      }
+
+      .code-comparison-panels {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .code-panel {
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 1rem;
+        overflow: hidden;
+        background: rgba(15, 23, 42, 0.5);
+      }
+
+      .code-panel h4 {
+        margin: 0;
+        padding: 0.9rem 1rem;
+        font-size: 0.95rem;
+        color: #f8fafc;
+        background: rgba(30, 41, 59, 0.82);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      }
+
+      .code-panel pre {
+        margin: 0;
+        padding: 1rem 1.1rem 1.15rem;
+        overflow-x: auto;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        color: #dbeafe;
+        background: transparent;
+      }
+
+      .code-panel code {
+        white-space: pre;
+      }
+
+      .code-panel.scala h4 {
+        background: rgba(15, 61, 46, 0.82);
+      }
+
+      .code-panel.java h4 {
+        background: rgba(55, 31, 8, 0.82);
+      }
+
       .time-rule {
         border-left: 4px solid rgba(248, 250, 252, 0.92);
         background: rgba(15, 23, 42, 0.52);
@@ -180,6 +229,12 @@
 
         .diagram-scroll svg {
           min-width: var(--diagram-min-width, 760px);
+        }
+      }
+
+      @media (min-width: 860px) {
+        .code-comparison-panels {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
     </style>
@@ -271,6 +326,61 @@
         <p>That same design goal is also why Scala is a meaningful implementation choice rather than a cosmetic one. A lease service is mostly coordination logic: explicit states, guarded transitions, asynchronous replication steps, and failure handling that cannot afford ambiguous local mutation. Scala fits that shape well because it makes immutable modeling natural, keeps algebraic state representations practical, and gives the implementation a clearer way to express “these are the only valid lease states and transitions” instead of spreading that logic across ad hoc mutable objects.</p>
 
         <p>That does not mean the language somehow proves distributed correctness on its own. Raft, fencing, quorum rules, and expiry semantics still do the real systems work. But Scala helps keep the local program honest. It is a strong fit for a correctness-first coordination service because immutability reduces accidental state drift, typed state modeling makes illegal transitions harder to smuggle in, and JVM-based asynchronous composition gives concurrency structure without forcing thread management to become the primary design surface (Scala, 2025). In a system like Tenure, that combination matters: the implementation language should make concurrency and correctness boundaries easier to express, not easier to blur.</p>
+
+        <figure class="code-comparison">
+          <div class="code-comparison-panels">
+            <section class="code-panel scala">
+              <h4>Representative Scala Shape</h4>
+              <pre><code>sealed trait LeaseState
+case object Free extends LeaseState
+
+final case class Held(
+  owner: OwnerId,
+  expiry: Instant,
+  token: Long
+) extends LeaseState
+
+def renew(
+  current: LeaseState,
+  requester: OwnerId,
+  now: Instant,
+  ttl: FiniteDuration
+): Either[LeaseError, Held] =
+  current match {
+    case held: Held
+        if held.owner == requester &&
+           now.isBefore(held.expiry) =>
+      Right(held.copy(expiry = now.plusMillis(ttl.toMillis)))
+
+    case held: Held if now.isBefore(held.expiry) =>
+      Left(LeaseOwnedByAnotherRequester)
+
+    case _ =>
+      Left(LeaseExpired)
+  }</code></pre>
+            </section>
+            <section class="code-panel java">
+              <h4>Typical Mutable OO Shape</h4>
+              <pre><code>final class LeaseRecord {
+  OwnerId owner;
+  Instant expiry;
+  long token;
+  boolean free;
+
+  void renew(OwnerId requester, Instant now, Duration ttl) {
+    if (!free &amp;&amp; owner.equals(requester) &amp;&amp; now.isBefore(expiry)) {
+      expiry = now.plus(ttl);
+      return;
+    }
+    throw new LeaseException();
+  }
+}</code></pre>
+            </section>
+          </div>
+          <figcaption>
+            Representative implementation shape: Scala’s sealed states and immutable updates make the legal lease transitions explicit, while a mutable object-oriented model tends to collapse state, identity, and concurrency-sensitive mutation into one place. The point is not that Java cannot implement the protocol. It is that Scala makes the correctness boundary easier to express directly.
+          </figcaption>
+        </figure>
 
         <p>If you want to compare that framing to the project itself, the public <a href="https://github.com/richrobertson/tenure" target="_blank" rel="noopener noreferrer">Tenure repository</a> is worth reading alongside this post, especially its README, architecture spec, API contract, and request-flow diagrams. Those materials explicitly emphasize time-bounded ownership, leader-mediated expiration decisions, fencing tokens, and a replicated state-machine model, which is exactly the slice this post is focused on.</p>
 
