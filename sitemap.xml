@@ -7,6 +7,9 @@
     <loc>https://www.myrobertson.com/blog/</loc>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</loc>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</loc>
   </url>
   <url>

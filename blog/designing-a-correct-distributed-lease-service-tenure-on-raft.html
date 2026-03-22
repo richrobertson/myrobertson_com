@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designing a Correct Distributed Lease Service: Tenure on Raft | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Part 1 of a systems-level analysis of Tenure as a Raft-based distributed lease service, focused on lease semantics, time authority, fencing tokens, and failure safety."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .blog-dek {
+        margin: 0 0 1.5rem;
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #cbd5e1;
+      }
+
+      .correctness-callout {
+        margin: 1.75rem 0;
+        padding: 1.25rem;
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 1rem;
+        background: rgba(15, 23, 42, 0.35);
+      }
+
+      .correctness-callout h3 {
+        margin-top: 0;
+      }
+
+      .correctness-callout ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.25rem;
+      }
+
+      .blog-diagram {
+        max-width: 100%;
+        margin: 1.75rem 0 1rem;
+        overflow: hidden;
+      }
+
+      .blog-diagram svg {
+        display: block;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .key-takeaways {
+        margin: 0 0 1.75rem;
+        padding: 1rem 1.1rem;
+        border-left: 3px solid rgba(96, 165, 250, 0.7);
+        background: rgba(15, 23, 42, 0.38);
+        border-radius: 0.85rem;
+      }
+
+      .key-takeaways h4 {
+        margin: 0 0 0.5rem;
+        color: #e2e8f0;
+      }
+
+      .key-takeaways ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .references,
+      .references li,
+      .references a {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        word-wrap: break-word;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Designing a Correct Distributed Lease Service: Tenure on Raft",
+        "description": "Part 1 of a systems-level analysis of Tenure as a Raft-based distributed lease service, focused on lease semantics, time authority, fencing tokens, and failure safety.",
+        "url": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html",
+        "datePublished": "2026-03-22",
+        "dateModified": "2026-03-22",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html" aria-current="page">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Designing a Correct Distributed Lease Service: Tenure on Raft</h1>
+        <p class="intro">Part 1: lease ownership is a correctness problem, not a convenience API.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <p class="blog-dek">Most distributed outages blamed on “capacity” are really coordination failures in disguise. The hard question is not whether the system can do more work; it is whether every participant can still agree on who is allowed to act, for how long, and with what authority when clocks drift, leaders fail, and delayed messages reappear. Tenure is interesting in that context because it frames lease ownership as an explicitly replicated correctness boundary rather than as an incidental feature in a larger storage system (Gray &amp; Cheriton, 1989; Ongaro &amp; Ousterhout, 2014).</p>
+
+        <section class="correctness-callout" aria-labelledby="tenure-correctness-model">
+          <h3 id="tenure-correctness-model">Correctness Model</h3>
+          <p><strong>A lease service exists to answer one narrow question correctly:</strong> <em>who is allowed to act right now?</em></p>
+          <ul>
+            <li>ownership must be linearizable</li>
+            <li>expiry must be computed from an authority the system can defend</li>
+            <li>renewal must preserve single-owner semantics across failover</li>
+            <li>downstream systems still need fencing, because expiry alone does not stop stale actors</li>
+          </ul>
+        </section>
+
+        <p>That is the reason to treat a distributed lease service as infrastructure in its own right. Once multiple workers, schedulers, controllers, or reconcilers can attempt the same action, correctness depends on making ownership explicit and making ambiguity expensive. Throughput matters, but throughput without coordination discipline just lets a system violate invariants faster.</p>
+
+        <h3>Distributed Systems Fail Because of Coordination, Not Just Throughput</h3>
+        <p>Plenty of systems can survive high request rates. Far fewer survive contradictory decisions made under partial failure. The dangerous cases are familiar: two controllers both believe they are primary, a scheduler retries after a timeout and races its own first attempt, or an old actor resumes after a pause and writes state long after its authority should have ended. None of those failures are solved by adding queue depth or CPU. They are solved by explicit coordination semantics and a replicated state machine that gives the system one defensible answer at a time (Schneider, 1990; Gilbert &amp; Lynch, 2002).</p>
+
+        <h3>The Core Primitive: “Who Is Allowed to Act Right Now?”</h3>
+        <p>The right abstraction is not “distributed mutex” in the casual sense. It is <em>time-bounded authority</em>. A lease says that a named owner may act on a resource until an expiry chosen by the service. That is stronger than optimistic hope and narrower than general transaction processing. It is a deliberate answer to coordination problems where temporary exclusive authority is enough to serialize dangerous work such as leadership, scheduling, shard movement, failover orchestration, or singleton task execution (Gray &amp; Cheriton, 1989).</p>
+
+        <p>That framing matters because it keeps the system honest. The service is not trying to solve every consistency problem. It is trying to solve the ownership problem precisely enough that other components can build on top of it.</p>
+
+        <h3>Why Leases Instead of Locks</h3>
+        <p>Traditional locks are often described as if ownership persists until explicit release. In a single process, that is fine. In a distributed system, it is a trap. Processes pause, packets disappear, leaders crash, and clients die while still “holding” something. A lease is explicit about the real world: ownership is temporary unless renewed. That boundedness gives the system a recovery path after client loss and prevents abandoned ownership from becoming permanent. Gray and Cheriton made the case decades ago: leases trade perpetual lock state for time-bounded authority that can be reclaimed safely when communication is imperfect (Gray &amp; Cheriton, 1989).</p>
+
+        <p>Leases also force a sharper question about time. If ownership ends automatically, whose clock decides? If the answer is “each client decides for itself,” the service has already lost its correctness boundary. Lease semantics only become defensible when the system has a single authority for time evaluation during grant and renewal.</p>
+
+        <h3>Why Tenure Exists as a Purpose-Built Lease Service Rather Than a General-Purpose KV Store</h3>
+        <p>A general-purpose key-value store can often be made to <em>approximate</em> lease semantics, but that does not mean leases are its first-class contract. A purpose-built lease service can put the whole interface around ownership, renewal, release, expiry, and fencing tokens instead of treating them as conventions layered on top of arbitrary reads and writes. That narrower scope matters operationally because the hard part is not storing bytes. The hard part is ensuring that every state transition preserves single-owner meaning under failover and partial failure.</p>
+
+        <p>This is the architectural lens I am using for Tenure in Part 1. The important point is not hidden implementation detail; it is that Tenure is best understood as a lease-specific replicated state machine, not as a generic storage substrate with some helper APIs attached.</p>
+
+        <h3>Raft-Based System Model</h3>
+        <p>For a lease service, Raft is attractive because it gives a comprehensible path to a linearizable write leader backed by replicated log agreement. A client proposal becomes durable system state only after the leader appends it, replicates it to a quorum, and applies it in log order. That is exactly the shape a lease service wants: one write authority at a time, ordered state transitions, and an unambiguous rule for what counts as committed ownership (Ongaro &amp; Ousterhout, 2014; Lamport, 2001).</p>
+
+        <h3>Tenure: Lease Service Architecture (Raft-Based)</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1100 680" width="1100" height="680" role="img" aria-labelledby="arch-title arch-desc">
+            <title id="arch-title">Tenure lease service architecture using a Raft leader and two followers</title>
+            <desc id="arch-desc">Workers and a scheduler call an API layer that forwards writes to a Raft leader, which replicates log entries to two followers and applies them to a lease state machine persisted to storage.</desc>
+            <rect x="0" y="0" width="1100" height="680" rx="28" fill="#0f172a"></rect>
+            <rect x="50" y="70" width="180" height="90" rx="18" fill="#1e293b"></rect>
+            <rect x="50" y="205" width="180" height="90" rx="18" fill="#1e293b"></rect>
+            <rect x="50" y="340" width="180" height="90" rx="18" fill="#1e293b"></rect>
+            <text x="140" y="115" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Worker A</text>
+            <text x="140" y="250" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Worker B</text>
+            <text x="140" y="385" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Scheduler</text>
+
+            <rect x="300" y="160" width="180" height="180" rx="22" fill="#162033" stroke="#60a5fa" stroke-width="2"></rect>
+            <text x="390" y="220" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">gRPC / API</text>
+            <text x="390" y="258" fill="#94a3b8" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">Acquire</text>
+            <text x="390" y="288" fill="#94a3b8" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">Renew</text>
+            <text x="390" y="318" fill="#94a3b8" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">Release</text>
+
+            <rect x="560" y="70" width="210" height="140" rx="20" fill="#1d4ed8"></rect>
+            <text x="665" y="126" fill="#eff6ff" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Raft Leader</text>
+            <text x="665" y="160" fill="#dbeafe" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">linearizable writes</text>
+
+            <rect x="825" y="70" width="210" height="140" rx="20" fill="#1e293b"></rect>
+            <text x="930" y="126" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Follower 1</text>
+            <text x="930" y="160" fill="#94a3b8" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">replica</text>
+
+            <rect x="825" y="250" width="210" height="140" rx="20" fill="#1e293b"></rect>
+            <text x="930" y="306" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Follower 2</text>
+            <text x="930" y="340" fill="#94a3b8" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">replica</text>
+
+            <rect x="560" y="270" width="210" height="110" rx="18" fill="#1e293b"></rect>
+            <text x="665" y="318" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Raft Log</text>
+            <text x="665" y="350" fill="#94a3b8" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">ordered commands</text>
+
+            <rect x="560" y="430" width="210" height="110" rx="18" fill="#1e293b"></rect>
+            <text x="665" y="478" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Lease State Machine</text>
+            <text x="665" y="510" fill="#94a3b8" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">owner / expiry / token</text>
+
+            <rect x="560" y="570" width="210" height="70" rx="18" fill="#1e293b"></rect>
+            <text x="665" y="615" fill="#e2e8f0" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">Persistence</text>
+
+            <path d="M230 115 L300 210" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M230 250 L300 250" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M230 385 L300 290" stroke="#64748b" stroke-width="4" fill="none"></path>
+            <path d="M480 250 L560 140" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#arrow)"></path>
+            <path d="M770 140 L825 140" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#arrow)"></path>
+            <path d="M740 185 L825 280" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#arrow)"></path>
+            <path d="M665 210 L665 270" stroke="#64748b" stroke-width="4" fill="none" marker-end="url(#arrow)"></path>
+            <path d="M665 380 L665 430" stroke="#64748b" stroke-width="4" fill="none" marker-end="url(#arrow)"></path>
+            <path d="M665 540 L665 570" stroke="#64748b" stroke-width="4" fill="none" marker-end="url(#arrow)"></path>
+            <text x="523" y="182" fill="#93c5fd" font-size="20" font-family="Inter, sans-serif">writes forward to leader</text>
+            <defs>
+              <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#60a5fa"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>
+            Tenure’s useful abstraction is not “three nodes with replication.” It is a single write authority backed by quorum replication, ordered state-machine application, and persisted lease metadata.
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Correctness depends on every lease mutation flowing through the current leader, not on clients choosing a convenient node.</li>
+            <li>The log, state machine, and persistence path matter because lease ownership has to survive crashes as committed state, not as in-memory hope.</li>
+          </ul>
+        </section>
+
+        <p>That model narrows ambiguity. Followers are not independent authorities; they are replicas that participate in commitment. Clients may talk to an API endpoint anywhere, but lease-changing commands must resolve to the leader path if the system wants one linearizable answer.</p>
+
+        <h3>Lease Acquire — Linearizable Write Path</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1100 760" width="1100" height="760" role="img" aria-labelledby="acquire-title acquire-desc">
+            <title id="acquire-title">Lease acquire linearizable write path</title>
+            <desc id="acquire-desc">A worker sends Acquire for resource R1 to the API, which forwards to the leader for validation, replication, application, token assignment, and a success response after quorum acknowledgement.</desc>
+            <rect x="0" y="0" width="1100" height="760" rx="28" fill="#0f172a"></rect>
+            <line x1="140" y1="120" x2="140" y2="680" stroke="#475569" stroke-width="4"></line>
+            <line x1="340" y1="120" x2="340" y2="680" stroke="#475569" stroke-width="4"></line>
+            <line x1="560" y1="120" x2="560" y2="680" stroke="#475569" stroke-width="4"></line>
+            <line x1="780" y1="120" x2="780" y2="680" stroke="#475569" stroke-width="4"></line>
+            <line x1="960" y1="120" x2="960" y2="680" stroke="#475569" stroke-width="4"></line>
+            <text x="140" y="85" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Worker A</text>
+            <text x="340" y="85" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">API</text>
+            <text x="560" y="85" fill="#93c5fd" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Leader</text>
+            <text x="780" y="85" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Follower 1</text>
+            <text x="960" y="85" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Follower 2</text>
+
+            <rect x="120" y="150" width="840" height="66" rx="14" fill="#1e293b"></rect>
+            <text x="540" y="192" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Acquire(R1, owner=A, ttl=10s)</text>
+
+            <path d="M140 240 L340 240" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#acq-arrow)"></path>
+            <text x="238" y="227" fill="#bfdbfe" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">request</text>
+
+            <path d="M340 300 L560 300" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#acq-arrow)"></path>
+            <text x="450" y="287" fill="#bfdbfe" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">forward to leader</text>
+
+            <rect x="470" y="328" width="180" height="82" rx="16" fill="#1d4ed8"></rect>
+            <text x="560" y="365" fill="#eff6ff" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">validate current</text>
+            <text x="560" y="393" fill="#eff6ff" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">lease state</text>
+
+            <path d="M560 450 L780 450" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#acq-arrow)"></path>
+            <path d="M560 500 L960 500" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#acq-arrow)"></path>
+            <text x="705" y="438" fill="#bfdbfe" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">AppendEntries</text>
+            <text x="765" y="488" fill="#bfdbfe" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">AppendEntries</text>
+
+            <path d="M780 555 L560 555" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#ack-arrow)"></path>
+            <path d="M960 605 L560 605" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#ack-arrow)"></path>
+            <text x="670" y="543" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">ack</text>
+            <text x="770" y="593" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">ack</text>
+
+            <rect x="430" y="630" width="260" height="86" rx="16" fill="#1e293b"></rect>
+            <text x="560" y="665" fill="#e2e8f0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">apply state machine</text>
+            <text x="560" y="692" fill="#94a3b8" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">owner=A, expiry=tL+10s, token=1</text>
+
+            <path d="M560 260 L340 260" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#ack-arrow)"></path>
+            <path d="M340 650 L140 650" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#ack-arrow)"></path>
+            <text x="446" y="248" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">leader accepted</text>
+            <text x="239" y="638" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">success(owner=A, token=1)</text>
+            <defs>
+              <marker id="acq-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#60a5fa"></path>
+              </marker>
+              <marker id="ack-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#34d399"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>
+            Lease acquisition is a write protocol, not a cache lookup. The service only answers after the proposed ownership change has become committed replicated state and the leader has assigned the resulting lease metadata.
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>“Acquire” has to validate against current committed state, not a client’s assumption that the lease is free.</li>
+            <li>Token assignment belongs in the committed transition so downstream systems can distinguish the newest authority from every older one.</li>
+          </ul>
+        </section>
+
+        <h3>Lease State Machine</h3>
+        <p>A lease service becomes intelligible when its state machine is narrow. There is some representation of <em>free</em>, some representation of <em>held</em>, and a small number of legal transitions. Complexity comes from the guards around those transitions: whether the caller is the current owner, whether the lease has expired according to service authority, and whether the transition should advance the fencing token.</p>
+
+        <h3>Lease State Transitions</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1000 620" width="1000" height="620" role="img" aria-labelledby="sm-title sm-desc">
+            <title id="sm-title">Lease state transitions between free and held</title>
+            <desc id="sm-desc">State machine showing transitions from Free to Held on acquire, renew as a self-loop for the same owner, expire and release back to Free, and a rejected acquire while held and unexpired.</desc>
+            <rect x="0" y="0" width="1000" height="620" rx="28" fill="#0f172a"></rect>
+            <circle cx="280" cy="300" r="110" fill="#1e293b" stroke="#60a5fa" stroke-width="4"></circle>
+            <circle cx="730" cy="300" r="130" fill="#1d4ed8" stroke="#93c5fd" stroke-width="4"></circle>
+            <text x="280" y="290" fill="#e2e8f0" font-size="42" text-anchor="middle" font-family="Inter, sans-serif">Free</text>
+            <text x="280" y="328" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">no owner</text>
+            <text x="730" y="286" fill="#eff6ff" font-size="42" text-anchor="middle" font-family="Inter, sans-serif">Held</text>
+            <text x="730" y="324" fill="#dbeafe" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">owner, expiry, token</text>
+
+            <path d="M390 255 C500 180, 620 180, 620 240" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#sm-green)"></path>
+            <text x="510" y="176" fill="#bbf7d0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Acquire</text>
+            <text x="510" y="205" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">Free → Held</text>
+
+            <path d="M640 410 C580 500, 420 500, 360 360" stroke="#f59e0b" stroke-width="5" fill="none" marker-end="url(#sm-amber)"></path>
+            <text x="505" y="520" fill="#fde68a" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Expire / Release</text>
+            <text x="505" y="548" fill="#fde68a" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">Held → Free</text>
+
+            <path d="M815 200 C900 170, 930 255, 880 320 C840 372, 790 365, 790 365" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#sm-blue)"></path>
+            <text x="895" y="220" fill="#bfdbfe" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">Renew</text>
+            <text x="895" y="246" fill="#bfdbfe" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">same owner</text>
+
+            <path d="M560 90 L860 90" stroke="#ef4444" stroke-width="5" fill="none" marker-end="url(#sm-red)"></path>
+            <text x="710" y="62" fill="#fecaca" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Acquire rejected while Held and unexpired</text>
+            <text x="710" y="118" fill="#fecaca" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">different owner must wait</text>
+
+            <defs>
+              <marker id="sm-green" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#34d399"></path>
+              </marker>
+              <marker id="sm-amber" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#f59e0b"></path>
+              </marker>
+              <marker id="sm-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#60a5fa"></path>
+              </marker>
+              <marker id="sm-red" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#ef4444"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>
+            The point of the state machine is discipline. Most bugs in lease systems are illegal transitions disguised as retries, stale renewals, or “helpful” reacquire shortcuts.
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Rejected acquires are as important as successful ones, because denial preserves single-owner semantics during the held interval.</li>
+            <li>Renew is not a new acquire by convention; it is a guarded transition allowed only for the current owner while authority still exists.</li>
+          </ul>
+        </section>
+
+        <h3>Time Model and Why Leader-Based Time Authority Matters</h3>
+        <p>Leases force the system to mix consensus with time. Consensus orders state transitions, but expiry depends on a time calculation. The least dangerous model is to make the leader’s evaluation time authoritative for grant and renewal, then replicate the resulting expiry as part of committed state. That does not make clocks perfect. It makes the system’s decision process singular. Without that singularity, each client or follower can reinterpret lease validity independently, which is exactly how contradictory ownership appears.</p>
+
+        <h3>Leader-Based Time Authority</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1040 560" width="1040" height="560" role="img" aria-labelledby="time-title time-desc">
+            <title id="time-title">Leader based time authority for lease expiry</title>
+            <desc id="time-desc">Diagram showing client and follower clocks ignored while the leader clock determines expiry as leader time plus requested TTL.</desc>
+            <rect x="0" y="0" width="1040" height="560" rx="28" fill="#0f172a"></rect>
+            <rect x="70" y="170" width="210" height="170" rx="20" fill="#1e293b"></rect>
+            <rect x="415" y="120" width="210" height="250" rx="20" fill="#1d4ed8"></rect>
+            <rect x="760" y="170" width="210" height="170" rx="20" fill="#1e293b"></rect>
+            <text x="175" y="220" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Client</text>
+            <text x="175" y="262" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">clock = 12:00:03</text>
+            <text x="175" y="300" fill="#fca5a5" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">ignored for expiry</text>
+
+            <text x="520" y="185" fill="#eff6ff" font-size="32" text-anchor="middle" font-family="Inter, sans-serif">Leader</text>
+            <text x="520" y="228" fill="#dbeafe" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">clock = 12:00:00</text>
+            <text x="520" y="272" fill="#dbeafe" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">ttl = 10s</text>
+            <text x="520" y="316" fill="#bfdbfe" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">expiry = 12:00:10</text>
+
+            <text x="865" y="220" fill="#e2e8f0" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Follower</text>
+            <text x="865" y="262" fill="#94a3b8" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">clock = 11:59:58</text>
+            <text x="865" y="300" fill="#fca5a5" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">ignored for grant</text>
+
+            <path d="M280 255 L415 255" stroke="#64748b" stroke-width="5" fill="none" marker-end="url(#time-arrow)"></path>
+            <path d="M625 255 L760 255" stroke="#64748b" stroke-width="5" fill="none" marker-end="url(#time-arrow)"></path>
+            <rect x="350" y="420" width="340" height="80" rx="18" fill="#1e293b"></rect>
+            <text x="520" y="452" fill="#e2e8f0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Committed lease carries expiry chosen by leader</text>
+            <text x="520" y="482" fill="#94a3b8" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">clients do not negotiate time truth</text>
+            <defs>
+              <marker id="time-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#64748b"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>
+            The service can tolerate imperfect clocks more easily than it can tolerate multiple time authorities. The leader decides the effective expiry for a grant or renewal, and that decision is what gets replicated.
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Ignoring client clocks is a correctness choice, because clients have every opportunity to be slow, fast, or paused.</li>
+            <li>Replicating the computed expiry is what keeps failover from turning “what time was it?” into a semantic fork.</li>
+          </ul>
+        </section>
+
+        <p>This is also why lease design should stay modest about what time can prove. Spanner shows one disciplined answer to time uncertainty: expose bounds and incorporate them into the correctness model rather than pretending uncertainty is absent (Corbett et al., 2012). A lease service without globally synchronized clocks should make the simpler move: choose one authority for expiry decisions and make downstream consumers rely on fencing, not just on wall-clock optimism.</p>
+
+        <h3>Fencing Tokens and Downstream Safety</h3>
+        <p>Expiry is necessary, but it is not sufficient. A client can continue acting after its lease expired if it was partitioned, paused, or merely delayed. That is the classic zombie writer problem. The standard answer is a monotonically increasing fencing token issued on successful acquisition or handoff. Downstream systems must reject operations carrying an older token than the one they have already accepted. This turns lease history into an order, not just a timer.</p>
+
+        <h3>Safe Lease Handoff</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1080 420" width="1080" height="420" role="img" aria-labelledby="handoff-title handoff-desc">
+            <title id="handoff-title">Safe lease handoff after expiry</title>
+            <desc id="handoff-desc">Timeline showing worker A acquiring token one, renewing, lease expiry, and worker B subsequently acquiring token two.</desc>
+            <rect x="0" y="0" width="1080" height="420" rx="28" fill="#0f172a"></rect>
+            <line x1="110" y1="230" x2="980" y2="230" stroke="#475569" stroke-width="5"></line>
+            <text x="90" y="200" fill="#e2e8f0" font-size="24" font-family="Inter, sans-serif">time →</text>
+            <circle cx="220" cy="230" r="16" fill="#34d399"></circle>
+            <circle cx="420" cy="230" r="16" fill="#60a5fa"></circle>
+            <circle cx="650" cy="230" r="16" fill="#f59e0b"></circle>
+            <circle cx="850" cy="230" r="16" fill="#34d399"></circle>
+            <text x="220" y="165" fill="#bbf7d0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Acquire by A</text>
+            <text x="220" y="195" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">token=1</text>
+            <text x="420" y="165" fill="#bfdbfe" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Renew by A</text>
+            <text x="420" y="195" fill="#bfdbfe" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">extends expiry</text>
+            <text x="650" y="165" fill="#fde68a" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">expiry</text>
+            <text x="650" y="195" fill="#fde68a" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">lease becomes free</text>
+            <text x="850" y="165" fill="#bbf7d0" font-size="24" text-anchor="middle" font-family="Inter, sans-serif">Acquire by B</text>
+            <text x="850" y="195" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">token=2</text>
+            <path d="M236 230 L404 230" stroke="#60a5fa" stroke-width="6"></path>
+            <path d="M436 230 L634 230" stroke="#60a5fa" stroke-width="6"></path>
+            <path d="M666 230 L834 230" stroke="#94a3b8" stroke-width="6" stroke-dasharray="12 10"></path>
+            <rect x="120" y="300" width="840" height="62" rx="14" fill="#1e293b"></rect>
+            <text x="540" y="338" fill="#e2e8f0" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">The new owner does not inherit A’s authority; it receives a later token and a fresh interval.</text>
+          </svg>
+          <figcaption>
+            Handoff safety comes from two facts together: A’s authority ends at expiry, and B’s later acquisition carries a strictly newer token. That combination is what lets downstream systems distinguish a legitimate successor from a delayed predecessor.
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Safe reacquire is not “same lease, new owner.” It is a new committed ownership epoch with a later token.</li>
+            <li>That epoch boundary is what makes stale requests rejectable instead of merely suspicious.</li>
+          </ul>
+        </section>
+
+        <h3>Preventing Zombie Writes</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1100 520" width="1100" height="520" role="img" aria-labelledby="fence-title fence-desc">
+            <title id="fence-title">Fencing token enforcement preventing zombie writes</title>
+            <desc id="fence-desc">A delayed stale actor with token one attempts a write, a current actor with token two succeeds, and the stale write is later rejected because its token is older.</desc>
+            <rect x="0" y="0" width="1100" height="520" rx="28" fill="#0f172a"></rect>
+            <rect x="70" y="100" width="220" height="130" rx="20" fill="#1e293b"></rect>
+            <rect x="70" y="300" width="220" height="130" rx="20" fill="#1e293b"></rect>
+            <rect x="430" y="175" width="250" height="170" rx="20" fill="#1d4ed8"></rect>
+            <rect x="820" y="175" width="220" height="170" rx="20" fill="#1e293b"></rect>
+            <text x="180" y="150" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Stale Actor A</text>
+            <text x="180" y="188" fill="#fca5a5" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">token=1</text>
+            <text x="180" y="350" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Current Actor B</text>
+            <text x="180" y="388" fill="#86efac" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">token=2</text>
+            <text x="555" y="230" fill="#eff6ff" font-size="30" text-anchor="middle" font-family="Inter, sans-serif">Protected Service</text>
+            <text x="555" y="270" fill="#dbeafe" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">stores highest token seen</text>
+            <text x="930" y="235" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Resource R1</text>
+            <text x="930" y="272" fill="#94a3b8" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">state mutation</text>
+            <path d="M290 160 L430 215" stroke="#ef4444" stroke-width="5" fill="none" marker-end="url(#fence-red)"></path>
+            <text x="365" y="155" fill="#fecaca" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">delayed write</text>
+            <path d="M290 355 L430 305" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#fence-green)"></path>
+            <text x="365" y="347" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">current write</text>
+            <path d="M680 260 L820 260" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#fence-green)"></path>
+            <text x="750" y="248" fill="#bbf7d0" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">token=2 accepted</text>
+            <path d="M680 215 L930 120" stroke="#ef4444" stroke-width="5" fill="none" marker-end="url(#fence-red)"></path>
+            <text x="840" y="110" fill="#fecaca" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">token=1 rejected later</text>
+            <defs>
+              <marker id="fence-red" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#ef4444"></path>
+              </marker>
+              <marker id="fence-green" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#34d399"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>
+            The lease service cannot physically stop a delayed client from sending traffic. Fencing tokens let downstream systems perform the final correctness check and refuse older authority even if it arrives late.
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>Without fencing, an expired client can still corrupt downstream state if it was delayed rather than dead.</li>
+            <li>Downstream enforcement is part of the lease protocol boundary, not an optional extra.</li>
+          </ul>
+        </section>
+
+        <h3>Failure Modes</h3>
+        <p>A lease service is only as credible as its behavior under failure. This is where many hand-wavy designs collapse. Every interesting failure mode is really a question about whether the system can preserve ownership meaning when observation becomes incomplete.</p>
+
+        <h3>Leader Failover and Lease Safety</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1080 520" width="1080" height="520" role="img" aria-labelledby="failover-title failover-desc">
+            <title id="failover-title">Leader failover and lease safety</title>
+            <desc id="failover-desc">An old leader grants a lease, crashes, a new leader is elected, and a client renews only if the replicated lease state still shows the lease as valid.</desc>
+            <rect x="0" y="0" width="1080" height="520" rx="28" fill="#0f172a"></rect>
+            <rect x="90" y="130" width="220" height="120" rx="20" fill="#1d4ed8"></rect>
+            <rect x="430" y="130" width="220" height="120" rx="20" fill="#ef4444"></rect>
+            <rect x="770" y="130" width="220" height="120" rx="20" fill="#1d4ed8"></rect>
+            <text x="200" y="178" fill="#eff6ff" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Old Leader</text>
+            <text x="200" y="212" fill="#dbeafe" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">grants lease</text>
+            <text x="540" y="178" fill="#fee2e2" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Crash</text>
+            <text x="540" y="212" fill="#fecaca" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">leadership lost</text>
+            <text x="880" y="178" fill="#eff6ff" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">New Leader</text>
+            <text x="880" y="212" fill="#dbeafe" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">elected from quorum</text>
+            <path d="M310 190 L430 190" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#fail-arrow)"></path>
+            <path d="M650 190 L770 190" stroke="#60a5fa" stroke-width="5" fill="none" marker-end="url(#fail-arrow)"></path>
+            <rect x="250" y="320" width="580" height="120" rx="20" fill="#1e293b"></rect>
+            <text x="540" y="360" fill="#e2e8f0" font-size="26" text-anchor="middle" font-family="Inter, sans-serif">Client renews against new leader</text>
+            <text x="540" y="398" fill="#94a3b8" font-size="22" text-anchor="middle" font-family="Inter, sans-serif">renewal valid only if replicated state still shows owner + unexpired lease</text>
+            <defs>
+              <marker id="fail-arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#60a5fa"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>
+            Failover should not create a second source of truth. The new leader inherits whatever the replicated log and state machine can defend, and nothing else.
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>A client does not keep authority because it remembers a successful call to the old leader; it keeps authority only if that lease exists in replicated state and remains valid.</li>
+            <li>This is why leader failover tests are fundamentally lease semantics tests, not just election tests.</li>
+          </ul>
+        </section>
+
+        <p>If the old leader granted something that was not committed to a quorum, the new leader must behave as if that grant never became authoritative. That is harsh, but it is correct. Raft’s value here is that it gives a precise answer to what survives failover: committed state, not local memory (Ongaro &amp; Ousterhout, 2014).</p>
+
+        <h3>Partition Handling</h3>
+        <figure class="blog-diagram">
+          <svg viewBox="0 0 1080 540" width="1080" height="540" role="img" aria-labelledby="partition-title partition-desc">
+            <title id="partition-title">Network partition handling for lease safety</title>
+            <desc id="partition-desc">A majority partition containing the leader and one follower continues safely, while an isolated minority node cannot grant or renew leases because it lacks quorum.</desc>
+            <rect x="0" y="0" width="1080" height="540" rx="28" fill="#0f172a"></rect>
+            <rect x="60" y="100" width="620" height="320" rx="24" fill="#162033" stroke="#34d399" stroke-width="3"></rect>
+            <rect x="760" y="150" width="240" height="220" rx="24" fill="#2b1320" stroke="#ef4444" stroke-width="3" stroke-dasharray="10 10"></rect>
+            <rect x="110" y="160" width="220" height="110" rx="18" fill="#1d4ed8"></rect>
+            <rect x="390" y="160" width="220" height="110" rx="18" fill="#1e293b"></rect>
+            <rect x="780" y="205" width="200" height="110" rx="18" fill="#1e293b"></rect>
+            <text x="370" y="132" fill="#86efac" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">majority partition</text>
+            <text x="880" y="132" fill="#fca5a5" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">minority isolated node</text>
+            <text x="220" y="206" fill="#eff6ff" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Leader</text>
+            <text x="220" y="238" fill="#dbeafe" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">can commit with quorum</text>
+            <text x="500" y="206" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Follower</text>
+            <text x="500" y="238" fill="#94a3b8" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">acks replication</text>
+            <text x="880" y="250" fill="#e2e8f0" font-size="28" text-anchor="middle" font-family="Inter, sans-serif">Isolated Node</text>
+            <text x="880" y="282" fill="#fca5a5" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">cannot safely grant</text>
+            <text x="880" y="308" fill="#fca5a5" font-size="20" text-anchor="middle" font-family="Inter, sans-serif">cannot safely renew</text>
+            <path d="M330 215 L390 215" stroke="#34d399" stroke-width="5" fill="none" marker-end="url(#part-green)"></path>
+            <path d="M610 215 L760 250" stroke="#ef4444" stroke-width="5" fill="none" stroke-dasharray="12 10"></path>
+            <text x="686" y="222" fill="#fecaca" font-size="18" text-anchor="middle" font-family="Inter, sans-serif">no quorum path</text>
+            <defs>
+              <marker id="part-green" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L9,3 z" fill="#34d399"></path>
+              </marker>
+            </defs>
+          </svg>
+          <figcaption>
+            CAP is not an abstract slogan here. During partition, the minority side must lose the ability to issue lease-changing answers, because availability without quorum would manufacture conflicting ownership (Gilbert &amp; Lynch, 2002).
+          </figcaption>
+        </figure>
+        <section class="key-takeaways">
+          <h4>Key Takeaways</h4>
+          <ul>
+            <li>The minority partition staying silent is not a usability bug; it is the mechanism that prevents split-brain lease issuance.</li>
+            <li>Any node that cannot prove quorum-backed authority must refuse grant and renewal operations.</li>
+          </ul>
+        </section>
+
+        <p>That same discipline explains expiry and reacquire behavior. If a client disappears and later returns, the system should not care about the client’s narrative. It should care only whether the lease remained valid in replicated state and whether a later owner has already taken over. Delayed or stale clients are ordinary conditions, not special exceptions.</p>
+
+        <h3>Closing on Ambiguity and Ownership</h3>
+        <p>The real job of a distributed lease service is not to make mutual exclusion feel convenient. It is to make ownership ambiguity difficult to express. Raft helps by giving the system one ordered place where lease-changing decisions become authoritative. Leader-based time authority helps by ensuring expiry is computed from a single defensible perspective. Fencing tokens help by carrying that ordering into downstream state changes where stale actors would otherwise remain dangerous.</p>
+
+        <p>That is why Tenure is worth examining as a dedicated lease system. The value is not that it stores a bit saying “locked.” The value is that it treats temporary exclusive authority as replicated state with explicit failure behavior. Part 2, if I write it, would naturally turn from the lease contract itself to client behavior, API semantics, and operational considerations such as watch patterns, retry policy, and observability. For Part 1, the architectural point is narrower and more important: in distributed systems, ownership must be something the system can prove, not something a client merely believes.</p>
+
+        <h3>References</h3>
+        <ul class="references">
+          <li>Corbett, J. C., Dean, J., Epstein, M., Fikes, A., Frost, C., Furman, J. J., Ghemawat, S., Gubarev, A., Heiser, C., Hochschild, P., Hsieh, W., Kanthak, S., Kogan, E., Li, H., Lloyd, A., Melnik, S., Mwaura, D., Nagle, D., Quinlan, S., Rao, R., Rolig, L., Saito, Y., Szymaniak, M., Taylor, C., Wang, R., &amp; Woodford, D. (2012). <em>Spanner: Google’s globally distributed database</em>. In OSDI 2012. <a href="https://research.google/pubs/pub39966/">https://research.google/pubs/pub39966/</a></li>
+          <li>Gilbert, S., &amp; Lynch, N. (2002). <em>Brewer’s conjecture and the feasibility of consistent, available, partition-tolerant web services</em>. ACM SIGACT News. <a href="https://cs-www.cs.yale.edu/homes/aspnes/pinewiki/attachments/DistributedSystems/brewers.pdf">https://cs-www.cs.yale.edu/homes/aspnes/pinewiki/attachments/DistributedSystems/brewers.pdf</a></li>
+          <li>Gray, C., &amp; Cheriton, D. (1989). <em>Leases: An efficient fault-tolerant mechanism for distributed file cache consistency</em>. In SOSP 1989. <a href="https://dl.acm.org/doi/10.1145/74850.74870">https://dl.acm.org/doi/10.1145/74850.74870</a></li>
+          <li>Lamport, L. (2001). <em>Paxos made simple</em>. SIGACT News. <a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a></li>
+          <li>Ongaro, D., &amp; Ousterhout, J. (2014). <em>In search of an understandable consensus algorithm (Raft)</em>. USENIX ATC. <a href="https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro">https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro</a></li>
+          <li>Schneider, F. B. (1990). <em>Implementing fault-tolerant services using the state machine approach: A tutorial</em>. ACM Computing Surveys. <a href="https://www.cs.cornell.edu/fbs/publications/smsurvey.pdf">https://www.cs.cornell.edu/fbs/publications/smsurvey.pdf</a></li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
