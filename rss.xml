@@ -9,7 +9,7 @@
     <item>
       <title>Who Gets to Act? Tenure, Raft, and Distributed Leases</title>
       <link>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</link>
-      <description>Part 1 of a systems-level analysis of Tenure as a Raft-based distributed lease service, focused on lease semantics, time authority, fencing tokens, and failure safety.</description>
+      <description>A systems-level analysis of Tenure as a Raft-based distributed lease service, focused on lease semantics, time authority, fencing tokens, and failure safety.</description>
       <guid>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
