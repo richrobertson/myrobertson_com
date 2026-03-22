@@ -267,6 +267,11 @@
 
         <p>This is the architectural lens I am using for Tenure here. The important point is not hidden implementation detail; it is that Tenure is best understood as a lease-specific replicated state machine, not as a generic storage substrate with some helper APIs attached.</p>
 
+        <h3>Why Scala Matters Here</h3>
+        <p>That same design goal is also why Scala is a meaningful implementation choice rather than a cosmetic one. A lease service is mostly coordination logic: explicit states, guarded transitions, asynchronous replication steps, and failure handling that cannot afford ambiguous local mutation. Scala fits that shape well because it makes immutable modeling natural, keeps algebraic state representations practical, and gives the implementation a clearer way to express “these are the only valid lease states and transitions” instead of spreading that logic across ad hoc mutable objects.</p>
+
+        <p>That does not mean the language somehow proves distributed correctness on its own. Raft, fencing, quorum rules, and expiry semantics still do the real systems work. But Scala helps keep the local program honest. It is a strong fit for a correctness-first coordination service because immutability reduces accidental state drift, typed state modeling makes illegal transitions harder to smuggle in, and JVM-based asynchronous composition gives concurrency structure without forcing thread management to become the primary design surface (Scala, 2025). In a system like Tenure, that combination matters: the implementation language should make concurrency and correctness boundaries easier to express, not easier to blur.</p>
+
         <p>If you want to compare that framing to the project itself, the public <a href="https://github.com/richrobertson/tenure" target="_blank" rel="noopener noreferrer">Tenure repository</a> is worth reading alongside this post, especially its README, architecture spec, API contract, and request-flow diagrams. Those materials explicitly emphasize time-bounded ownership, leader-mediated expiration decisions, fencing tokens, and a replicated state-machine model, which is exactly the slice this post is focused on.</p>
 
         <h3>Raft-Based System Model</h3>
@@ -753,6 +758,7 @@
           <li>Gray, C., &amp; Cheriton, D. (1989). <em>Leases: An efficient fault-tolerant mechanism for distributed file cache consistency</em>. In SOSP 1989. <a href="https://dl.acm.org/doi/10.1145/74850.74870">https://dl.acm.org/doi/10.1145/74850.74870</a></li>
           <li>Lamport, L. (2001). <em>Paxos made simple</em>. SIGACT News. <a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a></li>
           <li>Ongaro, D., &amp; Ousterhout, J. (2014). <em>In search of an understandable consensus algorithm (Raft)</em>. USENIX ATC. <a href="https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro">https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro</a></li>
+          <li>Scala. (2025). <em>Futures and Promises</em>. <a href="https://docs.scala-lang.org/overviews/core/futures.html">https://docs.scala-lang.org/overviews/core/futures.html</a></li>
           <li>Schneider, F. B. (1990). <em>Implementing fault-tolerant services using the state machine approach: A tutorial</em>. ACM Computing Surveys. <a href="https://www.cs.cornell.edu/fbs/publications/smsurvey.pdf">https://www.cs.cornell.edu/fbs/publications/smsurvey.pdf</a></li>
           <li>Robertson, R. (2026). <em>Tenure</em> [Software repository]. GitHub. <a href="https://github.com/richrobertson/tenure" target="_blank" rel="noopener noreferrer">https://github.com/richrobertson/tenure</a></li>
         </ul>
