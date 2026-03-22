@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Designing a Correct Distributed Lease Service: Tenure on Raft | Rich Robertson</title>
+    <title>Who Gets to Act? Tenure, Raft, and Distributed Leases | Rich Robertson</title>
     <meta
       name="description"
       content="Part 1 of a systems-level analysis of Tenure as a Raft-based distributed lease service, focused on lease semantics, time authority, fencing tokens, and failure safety."
@@ -90,7 +90,7 @@
       {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": "Designing a Correct Distributed Lease Service: Tenure on Raft",
+        "headline": "Who Gets to Act? Tenure, Raft, and Distributed Leases",
         "description": "Part 1 of a systems-level analysis of Tenure as a Raft-based distributed lease service, focused on lease semantics, time authority, fencing tokens, and failure safety.",
         "url": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html",
         "mainEntityOfPage": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html",
@@ -125,14 +125,14 @@
 
       <div class="hero-content">
         <p class="eyebrow">March 2026 • Rich Robertson</p>
-        <h1>Designing a Correct Distributed Lease Service: Tenure on Raft</h1>
+        <h1>Who Gets to Act? Tenure, Raft, and Distributed Leases</h1>
         <p class="intro">Part 1: lease ownership is a correctness problem, not a convenience API.</p>
       </div>
     </header>
 
     <main>
       <article class="card blog-post">
-        <p class="blog-dek">Most distributed outages blamed on “capacity” are really coordination failures in disguise. The hard question is not whether the system can do more work; it is whether every participant can still agree on who is allowed to act, for how long, and with what authority when clocks drift, leaders fail, and delayed messages reappear. Tenure is interesting in that context because it frames lease ownership as an explicitly replicated correctness boundary rather than as an incidental feature in a larger storage system (Gray &amp; Cheriton, 1989; Ongaro &amp; Ousterhout, 2014).</p>
+        <p class="blog-dek">Most distributed outages blamed on “capacity” are really coordination failures in disguise. The hard question is not whether the system can do more work; it is whether every participant can still agree on who is allowed to act, for how long, and with what authority when clocks drift, leaders fail, and delayed messages reappear. Tenure is interesting in that context because it frames lease ownership as an explicitly replicated correctness boundary rather than as an incidental feature in a larger storage system, and the public codebase and design docs make that framing concrete rather than purely rhetorical (Gray &amp; Cheriton, 1989; Ongaro &amp; Ousterhout, 2014).</p>
 
         <section class="correctness-callout" aria-labelledby="tenure-correctness-model">
           <h3 id="tenure-correctness-model">Correctness Model</h3>
@@ -164,6 +164,8 @@
         <p>A general-purpose key-value store can often be made to <em>approximate</em> lease semantics, but that does not mean leases are its first-class contract. A purpose-built lease service can put the whole interface around ownership, renewal, release, expiry, and fencing tokens instead of treating them as conventions layered on top of arbitrary reads and writes. That narrower scope matters operationally because the hard part is not storing bytes. The hard part is ensuring that every state transition preserves single-owner meaning under failover and partial failure.</p>
 
         <p>This is the architectural lens I am using for Tenure in Part 1. The important point is not hidden implementation detail; it is that Tenure is best understood as a lease-specific replicated state machine, not as a generic storage substrate with some helper APIs attached.</p>
+
+        <p>If you want to compare that framing to the project itself, the public <a href="https://github.com/richrobertson/tenure" target="_blank" rel="noopener noreferrer">Tenure repository</a> is worth reading alongside this post, especially its README, architecture spec, API contract, and request-flow diagrams. Those materials explicitly emphasize time-bounded ownership, leader-mediated expiration decisions, fencing tokens, and a replicated state-machine model, which is exactly the slice this Part 1 post is focused on.</p>
 
         <h3>Raft-Based System Model</h3>
         <p>For a lease service, Raft is attractive because it gives a comprehensible path to a linearizable write leader backed by replicated log agreement. A client proposal becomes durable system state only after the leader appends it, replicates it to a quorum, and applies it in log order. That is exactly the shape a lease service wants: one write authority at a time, ordered state transitions, and an unambiguous rule for what counts as committed ownership (Ongaro &amp; Ousterhout, 2014; Lamport, 2001).</p>
@@ -595,7 +597,7 @@
         <h3>Closing on Ambiguity and Ownership</h3>
         <p>The real job of a distributed lease service is not to make mutual exclusion feel convenient. It is to make ownership ambiguity difficult to express. Raft helps by giving the system one ordered place where lease-changing decisions become authoritative. Leader-based time authority helps by ensuring expiry is computed from a single defensible perspective. Fencing tokens help by carrying that ordering into downstream state changes where stale actors would otherwise remain dangerous.</p>
 
-        <p>That is why Tenure is worth examining as a dedicated lease system. The value is not that it stores a bit saying “locked.” The value is that it treats temporary exclusive authority as replicated state with explicit failure behavior. Part 2, if I write it, would naturally turn from the lease contract itself to client behavior, API semantics, and operational considerations such as watch patterns, retry policy, and observability. For Part 1, the architectural point is narrower and more important: in distributed systems, ownership must be something the system can prove, not something a client merely believes.</p>
+        <p>That is why Tenure is worth examining as a dedicated lease system. The value is not that it stores a bit saying “locked.” The value is that it treats temporary exclusive authority as replicated state with explicit failure behavior. If you want to inspect the current project directly, start with the <a href="https://github.com/richrobertson/tenure" target="_blank" rel="noopener noreferrer">Tenure codebase on GitHub</a> and then follow the architecture and API documents from there. Part 2, if I write it, would naturally turn from the lease contract itself to client behavior, API semantics, and operational considerations such as watch patterns, retry policy, and observability. For Part 1, the architectural point is narrower and more important: in distributed systems, ownership must be something the system can prove, not something a client merely believes.</p>
 
         <h3>References</h3>
         <ul class="references">
@@ -605,6 +607,7 @@
           <li>Lamport, L. (2001). <em>Paxos made simple</em>. SIGACT News. <a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a></li>
           <li>Ongaro, D., &amp; Ousterhout, J. (2014). <em>In search of an understandable consensus algorithm (Raft)</em>. USENIX ATC. <a href="https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro">https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro</a></li>
           <li>Schneider, F. B. (1990). <em>Implementing fault-tolerant services using the state machine approach: A tutorial</em>. ACM Computing Surveys. <a href="https://www.cs.cornell.edu/fbs/publications/smsurvey.pdf">https://www.cs.cornell.edu/fbs/publications/smsurvey.pdf</a></li>
+          <li>Robertson, R. (2026). <em>Tenure</em> [Software repository]. GitHub. <a href="https://github.com/richrobertson/tenure" target="_blank" rel="noopener noreferrer">https://github.com/richrobertson/tenure</a></li>
         </ul>
       </article>
     </main>
