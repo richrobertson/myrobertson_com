@@ -907,6 +907,20 @@ def renew(
 
         <p>That is why Tenure is worth examining as a dedicated lease system. The value is not that it stores a bit saying “locked.” The value is that it treats temporary exclusive authority as replicated state with explicit failure behavior. If you want to inspect the current project directly, start with the <a href="https://github.com/richrobertson/tenure" target="_blank" rel="noopener noreferrer">Tenure codebase on GitHub</a> and then follow the architecture and API documents from there. The architectural point is narrow and important: in distributed systems, ownership must be something the system can prove, not something a client merely believes.</p>
 
+        <h3>What to Read Next</h3>
+        <p>
+          For the broader context around this kind of correctness work, see
+          <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
+        </p>
+        <p>
+          If you want the simpler entry points into the same cluster, start with
+          <a href="./distributed-systems-interview-guide.html">Distributed Systems Interview Guide</a>
+          and
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a>.
+          For the adjacent consensus comparison, continue with
+          <a href="./raft-vs-paxos-vs-epaxos-practical-guide.html">Raft vs Paxos vs EPaxos: A Practical Guide</a>.
+        </p>
+
         <h3>References</h3>
         <ul class="references">
           <li>Corbett, J. C., Dean, J., Epstein, M., Fikes, A., Frost, C., Furman, J. J., Ghemawat, S., Gubarev, A., Heiser, C., Hochschild, P., Hsieh, W., Kanthak, S., Kogan, E., Li, H., Lloyd, A., Melnik, S., Mwaura, D., Nagle, D., Quinlan, S., Rao, R., Rolig, L., Saito, Y., Szymaniak, M., Taylor, C., Wang, R., &amp; Woodford, D. (2012). <em>Spanner: Google’s globally distributed database</em>. In OSDI 2012. <a href="https://research.google/pubs/pub39966/">https://research.google/pubs/pub39966/</a></li>

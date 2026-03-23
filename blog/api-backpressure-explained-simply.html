@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Backpressure Explained Simply | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/api-backpressure-explained-simply.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="API Backpressure Explained Simply" />
+    <meta
+      property="og:description"
+      content="A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/api-backpressure-explained-simply.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="API Backpressure Explained Simply" />
+    <meta
+      name="twitter:description"
+      content="A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "API Backpressure Explained Simply",
+        "description": "A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load.",
+        "url": "https://www.myrobertson.com/blog/api-backpressure-explained-simply.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/api-backpressure-explained-simply.html",
+        "datePublished": "2026-03-22",
+        "dateModified": "2026-03-22",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Blog",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "API Backpressure Explained Simply",
+            "item": "https://www.myrobertson.com/blog/api-backpressure-explained-simply.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>API Backpressure Explained Simply</h1>
+        <p class="intro blog-dek">
+          Backpressure is the mechanism that tells callers to slow down before the system collapses. It is how an API protects latency, memory, and downstream dependencies when incoming demand rises faster than the system can safely process.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h3>What Backpressure Means</h3>
+        <p>
+          Backpressure is feedback. When a service is approaching saturation, it should stop pretending that it can accept infinite work. Instead, it must signal upstream callers to wait, retry later, reduce concurrency, or accept degraded results.
+        </p>
+        <p>
+          The important point is that backpressure is not just about protecting one API server. It protects the full chain behind that API, including databases, queues, caches, and downstream services.
+        </p>
+
+        <h3>Simple Example</h3>
+        <p>
+          Imagine an API that usually handles 500 requests per second comfortably, but during a spike it receives 2,000. If it blindly accepts everything, request queues grow, timeouts increase, retries multiply load, and the system often fails harder than if it had rejected some traffic early.
+        </p>
+        <p>
+          A backpressure policy might do one or more of these things:
+        </p>
+        <ul>
+          <li>cap in-flight requests</li>
+          <li>return 429 or 503 responses when limits are reached</li>
+          <li>shed low-priority traffic</li>
+          <li>degrade expensive features temporarily</li>
+          <li>slow upstream producers or workers</li>
+        </ul>
+
+        <h3>Why Rate Limiting Is Not the Same Thing</h3>
+        <p>
+          Rate limiting is one tool, but it is not the whole model. A fixed request limit may protect against abusive clients, but it does not necessarily react to current system health. Backpressure uses live signals such as latency, queue depth, or concurrency so the system can respond to real saturation instead of a static guess.
+        </p>
+
+        <h3>Why APIs Need It</h3>
+        <p>
+          APIs often look healthy right until they are not. The external symptom is usually rising latency. Internally, the problem is that too much work is now in flight at once. Queues build, retries start stacking, and one slow dependency can spill trouble across the whole request path.
+        </p>
+        <p>
+          Backpressure turns that situation into controlled degradation instead of uncontrolled collapse.
+        </p>
+
+        <h3>Common Signals Used for Backpressure</h3>
+        <ul>
+          <li>request latency</li>
+          <li>queue depth</li>
+          <li>number of in-flight requests</li>
+          <li>error rate and timeout rate</li>
+          <li>resource saturation such as CPU or connection pool exhaustion</li>
+        </ul>
+        <p>
+          Good systems do not rely on one signal alone. They combine several indicators to decide when to push back and when to recover.
+        </p>
+
+        <h3>What Good Backpressure Looks Like</h3>
+        <ul>
+          <li>bounded work instead of unbounded queues</li>
+          <li>fast failure instead of slow failure</li>
+          <li>graceful degradation instead of cascading timeouts</li>
+          <li>priority-aware behavior instead of treating all traffic equally</li>
+          <li>recovery logic so the system can reopen capacity when healthy again</li>
+        </ul>
+
+        <h3>What to Read Next</h3>
+        <p>
+          For a broader view of my platform and API work, see
+          <a href="../cloud-platform-engineer.html">Cloud Platform Engineering: APIs, Delivery, and Operations</a>.
+        </p>
+        <p>
+          For the deeper systems versions of this topic, continue with
+          <a href="./backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>,
+          <a href="./designing-backpressure-graphql-cdn-latency.html">Designing Backpressure in GraphQL Using CDN Latency Signals</a>, and
+          <a href="./latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html">Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

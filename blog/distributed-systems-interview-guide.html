@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distributed Systems Interview Guide | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/distributed-systems-interview-guide.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Distributed Systems Interview Guide" />
+    <meta
+      property="og:description"
+      content="A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/distributed-systems-interview-guide.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Distributed Systems Interview Guide" />
+    <meta
+      name="twitter:description"
+      content="A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Distributed Systems Interview Guide",
+        "description": "A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews.",
+        "url": "https://www.myrobertson.com/blog/distributed-systems-interview-guide.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/distributed-systems-interview-guide.html",
+        "datePublished": "2026-03-22",
+        "dateModified": "2026-03-22",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Blog",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Distributed Systems Interview Guide",
+            "item": "https://www.myrobertson.com/blog/distributed-systems-interview-guide.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Distributed Systems Interview Guide</h1>
+        <p class="intro blog-dek">
+          If you are preparing for senior backend or platform interviews, study fewer topics more deeply. The strongest answers show that you understand trade-offs under failure, not just vocabulary.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h3>What Interviewers Are Usually Looking For</h3>
+        <p>
+          Most distributed systems interviews are not trying to prove that you memorized CAP or can recite consensus terminology on command. They are trying to see whether you can reason about coordination, failure, scalability, and system behavior when the happy path stops working.
+        </p>
+        <p>
+          Strong candidates explain what can go wrong, what trade-off they are making, and how they would keep the system observable and recoverable in production.
+        </p>
+
+        <h3>Topics Worth Knowing Cold</h3>
+        <ul>
+          <li>replication and consistency basics</li>
+          <li>leader election and coordination</li>
+          <li>idempotency, retries, and duplicate work</li>
+          <li>partitioning, sharding, and ownership boundaries</li>
+          <li>queues, backpressure, and overload behavior</li>
+          <li>caching, invalidation, and stale data</li>
+          <li>consensus trade-offs and when you actually need it</li>
+          <li>observability and incident diagnosis under partial failure</li>
+        </ul>
+        <p>
+          You do not need a PhD answer for each one. You do need a practical answer that connects the concept to a real system behavior.
+        </p>
+
+        <h3>Three Questions to Ask Yourself While Studying</h3>
+        <p><strong>Who owns the work?</strong> Ownership problems show up in schedulers, leases, partitions, and workflows.</p>
+        <p><strong>What happens when messages are delayed or retried?</strong> This exposes whether your design is safe under timeouts and duplicate delivery.</p>
+        <p><strong>How does the system behave under load?</strong> This reveals whether your design has bounded work, fairness, and graceful degradation.</p>
+
+        <h3>How to Answer Better Than a Textbook</h3>
+        <p>
+          Avoid abstract definitions that never touch production behavior. A better answer has four parts:
+        </p>
+        <ol>
+          <li>define the concept in one sentence</li>
+          <li>give a concrete example</li>
+          <li>name the failure mode or trade-off</li>
+          <li>say what design choice you would make and why</li>
+        </ol>
+        <p>
+          For example, if asked about distributed locks, do not stop at “they prevent multiple workers from doing the same thing.” Mention lease expiry, stale owners, and fencing tokens. That is the difference between surface familiarity and engineering understanding.
+        </p>
+
+        <h3>Good Interview Themes for System Design Rounds</h3>
+        <ul>
+          <li>how to avoid duplicate processing in background jobs</li>
+          <li>how to design a safe retry strategy</li>
+          <li>how to handle hot partitions or noisy neighbors</li>
+          <li>how to keep APIs stable during downstream degradation</li>
+          <li>how to coordinate long-running platform operations</li>
+        </ul>
+        <p>
+          These are strong themes because they force discussion of correctness, scale, and operations at the same time.
+        </p>
+
+        <h3>A Better Study Strategy</h3>
+        <p>
+          Build small clusters of related topics instead of treating everything as a giant list. One useful cluster is:
+        </p>
+        <ul>
+          <li>distributed locks</li>
+          <li>leases</li>
+          <li>leader election</li>
+          <li>consensus</li>
+        </ul>
+        <p>
+          Another is:
+        </p>
+        <ul>
+          <li>rate limiting</li>
+          <li>backpressure</li>
+          <li>queues</li>
+          <li>load shedding</li>
+        </ul>
+        <p>
+          That approach makes it easier to talk through trade-offs instead of jumping between unrelated terms.
+        </p>
+
+        <h3>What to Read Next</h3>
+        <p>
+          For a focused overview of the kind of distributed systems work I do, see
+          <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
+        </p>
+        <p>
+          Then use these deeper primers as study anchors:
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a>,
+          <a href="./raft-vs-paxos-vs-epaxos-practical-guide.html">Raft vs Paxos vs EPaxos: A Practical Guide</a>, and
+          <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
