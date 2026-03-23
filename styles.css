@@ -217,6 +217,27 @@ section[id] {
   max-width: 780px;
 }
 
+.breadcrumb {
+  margin: 0 0 0.65rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--muted);
+}
+
+.breadcrumb a {
+  color: var(--muted);
+}
+
+.breadcrumb a:hover {
+  color: var(--text);
+}
+
+.breadcrumb [aria-current="page"] {
+  color: var(--text);
+}
+
 .blog-post h3 {
   margin-top: 0.25rem;
   margin-bottom: 0.75rem;

@@ -3,27 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rich Robertson | Senior Backend Engineer</title>
+    <title>Rich Robertson | Senior Backend Engineer in Seattle | Distributed Systems</title>
     <meta
       name="description"
-      content="Rich Robertson is a senior backend engineer with 15+ years designing and scaling distributed cloud platforms, services, and frameworks at Oracle and Starbucks."
+      content="Seattle-based senior backend engineer focused on distributed systems, cloud platforms, control planes, APIs, and reliability engineering, with 15+ years across Oracle and Starbucks."
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.myrobertson.com/" />
     <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Rich Robertson | Senior Backend Engineer" />
+    <meta property="og:title" content="Rich Robertson | Senior Backend Engineer in Seattle | Distributed Systems" />
     <meta
       property="og:description"
-      content="Senior backend engineer focused on distributed systems, cloud architecture, and platform services."
+      content="Seattle-based senior backend engineer focused on distributed systems, cloud platforms, control planes, APIs, and reliability engineering."
     />
     <meta property="og:url" content="https://www.myrobertson.com/" />
     <meta property="og:site_name" content="Rich Robertson" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Rich Robertson | Senior Backend Engineer" />
+    <meta name="twitter:title" content="Rich Robertson | Senior Backend Engineer in Seattle | Distributed Systems" />
     <meta
       name="twitter:description"
-      content="Senior backend engineer focused on distributed systems, cloud architecture, and platform services."
+      content="Seattle-based senior backend engineer focused on distributed systems, cloud platforms, control planes, APIs, and reliability engineering."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -39,7 +39,11 @@
         "name": "Rich Robertson",
         "url": "https://www.myrobertson.com/",
         "jobTitle": "Senior Backend Engineer",
-        "description": "Senior backend engineer with 15+ years designing and scaling distributed cloud platforms, services, and frameworks.",
+        "description": "Seattle-based senior backend engineer with 15+ years designing and scaling distributed systems, cloud platforms, APIs, and control-plane services.",
+        "homeLocation": {
+          "@type": "Place",
+          "name": "Seattle, Washington, United States"
+        },
         "sameAs": [
           "https://www.linkedin.com/in/royrobertson/",
           "https://github.com/richrobertson"
@@ -53,10 +57,22 @@
         "knowsAbout": [
           "Distributed systems",
           "Cloud architecture",
+          "Platform engineering",
+          "Control planes",
           "Java",
           "Kubernetes",
           "REST APIs"
         ]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Rich Robertson",
+        "url": "https://www.myrobertson.com/",
+        "description": "Personal site of Rich Robertson, a Seattle-based senior backend engineer writing about distributed systems, cloud platforms, and backend architecture.",
+        "inLanguage": "en"
       }
     </script>
   </head>
@@ -79,7 +95,7 @@
         <p class="eyebrow">Senior Backend Engineer • Distributed Systems • Cloud Platforms</p>
         <h1>Rich Robertson</h1>
         <p class="intro">
-          I build reliable backend systems and cloud platforms at scale. Over the past 15+ years, I’ve worked across Oracle, Starbucks, and consulting environments, designing distributed services, modernizing platforms, and leading critical engineering efforts in production.
+          I’m a Seattle-based senior backend engineer building distributed systems, cloud platforms, control-plane services, and production APIs. Over the past 15+ years, I’ve worked across Oracle, Starbucks, and consulting environments, designing backend services, modernizing platforms, and improving reliability in production.
         </p>
         <div class="hero-actions">
           <a class="btn primary" href="#experience">View Experience</a>
@@ -91,6 +107,87 @@
     </header>
 
     <main>
+      <section class="section">
+        <h2>Core Areas of Focus</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Distributed Systems and Cloud Platforms</h3>
+            <p>I work on backend systems where coordination, failure handling, scalability, and operational clarity matter more than surface complexity.</p>
+          </article>
+          <article class="card">
+            <h3>Control Planes, APIs, and Platform Engineering</h3>
+            <p>My strongest work has centered on control-plane services, backend APIs, workflow-driven platforms, and shared infrastructure used by multiple teams.</p>
+          </article>
+          <article class="card">
+            <h3>Reliability and Production Modernization</h3>
+            <p>I care most about systems that are understandable, maintainable, and dependable under load, during migration, and under partial failure.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Selected Writing</h2>
+        <p>
+          I write about distributed systems, platform architecture, and backend engineering to make my technical approach visible beyond the resume.
+        </p>
+        <div class="grid">
+          <article class="project">
+            <h3>
+              <a href="blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a>
+            </h3>
+            <p>A deep dive into lease semantics, leader-based time authority, fencing tokens, and failure handling in distributed systems.</p>
+            <span>Distributed Leases • Raft • Correctness</span>
+          </article>
+          <article class="project">
+            <h3>
+              <a href="blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane for a Next-Generation Data Tier</a>
+            </h3>
+            <p>How durable command queues, workflow orchestration, and partition-aware workers shape cloud control-plane design.</p>
+            <span>Control Planes • Multitenancy • Workflow Systems</span>
+          </article>
+          <article class="project">
+            <h3>
+              <a href="blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>
+            </h3>
+            <p>An engineering view of admission control, bounded queues, and adaptive concurrency as reliability mechanisms.</p>
+            <span>Backpressure • Reliability Engineering • APIs</span>
+          </article>
+          <article class="project">
+            <h3>
+              <a href="blog/polyglot-functional-languages-distributed-systems.html">Polyglot Architectures: A Case for Functional Languages in Distributed Systems</a>
+            </h3>
+            <p>A systems-level look at where Scala and other functional runtimes fit in backend and platform architecture.</p>
+            <span>Scala • Functional Design • Platform Architecture</span>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Explore by Topic</h2>
+        <div class="grid">
+          <article class="project">
+            <h3><a href="distributed-systems-engineer.html">Distributed Systems Engineer in Seattle</a></h3>
+            <p>A focused overview of my distributed systems background, architecture approach, and relevant technical writing.</p>
+            <span>Career Overview • Distributed Systems • Reliability</span>
+          </article>
+          <article class="project">
+            <h3><a href="cloud-platform-engineer.html">Cloud Platform Engineer in Seattle</a></h3>
+            <p>Cloud platform and control-plane engineering experience across Oracle, Starbucks, and consulting delivery.</p>
+            <span>Cloud Platforms • Control Planes • Backend APIs</span>
+          </article>
+          <article class="project">
+            <h3><a href="blog/what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a></h3>
+            <p>A practical primer on lock ownership, lease semantics, fencing tokens, and failure cases in production.</p>
+            <span>Distributed Locks • Primer • Correctness</span>
+          </article>
+          <article class="project">
+            <h3><a href="blog/raft-vs-paxos-vs-epaxos-practical-guide.html">Raft vs Paxos vs EPaxos: A Practical Guide</a></h3>
+            <p>A pragmatic consensus comparison focused on implementation trade-offs and production fit.</p>
+            <span>Consensus • Trade-offs • Practical Guide</span>
+          </article>
+        </div>
+      </section>
+
       <section id="about" class="section">
         <h2>About</h2>
         <p>

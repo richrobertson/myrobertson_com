@@ -10,6 +10,13 @@ python3 -m http.server 4173
 
 Open <http://localhost:4173>.
 
+## Featured distributed systems writing
+
+- [What Is a Distributed Lock? (With Examples)](https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html)
+- [Raft vs Paxos vs EPaxos: A Practical Guide](https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html)
+- [Designing a Correct Distributed Lease Service: Tenure on Raft](https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html)
+- [Architecting a Multitenant Control Plane for a Next-Generation Data Tier](https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html)
+
 ## Personalize from resume + LinkedIn files
 
 Use this quick mapping process to copy your exact content into `index.html`:
