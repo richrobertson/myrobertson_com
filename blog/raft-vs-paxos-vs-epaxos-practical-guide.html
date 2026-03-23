@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raft vs Paxos vs EPaxos: A Practical Guide | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A practical comparison of Raft, Paxos, and EPaxos: where each fits, trade-offs in complexity and latency, and how to choose for production systems."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Raft vs Paxos vs EPaxos: A Practical Guide" />
+    <meta
+      property="og:description"
+      content="How to choose among Raft, Paxos, and EPaxos based on operational constraints, latency goals, and implementation complexity."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Raft vs Paxos vs EPaxos: A Practical Guide" />
+    <meta
+      name="twitter:description"
+      content="How to choose among Raft, Paxos, and EPaxos based on operational constraints, latency goals, and implementation complexity."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Raft vs Paxos vs EPaxos: A Practical Guide",
+        "description": "A practical comparison of Raft, Paxos, and EPaxos: where each fits, trade-offs in complexity and latency, and how to choose for production systems.",
+        "url": "https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html",
+        "datePublished": "2026-03-22",
+        "dateModified": "2026-03-22",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Blog",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Raft vs Paxos vs EPaxos: A Practical Guide",
+            "item": "https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>Raft vs Paxos vs EPaxos: A Practical Guide</h1>
+        <p class="intro blog-dek">
+          Consensus protocols are often compared in abstract terms, but implementation and operations decide real outcomes. This guide compares Raft, Paxos, and EPaxos through a practical lens: engineering complexity, latency behavior, failure handling, and fit for common production workloads.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h3>Quick Summary</h3>
+        <p>
+          Use <strong>Raft</strong> when you want a clear leader-based model and straightforward operational behavior.
+          Use <strong>Paxos</strong> when your team already has strong distributed-systems expertise or you are integrating with mature Paxos-based infrastructure.
+          Evaluate <strong>EPaxos</strong> when low-latency geo-distributed command processing is central and your workload has enough command independence to benefit.
+        </p>
+
+        <h3>Raft in Practice</h3>
+        <p>
+          Raft is widely adopted because it is easier to reason about than many alternatives. A single leader handles log replication and commit progression, giving teams a clear control point for debugging and operations. Tooling and ecosystem support are strong, which reduces delivery risk.
+        </p>
+        <p>
+          The trade-off is that the leader can become a bottleneck under some workloads, and cross-region latency can surface quickly when all writes must route through one authority.
+        </p>
+
+        <h3>Paxos in Practice</h3>
+        <p>
+          Paxos has deep theoretical and practical credibility, but implementation details can be less intuitive for teams that do not work in consensus systems regularly. In production, many systems rely on Multi-Paxos variants that effectively stabilize leadership for throughput, which narrows practical behavior toward leader-oriented operation anyway.
+        </p>
+        <p>
+          Paxos can be excellent when you already have a trusted implementation path and the team knows how to operate it. It is less attractive when fast comprehension and onboarding are priorities.
+        </p>
+
+        <h3>EPaxos in Practice</h3>
+        <p>
+          EPaxos reduces dependence on a single leader by allowing replicas to propose commands concurrently and establish ordering based on command conflicts. This can lower latency in geo-distributed environments when many operations are independent.
+        </p>
+        <p>
+          The complexity cost is significant: conflict tracking, dependency management, and debugging paths are harder. If your command stream has frequent contention on shared keys, EPaxos benefits can narrow.
+        </p>
+
+        <h3>How to Choose in Real Systems</h3>
+        <ul>
+          <li><strong>Team familiarity:</strong> choose what your operators and on-call engineers can reason about under incident pressure.</li>
+          <li><strong>Write path shape:</strong> leader-centric paths are often simpler; conflict-heavy workloads reduce EPaxos upside.</li>
+          <li><strong>Latency geography:</strong> global write latency goals can push you toward less centralized designs.</li>
+          <li><strong>Operational tooling:</strong> mature metrics, tracing, and recovery runbooks matter as much as protocol theory.</li>
+          <li><strong>Failure semantics:</strong> understand exactly how leadership, retries, and stale requests are handled.</li>
+        </ul>
+
+        <h3>Decision Heuristic</h3>
+        <p>
+          Start with Raft unless you have a clear reason not to. Move toward Paxos-family alternatives when your constraints are not just throughput but also protocol behavior under specific failure and latency requirements. Consider EPaxos only when command independence is high and your team can absorb additional implementation/operational complexity.
+        </p>
+
+        <h3>Where to Go Deeper</h3>
+        <p>
+          For my broader distributed-systems portfolio focused on consensus and correctness, see
+          <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
+        </p>
+        <p>
+          For cloud platform delivery and operations work that complements these protocol choices, see
+          <a href="../cloud-platform-engineer.html">Cloud Platform Engineering: APIs, Delivery, and Operations</a>.
+        </p>
+        <p>
+          For a detailed lease/correctness walkthrough in a Raft-based setting, read
+          <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a>.
+          For broader architecture trade-offs in real distributed systems, see
+          <a href="./programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html">Programming Language Selection in Distributed Systems: A Strategic, Long-Term Perspective</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

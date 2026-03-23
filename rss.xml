@@ -14,6 +14,20 @@
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Raft vs Paxos vs EPaxos: A Practical Guide</title>
+      <link>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</link>
+      <description>A practical comparison of Raft, Paxos, and EPaxos: where each fits, trade-offs in complexity and latency, and how to choose for production systems.</description>
+      <guid>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What Is a Distributed Lock? (With Examples)</title>
+      <link>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</link>
+      <description>A practical guide to distributed locks with real examples: lock ownership, lease time, fencing tokens, and common failure modes in production systems.</description>
+      <guid>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Polyglot Architectures: A Case for Functional Languages in Distributed Systems</title>
       <link>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</link>
       <description>A systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems.</description>
