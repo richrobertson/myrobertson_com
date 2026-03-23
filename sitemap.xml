@@ -7,7 +7,19 @@
     <loc>https://www.myrobertson.com/blog/</loc>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/distributed-systems-engineer.html</loc>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/cloud-platform-engineer.html</loc>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</loc>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</loc>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</loc>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</loc>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distributed Systems Engineer in Seattle | Consensus, Correctness, Reliability | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Seattle-based distributed systems engineer focused on consensus, coordination, correctness, leases, locking, and reliability engineering in production systems."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/distributed-systems-engineer.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Distributed Systems Engineer in Seattle | Consensus, Correctness, Reliability" />
+    <meta
+      property="og:description"
+      content="Senior distributed systems engineer focused on consensus, coordination, correctness, and reliability under failure."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/distributed-systems-engineer.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Distributed Systems Engineer in Seattle | Consensus, Correctness, Reliability" />
+    <meta
+      name="twitter:description"
+      content="Senior distributed systems engineer focused on consensus, coordination, correctness, and reliability under failure."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Distributed Systems Engineer in Seattle",
+        "url": "https://www.myrobertson.com/distributed-systems-engineer.html",
+        "description": "Seattle-based distributed systems engineer focused on consensus, coordination, correctness, leases, locking, and reliability engineering in production systems.",
+        "inLanguage": "en",
+        "about": {
+          "@type": "Thing",
+          "name": "Distributed systems engineering"
+        },
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="index.html#about">About</a>
+          <a href="index.html#experience">Experience</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#skills">Tech</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="blog/index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span aria-current="page">Distributed Systems Engineer</span></p>
+        <p class="eyebrow">Seattle • Senior Backend Engineer • Distributed Systems</p>
+        <h1>Distributed Systems Engineering: Correctness, Coordination, Reliability</h1>
+        <p class="intro">
+          I’m a Seattle-based senior backend engineer specializing in distributed systems correctness: consensus behavior, coordination boundaries, lease and locking semantics, ordering guarantees, and reliability under partial failure.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section">
+        <h2>How I Approach Correctness-Critical Distributed Systems</h2>
+        <div class="timeline">
+          <article class="card">
+            <h3>Correctness First, Then Throughput</h3>
+            <p>
+              I optimize for correctness boundaries before optimization details. That means making ownership, ordering, retries, idempotency, and failure-handling explicit in the design, so scaling decisions don’t introduce hidden risk later.
+            </p>
+            <p>
+              In practice, this often means durable command queues, strict workflow state transitions, clear fencing semantics, and observability that makes state and progression understandable during incidents.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Consensus, Coordination, and Ownership</h3>
+            <p>
+              I spend most of my systems work around coordination boundaries: who owns work, how ownership changes, and how stale actors are prevented from violating state. That includes lease semantics, fencing tokens, and deterministic progression rules under partial failure.
+            </p>
+            <p>
+              I favor designs where correctness does not rely on timing luck: explicit authority models, idempotent transitions, and well-defined retry behavior that remains safe during leader change, network partitions, and client retries.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Reliability in Production Conditions</h3>
+            <p>
+              I care about systems that remain understandable under load, partial failure, and evolving requirements. That includes admission control, bounded concurrency, and instrumentation that supports real operational decisions—not only dashboard visibility.
+            </p>
+            <p>
+              I’ve worked in cloud-scale environments where delivery speed still needs to coexist with careful risk management and strong engineering hygiene.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Relevant Writing</h2>
+        <div class="grid">
+          <article class="project">
+            <h3><a href="blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a></h3>
+            <p>Lease correctness, leader time authority, fencing, and failure semantics in distributed systems.</p>
+            <span>Leases • Raft • Correctness</span>
+          </article>
+          <article class="project">
+            <h3><a href="blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></h3>
+            <p>Practical overload control patterns for stable distributed systems in production.</p>
+            <span>Backpressure • Reliability • APIs</span>
+          </article>
+          <article class="project">
+            <h3><a href="blog/what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a></h3>
+            <p>A practical primer on lock semantics, fencing tokens, and common production pitfalls.</p>
+            <span>Primer • Distributed Locks • Reliability</span>
+          </article>
+          <article class="project">
+            <h3><a href="blog/raft-vs-paxos-vs-epaxos-practical-guide.html">Raft vs Paxos vs EPaxos: A Practical Guide</a></h3>
+            <p>When each consensus family is a good fit and how to choose with operational constraints in mind.</p>
+            <span>Consensus • Architecture • Trade-offs</span>
+          </article>
+        </div>
+        <p>
+              Most of my distributed-systems writing focuses on correctness under failure: leases, locking, coordination, consensus behavior, and reliability guardrails for production workloads.
+        </p>
+      </section>
+
+      <section class="section contact">
+        <h2>Open to Senior Distributed Systems Roles</h2>
+        <p>
+          If you’re hiring for backend platform, control-plane, or reliability-focused distributed systems work, you can review my broader experience on the <a href="index.html">homepage</a> or connect via <a href="index.html#contact">contact details</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
