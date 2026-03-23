@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Is a Control Plane? | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/what-is-a-control-plane.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="What Is a Control Plane?" />
+    <meta
+      property="og:description"
+      content="A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/what-is-a-control-plane.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="What Is a Control Plane?" />
+    <meta
+      name="twitter:description"
+      content="A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What Is a Control Plane?",
+        "description": "A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems.",
+        "url": "https://www.myrobertson.com/blog/what-is-a-control-plane.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/what-is-a-control-plane.html",
+        "datePublished": "2026-03-22",
+        "dateModified": "2026-03-22",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Blog",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "What Is a Control Plane?",
+            "item": "https://www.myrobertson.com/blog/what-is-a-control-plane.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>What Is a Control Plane?</h1>
+        <p class="intro blog-dek">
+          A control plane is the part of a system that decides what should happen. It accepts intent, records desired state, coordinates long-running work, and tells the execution side of the platform what to do next.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h3>Simple Definition</h3>
+        <p>
+          A control plane is the management layer of a distributed system. Users or other services send requests like <em>create this database</em>, <em>scale this cluster</em>, or <em>rotate this certificate</em>. The control plane receives that intent, validates it, stores the new desired state, and coordinates the steps needed to make the system converge on that result.
+        </p>
+        <p>
+          In short: the control plane decides and coordinates. The execution layer performs the work.
+        </p>
+
+        <h3>Control Plane vs Data Plane</h3>
+        <p>
+          The easiest way to understand a control plane is to compare it with the data plane.
+        </p>
+        <ul>
+          <li><strong>Control plane:</strong> handles intent, configuration, policy, orchestration, and lifecycle changes.</li>
+          <li><strong>Data plane:</strong> handles the actual runtime work, such as serving traffic, storing data, or processing messages.</li>
+        </ul>
+        <p>
+          In Kubernetes, the API server and controllers are part of the control plane. The containers serving application traffic are part of the data plane. In a cloud database service, provisioning workflows and tenant metadata live in the control plane; the database nodes doing reads and writes are the data plane.
+        </p>
+
+        <h3>Why Cloud Systems Need Control Planes</h3>
+        <p>
+          A modern platform rarely performs important operations in a single synchronous request. Provisioning, failover, scaling, backup restoration, and certificate rotation all involve multiple steps, several services, and failure handling across time. A control plane exists because those operations need durable coordination.
+        </p>
+        <p>
+          Without a real control plane, teams often end up hiding orchestration inside application endpoints or ad hoc scripts. That works briefly, then becomes hard to recover, hard to observe, and unsafe under partial failure.
+        </p>
+
+        <h3>What a Good Control Plane Usually Contains</h3>
+        <ul>
+          <li>an API or command layer that accepts requests</li>
+          <li>durable state for desired configuration and in-flight operations</li>
+          <li>workflow or orchestration logic for multi-step actions</li>
+          <li>workers, controllers, or reconcilers that execute tasks</li>
+          <li>policies for retries, timeouts, ownership, and isolation</li>
+          <li>observability so operators can see progress and failure state</li>
+        </ul>
+        <p>
+          The exact implementation varies, but the core responsibility is stable: translate intent into reliable distributed execution.
+        </p>
+
+        <h3>Common Example</h3>
+        <p>
+          Imagine a user clicks <em>Create Database</em> in a cloud console. That request is not the database itself. It is an instruction to the platform. The control plane may need to:
+        </p>
+        <ul>
+          <li>reserve capacity</li>
+          <li>choose a placement target</li>
+          <li>allocate storage</li>
+          <li>configure networking</li>
+          <li>initialize metadata</li>
+          <li>track the operation until completion</li>
+        </ul>
+        <p>
+          None of that belongs in the database node that will later serve queries. That is why the control plane exists as a separate system concern.
+        </p>
+
+        <h3>Where Control Planes Get Hard</h3>
+        <p>
+          The difficulty is not just scale. It is correctness over time. A control plane has to answer questions like:
+        </p>
+        <ul>
+          <li>What happens if step 3 succeeds but step 4 times out?</li>
+          <li>Can a retry safely run without duplicating side effects?</li>
+          <li>How do you isolate tenants from each other?</li>
+          <li>How do you resume after worker crashes or regional failover?</li>
+          <li>How do you keep operators aware of current workflow state?</li>
+        </ul>
+        <p>
+          Once those problems appear, the control plane is no longer just an admin API. It becomes a distributed workflow system.
+        </p>
+
+        <h3>What to Read Next</h3>
+        <p>
+          For a broader view of my platform engineering work, see
+          <a href="../cloud-platform-engineer.html">Cloud Platform Engineering: APIs, Delivery, and Operations</a>.
+        </p>
+        <p>
+          If you want the deeper systems version of this topic, continue with
+          <a href="./architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane for a Next-Generation Data Tier</a>.
+          For a related example of how control logic and load management intersect, see
+          <a href="./api-backpressure-explained-simply.html">API Backpressure Explained Simply</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
