@@ -122,7 +122,7 @@
 
         <h3>Simple Example: Cron Job Ownership</h3>
         <p>
-          Assume three scheduler instances can run the same hourly billing job. Without coordination, all three may execute and produce duplicate invoices. With a lock, each instance attempts to acquire `billing-hourly-lock` before processing:
+          Assume three scheduler instances can run the same hourly billing job. Without coordination, all three may execute and produce duplicate invoices. With a lock, each instance attempts to acquire <code>billing-hourly-lock</code> before processing:
         </p>
         <ul>
           <li>Instance A acquires the lock with a 60-second lease and starts work.</li>
