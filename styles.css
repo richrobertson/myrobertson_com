@@ -256,6 +256,36 @@ section[id] {
   background: rgba(15, 23, 42, 0.72);
 }
 
+.blog-dek {
+  margin: 0 0 1.5rem;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #cbd5e1;
+}
+
+.cost-placement-callout {
+  margin: 1.75rem 0;
+  padding: 1.25rem;
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 1rem;
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.cost-placement-callout h3 {
+  margin-top: 0;
+}
+
+.cost-placement-callout blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 3px solid rgba(148, 163, 184, 0.35);
+}
+
+.cost-placement-callout ul {
+  margin: 0.75rem 0;
+  padding-left: 1.25rem;
+}
+
 /* Blog post comparison table: desktop table + mobile card/list view */
 .table-responsive-wrapper {
   width: 100%;
