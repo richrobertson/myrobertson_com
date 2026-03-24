@@ -32,21 +32,21 @@
       <link>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</link>
       <description>A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency.</description>
       <guid>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+      <pubDate>Sun, 22 Mar 2026 18:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Is the CAP Theorem? (Explained Simply)</title>
       <link>https://www.myrobertson.com/blog/what-is-the-cap-theorem.html</link>
       <description>A simple explanation of the CAP theorem: consistency, availability, partition tolerance, and how distributed systems navigate the trade-offs between them.</description>
       <guid>https://www.myrobertson.com/blog/what-is-the-cap-theorem.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+      <pubDate>Sun, 22 Mar 2026 17:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Is Idempotency? (And Why It Matters in Distributed Systems)</title>
       <link>https://www.myrobertson.com/blog/what-is-idempotency.html</link>
       <description>A simple explanation of idempotency: what it means, why retries require it, and how to design idempotent APIs and distributed operations.</description>
       <guid>https://www.myrobertson.com/blog/what-is-idempotency.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+      <pubDate>Sun, 22 Mar 2026 16:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Designing a Correct Distributed Lease Service: Tenure on Raft</title>
