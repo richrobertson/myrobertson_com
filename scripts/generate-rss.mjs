@@ -103,7 +103,9 @@ async function loadPosts() {
       return b.publishedAt - a.publishedAt;
     }
 
-    return a.link.localeCompare(b.link);
+    if (a.link < b.link) return -1;
+    if (a.link > b.link) return 1;
+    return 0;
   });
   return posts;
 }
