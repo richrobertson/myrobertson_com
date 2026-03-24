@@ -7,27 +7,6 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>What Is a Control Plane?</title>
-      <link>https://www.myrobertson.com/blog/what-is-a-control-plane.html</link>
-      <description>A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems.</description>
-      <guid>https://www.myrobertson.com/blog/what-is-a-control-plane.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Distributed Systems Interview Guide</title>
-      <link>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</link>
-      <description>A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews.</description>
-      <guid>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>API Backpressure Explained Simply</title>
-      <link>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</link>
-      <description>A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load.</description>
-      <guid>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
       <title>What Is Eventual Consistency? (Explained Simply)</title>
       <link>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</link>
       <description>A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency.</description>
@@ -47,6 +26,27 @@
       <description>A simple explanation of idempotency: what it means, why retries require it, and how to design idempotent APIs and distributed operations.</description>
       <guid>https://www.myrobertson.com/blog/what-is-idempotency.html</guid>
       <pubDate>Sun, 22 Mar 2026 16:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What Is a Control Plane?</title>
+      <link>https://www.myrobertson.com/blog/what-is-a-control-plane.html</link>
+      <description>A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems.</description>
+      <guid>https://www.myrobertson.com/blog/what-is-a-control-plane.html</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Distributed Systems Interview Guide</title>
+      <link>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</link>
+      <description>A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews.</description>
+      <guid>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>API Backpressure Explained Simply</title>
+      <link>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</link>
+      <description>A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load.</description>
+      <guid>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Designing a Correct Distributed Lease Service: Tenure on Raft</title>
