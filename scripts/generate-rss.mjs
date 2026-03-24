@@ -7,7 +7,7 @@ const BLOG_DIR = path.resolve('blog');
 const OUTPUT_FILE = path.resolve('rss.xml');
 
 const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
-const RFC3339_TIMESTAMP_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/;
+const ISO8601_TIMESTAMP_WITH_TZ_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/;
 
 const channel = {
   title: 'Rich Robertson Blog',
@@ -55,11 +55,11 @@ function extractRobotsMeta(html) {
 function parsePublishedDate(value, entryName) {
   const normalizedValue = value.trim();
   const isDateOnly = DATE_ONLY_PATTERN.test(normalizedValue);
-  const isTimestampWithTimezone = RFC3339_TIMESTAMP_PATTERN.test(normalizedValue);
+  const isTimestampWithTimezone = ISO8601_TIMESTAMP_WITH_TZ_PATTERN.test(normalizedValue);
 
   if (!isDateOnly && !isTimestampWithTimezone) {
     throw new Error(
-      `Invalid datePublished for ${entryName}: ${value} (expected YYYY-MM-DD or an RFC 3339 timestamp with Z or an explicit ±HH:MM offset)`
+      `Invalid datePublished for ${entryName}: ${value} (expected YYYY-MM-DD or an ISO 8601 timestamp with timezone, using Z or an explicit ±HH:MM offset)`
     );
   }
 
@@ -122,10 +122,7 @@ async function loadPosts() {
       return b.publishedAt - a.publishedAt;
     }
 
-    // Use direct string comparison for a deterministic, locale-independent URL tie-breaker.
-    if (a.link < b.link) return -1;
-    if (a.link > b.link) return 1;
-    return 0;
+    return a.link.localeCompare(b.link);
   });
   return posts;
 }
