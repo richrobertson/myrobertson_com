@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Is Idempotency? (And Why It Matters in Distributed Systems) | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A simple explanation of idempotency: what it means, why retries require it, and how to design idempotent APIs and distributed operations."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/what-is-idempotency.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="What Is Idempotency? (And Why It Matters in Distributed Systems)" />
+    <meta
+      property="og:description"
+      content="A simple explanation of idempotency: what it means, why retries require it, and how to design idempotent APIs and distributed operations."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/what-is-idempotency.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="What Is Idempotency? (And Why It Matters in Distributed Systems)" />
+    <meta
+      name="twitter:description"
+      content="A simple explanation of idempotency: what it means, why retries require it, and how to design idempotent APIs and distributed operations."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What Is Idempotency? (And Why It Matters in Distributed Systems)",
+        "description": "A simple explanation of idempotency: what it means, why retries require it, and how to design idempotent APIs and distributed operations.",
+        "url": "https://www.myrobertson.com/blog/what-is-idempotency.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/what-is-idempotency.html",
+        "datePublished": "2026-03-22",
+        "dateModified": "2026-03-22",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Blog",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "What Is Idempotency?",
+            "item": "https://www.myrobertson.com/blog/what-is-idempotency.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>What Is Idempotency? (And Why It Matters in Distributed Systems)</h1>
+        <p class="intro blog-dek">
+          An idempotent operation produces the same result whether it runs once or ten times. This property is not just a convenience — in distributed systems, it is what makes safe retries, durable workflows, and reliable message processing possible.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h3>The Simple Definition</h3>
+        <p>
+          An operation is idempotent if applying it multiple times has the same effect as applying it once. The result after the first call is the same as the result after any subsequent call with the same inputs.
+        </p>
+        <p>
+          A good everyday example: setting the thermostat to 21°C is idempotent. Whether you press the button once or five times, the result is the same. Incrementing the temperature by 1°C each time is not — each press changes the outcome.
+        </p>
+
+        <h3>HTTP Methods and Idempotency</h3>
+        <p>
+          HTTP defines idempotency as part of its method semantics:
+        </p>
+        <ul>
+          <li><strong>GET</strong> — idempotent. Reads do not change server state.</li>
+          <li><strong>PUT</strong> — idempotent. Setting a resource to a specific value produces the same state no matter how many times you call it.</li>
+          <li><strong>DELETE</strong> — idempotent. The second delete of an already-deleted resource returns 404, but the server state (the resource is gone) is the same.</li>
+          <li><strong>POST</strong> — not idempotent by default. Each call typically creates a new resource or triggers an action. Two POST requests to <code>/payments</code> usually mean two charges.</li>
+        </ul>
+        <p>
+          PATCH is ambiguous — it depends on whether the patch operation is absolute or relative.
+        </p>
+
+        <h3>Why Retries Require Idempotency</h3>
+        <p>
+          In distributed systems, network calls can fail in two ways: the request never arrived, or the request succeeded but the response was lost. From the caller's perspective, these look identical — a timeout or connection error. The only safe response is to retry.
+        </p>
+        <p>
+          If the operation is not idempotent, that retry is dangerous. A payment that timed out may have already been charged. Retrying processes the payment again. The customer pays twice.
+        </p>
+        <p>
+          If the operation is idempotent — or made idempotent via an idempotency key — retrying is safe. The server detects the duplicate and returns the original result without re-executing the action.
+        </p>
+
+        <h3>Idempotency Keys</h3>
+        <p>
+          For operations that are not naturally idempotent (like POST to create a payment), you can add idempotency by using a client-generated unique key. The caller generates a UUID or similar token, sends it as a request header (often <code>Idempotency-Key</code>), and the server stores the result of the first execution.
+        </p>
+        <p>
+          On a retry with the same key, the server looks up the stored result and returns it without re-executing. On a fresh key, it executes normally. Stripe, Braintree, and most payment APIs work this way.
+        </p>
+        <p>
+          The important details:
+        </p>
+        <ul>
+          <li>keys must be scoped to the operation type, not reused across different actions</li>
+          <li>keys should expire after a reasonable window (hours to days, not forever)</li>
+          <li>the server must store the result durably so it survives a crash between execution and response</li>
+        </ul>
+
+        <h3>Idempotency in Distributed Workflows</h3>
+        <p>
+          Beyond APIs, idempotency matters anywhere work can be retried or replayed:
+        </p>
+        <ul>
+          <li><strong>Message queues:</strong> a consumer crash mid-processing means the message is redelivered. If the handler is not idempotent, the work runs twice.</li>
+          <li><strong>Scheduled jobs:</strong> a job triggered by a distributed scheduler may fire more than once if the scheduler retries on uncertainty. Idempotent job logic handles duplicates safely.</li>
+          <li><strong>Database migrations:</strong> migration scripts that check "does this column exist before adding it" are idempotent. Those that blindly add columns are not.</li>
+          <li><strong>Distributed locks:</strong> lock acquisition attempts may be retried after a timeout. The lock service must ensure a retry for the same caller does not grant two locks.</li>
+        </ul>
+
+        <h3>What Good Idempotent Design Looks Like</h3>
+        <ul>
+          <li>operations use absolute state assignments, not relative increments, where possible</li>
+          <li>non-natural idempotent actions accept and store an idempotency key</li>
+          <li>deduplication windows are defined and enforced</li>
+          <li>retries are safe by default — callers should not need to know whether a prior attempt succeeded</li>
+          <li>at-least-once delivery is assumed; idempotency absorbs the duplicates</li>
+        </ul>
+
+        <h3>What to Read Next</h3>
+        <p>
+          For a broader view of my distributed systems and API work, see
+          <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
+        </p>
+        <p>
+          Idempotency and distributed locks are closely related — locks prevent concurrent execution of the same operation across workers. See
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a>
+          for how lock semantics and fencing tokens protect critical sections.
+          For overload and retry amplification under load, see
+          <a href="./backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
