@@ -28,20 +28,6 @@
       <pubDate>Sun, 22 Mar 2026 16:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>What Is a Control Plane?</title>
-      <link>https://www.myrobertson.com/blog/what-is-a-control-plane.html</link>
-      <description>A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems.</description>
-      <guid>https://www.myrobertson.com/blog/what-is-a-control-plane.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Distributed Systems Interview Guide</title>
-      <link>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</link>
-      <description>A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews.</description>
-      <guid>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</guid>
-      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
-    </item>
-    <item>
       <title>API Backpressure Explained Simply</title>
       <link>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</link>
       <description>A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load.</description>
@@ -56,10 +42,24 @@
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Distributed Systems Interview Guide</title>
+      <link>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</link>
+      <description>A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews.</description>
+      <guid>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Raft vs Paxos vs EPaxos: A Practical Guide</title>
       <link>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</link>
       <description>A practical comparison of Raft, Paxos, and EPaxos: where each fits, trade-offs in complexity and latency, and how to choose for production systems.</description>
       <guid>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</guid>
+      <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What Is a Control Plane?</title>
+      <link>https://www.myrobertson.com/blog/what-is-a-control-plane.html</link>
+      <description>A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems.</description>
+      <guid>https://www.myrobertson.com/blog/what-is-a-control-plane.html</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
