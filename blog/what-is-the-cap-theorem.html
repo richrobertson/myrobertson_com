@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Is the CAP Theorem? (Explained Simply) | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A simple explanation of the CAP theorem: consistency, availability, partition tolerance, and how distributed systems navigate the trade-offs between them."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/what-is-the-cap-theorem.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="What Is the CAP Theorem? (Explained Simply)" />
+    <meta
+      property="og:description"
+      content="A simple explanation of the CAP theorem: consistency, availability, partition tolerance, and how distributed systems navigate the trade-offs between them."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/what-is-the-cap-theorem.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="What Is the CAP Theorem? (Explained Simply)" />
+    <meta
+      name="twitter:description"
+      content="A simple explanation of the CAP theorem: consistency, availability, partition tolerance, and how distributed systems navigate the trade-offs between them."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What Is the CAP Theorem? (Explained Simply)",
+        "description": "A simple explanation of the CAP theorem: consistency, availability, partition tolerance, and how distributed systems navigate the trade-offs between them.",
+        "url": "https://www.myrobertson.com/blog/what-is-the-cap-theorem.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/what-is-the-cap-theorem.html",
+        "datePublished": "2026-03-22T17:00:00Z",
+        "dateModified": "2026-03-22T17:00:00Z",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Blog",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "What Is the CAP Theorem? (Explained Simply)",
+            "item": "https://www.myrobertson.com/blog/what-is-the-cap-theorem.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>What Is the CAP Theorem? (Explained Simply)</h1>
+        <p class="intro blog-dek">
+          CAP states that a distributed system cannot simultaneously guarantee consistency, availability, and partition tolerance. It is one of the most widely cited trade-off frameworks in distributed systems, and understanding it clearly — beyond the surface-level "pick two" framing — is what separates a good answer from a great one in interviews.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h3>The Three Properties</h3>
+        <p>
+          <strong>Consistency (C)</strong> means every read returns the most recent write or an error. All nodes in the system see the same data at the same time. This is sometimes called linearizability or strong consistency.
+        </p>
+        <p>
+          <strong>Availability (A)</strong> means every request receives a response — not necessarily the most recent data, but always some response. No node is allowed to refuse or time out indefinitely.
+        </p>
+        <p>
+          <strong>Partition Tolerance (P)</strong> means the system continues to operate even when network partitions occur — that is, when some nodes cannot communicate with others due to a network failure.
+        </p>
+
+        <h3>Why You Can Only Have Two (and Why P Is Not Really Optional)</h3>
+        <p>
+          The theorem says you can only guarantee two of the three at once. In practice, however, network partitions are a reality in any distributed system. You cannot simply opt out of them. This means partition tolerance is not a choice — it is a constraint.
+        </p>
+        <p>
+          The real trade-off, then, is between C and A during a partition:
+        </p>
+        <ul>
+          <li><strong>CP systems</strong> reject reads or writes that cannot be confirmed consistent across the partition. They preserve correctness at the cost of availability.</li>
+          <li><strong>AP systems</strong> continue serving reads and accepting writes, even if some nodes are cut off. They preserve availability at the cost of potentially returning stale data.</li>
+        </ul>
+
+        <h3>CP Systems: Correctness Over Availability</h3>
+        <p>
+          CP systems refuse to answer rather than risk returning wrong data. If a majority quorum cannot be reached, the operation fails or blocks until the partition heals.
+        </p>
+        <p>Examples include:</p>
+        <ul>
+          <li>HBase and Google Spanner (linearizable reads require quorum)</li>
+          <li>ZooKeeper and etcd (used for distributed coordination)</li>
+          <li>Raft-based consensus systems, including the lease service described in the deep-dive below</li>
+        </ul>
+        <p>
+          These are the right choice when your data must be correct: financial accounts, distributed locks, configuration that controls critical behavior.
+        </p>
+
+        <h3>AP Systems: Availability Over Correctness</h3>
+        <p>
+          AP systems continue responding during a partition, accepting that different nodes may temporarily return different values. After the partition heals, they reconcile.
+        </p>
+        <p>Examples include:</p>
+        <ul>
+          <li>Amazon DynamoDB (in its default eventual consistency mode)</li>
+          <li>Apache Cassandra</li>
+          <li>CouchDB</li>
+        </ul>
+        <p>
+          These are the right choice when availability matters more than perfect accuracy: product catalogs, social counters, user preferences, recommendation lists.
+        </p>
+
+        <h3>Where the "Pick Two" Framing Misleads</h3>
+        <p>
+          CAP is often presented as a design choice you make once upfront. In reality, most modern systems are tunable. DynamoDB and Cassandra let you choose consistency level per operation — QUORUM reads give you stronger guarantees at higher latency cost; ONE reads are faster but may return stale data. The CAP trade-off is not a fixed setting; it is a dial you turn depending on the read path.
+        </p>
+        <p>
+          CAP also only describes behavior during a partition — a relatively infrequent event in well-operated clusters. During normal operation, PACELC theory argues that the more relevant trade-off is between latency and consistency even when no partition is occurring.
+        </p>
+
+        <h3>What Interviewers Are Looking For</h3>
+        <p>
+          The weak version of a CAP answer names the three properties and says "pick two." The strong version explains:
+        </p>
+        <ul>
+          <li>why P is not optional in real distributed systems</li>
+          <li>what CP and AP mean during a partition, with real examples</li>
+          <li>that most systems are tunable, not binary</li>
+          <li>that PACELC extends the model beyond the partition-only case</li>
+          <li>how this connects to eventual consistency, quorum reads, and consistency levels</li>
+        </ul>
+
+        <h3>What to Read Next</h3>
+        <p>
+          For a broader view of my distributed systems engineering work, see
+          <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
+        </p>
+        <p>
+          CAP is closely tied to consistency models. For the practical side of eventual consistency, see
+          <a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (Explained Simply)</a>.
+          For a real-world CP system built on Raft, see
+          <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a> and the protocol comparison in
+          <a href="./raft-vs-paxos-vs-epaxos-practical-guide.html">Raft vs Paxos vs EPaxos: A Practical Guide</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>

@@ -25,6 +25,15 @@
     <loc>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</loc>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</loc>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/what-is-the-cap-theorem.html</loc>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/what-is-idempotency.html</loc>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</loc>
   </url>
   <url>

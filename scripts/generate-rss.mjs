@@ -93,11 +93,20 @@ async function loadPosts() {
       title,
       link,
       description,
+      publishedAt: publishedDate.getTime(),
       pubDate: publishedDate.toUTCString()
     });
   }
 
-  posts.sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
+  posts.sort((a, b) => {
+    if (b.publishedAt !== a.publishedAt) {
+      return b.publishedAt - a.publishedAt;
+    }
+
+    if (a.link < b.link) return -1;
+    if (a.link > b.link) return 1;
+    return 0;
+  });
   return posts;
 }
 

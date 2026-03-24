@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What Is Eventual Consistency? (Explained Simply) | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/what-is-eventual-consistency.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="What Is Eventual Consistency? (Explained Simply)" />
+    <meta
+      property="og:description"
+      content="A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/what-is-eventual-consistency.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="What Is Eventual Consistency? (Explained Simply)" />
+    <meta
+      name="twitter:description"
+      content="A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What Is Eventual Consistency? (Explained Simply)",
+        "description": "A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency.",
+        "url": "https://www.myrobertson.com/blog/what-is-eventual-consistency.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/what-is-eventual-consistency.html",
+        "datePublished": "2026-03-22T18:00:00Z",
+        "dateModified": "2026-03-22T18:00:00Z",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Blog",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "What Is Eventual Consistency? (Explained Simply)",
+            "item": "https://www.myrobertson.com/blog/what-is-eventual-consistency.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="../index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="../index.html#about">About</a>
+          <a href="../index.html#experience">Experience</a>
+          <a href="../index.html#projects">Projects</a>
+          <a href="../index.html#skills">Skills</a>
+          <a href="../index.html#education">Education</a>
+          <a href="../index.html#contact">Contact</a>
+          <a href="./index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>What Is Eventual Consistency? (Explained Simply)</h1>
+        <p class="intro blog-dek">
+          Eventual consistency is a trade-off: a distributed system accepts that replicas may briefly disagree in exchange for higher availability and lower latency. Understanding when it applies — and when it does not — is a core distributed systems skill.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post">
+        <h3>The Core Idea</h3>
+        <p>
+          In a distributed system, data is often stored on multiple nodes or replicas. Strong consistency means every read sees the most recent write, no matter which replica answers. Eventual consistency relaxes that guarantee: replicas may return stale data for a short period, but given no new writes and enough time, all replicas will converge to the same value.
+        </p>
+        <p>
+          "Eventual" is not a promise about how long convergence takes. It is a statement that the system will not tolerate permanent divergence — it just does not guarantee instant agreement.
+        </p>
+
+        <h3>A Simple Example</h3>
+        <p>
+          DNS is the most widely cited example. When you update a domain record, that change does not propagate to every resolver in the world instantly. For minutes or hours afterward, some clients see the old IP address. Eventually, TTLs expire and all resolvers converge on the new record.
+        </p>
+        <p>
+          Another common example: a like count on a social media post. If two users in different regions both like the post at the same moment, the count shown to each may briefly differ. The system queues the updates, applies them asynchronously, and both replicas converge to the correct total — usually within seconds.
+        </p>
+
+        <h3>Why Distributed Systems Use It</h3>
+        <p>
+          The reason eventual consistency exists is latency and availability. Achieving strong consistency across geographically distributed replicas requires coordination: a write cannot complete until a quorum of replicas acknowledges it. That coordination adds round-trip time and creates a single point of failure. If the coordination layer is unavailable, writes must stall.
+        </p>
+        <p>
+          Eventual consistency removes that coordination requirement for reads. Replicas can answer independently, even if a network partition has temporarily isolated them. The system stays available. The cost is that some reads return data that has not yet received the latest write.
+        </p>
+
+        <h3>What "Eventually" Actually Means</h3>
+        <p>
+          In practice, most eventually consistent systems converge quickly — often within milliseconds for in-region replication. The "eventual" label captures the theoretical worst case, not the typical case.
+        </p>
+        <p>
+          What varies is the convergence mechanism: gossip protocols, replication logs, anti-entropy processes, and conflict resolution rules (such as last-write-wins or CRDT-based merging) all affect how fast and how safely replicas reach agreement.
+        </p>
+
+        <h3>Strong vs Eventual: When Each Fits</h3>
+        <p>
+          Use strong consistency when incorrect reads are unacceptable:
+        </p>
+        <ul>
+          <li>financial transactions and account balances</li>
+          <li>inventory reservation systems</li>
+          <li>distributed lock services and lease coordination</li>
+          <li>any operation where reading stale data causes a correctness violation</li>
+        </ul>
+        <p>
+          Eventual consistency is appropriate when reads can tolerate brief staleness:
+        </p>
+        <ul>
+          <li>social feed counters, view counts, and like tallies</li>
+          <li>DNS and configuration propagation</li>
+          <li>shopping cart state in e-commerce (merge on checkout)</li>
+          <li>user preference storage</li>
+          <li>search index updates</li>
+        </ul>
+
+        <h3>Where It Gets Complicated</h3>
+        <p>
+          The difficulty is that eventual consistency shifts conflict resolution responsibility to the application. If two clients write different values to the same key on different replicas, the system must decide which wins. Common strategies include:
+        </p>
+        <ul>
+          <li><strong>Last-write-wins:</strong> the write with the highest timestamp survives. Simple, but loses data when clocks drift.</li>
+          <li><strong>Version vectors:</strong> track causal history per replica so the system can detect true conflicts and surface them to the application.</li>
+          <li><strong>CRDTs (Conflict-free Replicated Data Types):</strong> data structures designed so concurrent updates always merge deterministically without conflict.</li>
+        </ul>
+
+        <h3>What Interviewers Are Looking For</h3>
+        <p>
+          When eventual consistency comes up in interviews, the key points to hit are:
+        </p>
+        <ul>
+          <li>the trade-off with strong consistency (availability vs correctness)</li>
+          <li>that "eventual" does not mean slow — it means no hard agreement deadline</li>
+          <li>how conflict resolution works and why last-write-wins loses data</li>
+          <li>real examples: DNS, Dynamo-style databases, Cassandra, CouchDB</li>
+          <li>the connection to CAP theorem and why partition tolerance forces the trade-off</li>
+        </ul>
+
+        <h3>What to Read Next</h3>
+        <p>
+          For a broader view of my distributed systems work, see
+          <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
+        </p>
+        <p>
+          Eventual consistency is one side of the CAP trade-off. For the full framework, see
+          <a href="./what-is-the-cap-theorem.html">What Is the CAP Theorem? (Explained Simply)</a>.
+          For coordination mechanisms that require strong consistency — such as distributed locks and leases — see
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a> and
+          <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="../script.js"></script>
+  </body>
+</html>
