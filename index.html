@@ -3,18 +3,46 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rich Robertson | Senior Backend Engineer in Seattle | Distributed Systems</title>
+    <title>Rich Robertson | Senior Backend Engineer | Distributed Systems, Control Planes, Cloud Migration</title>
     <meta
       name="description"
-      content="Seattle-based senior backend engineer focused on distributed systems, cloud platforms, control planes, APIs, and reliability engineering, with 15+ years across Oracle and Starbucks."
+      content="Senior backend engineer focused on distributed systems, control planes, cloud modernization, and production reliability. Oracle and Starbucks experience."
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.myrobertson.com/" />
     <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rich Robertson | Senior Backend Engineer | Distributed Systems, Control Planes, Cloud Migration" />
+    <meta property="og:description" content="Senior backend engineer focused on distributed systems, control planes, cloud modernization, and production reliability." />
+    <meta property="og:url" content="https://www.myrobertson.com/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rich Robertson | Senior Backend Engineer" />
+    <meta name="twitter:description" content="Distributed systems, control planes, and cloud migration portfolio." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Rich Robertson",
+        "url": "https://www.myrobertson.com/",
+        "jobTitle": "Senior Backend Engineer",
+        "sameAs": ["https://www.linkedin.com/in/royrobertson/", "https://github.com/richrobertson"],
+        "knowsAbout": ["Distributed systems", "Control planes", "Cloud migration", "Backend engineering", "Reliability engineering"]
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Rich Robertson",
+        "url": "https://www.myrobertson.com/"
+      }
+    </script>
   </head>
   <body>
     <header class="hero" id="top">
@@ -99,8 +127,8 @@
       <section id="signature-systems" class="section signature-strip">
         <h2>Signature Systems</h2>
         <div class="signature-grid">
-          <article class="signature-item"><h3>Customer Notification Platform</h3><p>Migrated to OCI-native architecture; supported a <strong>$2M</strong> enterprise deal timeline.</p></article>
-          <article class="signature-item"><h3>Control Plane Workflow Engine</h3><p>Built partition-aware durable command/workflow framework for multitenant services.</p></article>
+          <article class="signature-item"><h3>Customer Notification Platform</h3><p>Migrated to OCI-native architecture; supported a <strong>$2M</strong> enterprise deal timeline. <a href="case-studies/oracle-cns-oci-migration/">Read the Oracle CNS OCI migration case study</a>.</p></article>
+          <article class="signature-item"><h3>Control Plane Workflow Engine</h3><p>Built partition-aware durable command/workflow framework for multitenant services. <a href="case-studies/control-plane-workflow-platform/">See how I designed durable workflow execution for multitenant control planes</a>.</p></article>
           <article class="signature-item"><h3>Java 17 Runtime Modernization</h3><p>Executed rollout across <strong>32 global data centers</strong> in under three months.</p></article>
           <article class="signature-item"><h3>Loyalty Integration Platform</h3><p>Supported <strong>17M+ active users</strong> and <strong>$200K/year</strong> licensing savings.</p></article>
         </div>
@@ -145,16 +173,16 @@
               <div><h4>Why this mattered</h4><p>Migration quality directly influenced customer confidence and enterprise delivery readiness.</p></div>
               <div><h4>Core problem</h4><p>Legacy pathways constrained elasticity, supportability, and controlled rollout operations.</p></div>
               <div><h4>My role</h4><p>Led migration execution and backend implementation planning across the service transition.</p></div>
-              <div><h4>Key engineering decisions</h4><ul><li>Controlled traffic shifts instead of all-at-once cutover</li><li>Queueing and worker isolation to reduce overload amplification</li><li>Observability-first rollout with explicit metrics checkpoints</li><li>See: <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
+              <div><h4>Key engineering decisions</h4><ul><li>Controlled traffic shifts instead of all-at-once cutover</li><li>Queueing and worker isolation to reduce overload amplification</li><li>Observability-first rollout with explicit metrics checkpoints</li><li>See: <a href="writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
               <div><h4>Tradeoffs</h4><p>Balanced migration speed against operational safety and support continuity.</p></div>
               <div><h4>How I think about failure</h4><p>Traffic shifting and migration can expose hidden failure paths; bounded transitions and observability reduce cascading risk.</p></div>
               <div><h4>Outcome</h4><p>Improved supportability and delivery stability while supporting a <strong>$2M enterprise deal</strong>.</p></div>
             </div>
-            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</span></p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</span></p>
           </article>
 
           <article id="case-control-plane" class="project case-study">
-            <div class="case-header-row"><h3>Oracle Multitenant Control-Plane / Workflow Platform</h3><a class="anchor-link" href="#case-control-plane">#</a></div>
+            <div class="case-header-row"><h3><a href="case-studies/control-plane-workflow-platform/">Oracle Multitenant Control-Plane / Workflow Platform</a></h3><a class="anchor-link" href="#case-control-plane">#</a></div>
             <p class="case-takeaway">Takeaway: Designed a reusable control plane for durable distributed workflows across multitenant services.</p>
             <div class="impact-header"><span class="chip">Enterprise-scale control plane</span><span class="chip">Durable workflows</span><span class="chip">Partition-aware execution</span></div>
             <figure class="architecture-diagram">
@@ -174,7 +202,7 @@
             </figure>
             <div class="proof-strip"><span class="chip">Shared Java framework</span><span class="chip">Durable command execution</span><span class="chip">Partition-aware workers</span></div>
             <p class="why-line"><strong>Why this matters:</strong> teams shipped faster without duplicating orchestration infrastructure.</p>
-            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
             <div class="case-study-grid">
               <div><h4>Context</h4><p>Multitenant control-plane environment with multiple services needing durable orchestration.</p></div><div><h4>Problem</h4><p>Teams needed safe distributed workflow execution without rebuilding infrastructure repeatedly.</p></div><div><h4>My role</h4><p>Architected and built the shared framework.</p></div>
               <div><h4>Operational / business result</h4><p>Standardized control-plane execution and reduced duplicated effort.</p></div>
@@ -184,7 +212,7 @@
           </article>
 
           <article id="case-java17" class="project case-study">
-            <div class="case-header-row"><h3>Java 17 Modernization + Multi-Architecture Rollout</h3><a class="anchor-link" href="#case-java17">#</a></div>
+            <div class="case-header-row"><h3><a href="case-studies/java-17-global-modernization/">Java 17 Modernization + Multi-Architecture Rollout</a></h3><a class="anchor-link" href="#case-java17">#</a></div>
             <p class="case-takeaway">Takeaway: Modernized legacy runtime and executed release rollout across <strong>32 global data centers</strong> in under three months.</p>
             <div class="impact-header"><span class="chip"><strong>32</strong> global data centers</span><span class="chip">Under 3 months</span><span class="chip">Java 8 → Java 17</span></div>
             <figure class="architecture-diagram">
@@ -211,7 +239,7 @@
           </article>
 
           <article id="case-starbucks" class="project case-study">
-            <div class="case-header-row"><h3>Starbucks Loyalty + Unified Commerce Platform Integration</h3><a class="anchor-link" href="#case-starbucks">#</a></div>
+            <div class="case-header-row"><h3><a href="case-studies/starbucks-loyalty-platform-integration/">Starbucks Loyalty + Unified Commerce Platform Integration</a></h3><a class="anchor-link" href="#case-starbucks">#</a></div>
             <p class="case-takeaway">Takeaway: Led backend integration for customer-critical loyalty systems serving <strong>17M+ active users</strong>.</p>
             <div class="impact-header"><span class="chip"><strong>17M+</strong> users</span><span class="chip"><strong>$200K/year</strong> savings</span><span class="chip">Rewards migration support</span></div>
             <div class="proof-strip"><span class="chip"><strong>17M+</strong> active customers</span><span class="chip">U.S. + Canada rewards migration</span><span class="chip"><strong>$200K/year</strong> savings</span></div>
@@ -230,8 +258,8 @@
         <h2>How I Think (Writing) vs What I’ve Built (Case Studies)</h2>
         <p class="section-intro">These essays reflect how I design systems. The case studies show what I’ve shipped.</p>
         <div class="grid">
-          <article class="project"><h3><a href="blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a></h3><p>Correctness model for lease semantics, fencing tokens, and failure handling in distributed coordination.</p><span>Reasoning Artifact • Correctness Engineering</span></article>
-          <article class="project"><h3><a href="blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane</a></h3><p>Architecture framework behind durable command execution and control-plane workflow systems.</p><span>Reasoning Artifact • Platform Architecture</span></article>
+          <article class="project"><h3><a href="writing/designing-a-correct-distributed-lease-service-tenure-on-raft/">Designing a Correct Distributed Lease Service: Tenure on Raft</a></h3><p>Correctness model for lease semantics, fencing tokens, and failure handling in distributed coordination.</p><span>Reasoning Artifact • Correctness Engineering</span></article>
+          <article class="project"><h3><a href="writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a></h3><p>Architecture framework behind durable command execution and control-plane workflow systems.</p><span>Reasoning Artifact • Platform Architecture</span></article>
           <article class="project"><h3><a href="blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a></h3><p>Operational stability approach for admission control, bounded queues, and graceful degradation.</p><span>Reasoning Artifact • Reliability Strategy</span></article>
         </div>
       </section>

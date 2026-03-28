@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oracle CNS OCI Migration Case Study | Distributed Systems Migration</title>
+    <meta name="description" content="Case study on migrating Oracle Customer Notification Service to OCI-native architecture with a focus on reliability, rollout safety, and distributed systems migration." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Oracle CNS OCI Migration Case Study | Distributed Systems Migration" />
+    <meta property="og:description" content="Migrating a production notification platform to OCI using controlled traffic shifts, queueing, and observability-first rollout." />
+    <meta property="og:url" content="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Oracle CNS OCI Migration Case Study" />
+    <meta name="twitter:description" content="Distributed systems migration case study focused on rollout safety and production reliability." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/"},
+          {"@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://www.myrobertson.com/#case-studies"},
+          {"@type": "ListItem", "position": 3, "name": "Oracle CNS OCI Migration", "item": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/"}
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <main class="hero blog-post">
+      <p class="breadcrumb"><a href="../../index.html">Home</a> / <a href="../../index.html#case-studies">Case Studies</a> / Oracle CNS OCI Migration</p>
+      <h1>Oracle Customer Notification Service Migration to OCI</h1>
+      <p class="case-takeaway">Distributed systems migration case study focused on production reliability, controlled rollout, and operational stability.</p>
+
+      <section class="section">
+        <h2>Impact Signals</h2>
+        <div class="impact-header">
+          <span class="chip"><strong>32</strong> global data centers</span>
+          <span class="chip"><strong>$2M</strong> enterprise deal support</span>
+          <span class="chip">OCI-native routing and workers</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Architecture Overview</h2>
+        <p>Legacy notification paths transitioned to OCI ingress, routing, queueing, worker isolation, and observability-backed rollout checkpoints.</p>
+        <p><a href="../../index.html#case-oci">View diagram on homepage flagship artifact</a>.</p>
+      </section>
+
+      <section class="section">
+        <h2>What This Migration Required</h2>
+        <h3>Core problem</h3>
+        <p>Legacy pathways constrained supportability and rollout control during a customer-critical timeline.</p>
+        <h3>My role</h3>
+        <p>Led migration execution and backend implementation planning across the service transition.</p>
+        <h3>Key engineering decisions</h3>
+        <ul>
+          <li>Controlled traffic shifts instead of all-at-once cutover</li>
+          <li>Queueing and worker isolation to reduce overload amplification</li>
+          <li>Observability-first rollout with explicit metrics checkpoints</li>
+        </ul>
+        <h3>Tradeoffs</h3>
+        <p>Balanced migration speed against production safety and support continuity.</p>
+        <h3>Outcome</h3>
+        <p>Improved supportability and delivery stability while supporting a $2M enterprise deal.</p>
+      </section>
+
+      <section class="section">
+        <h2>Related Thinking</h2>
+        <p><a href="../../writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></p>
+        <p>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</p>
+      </section>
+
+      <section class="section">
+        <h2>Related Case Studies</h2>
+        <ul>
+          <li><a href="../control-plane-workflow-platform/">Control Plane Workflow Platform case study</a></li>
+          <li><a href="../java-17-global-modernization/">Java 17 global modernization case study</a></li>
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

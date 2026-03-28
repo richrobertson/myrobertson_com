@@ -53,3 +53,39 @@ Regenerate the feed after publishing or updating posts:
 ```bash
 node scripts/generate-rss.mjs
 ```
+
+## SEO foundation (Search Console ready)
+
+### Canonical + metadata source of truth
+
+- `seo.config.json` stores:
+  - `siteUrl`
+  - `siteName`
+  - default title/description
+  - default social image
+- Canonical URLs on indexable pages point to `https://www.myrobertson.com/...`.
+
+### Crawl/index artifacts
+
+- `robots.txt` lives at `/robots.txt` and references `/sitemap.xml`.
+- `sitemap.xml` lives at `/sitemap.xml`.
+- Regenerate sitemap after adding/removing SEO landing pages:
+
+```bash
+node scripts/generate-sitemap.mjs
+```
+
+### Intended indexable pages
+
+- Homepage (`/`)
+- Dedicated case study pages under `/case-studies/`
+- Dedicated writing pages under `/writing/`
+- Blog index and key topic pages
+- Core profile pages (`/distributed-systems-engineer.html`, `/cloud-platform-engineer.html`)
+
+### Search Console submission checklist
+
+1. Verify property for `https://www.myrobertson.com`.
+2. Submit `https://www.myrobertson.com/sitemap.xml`.
+3. Request indexing for new `/case-studies/*` and `/writing/*` landing pages.
+4. Monitor Coverage + Enhancements for structured data and canonical issues.
