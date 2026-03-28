@@ -112,39 +112,45 @@
         <div class="case-study-list">
           <article id="case-oci" class="project case-study featured-case flagship-artifact">
             <p class="flagship-label">Flagship System</p>
-            <div class="case-header-row"><h3>Oracle Customer Notification Service Migration to OCI</h3><a class="anchor-link" href="#case-oci">#</a></div>
-            <p class="case-takeaway">Takeaway: Migrated a customer-critical notification platform to OCI-native architecture while preserving production reliability and supporting a $2M enterprise deal timeline.</p>
-            <div class="impact-header"><span class="chip"><strong>$2M</strong> deal support</span><span class="chip">Enterprise-scale cloud migration</span><span class="chip">OCI-native migration</span></div>
+            <p class="project-eyebrow">Oracle Customer Notification Service • OCI Migration</p>
+            <h3 class="flagship-headline">Migrated a production notification platform across 32 global data centers while preserving delivery stability.</h3>
+            <p class="case-takeaway">A distributed customer communications platform moved from legacy data centers to OCI using controlled traffic shifts, queueing, and observability-first rollout strategy.</p>
+            <div class="impact-header"><span class="chip"><strong>32</strong> global data centers</span><span class="chip"><strong>$2M</strong> enterprise deal support</span><span class="chip">OCI-native routing and workers</span></div>
             <figure class="architecture-diagram">
-              <svg viewBox="0 0 980 300" role="img" aria-labelledby="oci-title oci-desc">
+              <svg viewBox="0 0 980 320" role="img" aria-labelledby="oci-title oci-desc">
                 <title id="oci-title">OCI migration before and after architecture</title>
-                <desc id="oci-desc">Legacy notification API and messaging moved to OCI ingress, durable queue, Kubernetes workers, and metrics.</desc>
-                <rect x="20" y="40" width="430" height="220" rx="14" fill="rgba(30, 41, 75, 0.72)" stroke="rgba(128, 169, 255, 0.45)" />
-                <text x="45" y="70" fill="#b4bddb" font-size="17" font-weight="700">Before</text>
-                <rect x="50" y="90" width="160" height="42" rx="8" fill="#0b1020" stroke="#243054" /><text x="72" y="116" fill="#e9ecf8" font-size="13">Notification API</text>
-                <rect x="240" y="90" width="180" height="42" rx="8" fill="#0b1020" stroke="#243054" /><text x="265" y="116" fill="#e9ecf8" font-size="13">Legacy Messaging</text>
-                <rect x="145" y="150" width="180" height="42" rx="8" fill="#0b1020" stroke="#243054" /><text x="165" y="176" fill="#e9ecf8" font-size="13">Ops Bottlenecks</text>
-                <text x="50" y="220" fill="#80a9ff" font-size="12">Supportability + elasticity constraints</text>
-                <rect x="530" y="40" width="430" height="220" rx="14" fill="rgba(17, 29, 54, 0.85)" stroke="rgba(128, 169, 255, 0.7)" />
-                <text x="555" y="70" fill="#b4bddb" font-size="17" font-weight="700">After</text>
-                <rect x="555" y="90" width="130" height="42" rx="8" fill="#0b1020" stroke="#243054" /><text x="575" y="116" fill="#e9ecf8" font-size="13">Ingress APIs</text>
-                <rect x="705" y="90" width="150" height="42" rx="8" fill="#0b1020" stroke="#243054" /><text x="730" y="116" fill="#e9ecf8" font-size="13">Durable Queue</text>
-                <rect x="640" y="150" width="170" height="42" rx="8" fill="#0b1020" stroke="#243054" /><text x="656" y="176" fill="#e9ecf8" font-size="13">Kubernetes Workers</text>
-                <rect x="835" y="150" width="105" height="42" rx="8" fill="#0b1020" stroke="#243054" /><text x="850" y="176" fill="#e9ecf8" font-size="13">Metrics</text>
-                <text x="555" y="220" fill="#80a9ff" font-size="12">Improved reliability + delivery readiness</text>
-                <line x1="455" y1="150" x2="520" y2="150" stroke="#80a9ff" stroke-width="3" /><polygon points="520,150 508,143 508,157" fill="#80a9ff" />
+                <desc id="oci-desc">Legacy notification and API path moved to OCI ingress and routing, queueing and workers, and observability-backed operations.</desc>
+                <rect x="20" y="35" width="430" height="245" rx="14" fill="rgba(30, 41, 75, 0.72)" stroke="rgba(128, 169, 255, 0.45)" />
+                <text x="45" y="67" fill="#b4bddb" font-size="17" font-weight="700">Before: Legacy operational model</text>
+                <rect x="50" y="88" width="162" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="74" y="115" fill="#e9ecf8" font-size="13">Notification API</text>
+                <rect x="240" y="88" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="266" y="115" fill="#e9ecf8" font-size="13">Legacy delivery path</text>
+                <rect x="145" y="148" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="166" y="175" fill="#e9ecf8" font-size="13">Operational bottlenecks</text>
+                <text x="50" y="236" fill="#80a9ff" font-size="12">Limited elasticity and slower incident response</text>
+
+                <rect x="530" y="35" width="430" height="245" rx="14" fill="rgba(17, 29, 54, 0.86)" stroke="rgba(128, 169, 255, 0.7)" />
+                <text x="554" y="67" fill="#b4bddb" font-size="17" font-weight="700">After: OCI migration target model</text>
+                <rect x="555" y="88" width="134" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="578" y="115" fill="#e9ecf8" font-size="13">OCI ingress</text>
+                <rect x="708" y="88" width="145" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="730" y="115" fill="#e9ecf8" font-size="13">Traffic routing</text>
+                <rect x="620" y="148" width="140" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="650" y="175" fill="#e9ecf8" font-size="13">Queueing</text>
+                <rect x="775" y="148" width="160" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="802" y="175" fill="#e9ecf8" font-size="13">Workers + metrics</text>
+                <text x="555" y="236" fill="#80a9ff" font-size="12">Controlled cutover, observability-first rollout, improved supportability</text>
+
+                <line x1="455" y1="158" x2="520" y2="158" stroke="#80a9ff" stroke-width="3" /><polygon points="520,158 508,151 508,165" fill="#80a9ff" />
+                <text x="458" y="144" fill="#80a9ff" font-size="12">Phased migration</text>
               </svg>
-              <figcaption>Flagship artifact: architecture transition and operational target state.</figcaption>
+              <figcaption>Diagram-first flagship view: before/after architecture and the shift to controlled OCI operations.</figcaption>
             </figure>
-            <div class="proof-strip"><span class="chip"><strong>$2M</strong> deal support</span><span class="chip">OCI-native migration</span><span class="chip">Reliability and supportability gains</span></div>
-            <p class="why-line"><strong>Why this matters:</strong> migration quality directly affected customer trust and delivery confidence.</p>
-            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and adaptive concurrency patterns that prevent cascading failure under load.</span></p>
-            <div class="case-study-grid">
-              <div><h4>Context</h4><p>Customer notification service migration with production-critical delivery requirements.</p></div><div><h4>Problem</h4><p>Legacy architecture created supportability and elasticity limits during a high-stakes timeline.</p></div><div><h4>My role</h4><p>Led migration execution and backend implementation planning.</p></div>
-              <div><h4>Operational / business result</h4><p>Improved supportability/scalability and supported a <strong>$2M</strong> enterprise deal.</p></div>
-              <div><h4>Key decisions</h4><ul><li>OCI-native ingress + queueing model</li><li>Staged transition to preserve service continuity</li><li>Admission control and bounded queue behavior to reduce overload risk</li><li>See: <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
-              <div><h4>Tradeoffs / constraints</h4><p>Balanced migration speed with production safety.</p></div>
+            <div class="case-study-grid flagship-grid">
+              <div><h4>What this is</h4><p>A production notification platform migration from legacy infrastructure to OCI-native service patterns.</p></div>
+              <div><h4>Why this mattered</h4><p>Migration quality directly influenced customer confidence and enterprise delivery readiness.</p></div>
+              <div><h4>Core problem</h4><p>Legacy pathways constrained elasticity, supportability, and controlled rollout operations.</p></div>
+              <div><h4>My role</h4><p>Led migration execution and backend implementation planning across the service transition.</p></div>
+              <div><h4>Key engineering decisions</h4><ul><li>Controlled traffic shifts instead of all-at-once cutover</li><li>Queueing and worker isolation to reduce overload amplification</li><li>Observability-first rollout with explicit metrics checkpoints</li><li>See: <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
+              <div><h4>Tradeoffs</h4><p>Balanced migration speed against operational safety and support continuity.</p></div>
+              <div><h4>How I think about failure</h4><p>Traffic shifting and migration can expose hidden failure paths; bounded transitions and observability reduce cascading risk.</p></div>
+              <div><h4>Outcome</h4><p>Improved supportability and delivery stability while supporting a <strong>$2M enterprise deal</strong>.</p></div>
             </div>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</span></p>
           </article>
 
           <article id="case-control-plane" class="project case-study">

@@ -165,7 +165,7 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
   border: 1px solid rgba(128, 169, 255, 0.72);
   background: rgba(20, 34, 62, 0.86);
   box-shadow: 0 0 0 1px rgba(128, 169, 255, 0.22), 0 26px 34px -24px rgba(0, 0, 0, 0.78);
-  padding: 1.95rem;
+  padding: 2.1rem;
   margin-bottom: 1rem;
 }
 
@@ -180,6 +180,26 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+}
+
+.project-eyebrow {
+  margin: 0 0 0.3rem;
+  color: #9bb7ff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.flagship-headline {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  line-height: 1.28;
+}
+.flagship-grid {
+  margin-top: 0.75rem;
+}
+.flagship-grid div {
+  background: rgba(16, 24, 44, 0.55);
 }
 
 .case-header-row { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
