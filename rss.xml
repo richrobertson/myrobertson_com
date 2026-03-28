@@ -105,6 +105,13 @@
       <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Designing Distributed Caches for Low Latency Without Violating Correctness</title>
+      <link>https://www.myrobertson.com/blog/designing-distributed-caches-latency-correctness.html</link>
+      <description>A rigorous engineering analysis of distributed caching as a latency-correctness tradeoff, with consistency models, invalidation failure modes, architectural patterns, and practical design principles.</description>
+      <guid>https://www.myrobertson.com/blog/designing-distributed-caches-latency-correctness.html</guid>
+      <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster</title>
       <link>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</link>
       <description>A distributed-systems analysis of why three-node Kafka clusters are often preferable to five-node deployments under common replication and acknowledgment configurations.</description>
