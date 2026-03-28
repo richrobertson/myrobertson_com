@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distributed Systems Reliability: Practical Patterns for Stability Under Load</title>
+    <meta name="description" content="Pillar guide for distributed systems reliability: backpressure, retries, failure isolation, and graceful degradation under production load." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/writing/distributed-systems-reliability/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Distributed Systems Reliability: Practical Patterns for Stability Under Load" />
+    <meta property="og:description" content="A practical reliability roadmap for systems that fail under load before they fail from bugs." />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/distributed-systems-reliability/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body data-page="writing">
+    <main class="hero blog-post">
+      <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Reliability Pillar</span></p>
+      <h1>Distributed Systems Reliability: Practical Patterns for Stability Under Load</h1>
+      <p class="section-intro">This pillar collects practical reliability patterns used in production distributed systems: overload control, safe retries, failure isolation, and graceful degradation.</p>
+
+      <section class="section"><h2>Why this matters</h2><p>Production incidents often come from load amplification and coordination limits, not only code defects. A reliability roadmap helps teams reason about behavior before traffic and failure combine.</p></section>
+      <section class="section"><h2>Start here</h2><ul><li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — baseline for bounded work and graceful overload handling.</li><li><a href="/writing/rate-limiting-vs-backpressure/">Rate Limiting vs Backpressure</a> (draft outline, noindex) — where each control fits.</li><li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a> (draft outline, noindex) — safe retry behavior.</li></ul></section>
+      <section class="section"><h2>Reliability roadmap</h2><ul><li><a href="/writing/circuit-breakers-and-failure-isolation/">Circuit Breakers and Failure Isolation</a> — isolate dependent failures.</li><li><a href="/writing/graceful-degradation-patterns/">Graceful Degradation Patterns</a> — preserve core behavior during stress.</li><li><a href="/writing/queue-design-under-load/">Queue Design Under Load</a> — queue boundaries and drain strategy.</li><li><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load, Not Just Bugs</a> — failure-mode framing.</li></ul></section>
+      <section class="section"><h2>Related case studies</h2><ul><li><a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration</a></li><li><a href="/case-studies/distributed-systems-migration/">Distributed systems migration hub</a></li></ul></section>
+      <section class="section"><h2>Recommended reading order</h2><ol><li>Backpressure baseline</li><li>Admission and retry strategy</li><li>Failure isolation and graceful degradation</li><li>Migration case studies under real constraints</li></ol></section>
+
+      <div data-site-footer></div>
+    </main>
+    <script src="/nav.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

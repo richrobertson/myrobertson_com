@@ -1,15 +1,48 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Architecting a Multitenant Control Plane | Workflow and Durable Commands</title>
-<meta name="description" content="Essay on multitenant control-plane architecture, durable command execution, and workflow orchestration." />
-<meta name="robots" content="index,follow" />
-<link rel="canonical" href="https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/" />
-<meta property="og:type" content="article" /><meta property="og:title" content="Architecting a Multitenant Control Plane" /><meta property="og:description" content="Control-plane architecture patterns for multitenant platforms." /><meta property="og:url" content="https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/" /><meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="stylesheet" href="../../styles.css" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Architecting a Multitenant Control Plane for a Next-Generation Data Tier","url":"https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/","author":{"@type":"Person","name":"Rich Robertson"}}</script>
-</head><body data-page="writing"><main class="hero blog-post">
-      <div data-site-header></div><p class="breadcrumb"><a href="../../index.html">Home</a> / <a href="/writing/">Writing</a> / Multitenant Control Plane</p><h1>Architecting a Multitenant Control Plane</h1><p>This essay explains durable command queues, workflow orchestration, and partition-aware workers for multitenant control planes.</p><p><a href="../../blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Read the full article</a>.</p><section class="section"><h2>Related Case Studies</h2><ul><li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a></li><li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a></li></ul></section>      <div data-site-footer></div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Architecting a Multitenant Control Plane | Rich Robertson</title>
+    <meta name="description" content="Control-plane architecture notes on durable workflows, partition-aware workers, and multitenant execution safety." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Architecting a Multitenant Control Plane" />
+    <meta property="og:description" content="Durable workflow and partition-aware orchestration patterns for multitenant systems." />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body data-page="writing">
+    <main class="hero blog-post">
+      <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / Multitenant Control Plane</p>
+      <h1>Architecting a Multitenant Control Plane</h1>
+      <p class="section-intro">This page captures control-plane architecture patterns for durable workflow execution, state coordination, and partition-aware scaling in multitenant services.</p>
+      <p><a href="../../blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Read the full article</a>.</p>
+
+      <section class="section">
+        <h2>Related architecture roadmap</h2>
+        <ul>
+          <li><a href="/writing/control-plane-architecture-guide/">Control-plane pillar page</a></li>
+          <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a></li>
+          <li><a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a></li>
+          <li><a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers and Scalable Orchestration</a></li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Related case studies</h2>
+        <ul>
+          <li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a></li>
+          <li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a></li>
+        </ul>
+      </section>
+
+      <div data-site-footer></div>
     </main>
     <script src="/nav.js"></script>
     <script src="/script.js"></script>
-  </body></html>
+  </body>
+</html>

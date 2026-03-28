@@ -13,9 +13,12 @@ const routes = [
   '/case-studies/java-17-global-modernization/',
   '/case-studies/starbucks-loyalty-platform-integration/',
   '/writing/',
+  '/writing/distributed-systems-reliability/',
+  '/writing/control-plane-architecture-guide/',
   '/writing/backpressure-in-distributed-systems/',
   '/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/',
   '/writing/architecting-a-multitenant-control-plane/',
+  '/case-studies/distributed-systems-migration/',
   '/blog/',
   '/distributed-systems-engineer.html',
   '/cloud-platform-engineer.html'

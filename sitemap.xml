@@ -29,6 +29,14 @@
     <lastmod>2026-03-28</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/writing/distributed-systems-reliability/</loc>
+    <lastmod>2026-03-28</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/writing/control-plane-architecture-guide/</loc>
+    <lastmod>2026-03-28</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/writing/backpressure-in-distributed-systems/</loc>
     <lastmod>2026-03-28</lastmod>
   </url>
@@ -38,6 +46,10 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/</loc>
+    <lastmod>2026-03-28</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/case-studies/distributed-systems-migration/</loc>
     <lastmod>2026-03-28</lastmod>
   </url>
   <url>
