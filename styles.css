@@ -103,14 +103,14 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
 .impact-lead { margin: 0 0 0.65rem; color: #d5e1ff; font-weight: 600; }
 .impact-statements p {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1.12rem;
   color: #d7e2ff;
   border-left: 3px solid rgba(128, 169, 255, 0.7);
   padding-left: 0.75rem;
 }
 .impact-statements strong {
   color: #ffffff;
-  font-size: 1.08em;
+  font-size: 1.12em; font-weight: 800;
 }
 
 .known-for ul {
@@ -160,12 +160,12 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
 .signature-item p { margin:0; font-size:0.94rem; }
 
 .featured-section { border: 1px solid rgba(128, 169, 255, 0.24); border-radius: 18px; padding: 1.1rem; background: rgba(10, 14, 28, 0.45); }
-.case-study { padding: 1.1rem; border-color: rgba(36, 48, 84, 0.7); background: rgba(16, 24, 44, 0.5); }
+.case-study { padding: 1rem; border-color: rgba(36, 48, 84, 0.56); background: rgba(14, 21, 38, 0.42); }
 .flagship-artifact {
   border: 1px solid rgba(128, 169, 255, 0.72);
   background: rgba(20, 34, 62, 0.86);
   box-shadow: 0 0 0 1px rgba(128, 169, 255, 0.22), 0 26px 34px -24px rgba(0, 0, 0, 0.78);
-  padding: 1.75rem;
+  padding: 1.95rem;
   margin-bottom: 1rem;
 }
 
@@ -185,8 +185,9 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
 .case-header-row { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
 .case-header-row h3 { font-size: 1.3rem; margin: 0; }
 .case-takeaway { margin: 0.45rem 0 0.6rem; color: #d7e2ff; font-weight: 600; }
-.case-study:not(.flagship-artifact) .architecture-diagram { opacity: 0.92; }
-.case-study:not(.flagship-artifact) .case-takeaway { color: #c7d4f6; }
+.case-study:not(.flagship-artifact) .architecture-diagram { opacity: 0.86; }
+.case-study:not(.flagship-artifact) .case-takeaway { color: #bdcaea; }
+.case-study:not(.flagship-artifact) .chip { opacity: 0.92; }
 .anchor-link { color: rgba(128, 169, 255, 0.85); font-weight: 700; }
 .architecture-diagram { margin: 0.55rem 0 0.5rem; }
 .architecture-diagram svg { width:100%; height:auto; border:1px solid rgba(128, 169, 255, 0.28); border-radius: 14px; background: rgba(8, 12, 26, 0.84); }
