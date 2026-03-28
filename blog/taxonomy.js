@@ -118,6 +118,13 @@
       url: '/blog/polyglot-functional-languages-distributed-systems.html',
       summary: 'Where polyglot functional programming helps in reliability and correctness.',
       tags: ['Distributed Systems', 'Architecture', 'Reliability']
+    },
+    {
+      slug: 'what-it-took-to-modernize-a-legacy-service-across-32-global-regions',
+      title: 'What It Took to Modernize a Legacy Service Across 32 Global Regions',
+      url: '/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html',
+      summary: 'A practical sequence for legacy modernization with compatibility checks and staged global rollout.',
+      tags: ['Java', 'Cloud Platforms', 'Reliability', 'Architecture']
     }
   ];
 

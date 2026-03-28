@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What It Took to Modernize a Legacy Service Across 32 Global Regions | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A practical engineering breakdown of modernizing a legacy backend service across 32 global regions with reliability, rollout safety, and operational continuity."
+    />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html"
+    />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="What It Took to Modernize a Legacy Service Across 32 Global Regions"
+    />
+    <meta
+      property="og:description"
+      content="How compatibility checks, staged releases, and reliability controls made global modernization feasible."
+    />
+    <meta
+      property="og:url"
+      content="https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html"
+    />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="What It Took to Modernize a Legacy Service Across 32 Global Regions"
+    />
+    <meta
+      name="twitter:description"
+      content="A pragmatic modernization path for legacy backend services running across global regions."
+    />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What It Took to Modernize a Legacy Service Across 32 Global Regions",
+        "description": "A practical engineering breakdown of modernizing a legacy backend service across 32 global regions with reliability, rollout safety, and operational continuity.",
+        "url": "https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html",
+        "datePublished": "2026-03-28",
+        "dateModified": "2026-03-28",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/"
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/writing/"
+        }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="what-it-took-to-modernize-a-legacy-service-across-32-global-regions">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+      <div class="hero-content" data-article-meta data-article-slug="what-it-took-to-modernize-a-legacy-service-across-32-global-regions">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>What It Took to Modernize a Legacy Service Across 32 Global Regions</h1>
+        <p class="intro blog-dek">
+          Modernizing legacy infrastructure at global scale was not one migration event. It was a sequence of compatibility checks, release controls, and operational safeguards designed to preserve reliability while changing core runtime assumptions.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h3>Why This Modernization Was Hard</h3>
+        <p>
+          The service was long-lived, globally distributed, and tightly coupled to existing operational workflows. We were not just changing a version number. We were changing runtime behavior, dependency boundaries, build assumptions, and deployment expectations across multiple regions.
+        </p>
+        <p>
+          The challenge was straightforward: move forward technically without destabilizing production operations.
+        </p>
+
+        <h3>What Made the Rollout Safe</h3>
+        <ul>
+          <li><strong>Compatibility-first validation:</strong> identify incompatible libraries and runtime assumptions before rollout windows.</li>
+          <li><strong>Release gates:</strong> define explicit promotion criteria for each environment rather than relying on calendar-driven pushes.</li>
+          <li><strong>Region-by-region sequencing:</strong> stage rollout order so failures could be isolated and recovered without global impact.</li>
+          <li><strong>Observability checkpoints:</strong> track latency, error rate, and queue pressure before each progression step.</li>
+        </ul>
+
+        <h3>Where Modernization Programs Usually Fail</h3>
+        <p>
+          They fail when teams treat modernization as purely a development task. The hidden work is operational: release ordering, rollback confidence, runbook updates, and cross-team coordination.
+        </p>
+        <p>
+          If this is not planned as part of the migration, the technical changes may be correct while the rollout still becomes risky.
+        </p>
+
+        <h3>Practical Sequence That Worked</h3>
+        <ol>
+          <li>Stabilize dependency graph and build pipeline assumptions.</li>
+          <li>Run compatibility checks in representative environments.</li>
+          <li>Define release gates tied to measurable health signals.</li>
+          <li>Roll out progressively across regions with pause points.</li>
+          <li>Capture post-rollout operational deltas for future upgrades.</li>
+        </ol>
+
+        <h3>Related Artifacts</h3>
+        <p>
+          For the systems context behind this modernization approach, see the
+          <a href="../case-studies/java-17-global-modernization/">Java 17 Global Modernization case study</a>
+          and the flagship
+          <a href="../case-studies/oracle-cns-oci-migration/">OCI migration case study</a>.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
