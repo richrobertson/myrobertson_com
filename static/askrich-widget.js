@@ -18,9 +18,9 @@
   launcher.style.borderRadius = "999px";
   launcher.style.cursor = "pointer";
   launcher.style.font = "600 14px/1.1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-  launcher.style.background = "#0f172a";
+  launcher.style.background = "linear-gradient(135deg, #173164 0%, #244b97 100%)";
   launcher.style.color = "#ffffff";
-  launcher.style.boxShadow = "0 10px 24px rgba(2, 6, 23, 0.28)";
+  launcher.style.boxShadow = "0 12px 26px rgba(11, 24, 52, 0.34)";
 
   const panel = document.createElement("aside");
   panel.id = "askrich-widget-panel";
@@ -32,11 +32,12 @@
   panel.style.display = "none";
   panel.style.flexDirection = "column";
   panel.style.zIndex = "2147483647";
-  panel.style.background = "#ffffff";
-  panel.style.border = "1px solid #cbd5e1";
+  panel.style.background = "#f4f7fd";
+  panel.style.border = "1px solid #b8c8e8";
   panel.style.borderRadius = "14px";
-  panel.style.boxShadow = "0 20px 44px rgba(2, 6, 23, 0.22)";
+  panel.style.boxShadow = "0 22px 48px rgba(13, 28, 60, 0.28)";
   panel.style.overflow = "hidden";
+  panel.style.color = "#0f2347";
   panel.setAttribute("role", "dialog");
   panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-label", "Ask Rich recruiter chat");
@@ -47,31 +48,38 @@
   header.style.display = "flex";
   header.style.justifyContent = "space-between";
   header.style.alignItems = "center";
-  header.style.padding = "10px 12px";
-  header.style.borderBottom = "1px solid #e2e8f0";
+  header.style.padding = "11px 12px";
+  header.style.background = "linear-gradient(180deg, #f9fbff 0%, #edf3ff 100%)";
+  header.style.borderBottom = "1px solid #cfdaef";
+  header.style.color = "#17315f";
   header.style.font = "600 14px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
   header.textContent = TITLE;
 
   const closeBtn = document.createElement("button");
   closeBtn.type = "button";
   closeBtn.textContent = "Close";
-  closeBtn.style.border = "0";
-  closeBtn.style.background = "transparent";
+  closeBtn.style.border = "1px solid #c5d4ee";
+  closeBtn.style.background = "#f6f9ff";
+  closeBtn.style.color = "#193560";
+  closeBtn.style.padding = "6px 10px";
+  closeBtn.style.borderRadius = "10px";
   closeBtn.style.cursor = "pointer";
-  closeBtn.style.font = "500 12px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+  closeBtn.style.font = "600 12px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
 
   const body = document.createElement("div");
   body.style.flex = "1";
   body.style.overflowY = "auto";
   body.style.padding = "10px";
-  body.style.font = "400 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-  body.style.background = "#f8fafc";
+  body.style.font = "400 14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+  body.style.background = "linear-gradient(180deg, #eef3fd 0%, #e8eefb 100%)";
+  body.style.color = "#142b4f";
 
   const form = document.createElement("form");
   form.style.display = "flex";
   form.style.gap = "8px";
   form.style.padding = "10px";
-  form.style.borderTop = "1px solid #e2e8f0";
+  form.style.borderTop = "1px solid #cfdaef";
+  form.style.background = "#f7faff";
 
   const input = document.createElement("input");
   input.type = "text";
@@ -80,18 +88,22 @@
   input.setAttribute("aria-label", "Ask Rich a question");
   input.style.flex = "1";
   input.style.padding = "10px 12px";
-  input.style.border = "1px solid #cbd5e1";
-  input.style.borderRadius = "8px";
+  input.style.border = "1px solid #9ab3df";
+  input.style.borderRadius = "10px";
+  input.style.background = "#ffffff";
+  input.style.color = "#0f2347";
+  input.style.font = "500 15px/1.2 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
 
   const send = document.createElement("button");
   send.type = "submit";
   send.textContent = "Send";
   send.style.padding = "10px 12px";
   send.style.border = "0";
-  send.style.borderRadius = "8px";
-  send.style.background = "#0f172a";
+  send.style.borderRadius = "10px";
+  send.style.background = "#143f86";
   send.style.color = "#ffffff";
   send.style.cursor = "pointer";
+  send.style.font = "600 15px/1 system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
 
   const focusableSelector = [
     "a[href]",
@@ -154,11 +166,15 @@
     const msg = document.createElement("div");
     msg.style.margin = "0 0 10px";
     msg.style.padding = "10px";
-    msg.style.background = role === "You" ? "#dbeafe" : "#ffffff";
-    msg.style.border = "1px solid #e2e8f0";
-    msg.style.borderRadius = "8px";
+    msg.style.background = role === "You" ? "#dbe8ff" : "#ffffff";
+    msg.style.border = role === "You" ? "1px solid #b5c9ef" : "1px solid #d5dfef";
+    msg.style.borderRadius = "10px";
+    msg.style.color = "#112b54";
 
     const roleLabel = document.createElement("strong");
+    roleLabel.style.color = "#1a3f76";
+    roleLabel.style.fontSize = "12px";
+    roleLabel.style.letterSpacing = "0.02em";
     roleLabel.textContent = role + ": ";
     msg.append(roleLabel, document.createTextNode(text));
     body.append(msg);
@@ -232,4 +248,6 @@
   form.append(input, send);
   panel.append(header, body, form);
   document.body.append(launcher, panel);
+
+  appendMessage("Ask Rich", "Ask about measurable outcomes, architecture decisions, or leadership impact.");
 })();
