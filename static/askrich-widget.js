@@ -109,7 +109,11 @@
     panel.setAttribute("aria-hidden", "true");
     panel.hidden = true;
     launcher.setAttribute("aria-expanded", "false");
-    launcher.focus();
+    const restoreTo = previousFocus && typeof previousFocus.focus === "function"
+      ? previousFocus
+      : launcher;
+    restoreTo.focus();
+    previousFocus = null;
   }
 
   function openPanel() {
@@ -183,25 +187,16 @@
       openPanel();
     } else {
       closePanel();
-      if (previousFocus && typeof previousFocus.focus === "function") {
-        previousFocus.focus();
-      }
     }
   });
 
   closeBtn.addEventListener("click", function () {
     closePanel();
-    if (previousFocus && typeof previousFocus.focus === "function") {
-      previousFocus.focus();
-    }
   });
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && panel.style.display === "flex") {
       closePanel();
-      if (previousFocus && typeof previousFocus.focus === "function") {
-        previousFocus.focus();
-      }
     }
     trapFocus(event);
   });
