@@ -13,6 +13,7 @@ const askRichEls = {
   send: document.querySelector("#askrich-send"),
   promptList: document.querySelector("#askrich-prompt-list"),
   apiBase: document.querySelector("#api-base"),
+  settings: document.querySelector(".askrich-settings"),
 };
 
 let askRichBusy = false;
@@ -106,7 +107,9 @@ function askRichSetBusy(isBusy) {
 }
 
 async function askRichRequest(question) {
-  const base = (askRichEls.apiBase.value || "").trim().replace(/\/$/, "") || "https://api.myrobertson.com";
+  const base = askRichEls.apiBase
+    ? (askRichEls.apiBase.value || "").trim().replace(/\/$/, "") || "https://api.myrobertson.com"
+    : "https://api.myrobertson.com";
   const endpoint = `${base}/api/chat`;
 
   const response = await fetch(endpoint, {
@@ -142,6 +145,10 @@ function askRichInitPromptStarters() {
 }
 
 function askRichBindApiBasePersistence() {
+  if (!askRichEls.apiBase) {
+    return;
+  }
+
   askRichEls.apiBase.value = askRichGetApiBase();
   askRichEls.apiBase.addEventListener("input", () => {
     const trimmed = (askRichEls.apiBase.value || "").trim().replace(/\/$/, "");
@@ -151,6 +158,14 @@ function askRichBindApiBasePersistence() {
       // Continue even if browser storage is unavailable.
     }
   });
+}
+
+function askRichHideProdSettings() {
+  const host = window.location.hostname.toLowerCase();
+  const isProduction = host === "myrobertson.com" || host === "www.myrobertson.com";
+  if (isProduction && askRichEls.settings) {
+    askRichEls.settings.hidden = true;
+  }
 }
 
 function askRichBindForm() {
@@ -197,11 +212,11 @@ function askRichInit() {
     || !askRichEls.messages
     || !askRichEls.send
     || !askRichEls.promptList
-    || !askRichEls.apiBase
   ) {
     return;
   }
 
+  askRichHideProdSettings();
   askRichInitPromptStarters();
   askRichBindApiBasePersistence();
   askRichBindForm();
