@@ -88,6 +88,8 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
   display: grid;
   gap: 0.7rem;
 }
+
+.impact-lead { margin: 0 0 0.65rem; color: #d5e1ff; font-weight: 600; }
 .impact-statements p {
   margin: 0;
   font-size: 1.05rem;
@@ -123,16 +125,33 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
 .signature-item p { margin:0; font-size:0.94rem; }
 
 .featured-section { border: 1px solid rgba(128, 169, 255, 0.24); border-radius: 18px; padding: 1.1rem; background: rgba(10, 14, 28, 0.45); }
-.case-study { padding: 1.2rem; }
+.case-study { padding: 1.1rem; border-color: rgba(36, 48, 84, 0.7); background: rgba(16, 24, 44, 0.5); }
 .flagship-artifact {
-  border: 1px solid rgba(128, 169, 255, 0.62);
-  background: rgba(17, 29, 54, 0.7);
-  box-shadow: 0 0 0 1px rgba(128, 169, 255, 0.16), 0 20px 30px -24px rgba(0, 0, 0, 0.7);
-  padding: 1.45rem;
+  border: 1px solid rgba(128, 169, 255, 0.72);
+  background: rgba(20, 34, 62, 0.86);
+  box-shadow: 0 0 0 1px rgba(128, 169, 255, 0.22), 0 26px 34px -24px rgba(0, 0, 0, 0.78);
+  padding: 1.65rem;
+  margin-bottom: 1rem;
 }
+
+.flagship-label {
+  margin: 0 0 0.35rem;
+  display: inline-block;
+  padding: 0.2rem 0.52rem;
+  border-radius: 999px;
+  border: 1px solid rgba(128, 169, 255, 0.5);
+  color: #dbe6ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
 .case-header-row { display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
 .case-header-row h3 { font-size: 1.3rem; margin: 0; }
 .case-takeaway { margin: 0.45rem 0 0.6rem; color: #d7e2ff; font-weight: 600; }
+.case-study:not(.flagship-artifact) .architecture-diagram { opacity: 0.92; }
+.case-study:not(.flagship-artifact) .case-takeaway { color: #c7d4f6; }
 .anchor-link { color: rgba(128, 169, 255, 0.85); font-weight: 700; }
 .architecture-diagram { margin: 0.55rem 0 0.5rem; }
 .architecture-diagram svg { width:100%; height:auto; border:1px solid rgba(128, 169, 255, 0.28); border-radius: 14px; background: rgba(8, 12, 26, 0.84); }
