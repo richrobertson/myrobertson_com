@@ -53,8 +53,8 @@
         },
         "isPartOf": {
           "@type": "Blog",
-          "name": "Rich Robertson Blog",
-          "url": "https://www.myrobertson.com/blog/"
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/writing/"
         }
       }
     </script>
@@ -72,8 +72,8 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Blog",
-            "item": "https://www.myrobertson.com/blog/"
+            "name": "Writing",
+            "item": "https://www.myrobertson.com/writing/"
           },
           {
             "@type": "ListItem",
@@ -85,23 +85,12 @@
       }
     </script>
   </head>
-  <body>
+  <body data-page="writing" data-article-slug="what-is-eventual-consistency">
     <header class="hero" id="top">
-      <nav class="nav">
-        <a class="logo" href="../index.html">myrobertson.com</a>
-        <div class="nav-links">
-          <a href="../index.html#about">About</a>
-          <a href="../index.html#experience">Experience</a>
-          <a href="../index.html#projects">Projects</a>
-          <a href="../index.html#skills">Skills</a>
-          <a href="../index.html#education">Education</a>
-          <a href="../index.html#contact">Contact</a>
-          <a href="./index.html">Blog</a>
-        </div>
-      </nav>
+      <div data-site-header></div>
 
-      <div class="hero-content">
-        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+<div class="hero-content" data-article-meta data-article-slug="what-is-eventual-consistency">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Post</span></p>
         <p class="eyebrow">March 2026 • Rich Robertson</p>
         <h1>What Is Eventual Consistency? (Explained Simply)</h1>
         <p class="intro blog-dek">
@@ -111,7 +100,7 @@
     </header>
 
     <main>
-      <article class="card blog-post">
+      <article class="card blog-post" data-related-writing>
         <h3>The Core Idea</h3>
         <p>
           In a distributed system, data is often stored on multiple nodes or replicas. Strong consistency means every read sees the most recent write, no matter which replica answers. Eventual consistency relaxes that guarantee: replicas may return stale data for a short period, but given no new writes and enough time, all replicas will converge to the same value.
@@ -204,8 +193,12 @@
 
     <footer>
       <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
     </footer>
 
+    <script src="/nav.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
     <script src="../script.js"></script>
   </body>
 </html>

@@ -10,7 +10,7 @@
   function getPageKey() {
     const path = window.location.pathname;
     if (path.startsWith('/case-studies/')) return 'case-studies';
-    if (path.startsWith('/writing/')) return 'writing';
+    if (path.startsWith('/writing/') || path.startsWith('/blog/')) return 'writing';
     return document.body.dataset.page || 'home';
   }
 
@@ -29,21 +29,32 @@
       })
       .join('');
 
+    const navId = 'global-nav-links';
     slot.innerHTML = `
       <nav class="site-nav" aria-label="Global navigation">
         <a class="logo" href="/">myrobertson.com</a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="global-nav-links">Menu</button>
-        <div class="site-nav-links" id="global-nav-links">${links}</div>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="${navId}">Menu</button>
+        <div class="site-nav-links" id="${navId}">${links}</div>
       </nav>
     `;
 
     const toggle = slot.querySelector('.nav-toggle');
     const linksContainer = slot.querySelector('.site-nav-links');
     if (toggle && linksContainer) {
+      function closeMenu() {
+        toggle.setAttribute('aria-expanded', 'false');
+        linksContainer.classList.remove('is-open');
+      }
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true';
         toggle.setAttribute('aria-expanded', String(!expanded));
         linksContainer.classList.toggle('is-open');
+      });
+      linksContainer.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', closeMenu);
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeMenu();
       });
     }
   }

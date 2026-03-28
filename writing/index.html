@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Writing | Rich Robertson</title>
-    <meta name="description" content="Technical writing on distributed systems, backpressure, control-plane architecture, and lease correctness." />
+    <meta name="description" content="Technical writing on distributed systems, backpressure, control-plane architecture, and correctness in production systems." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/writing/" />
     <link rel="stylesheet" href="../styles.css" />
@@ -12,13 +12,43 @@
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <span aria-current="page">Writing</span></p>
       <h1>Writing</h1>
-      <p class="section-intro">Essays that reflect how I design and operate distributed systems.</p>
-      <ul>
-        <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></li>
-        <li><a href="/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/">Designing a Correct Distributed Lease Service</a></li>
-        <li><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a></li>
-      </ul>
+      <p class="section-intro">
+        This section combines long-form essays and practical explainers focused on distributed systems design,
+        production reliability, and control-plane architecture decisions.
+      </p>
+
+      <section class="section">
+        <h2>Core Essays</h2>
+        <div class="grid">
+          <article class="project">
+            <h3><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></h3>
+            <p>How admission control, bounded queues, and graceful degradation preserve stability under load.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/">Designing a Correct Distributed Lease Service</a></h3>
+            <p>Lease semantics, leader time authority, and fencing strategy for safer distributed ownership.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a></h3>
+            <p>A systems walkthrough of durable command processing and partition-aware workflow execution.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Article Library</h2>
+        <p class="section-intro">
+          For primers, interview prep, and focused topic clusters (consensus, APIs, Kafka, correctness), use the
+          full archive in the writing library.
+        </p>
+        <article class="project">
+          <h3><a href="/blog/index.html">Open the writing library</a></h3>
+          <p>The archive includes tag-based browsing, featured reads, and related topic pathways.</p>
+        </article>
+      </section>
+
       <div data-site-footer></div>
     </main>
     <script src="/nav.js"></script>

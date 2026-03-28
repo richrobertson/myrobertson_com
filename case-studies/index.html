@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Case Studies | Rich Robertson</title>
-    <meta name="description" content="Distributed systems and backend platform case studies: OCI migration, control-plane workflow platform, Java modernization, and Starbucks integration." />
+    <meta name="description" content="Distributed systems and backend platform case studies: OCI migration, control-plane workflows, Java modernization, and loyalty integration." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/case-studies/" />
     <link rel="stylesheet" href="../styles.css" />
@@ -12,14 +12,43 @@
   <body data-page="case-studies">
     <main class="hero blog-post">
       <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <span aria-current="page">Case Studies</span></p>
       <h1>Case Studies</h1>
-      <p class="section-intro">Production backend and distributed systems delivery artifacts.</p>
-      <ul>
-        <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle Customer Notification Service Migration to OCI</a></li>
-        <li><a href="/case-studies/control-plane-workflow-platform/">Control Plane Workflow Platform</a></li>
-        <li><a href="/case-studies/java-17-global-modernization/">Java 17 Global Modernization</a></li>
-        <li><a href="/case-studies/starbucks-loyalty-platform-integration/">Starbucks Loyalty Platform Integration</a></li>
-      </ul>
+      <p class="section-intro">
+        Four production delivery artifacts covering cloud migration, workflow orchestration,
+        runtime modernization, and large-scale integration reliability.
+      </p>
+
+      <section class="section">
+        <h2>Flagship Delivery Artifacts</h2>
+        <div class="grid">
+          <article class="project">
+            <h3><a href="/case-studies/oracle-cns-oci-migration/">Oracle Customer Notification Service Migration to OCI</a></h3>
+            <p>Migrated a production notification system across 32 global data centers with controlled rollout and observability-first operations.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/case-studies/control-plane-workflow-platform/">Control Plane Workflow Platform</a></h3>
+            <p>Designed a reusable workflow framework for durable command execution across multitenant backend services.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/case-studies/java-17-global-modernization/">Java 17 Global Modernization</a></h3>
+            <p>Executed Java runtime modernization across 32 global data centers with staged rollout and production safeguards.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/case-studies/starbucks-loyalty-platform-integration/">Starbucks Loyalty Platform Integration</a></h3>
+            <p>Delivered integration reliability for loyalty services operating at high user and transaction volumes.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>How to Navigate</h2>
+        <p class="section-intro">
+          Each case study includes context, engineering constraints, implementation choices, and outcomes.
+          Pair these with the writing section for deeper reasoning behind failure handling and correctness patterns.
+        </p>
+      </section>
+
       <div data-site-footer></div>
     </main>
     <script src="/nav.js"></script>
