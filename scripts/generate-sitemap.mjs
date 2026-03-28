@@ -7,10 +7,12 @@ const today = new Date().toISOString().split('T')[0];
 
 const routes = [
   '/',
+  '/case-studies/',
   '/case-studies/oracle-cns-oci-migration/',
   '/case-studies/control-plane-workflow-platform/',
   '/case-studies/java-17-global-modernization/',
   '/case-studies/starbucks-loyalty-platform-integration/',
+  '/writing/',
   '/writing/backpressure-in-distributed-systems/',
   '/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/',
   '/writing/architecting-a-multitenant-control-plane/',
