@@ -1,27 +1,70 @@
-<!DOCTYPE html><html lang="en"><head>
-<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Control Plane Workflow Platform Case Study | Multitenant Distributed Systems</title>
-<meta name="description" content="Case study on designing a multitenant control-plane workflow platform with durable command execution and partition-aware workers." />
-<meta name="robots" content="index,follow" />
-<link rel="canonical" href="https://www.myrobertson.com/case-studies/control-plane-workflow-platform/" />
-<meta property="og:type" content="article" /><meta property="og:title" content="Control Plane Workflow Platform Case Study" />
-<meta property="og:description" content="Durable command execution and workflow orchestration for multitenant control planes." />
-<meta property="og:url" content="https://www.myrobertson.com/case-studies/control-plane-workflow-platform/" />
-<meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="stylesheet" href="../../styles.css" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.myrobertson.com/"},{"@type":"ListItem","position":2,"name":"Case Studies","item":"https://www.myrobertson.com/#case-studies"},{"@type":"ListItem","position":3,"name":"Control Plane Workflow Platform","item":"https://www.myrobertson.com/case-studies/control-plane-workflow-platform/"}]}</script>
-</head><body data-page="case-studies"><main class="hero blog-post">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Control Plane Architecture Case Study | Multitenant Workflow System</title>
+    <meta name="description" content="Case study on a multitenant control-plane workflow platform using durable commands, partition-aware workers, and reliability-first execution." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/case-studies/control-plane-workflow-platform/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Control Plane Architecture Case Study | Multitenant Workflow System" />
+    <meta property="og:description" content="Durable command execution and partition-aware workflow orchestration for multitenant services." />
+    <meta property="og:url" content="https://www.myrobertson.com/case-studies/control-plane-workflow-platform/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Control Plane Architecture Case Study" />
+    <meta name="twitter:description" content="Multitenant workflow system design for durable distributed execution." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
+  </head>
+  <body data-page="case-studies">
+    <main class="hero blog-post secondary-case">
       <div data-site-header></div>
-<p class="breadcrumb"><a href="../../index.html">Home</a> / <a href="/case-studies/">Case Studies</a> / Control Plane Workflow Platform</p>
-<h1>Control Plane Workflow Platform</h1>
-<p class="case-takeaway">Multitenant control-plane case study focused on durable workflow execution and reliability under distributed load.</p>
-<section class="section"><h2>Impact Signals</h2><div class="impact-header"><span class="chip">Enterprise-scale control plane</span><span class="chip">Durable command execution</span><span class="chip">Partition-aware workers</span></div></section>
-<section class="section"><h2>Architecture</h2><p>Service APIs publish commands to durable queues, workflows coordinate partitioned workers, and callbacks update durable state.</p><p><a href="../../index.html#case-control-plane">View architecture diagram on homepage</a>.</p></section>
-<section class="section"><h2>Decisions and Outcome</h2><h3>Core problem</h3><p>Teams needed safe distributed workflow execution without rebuilding orchestration internals.</p><h3>My role</h3><p>Architected and built the shared framework used across service teams.</p><h3>Key engineering decisions</h3><ul><li>Queue + workflow core model</li><li>Partition-aware worker execution</li><li>Graceful degradation paths for downstream pressure</li></ul><h3>Outcome</h3><p>Standardized control-plane execution and reduced duplicated platform effort.</p></section>
-<section class="section"><h2>Related Thinking</h2><p><a href="../../writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a></p><p><a href="../../writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></p></section>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/case-studies/">Case Studies</a> / Control Plane Workflow Platform</p>
+      <h1>Multitenant Control Plane Workflow Platform Case Study</h1>
+      <p class="case-takeaway">This case study covers durable workflow execution for multitenant services where retries, ordering, and partial failures must be handled safely.</p>
+
+      <section class="section">
+        <h2>Impact Signals</h2>
+        <div class="impact-header">
+          <span class="chip">Enterprise-scale control plane</span>
+          <span class="chip">Durable command execution</span>
+          <span class="chip">Partition-aware workers</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Architecture</h2>
+        <p>Service APIs publish commands to durable queues, workflows coordinate partitioned workers, and callbacks update durable state.</p>
+        <p><a href="../../index.html#case-control-plane">View architecture diagram on homepage</a>.</p>
+      </section>
+
+      <section class="section">
+        <h2>Decisions and Outcome</h2>
+        <h3>Core problem</h3>
+        <p>Teams needed safe distributed workflow execution without rebuilding orchestration internals for each service.</p>
+        <h3>My role</h3>
+        <p>Architected and built the shared framework used across service teams.</p>
+        <h3>Key engineering decisions</h3>
+        <ul>
+          <li>Queue + workflow core model</li>
+          <li>Partition-aware worker execution</li>
+          <li>Graceful degradation paths for downstream pressure</li>
+        </ul>
+        <h3>Outcome</h3>
+        <p>Standardized control-plane execution and reduced duplicated platform effort.</p>
+      </section>
+
+      <section class="section">
+        <h2>Related Thinking</h2>
+        <p><a href="../../writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a></p>
+        <p><a href="../../writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></p>
+      </section>
+
       <div data-site-footer></div>
     </main>
     <script src="/nav.js"></script>
     <script src="/script.js"></script>
-  </body></html>
+  </body>
+</html>

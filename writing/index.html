@@ -3,17 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Writing | Rich Robertson</title>
-    <meta name="description" content="Technical writing on distributed systems, backpressure, control-plane architecture, and correctness in production systems." />
+    <title>Distributed Systems Writing | Control Planes, Backpressure, Correctness</title>
+    <meta name="description" content="Technical writing on distributed systems, backpressure, control-plane architecture, consensus, and correctness in production systems." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/writing/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Distributed Systems Writing | Rich Robertson" />
+    <meta property="og:description" content="Technical writing on distributed systems, reliability, control planes, and production architecture decisions." />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Distributed Systems Writing" />
+    <meta name="twitter:description" content="Backpressure, control planes, consensus, and reliability-focused writing." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
       <p class="breadcrumb"><a href="/">Home</a> / <span aria-current="page">Writing</span></p>
-      <h1>Writing</h1>
+      <h1>Distributed Systems Writing</h1>
       <p class="section-intro">
         This section combines long-form essays and practical explainers focused on distributed systems design,
         production reliability, and control-plane architecture decisions.
@@ -47,6 +56,32 @@
           <h3><a href="/blog/index.html">Open the writing library</a></h3>
           <p>The archive includes tag-based browsing, featured reads, and related topic pathways.</p>
         </article>
+      </section>
+
+      <section class="section">
+        <h2>Distributed Systems Topic Cluster (Structure)</h2>
+        <p class="section-intro">
+          The following cluster pages are structured outlines for upcoming deep dives. They are intentionally scoped as
+          roadmap documents and currently marked <code>noindex</code> until expanded.
+        </p>
+        <div class="grid">
+          <article class="project">
+            <h3><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></h3>
+            <p>Outline for safe retries, duplicate suppression, and idempotent API/workflow design.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/writing/rate-limiting-and-admission-control/">Rate Limiting and Admission Control</a></h3>
+            <p>Outline for bounded admission, queue control, and overload prevention under burst traffic.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/writing/circuit-breakers-and-failure-isolation/">Circuit Breakers and Failure Isolation</a></h3>
+            <p>Outline for blast-radius control and dependency failure containment.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/writing/graceful-degradation-patterns/">Graceful Degradation Patterns</a></h3>
+            <p>Outline for fallback behavior, partial-service modes, and user-visible stability strategies.</p>
+          </article>
+        </div>
       </section>
 
       <div data-site-footer></div>

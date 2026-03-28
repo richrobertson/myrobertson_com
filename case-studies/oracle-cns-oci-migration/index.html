@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Oracle CNS OCI Migration Case Study | Distributed Systems Migration</title>
-    <meta name="description" content="Case study on migrating Oracle Customer Notification Service to OCI-native architecture with a focus on reliability, rollout safety, and distributed systems migration." />
+    <title>OCI Migration Case Study | Distributed Systems (32 Data Centers)</title>
+    <meta name="description" content="Oracle Customer Notification Service migration case study covering OCI rollout safety, queueing strategy, and production reliability across 32 global data centers." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Oracle CNS OCI Migration Case Study | Distributed Systems Migration" />
-    <meta property="og:description" content="Migrating a production notification platform to OCI using controlled traffic shifts, queueing, and observability-first rollout." />
+    <meta property="og:title" content="OCI Migration Case Study | Distributed Systems (32 Data Centers)" />
+    <meta property="og:description" content="How a production notification platform moved to OCI with controlled traffic shifts and observability-first rollout." />
     <meta property="og:url" content="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Oracle CNS OCI Migration Case Study" />
-    <meta name="twitter:description" content="Distributed systems migration case study focused on rollout safety and production reliability." />
+    <meta name="twitter:title" content="OCI Migration Case Study" />
+    <meta name="twitter:description" content="Distributed systems migration across 32 global data centers with reliability-first rollout controls." />
     <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
     <script type="application/ld+json">
@@ -23,7 +23,7 @@
         "@type": "BreadcrumbList",
         "itemListElement": [
           {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/"},
-          {"@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://www.myrobertson.com/#case-studies"},
+          {"@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://www.myrobertson.com/case-studies/"},
           {"@type": "ListItem", "position": 3, "name": "Oracle CNS OCI Migration", "item": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/"}
         ]
       }
@@ -32,9 +32,38 @@
   <body data-page="case-studies">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="../../index.html">Home</a> / <a href="/case-studies/">Case Studies</a> / Oracle CNS OCI Migration</p>
-      <h1>Oracle Customer Notification Service Migration to OCI</h1>
-      <p class="case-takeaway">Distributed systems migration case study focused on production reliability, controlled rollout, and operational stability.</p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/case-studies/">Case Studies</a> / Oracle CNS OCI Migration</p>
+      <p class="flagship-label">Flagship System</p>
+      <h1>Oracle Customer Notification Service OCI Migration Case Study</h1>
+      <p class="case-takeaway">Migrated a production notification platform across 32 global data centers while preserving delivery stability.</p>
+
+      <section class="section flagship-callout">
+        <h2>Diagram-First Architecture View</h2>
+        <figure class="architecture-diagram">
+          <svg viewBox="0 0 980 320" role="img" aria-labelledby="oci-title oci-desc">
+            <title id="oci-title">OCI migration before and after architecture</title>
+            <desc id="oci-desc">Legacy notification and API path moved to OCI ingress and routing, queueing and workers, and observability-backed operations.</desc>
+            <rect x="20" y="35" width="430" height="245" rx="14" fill="rgba(30, 41, 75, 0.72)" stroke="rgba(128, 169, 255, 0.45)" />
+            <text x="45" y="67" fill="#b4bddb" font-size="17" font-weight="700">Before: Legacy operational model</text>
+            <rect x="50" y="88" width="162" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="74" y="115" fill="#e9ecf8" font-size="13">Notification API</text>
+            <rect x="240" y="88" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="266" y="115" fill="#e9ecf8" font-size="13">Legacy delivery path</text>
+            <rect x="145" y="148" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="166" y="175" fill="#e9ecf8" font-size="13">Operational bottlenecks</text>
+            <text x="50" y="236" fill="#80a9ff" font-size="12">Limited elasticity and slower incident response</text>
+
+            <rect x="530" y="35" width="430" height="245" rx="14" fill="rgba(17, 29, 54, 0.86)" stroke="rgba(128, 169, 255, 0.7)" />
+            <text x="554" y="67" fill="#b4bddb" font-size="17" font-weight="700">After: OCI migration target model</text>
+            <rect x="555" y="88" width="134" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="578" y="115" fill="#e9ecf8" font-size="13">OCI ingress</text>
+            <rect x="708" y="88" width="145" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="730" y="115" fill="#e9ecf8" font-size="13">Traffic routing</text>
+            <rect x="620" y="148" width="140" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="650" y="175" fill="#e9ecf8" font-size="13">Queueing</text>
+            <rect x="775" y="148" width="160" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="802" y="175" fill="#e9ecf8" font-size="13">Workers + metrics</text>
+            <text x="555" y="236" fill="#80a9ff" font-size="12">Controlled cutover and observability-first rollout</text>
+
+            <line x1="455" y1="158" x2="520" y2="158" stroke="#80a9ff" stroke-width="3" /><polygon points="520,158 508,151 508,165" fill="#80a9ff" />
+            <text x="458" y="144" fill="#80a9ff" font-size="12">Phased migration</text>
+          </svg>
+          <figcaption>This migration became the primary reference system for rollout safety, load management, and production reliability.</figcaption>
+        </figure>
+      </section>
 
       <section class="section">
         <h2>Impact Signals</h2>
@@ -46,13 +75,8 @@
       </section>
 
       <section class="section">
-        <h2>Architecture Overview</h2>
-        <p>Legacy notification paths transitioned to OCI ingress, routing, queueing, worker isolation, and observability-backed rollout checkpoints.</p>
-        <p><a href="../../index.html#case-oci">View diagram on homepage flagship artifact</a>.</p>
-      </section>
-
-      <section class="section">
         <h2>What This Migration Required</h2>
+        <p>This case study describes a distributed systems migration to OCI across global data centers, focusing on reliability, rollout safety, and operational stability.</p>
         <h3>Core problem</h3>
         <p>Legacy pathways constrained supportability and rollout control during a customer-critical timeline.</p>
         <h3>My role</h3>
@@ -72,17 +96,10 @@
       <section class="section">
         <h2>Related Thinking</h2>
         <p><a href="../../writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></p>
-        <p>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</p>
+        <p><a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">External Dev.to version</a> for shareable context.</p>
       </section>
 
-      <section class="section">
-        <h2>Related Case Studies</h2>
-        <ul>
-          <li><a href="../control-plane-workflow-platform/">Control Plane Workflow Platform case study</a></li>
-          <li><a href="../java-17-global-modernization/">Java 17 global modernization case study</a></li>
-        </ul>
-      </section>
-          <div data-site-footer></div>
+      <div data-site-footer></div>
     </main>
     <script src="/nav.js"></script>
     <script src="/script.js"></script>

@@ -3,38 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Case Studies | Rich Robertson</title>
-    <meta name="description" content="Distributed systems and backend platform case studies: OCI migration, control-plane workflows, Java modernization, and loyalty integration." />
+    <title>Distributed Systems Case Studies | OCI Migration, Control Planes, Modernization</title>
+    <meta name="description" content="Case studies on distributed systems delivery: OCI migration across 32 data centers, multitenant control planes, Java modernization, and high-scale integration reliability." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/case-studies/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Distributed Systems Case Studies | Rich Robertson" />
+    <meta property="og:description" content="Production delivery artifacts focused on migration safety, control-plane architecture, and backend reliability." />
+    <meta property="og:url" content="https://www.myrobertson.com/case-studies/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Distributed Systems Case Studies" />
+    <meta name="twitter:description" content="OCI migration, control planes, Java modernization, and integration reliability case studies." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../styles.css" />
   </head>
   <body data-page="case-studies">
     <main class="hero blog-post">
       <div data-site-header></div>
       <p class="breadcrumb"><a href="/">Home</a> / <span aria-current="page">Case Studies</span></p>
-      <h1>Case Studies</h1>
+      <h1>Distributed Systems Case Studies</h1>
       <p class="section-intro">
-        Four production delivery artifacts covering cloud migration, workflow orchestration,
-        runtime modernization, and large-scale integration reliability.
+        Production backend delivery artifacts spanning cloud migration, workflow orchestration,
+        runtime modernization, and high-scale integration reliability.
       </p>
 
+      <section class="section flagship-callout">
+        <p class="flagship-label">Flagship System</p>
+        <h2><a href="/case-studies/oracle-cns-oci-migration/">Oracle Customer Notification Service Migration to OCI</a></h2>
+        <p class="case-takeaway">Migrated a production notification platform across 32 global data centers while preserving delivery stability.</p>
+        <div class="impact-header">
+          <span class="chip"><strong>32</strong> global data centers</span>
+          <span class="chip"><strong>$2M</strong> enterprise deal support</span>
+          <span class="chip">Controlled rollout + queueing strategy</span>
+        </div>
+      </section>
+
       <section class="section">
-        <h2>Flagship Delivery Artifacts</h2>
+        <h2>Additional Case Studies</h2>
         <div class="grid">
-          <article class="project">
-            <h3><a href="/case-studies/oracle-cns-oci-migration/">Oracle Customer Notification Service Migration to OCI</a></h3>
-            <p>Migrated a production notification system across 32 global data centers with controlled rollout and observability-first operations.</p>
-          </article>
-          <article class="project">
+          <article class="project secondary-case">
             <h3><a href="/case-studies/control-plane-workflow-platform/">Control Plane Workflow Platform</a></h3>
             <p>Designed a reusable workflow framework for durable command execution across multitenant backend services.</p>
           </article>
-          <article class="project">
+          <article class="project secondary-case">
             <h3><a href="/case-studies/java-17-global-modernization/">Java 17 Global Modernization</a></h3>
             <p>Executed Java runtime modernization across 32 global data centers with staged rollout and production safeguards.</p>
           </article>
-          <article class="project">
+          <article class="project secondary-case">
             <h3><a href="/case-studies/starbucks-loyalty-platform-integration/">Starbucks Loyalty Platform Integration</a></h3>
             <p>Delivered integration reliability for loyalty services operating at high user and transaction volumes.</p>
           </article>
@@ -42,10 +58,10 @@
       </section>
 
       <section class="section">
-        <h2>How to Navigate</h2>
+        <h2>How to Use These Case Studies</h2>
         <p class="section-intro">
-          Each case study includes context, engineering constraints, implementation choices, and outcomes.
-          Pair these with the writing section for deeper reasoning behind failure handling and correctness patterns.
+          Each page summarizes context, engineering constraints, implementation decisions, and outcomes.
+          For deeper system reasoning, follow the linked writing artifacts from each case study.
         </p>
       </section>
 

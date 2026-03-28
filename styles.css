@@ -216,6 +216,16 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
   padding: 2.1rem;
   margin-bottom: 1rem;
 }
+.flagship-callout {
+  border: 1px solid rgba(128, 169, 255, 0.7);
+  background: rgba(20, 34, 62, 0.82);
+  border-radius: 16px;
+  padding: 1.2rem;
+}
+.secondary-case {
+  border-color: rgba(36, 48, 84, 0.42);
+  background: rgba(14, 21, 38, 0.28);
+}
 
 .flagship-label {
   margin: 0 0 0.35rem;
@@ -280,6 +290,7 @@ section[id] { scroll-margin-top: 4.4rem; }
   .signature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .case-study-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .impact-statements { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .topic-path-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 779px) { .scan-nav { position: static; }
 
@@ -370,6 +381,28 @@ section[id] { scroll-margin-top: 4.4rem; }
 .related-writing ul {
   margin: 0.35rem 0 0;
   padding-left: 1.15rem;
+}
+.topic-path-grid {
+  display: grid;
+  gap: 0.9rem;
+}
+.topic-path {
+  border: 1px solid rgba(128, 169, 255, 0.2);
+  background: rgba(14, 21, 38, 0.36);
+  border-radius: 14px;
+  padding: 0.85rem 0.95rem;
+}
+.topic-path h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+.topic-path p {
+  margin: 0 0 0.45rem;
+}
+.topic-path-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
 }
 .blog-diagram { margin:1.75rem 0 2rem; }
 .blog-diagram img { display:block; width:100%; height:auto; border-radius:1rem; border:1px solid rgba(148,163,184,0.2); }
