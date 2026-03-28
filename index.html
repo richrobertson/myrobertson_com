@@ -114,6 +114,7 @@
             <p class="flagship-label">Flagship System</p>
             <div class="case-header-row"><h3>Oracle Customer Notification Service Migration to OCI</h3><a class="anchor-link" href="#case-oci">#</a></div>
             <p class="case-takeaway">Takeaway: Led migration of a customer-critical notification platform to OCI-native architecture, improving reliability posture and supporting a $2M enterprise deal timeline.</p>
+            <div class="impact-header"><span class="chip"><strong>$2M</strong> deal support</span><span class="chip">Enterprise-scale cloud migration</span><span class="chip">OCI-native migration</span></div>
             <figure class="architecture-diagram">
               <svg viewBox="0 0 980 300" role="img" aria-labelledby="oci-title oci-desc">
                 <title id="oci-title">OCI migration before and after architecture</title>
@@ -139,7 +140,7 @@
             <p class="why-line"><strong>Why this matters:</strong> migration quality directly affected customer trust and delivery confidence.</p>
             <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and adaptive concurrency patterns that prevent cascading failure under load.</span></p>
             <div class="case-study-grid">
-              <div><h4>My role</h4><p>Led migration execution and backend implementation planning.</p></div>
+              <div><h4>Context</h4><p>Customer notification service migration with production-critical delivery requirements.</p></div><div><h4>Problem</h4><p>Legacy architecture created supportability and elasticity limits during a high-stakes timeline.</p></div><div><h4>My role</h4><p>Led migration execution and backend implementation planning.</p></div>
               <div><h4>Operational / business result</h4><p>Improved supportability/scalability and supported a <strong>$2M</strong> enterprise deal.</p></div>
               <div><h4>Key decisions</h4><ul><li>OCI-native ingress + queueing model</li><li>Staged transition to preserve service continuity</li><li>Admission control and bounded queue behavior to reduce overload risk</li><li>See: <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
               <div><h4>Tradeoffs / constraints</h4><p>Balanced migration speed with production safety.</p></div>
@@ -149,6 +150,7 @@
           <article id="case-control-plane" class="project case-study">
             <div class="case-header-row"><h3>Oracle Multitenant Control-Plane / Workflow Platform</h3><a class="anchor-link" href="#case-control-plane">#</a></div>
             <p class="case-takeaway">Takeaway: Designed a reusable control plane for durable distributed workflows across multitenant services.</p>
+            <div class="impact-header"><span class="chip">Enterprise-scale control plane</span><span class="chip">Durable workflows</span><span class="chip">Partition-aware execution</span></div>
             <figure class="architecture-diagram">
               <svg viewBox="0 0 980 220" role="img" aria-labelledby="cp-title cp-desc">
                 <title id="cp-title">Control-plane workflow architecture</title>
@@ -168,7 +170,7 @@
             <p class="why-line"><strong>Why this matters:</strong> teams shipped faster without duplicating orchestration infrastructure.</p>
             <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
             <div class="case-study-grid">
-              <div><h4>My role</h4><p>Architected and built the shared framework.</p></div>
+              <div><h4>Context</h4><p>Multitenant control-plane environment with multiple services needing durable orchestration.</p></div><div><h4>Problem</h4><p>Teams needed safe distributed workflow execution without rebuilding infrastructure repeatedly.</p></div><div><h4>My role</h4><p>Architected and built the shared framework.</p></div>
               <div><h4>Operational / business result</h4><p>Standardized control-plane execution and reduced duplicated effort.</p></div>
               <div><h4>Key decisions</h4><ul><li>Queue + workflow core model</li><li>Partition-aware worker execution</li><li>Graceful degradation paths for downstream pressure</li></ul></div>
               <div><h4>Tradeoffs / constraints</h4><p>Balanced framework reuse with service-level flexibility.</p></div>
@@ -178,6 +180,7 @@
           <article id="case-java17" class="project case-study">
             <div class="case-header-row"><h3>Java 17 Modernization + Multi-Architecture Rollout</h3><a class="anchor-link" href="#case-java17">#</a></div>
             <p class="case-takeaway">Takeaway: Modernized legacy runtime and executed release rollout across <strong>32 global data centers</strong> in under three months.</p>
+            <div class="impact-header"><span class="chip"><strong>32</strong> global data centers</span><span class="chip">Under 3 months</span><span class="chip">Java 8 → Java 17</span></div>
             <figure class="architecture-diagram">
               <svg viewBox="0 0 980 220" role="img" aria-labelledby="j17-title j17-desc">
                 <title id="j17-title">Java 17 modernization rollout flow</title>
@@ -194,7 +197,7 @@
             <div class="proof-strip"><span class="chip">Java 8 → Java 17</span><span class="chip"><strong>32</strong> global data centers</span><span class="chip">Under 3 months</span></div>
             <p class="why-line"><strong>Why this matters:</strong> modernization improved maintainability without sacrificing rollout safety.</p>
             <div class="case-study-grid">
-              <div><h4>My role</h4><p>Led modernization execution and rollout planning.</p></div>
+              <div><h4>Context</h4><p>Legacy Java runtime modernization across heterogeneous global environments.</p></div><div><h4>Problem</h4><p>Needed fast upgrade execution while preserving stability during global rollout.</p></div><div><h4>My role</h4><p>Led modernization execution and rollout planning.</p></div>
               <div><h4>Operational / business result</h4><p>Delivered across <strong>32 global data centers</strong> in under three months.</p></div>
               <div><h4>Key decisions</h4><ul><li>Compatibility-first validation</li><li>Staged release sequencing</li><li>Environment-aware promotion checks</li></ul></div>
               <div><h4>Tradeoffs / constraints</h4><p>Aggressive timeline balanced against operational safety.</p></div>
@@ -204,10 +207,11 @@
           <article id="case-starbucks" class="project case-study">
             <div class="case-header-row"><h3>Starbucks Loyalty + Unified Commerce Platform Integration</h3><a class="anchor-link" href="#case-starbucks">#</a></div>
             <p class="case-takeaway">Takeaway: Led backend integration for customer-critical loyalty systems serving <strong>17M+ active users</strong>.</p>
+            <div class="impact-header"><span class="chip"><strong>17M+</strong> users</span><span class="chip"><strong>$200K/year</strong> savings</span><span class="chip">Rewards migration support</span></div>
             <div class="proof-strip"><span class="chip"><strong>17M+</strong> active customers</span><span class="chip">U.S. + Canada rewards migration</span><span class="chip"><strong>$200K/year</strong> savings</span></div>
             <p class="why-line"><strong>Why this matters:</strong> platform reliability directly affected loyalty and account journeys.</p>
             <div class="case-study-grid">
-              <div><h4>My role</h4><p>Engineer lead across backend API and integration teams.</p></div>
+              <div><h4>Context</h4><p>Loyalty and commerce platform integration in a high-volume consumer environment.</p></div><div><h4>Problem</h4><p>Migration and integration changes had to preserve customer-facing reliability.</p></div><div><h4>My role</h4><p>Engineer lead across backend API and integration teams.</p></div>
               <div><h4>Operational / business result</h4><p>Supported migration and delivered <strong>$200K annual</strong> licensing savings.</p></div>
               <div><h4>Key decisions</h4><ul><li>Balance platform standardization with delivery throughput</li><li>Coordinate services across integration boundaries</li><li>Preserve production continuity during migration</li></ul></div>
               <div><h4>Tradeoffs / constraints</h4><p>Platform consistency versus fast-moving product priorities.</p></div>
