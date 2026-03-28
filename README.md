@@ -61,3 +61,64 @@ Regenerate the feed after publishing or updating posts:
 ```bash
 node scripts/generate-rss.mjs
 ```
+
+## SEO foundation (Search Console ready)
+
+### Canonical + metadata source of truth
+
+- `seo.config.json` stores:
+  - `siteUrl`
+  - `siteName`
+  - default title/description
+  - default social image
+- Canonical URLs on indexable pages point to `https://www.myrobertson.com/...`.
+
+### Crawl/index artifacts
+
+- `robots.txt` lives at `/robots.txt` and references `/sitemap.xml`.
+- `sitemap.xml` lives at `/sitemap.xml`.
+- Regenerate sitemap after adding/removing SEO landing pages:
+
+```bash
+node scripts/generate-sitemap.mjs
+```
+
+### Sitemap inclusion rules (source of truth)
+
+`scripts/generate-sitemap.mjs` includes a page only when all conditions are true:
+
+- page is a real public `.html` route
+- page has a canonical URL on the configured production domain (`SITE_URL` env override, otherwise `seo.config.json` `siteUrl`)
+- canonical path matches the file route exactly (prevents duplicate/canonical-alternate URLs)
+- page is **not** marked `noindex` via `<meta name="robots" ...>`
+- page is not a utility/alternate route (example: `/blog/index.html`)
+
+It excludes draft/planned scaffold pages automatically because those pages are `noindex,follow`.
+
+### `lastmod` policy
+
+- `<lastmod>` is derived from each file's filesystem modification date (`mtime`) instead of stamping all pages with one generated date.
+- This keeps values meaningful without requiring separate frontmatter timestamps.
+
+### Pre-Search Console QA checklist
+
+1. Run `node scripts/generate-sitemap.mjs`.
+2. Confirm `robots.txt` `Sitemap:` line points to the production canonical domain.
+3. Confirm no `noindex` pages are listed in `sitemap.xml`.
+4. Confirm major canonical pages (homepage, key case studies, key writing pages) are present.
+5. Confirm no duplicate/canonical-alternate URLs are present.
+
+### Intended indexable pages
+
+- Homepage (`/`)
+- Dedicated case study pages under `/case-studies/`
+- Dedicated writing pages under `/writing/`
+- Blog index and key topic pages
+- Core profile pages (`/distributed-systems-engineer.html`, `/cloud-platform-engineer.html`)
+
+### Search Console submission checklist
+
+1. Verify property for `https://www.myrobertson.com`.
+2. Submit `https://www.myrobertson.com/sitemap.xml`.
+3. Request indexing for new `/case-studies/*` and `/writing/*` landing pages.
+4. Monitor Coverage + Enhancements for structured data and canonical issues.
