@@ -82,10 +82,9 @@
         <a class="logo" href="#top">myrobertson.com</a>
         <div class="nav-links">
           <a href="#about">About</a>
+          <a href="#case-studies">Case Studies</a>
           <a href="#experience">Experience</a>
-          <a href="#projects">Projects</a>
           <a href="#skills">Tech</a>
-          <a href="#education">Education</a>
           <a href="#contact">Contact</a>
           <a href="blog/index.html">Blog</a>
         </div>
@@ -93,43 +92,244 @@
 
       <div class="hero-content">
         <p class="eyebrow">Senior Backend Engineer • Distributed Systems • Cloud Platforms</p>
-        <h1>Rich Robertson</h1>
+        <h1>I design and deliver backend platforms for high-scale, high-reliability systems.</h1>
         <p class="intro">
-          I’m a Seattle-based senior backend engineer building distributed systems, cloud platforms, control-plane services, and production APIs. Over the past 15+ years, I’ve worked across Oracle, Starbucks, and consulting environments, designing backend services, modernizing platforms, and improving reliability in production.
+          I’m Rich Robertson, a Seattle-based engineer with 15+ years building distributed systems, control planes, and production APIs across Oracle, Starbucks, and consulting delivery. I specialize in modernization and platform architecture where reliability, operability, and migration risk matter as much as raw throughput.
         </p>
+        <div class="proof-bar" aria-label="Career proof points">
+          <span class="chip">15+ years in production backend engineering</span>
+          <span class="chip">Oracle + Starbucks platform leadership</span>
+          <span class="chip">Distributed systems, APIs, and control planes</span>
+          <span class="chip">Large-scale migrations and modernization</span>
+        </div>
         <div class="hero-actions">
-          <a class="btn primary" href="#experience">View Experience</a>
-          <a class="btn secondary" href="#projects">Browse Projects</a>
-          <a class="btn secondary" href="#contact">Get in Touch</a>
-          <a class="btn secondary" href="blog/index.html">Visit Blog</a>
+          <a class="btn primary" href="#contact">Work With Me</a>
+          <a class="btn secondary" href="#case-studies">View Case Studies</a>
+          <a class="btn tertiary" href="blog/index.html">Read Technical Writing</a>
         </div>
       </div>
     </header>
 
     <main>
       <section class="section">
-        <h2>Core Areas of Focus</h2>
-        <div class="grid">
+        <h2>Quick Read Paths</h2>
+        <p class="section-intro">Designed for a 10-second skim, a 30-second scan, or a deeper architecture review.</p>
+        <div class="value-grid">
+          <article class="card compact">
+            <h3>10-second skim</h3>
+            <ul>
+              <li>Backend and distributed systems specialist</li>
+              <li>15+ years across Oracle and Starbucks</li>
+              <li>Proven delivery in control planes and modernization</li>
+            </ul>
+          </article>
+          <article class="card compact">
+            <h3>30-second scan</h3>
+            <ul>
+              <li>Read <a href="#why-hire-me">What I Solve Best</a></li>
+              <li>Review 3 flagship case studies</li>
+              <li>See technologies used in production</li>
+            </ul>
+          </article>
+          <article class="card compact">
+            <h3>Architecture deep dive</h3>
+            <ul>
+              <li>Explore system diagrams and tradeoffs</li>
+              <li>Read detailed distributed systems writing</li>
+              <li>Evaluate implementation depth and execution history</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="why-hire-me" class="section">
+        <h2>What I Solve Best</h2>
+        <p class="section-intro">Teams bring me in when they need practical architecture decisions that survive production reality.</p>
+        <div class="value-grid">
           <article class="card">
-            <h3>Distributed Systems and Cloud Platforms</h3>
-            <p>I work on backend systems where coordination, failure handling, scalability, and operational clarity matter more than surface complexity.</p>
+            <h3>Distributed Backend Architecture</h3>
+            <p>I design APIs and service boundaries that handle concurrency, partial failure, and operational complexity at scale.</p>
           </article>
           <article class="card">
-            <h3>Control Planes, APIs, and Platform Engineering</h3>
-            <p>My strongest work has centered on control-plane services, backend APIs, workflow-driven platforms, and shared infrastructure used by multiple teams.</p>
+            <h3>Control Planes and Platform Services</h3>
+            <p>I build durable workflow and command execution systems that multiple product teams can reliably build on top of.</p>
           </article>
           <article class="card">
-            <h3>Reliability and Production Modernization</h3>
-            <p>I care most about systems that are understandable, maintainable, and dependable under load, during migration, and under partial failure.</p>
+            <h3>Legacy Modernization</h3>
+            <p>I help teams move critical services forward without breaking business continuity, balancing delivery pressure with migration risk.</p>
+          </article>
+          <article class="card">
+            <h3>Reliability and Operability</h3>
+            <p>I prioritize observability, supportability, and failure-aware design so systems are sustainable after initial launch.</p>
+          </article>
+          <article class="card">
+            <h3>Architecture + Implementation</h3>
+            <p>I bridge strategy and execution, from design reviews and tradeoff framing through hands-on service development.</p>
+          </article>
+          <article class="card">
+            <h3>Cross-Team Delivery</h3>
+            <p>I align platform, product, and operations stakeholders to ship foundational backend capabilities in real organizations.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="case-studies" class="section">
+        <h2>Flagship Case Studies</h2>
+        <p class="section-intro">Representative work spanning migration, platform architecture, and global modernization.</p>
+        <div class="case-study-list">
+          <article class="project case-study">
+            <h3>Oracle Customer Notification Service Migration to OCI</h3>
+            <figure class="architecture-diagram">
+              <svg viewBox="0 0 860 250" role="img" aria-labelledby="migration-diagram-title migration-diagram-desc">
+                <title id="migration-diagram-title">Customer Notification Service migration flow</title>
+                <desc id="migration-diagram-desc">A before and after architecture view moving from legacy service components to OCI-native, Kubernetes-backed messaging and API services.</desc>
+                <rect x="20" y="50" width="370" height="160" rx="14" fill="rgba(30, 41, 75, 0.75)" stroke="rgba(128, 169, 255, 0.4)" />
+                <text x="50" y="80" fill="#b4bddb" font-size="16" font-weight="600">Before: Legacy Service Footprint</text>
+                <rect x="50" y="95" width="130" height="38" rx="8" fill="rgba(11, 16, 32, 0.9)" stroke="#243054" />
+                <text x="65" y="118" fill="#e9ecf8" font-size="13">Notification API</text>
+                <rect x="210" y="95" width="150" height="38" rx="8" fill="rgba(11, 16, 32, 0.9)" stroke="#243054" />
+                <text x="224" y="118" fill="#e9ecf8" font-size="13">Legacy Messaging</text>
+                <rect x="130" y="150" width="150" height="38" rx="8" fill="rgba(11, 16, 32, 0.9)" stroke="#243054" />
+                <text x="162" y="173" fill="#e9ecf8" font-size="13">Ops Bottlenecks</text>
+
+                <rect x="470" y="50" width="370" height="160" rx="14" fill="rgba(17, 29, 54, 0.8)" stroke="rgba(128, 169, 255, 0.6)" />
+                <text x="500" y="80" fill="#b4bddb" font-size="16" font-weight="600">After: OCI-Native Architecture</text>
+                <rect x="500" y="95" width="130" height="38" rx="8" fill="rgba(11, 16, 32, 0.9)" stroke="#243054" />
+                <text x="522" y="118" fill="#e9ecf8" font-size="13">Ingress APIs</text>
+                <rect x="655" y="95" width="155" height="38" rx="8" fill="rgba(11, 16, 32, 0.9)" stroke="#243054" />
+                <text x="668" y="118" fill="#e9ecf8" font-size="13">Durable Queueing</text>
+                <rect x="580" y="150" width="165" height="38" rx="8" fill="rgba(11, 16, 32, 0.9)" stroke="#243054" />
+                <text x="592" y="173" fill="#e9ecf8" font-size="13">Kubernetes Workloads</text>
+
+                <line x1="390" y1="130" x2="460" y2="130" stroke="#80a9ff" stroke-width="3" />
+                <polygon points="460,130 448,123 448,137" fill="#80a9ff" />
+                <text x="386" y="115" fill="#80a9ff" font-size="12">Migration</text>
+              </svg>
+              <figcaption>Before/after architecture framing used to communicate migration scope, risk, and operational outcomes.</figcaption>
+            </figure>
+            <div class="case-study-grid">
+              <div>
+                <h4>Context</h4>
+                <p>Oracle Customer Notification Service supporting cloud messaging delivery paths.</p>
+              </div>
+              <div>
+                <h4>Problem</h4>
+                <p>Legacy architecture constrained scalability and supportability during a high-stakes customer timeline.</p>
+              </div>
+              <div>
+                <h4>What I Designed / Led / Built</h4>
+                <p>Led migration to OCI-native service patterns, including backend service updates and cloud-ready operational workflows.</p>
+              </div>
+              <div>
+                <h4>Key Tradeoffs</h4>
+                <p>Balanced migration speed with service continuity, reducing delivery risk while preserving production stability.</p>
+              </div>
+              <div>
+                <h4>Outcome / Impact</h4>
+                <p>Improved scalability and supportability and helped enable a $2M customer deal.</p>
+              </div>
+              <div>
+                <h4>Tech Involved</h4>
+                <p>Java, OCI, Kubernetes, messaging services, production operations.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="project case-study">
+            <h3>Oracle Multitenant Control-Plane and Workflow Orchestration Platform</h3>
+            <div class="case-study-grid">
+              <div>
+                <h4>Context</h4>
+                <p>Next-generation Oracle multitenant data tier with multiple services needing consistent control-plane execution patterns.</p>
+              </div>
+              <div>
+                <h4>Problem</h4>
+                <p>Teams needed durable, partition-aware asynchronous execution without each service rebuilding workflow infrastructure.</p>
+              </div>
+              <div>
+                <h4>What I Designed / Led / Built</h4>
+                <p>Architected and built a shared Java framework for durable command execution and workflow orchestration across services.</p>
+              </div>
+              <div>
+                <h4>Key Tradeoffs</h4>
+                <p>Generalized common execution patterns while keeping room for service-specific behavior and tenant boundaries.</p>
+              </div>
+              <div>
+                <h4>Outcome / Impact</h4>
+                <p>Standardized core control-plane mechanics, improved reuse across teams, and reduced duplicated platform effort.</p>
+              </div>
+              <div>
+                <h4>Tech Involved</h4>
+                <p>Java, distributed systems design, multitenancy, asynchronous workflows, control-plane services.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="project case-study">
+            <h3>Java 17 Modernization and Multi-Architecture Global Rollout</h3>
+            <div class="case-study-grid">
+              <div>
+                <h4>Context</h4>
+                <p>Oracle Resource Query Service modernization from Java 8 with broad global deployment requirements.</p>
+              </div>
+              <div>
+                <h4>Problem</h4>
+                <p>Needed a fast modernization path and coordinated rollout across heterogeneous runtime environments.</p>
+              </div>
+              <div>
+                <h4>What I Designed / Led / Built</h4>
+                <p>Drove Java 17 upgrade execution and supported a multi-architecture release plan across global data center footprints.</p>
+              </div>
+              <div>
+                <h4>Key Tradeoffs</h4>
+                <p>Balanced aggressive timeline against compatibility and rollout safety across environments.</p>
+              </div>
+              <div>
+                <h4>Outcome / Impact</h4>
+                <p>Delivered migration and rollout across 32 global data centers in under three months.</p>
+              </div>
+              <div>
+                <h4>Tech Involved</h4>
+                <p>Java 17, Linux, multi-architecture packaging, global release coordination.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="project case-study">
+            <h3>Starbucks Loyalty and Unified Commerce Platform Integration</h3>
+            <div class="case-study-grid">
+              <div>
+                <h4>Context</h4>
+                <p>Backend platform teams supporting mobile and loyalty experiences used by more than 17 million active customers.</p>
+              </div>
+              <div>
+                <h4>Problem</h4>
+                <p>Needed coordinated architecture changes for rewards migration in the U.S. and Canada while maintaining customer-facing reliability.</p>
+              </div>
+              <div>
+                <h4>What I Designed / Led / Built</h4>
+                <p>Led technical direction across API teams delivering cart, onboarding, account lookup, and integration services.</p>
+              </div>
+              <div>
+                <h4>Key Tradeoffs</h4>
+                <p>Balanced platform standardization with fast feature delivery for consumer-facing teams.</p>
+              </div>
+              <div>
+                <h4>Outcome / Impact</h4>
+                <p>Supported loyalty migration execution and reduced software licensing costs by $200K annually via identity platform replacement.</p>
+              </div>
+              <div>
+                <h4>Tech Involved</h4>
+                <p>Backend APIs, GraphQL integration, SAML, commerce platform services.</p>
+              </div>
+            </div>
           </article>
         </div>
       </section>
 
       <section class="section">
         <h2>Selected Writing</h2>
-        <p>
-          I write about distributed systems, platform architecture, and backend engineering to make my technical approach visible beyond the resume.
-        </p>
+        <p class="section-intro">Technical writing that shows architecture judgment, correctness thinking, and production engineering depth.</p>
         <div class="grid">
           <article class="project">
             <h3>
@@ -151,39 +351,6 @@
             </h3>
             <p>An engineering view of admission control, bounded queues, and adaptive concurrency as reliability mechanisms.</p>
             <span>Backpressure • Reliability Engineering • APIs</span>
-          </article>
-          <article class="project">
-            <h3>
-              <a href="blog/polyglot-functional-languages-distributed-systems.html">Polyglot Architectures: A Case for Functional Languages in Distributed Systems</a>
-            </h3>
-            <p>A systems-level look at where Scala and other functional runtimes fit in backend and platform architecture.</p>
-            <span>Scala • Functional Design • Platform Architecture</span>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Explore by Topic</h2>
-        <div class="grid">
-          <article class="project">
-            <h3><a href="distributed-systems-engineer.html">Distributed Systems Engineer in Seattle</a></h3>
-            <p>A focused overview of my distributed systems background, architecture approach, and relevant technical writing.</p>
-            <span>Career Overview • Distributed Systems • Reliability</span>
-          </article>
-          <article class="project">
-            <h3><a href="cloud-platform-engineer.html">Cloud Platform Engineer in Seattle</a></h3>
-            <p>Cloud platform and control-plane engineering experience across Oracle, Starbucks, and consulting delivery.</p>
-            <span>Cloud Platforms • Control Planes • Backend APIs</span>
-          </article>
-          <article class="project">
-            <h3><a href="blog/what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a></h3>
-            <p>A practical primer on lock ownership, lease semantics, fencing tokens, and failure cases in production.</p>
-            <span>Distributed Locks • Primer • Correctness</span>
-          </article>
-          <article class="project">
-            <h3><a href="blog/raft-vs-paxos-vs-epaxos-practical-guide.html">Raft vs Paxos vs EPaxos: A Practical Guide</a></h3>
-            <p>A pragmatic consensus comparison focused on implementation trade-offs and production fit.</p>
-            <span>Consensus • Trade-offs • Practical Guide</span>
           </article>
         </div>
       </section>
@@ -246,53 +413,6 @@
         </div>
       </section>
 
-      <section id="projects" class="section">
-        <h2>Selected Highlights</h2>
-        <div class="grid">
-          <article class="project">
-            <h3>
-              <a href="blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html"
-                >Oracle Multitenant Data Tier Control Plane Architecture</a
-              >
-            </h3>
-            <p>
-              Architected and built a shared Java-based control-plane framework for Oracle&apos;s
-              next-generation multitenant data tier, with durable command execution,
-              workflow orchestration, and partition-aware asynchronous processing that
-              standardized execution patterns across control-plane services.
-            </p>
-            <span>Distributed Systems • Control Planes • Workflow Orchestration • Multitenancy</span>
-          </article>
-          <article class="project">
-            <h3>OCI Messaging Platform Migration</h3>
-            <p>
-              Migrated Oracle&apos;s Customer Notification Service to a cloud-native OCI
-              architecture, improving scalability, supportability, and readiness for a
-              major customer deployment.
-            </p>
-            <span>Java • OCI • Kubernetes • Messaging Platforms</span>
-          </article>
-          <article class="project">
-            <h3>Java 17 Global Modernization</h3>
-            <p>
-              Modernized Oracle Resource Query Service from Java 8 to Java 17 and
-              supported a multi-architecture rollout across 32 global data centers in
-              under 3 months.
-            </p>
-            <span>Java • Linux • Multi-Region Operations • Platform Services</span>
-          </article>
-          <article class="project">
-            <h3>Starbucks Consumer Platform Leadership</h3>
-            <p>
-              Set technical direction across backend teams supporting loyalty, account,
-              and mobile order experiences for more than 17 million active customers.
-            </p>
-            <span>APIs • GraphQL • SAML • Commerce Platform Integration</span>
-          </article>
-        </div>
-      </section>
-
-
       <span id="skills" aria-hidden="true"></span>
       <section id="production-tech" class="section">
         <h2>Core Technologies Used in Production</h2>
@@ -324,6 +444,7 @@
 
       <section id="contact" class="section contact">
         <h2>Contact</h2>
+        <p>If you are hiring for senior backend, platform, or distributed systems work, I’d be glad to connect.</p>
         <p>Location: Seattle, WA</p>
         <p>
           LinkedIn:
