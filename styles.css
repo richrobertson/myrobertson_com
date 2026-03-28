@@ -415,8 +415,39 @@ section[id] { scroll-margin-top: 4.4rem; }
   gap: 1rem;
 }
 
+.askrich-shell {
+  --ask-surface: #0f1a36;
+  --ask-surface-2: #132245;
+  --ask-border: #3a4f82;
+  --ask-text: #f5f8ff;
+  --ask-muted: #d8e2ff;
+  --ask-input-bg: #0b1530;
+  --ask-user-bg: #14315f;
+  --ask-assistant-bg: #1c2c52;
+}
+
+.ask-rich-page .breadcrumb,
+.ask-rich-page .breadcrumb a {
+  color: #d4def8;
+}
+
+.ask-rich-page .intro {
+  color: #edf2ff;
+  font-size: 1.08rem;
+}
+
 .askrich-setup p {
   margin-top: 0;
+  color: var(--ask-muted);
+}
+
+.askrich-shell .card {
+  background: var(--ask-surface);
+  border: 1px solid var(--ask-border);
+}
+
+.askrich-shell h2 {
+  color: var(--ask-text);
 }
 
 .askrich-prompt-list {
@@ -426,45 +457,48 @@ section[id] { scroll-margin-top: 4.4rem; }
 }
 
 .prompt-chip {
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--text);
+  border: 1px solid var(--ask-border);
+  background: rgba(17, 33, 67, 0.85);
+  color: var(--ask-text);
   border-radius: 999px;
-  padding: 0.45rem 0.8rem;
+  padding: 0.5rem 0.9rem;
   cursor: pointer;
-  font: 500 0.92rem/1.2 "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font: 600 0.94rem/1.25 "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 .prompt-chip:hover {
-  border-color: var(--accent);
+  border-color: #8cb4ff;
+  background: rgba(30, 55, 106, 0.95);
 }
 
 .askrich-settings {
   margin-top: 1rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid var(--ask-border);
   padding-top: 0.8rem;
 }
 
 .askrich-settings summary {
   cursor: pointer;
-  color: var(--muted);
+  color: var(--ask-muted);
   margin-bottom: 0.65rem;
+  font-weight: 600;
 }
 
 .askrich-settings label {
   display: block;
   margin: 0.4rem 0;
-  color: var(--muted);
+  color: var(--ask-muted);
   font-size: 0.92rem;
 }
 
 .askrich-settings input {
   width: 100%;
-  border: 1px solid var(--border);
+  border: 1px solid var(--ask-border);
   border-radius: 10px;
   padding: 0.65rem 0.75rem;
-  background: #0e1731;
-  color: var(--text);
+  background: var(--ask-input-bg);
+  color: var(--ask-text);
+  font-size: 0.96rem;
 }
 
 .askrich-chat-card {
@@ -480,38 +514,42 @@ section[id] { scroll-margin-top: 4.4rem; }
   min-height: 360px;
   max-height: 560px;
   overflow-y: auto;
-  background: #0d1530;
-  border: 1px solid var(--border);
+  background: #0a1228;
+  border: 1px solid var(--ask-border);
   border-radius: 12px;
-  padding: 0.75rem;
+  padding: 0.9rem;
 }
 
 .message {
-  border: 1px solid var(--border);
+  border: 1px solid var(--ask-border);
   border-radius: 12px;
-  padding: 0.65rem 0.75rem;
-  margin-bottom: 0.7rem;
+  padding: 0.72rem 0.82rem;
+  margin-bottom: 0.78rem;
 }
 
 .message .role {
   display: block;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   margin-bottom: 0.35rem;
+  color: #cfddff;
+  font-weight: 700;
 }
 
 .message .answer {
-  color: var(--text);
+  color: var(--ask-text);
+  font-size: 1rem;
+  line-height: 1.6;
   white-space: pre-wrap;
 }
 
 .message.user {
-  background: #0f234b;
+  background: var(--ask-user-bg);
 }
 
 .message.assistant {
-  background: #172243;
+  background: var(--ask-assistant-bg);
 }
 
 .message.system {
@@ -525,8 +563,9 @@ section[id] { scroll-margin-top: 4.4rem; }
 
 .citations summary {
   cursor: pointer;
-  color: var(--accent);
+  color: #9fc1ff;
   font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .citations ol {
@@ -535,7 +574,7 @@ section[id] { scroll-margin-top: 4.4rem; }
 }
 
 .citations li {
-  color: var(--muted);
+  color: var(--ask-muted);
   margin-bottom: 0.35rem;
 }
 
@@ -545,14 +584,26 @@ section[id] { scroll-margin-top: 4.4rem; }
 
 .askrich-form textarea {
   width: 100%;
-  border: 1px solid var(--border);
+  border: 1px solid var(--ask-border);
   border-radius: 12px;
-  padding: 0.7rem 0.8rem;
-  background: #0e1731;
-  color: var(--text);
+  padding: 0.82rem 0.88rem;
+  background: var(--ask-input-bg);
+  color: var(--ask-text);
   font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  line-height: 1.45;
+  font-size: 0.98rem;
+  line-height: 1.5;
   resize: vertical;
+}
+
+.askrich-form textarea::placeholder {
+  color: #b8c8ef;
+}
+
+.askrich-form textarea:focus,
+.askrich-settings input:focus,
+.prompt-chip:focus-visible {
+  outline: 2px solid #8cb4ff;
+  outline-offset: 2px;
 }
 
 .askrich-form button {
