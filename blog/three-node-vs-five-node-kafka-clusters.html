@@ -43,23 +43,12 @@
       }
     </script>
   </head>
-  <body>
+  <body data-page="writing" data-article-slug="three-node-vs-five-node-kafka-clusters">
     <header class="hero" id="top">
-      <nav class="nav">
-        <a class="logo" href="../index.html">myrobertson.com</a>
-        <div class="nav-links">
-          <a href="../index.html#about">About</a>
-          <a href="../index.html#experience">Experience</a>
-          <a href="../index.html#projects">Projects</a>
-          <a href="../index.html#skills">Skills</a>
-          <a href="../index.html#education">Education</a>
-          <a href="../index.html#contact">Contact</a>
-          <a href="./index.html" aria-current="page">Blog</a>
-        </div>
-      </nav>
+      <div data-site-header></div>
 
-      <div class="hero-content">
-        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="./index.html">Blog</a> / <span aria-current="page">Post</span></p>
+<div class="hero-content" data-article-meta data-article-slug="three-node-vs-five-node-kafka-clusters">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Post</span></p>
         <p class="eyebrow">March 2026 • Rich Robertson</p>
         <h1>Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster</h1>
         <p class="intro">A Distributed Systems Perspective</p>
@@ -67,7 +56,7 @@
     </header>
 
     <main>
-      <article class="card blog-post">
+      <article class="card blog-post" data-related-writing>
         <h3>Introduction</h3>
         <p>
           A common design assumption in distributed systems is that increasing node count
@@ -265,8 +254,13 @@
 
     <footer>
       <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
     </footer>
 
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
     <script src="../script.js"></script>
   </body>
 </html>

@@ -3,24 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Distributed Systems, Backend Engineering, and Cloud Architecture Blog | Rich Robertson</title>
+    <title>Distributed Systems Writing | Backpressure, Control Planes, Reliability</title>
     <meta
       name="description"
       content="Engineering writing from Rich Robertson on distributed systems, backend engineering, cloud architecture, control planes, reliability, and production platform design."
     />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.myrobertson.com/blog/" />
+    <link rel="canonical" href="https://www.myrobertson.com/writing/" />
     <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Distributed Systems, Backend Engineering, and Cloud Architecture Blog | Rich Robertson" />
+    <meta property="og:title" content="Distributed Systems Writing | Backpressure, Control Planes, Reliability" />
     <meta
       property="og:description"
       content="Engineering writing on distributed systems, backend architecture, cloud platforms, control planes, and reliability."
     />
-    <meta property="og:url" content="https://www.myrobertson.com/blog/" />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/" />
     <meta property="og:site_name" content="Rich Robertson" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Distributed Systems, Backend Engineering, and Cloud Architecture Blog | Rich Robertson" />
+    <meta name="twitter:title" content="Distributed Systems Writing | Backpressure, Control Planes, Reliability" />
     <meta
       name="twitter:description"
       content="Engineering writing on distributed systems, backend architecture, cloud platforms, control planes, and reliability."
@@ -36,8 +36,8 @@
       {
         "@context": "https://schema.org",
         "@type": "Blog",
-        "name": "Rich Robertson Blog",
-        "url": "https://www.myrobertson.com/blog/",
+        "name": "Rich Robertson Writing",
+        "url": "https://www.myrobertson.com/writing/",
         "description": "Engineering writing from Rich Robertson on distributed systems, backend engineering, cloud architecture, control planes, reliability, and production platform design.",
         "inLanguage": "en",
         "author": {
@@ -65,34 +65,24 @@
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Blog",
-            "item": "https://www.myrobertson.com/blog/"
+            "name": "Writing",
+            "item": "https://www.myrobertson.com/writing/"
           }
         ]
       }
     </script>
   </head>
-  <body>
+  <body data-page="writing">
     <header class="hero" id="top">
-      <nav class="nav">
-        <a class="logo" href="../index.html">myrobertson.com</a>
-        <div class="nav-links">
-          <a href="../index.html#about">About</a>
-          <a href="../index.html#experience">Experience</a>
-          <a href="../index.html#projects">Projects</a>
-          <a href="../index.html#skills">Skills</a>
-          <a href="../index.html#education">Education</a>
-          <a href="../index.html#contact">Contact</a>
-          <a href="./index.html" aria-current="page">Blog</a>
-        </div>
-      </nav>
+      <div data-site-header></div>
 
-      <div class="hero-content">
-        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Blog</span></p>
+<div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <span aria-current="page">Writing</span></p>
         <p class="eyebrow">Engineering Journal</p>
-        <h1>Engineering Notes &amp; Posts</h1>
+        <h1>Distributed Systems Writing and Architecture Notes</h1>
         <p class="intro">
-          Longer-form writing on distributed systems, backend engineering, cloud platforms, and the architecture decisions that shape production systems over time.
+          Practical writing on distributed systems, control planes, cloud migration, and reliability engineering.
+          This library is organized for topic-based navigation so readers can move from primers to deeper system concerns.
         </p>
       </div>
     </header>
@@ -100,33 +90,34 @@
     <main>
       <section class="section">
         <h2>Start Here</h2>
+        <p class="section-intro">A focused map of primers and deep dives across distributed systems, control planes, reliability, and architecture.</p>
         <div class="grid">
-          <article class="project">
+          <article class="project" data-article-slug="what-is-a-control-plane">
             <h3><a href="./what-is-a-control-plane.html">What Is a Control Plane?</a></h3>
             <p>A simple explanation of how control planes coordinate intent, workflows, and long-running infrastructure operations.</p>
             <span>Primer • Control Planes • Cloud Platforms</span>
           </article>
-          <article class="project">
+          <article class="project" data-article-slug="distributed-systems-interview-guide">
             <h3><a href="./distributed-systems-interview-guide.html">Distributed Systems Interview Guide</a></h3>
             <p>A practical study map for coordination, consensus, retries, ownership, and production trade-offs.</p>
             <span>Primer • Interviews • Distributed Systems</span>
           </article>
-          <article class="project">
+          <article class="project" data-article-slug="api-backpressure-explained-simply">
             <h3><a href="./api-backpressure-explained-simply.html">API Backpressure Explained Simply</a></h3>
             <p>A straightforward explanation of why APIs need bounded work, fast failure, and graceful overload control.</p>
             <span>Primer • APIs • Backpressure</span>
           </article>
-          <article class="project">
+          <article class="project" data-article-slug="what-is-eventual-consistency">
             <h3><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (Explained Simply)</a></h3>
             <p>A plain-language explanation of why distributed systems trade consistency for availability, and what "eventually" actually means in practice.</p>
             <span>Primer • Consistency • Distributed Systems</span>
           </article>
-          <article class="project">
+          <article class="project" data-article-slug="what-is-the-cap-theorem">
             <h3><a href="./what-is-the-cap-theorem.html">What Is the CAP Theorem? (Explained Simply)</a></h3>
             <p>The CAP trade-off explained clearly — beyond the surface-level "pick two" framing — with CP vs AP examples and what interviewers want to hear.</p>
             <span>Primer • CAP • Distributed Systems</span>
           </article>
-          <article class="project">
+          <article class="project" data-article-slug="what-is-idempotency">
             <h3><a href="./what-is-idempotency.html">What Is Idempotency? (And Why It Matters in Distributed Systems)</a></h3>
             <p>Why safe retries, durable workflows, and reliable message processing all depend on idempotent operations, and how to design them.</p>
             <span>Primer • APIs • Reliability</span>
@@ -136,7 +127,7 @@
 
       <section class="section">
         <h2>Featured Post</h2>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="designing-a-correct-distributed-lease-service-tenure-on-raft">
           <p class="date">March 2026 • 16 min read</p>
           <h3>
             <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html"
@@ -145,6 +136,56 @@
           </h3>
           <p>A Tenure systems deep dive focused on lease semantics, leader time authority, and downstream fencing.</p>
         </article>
+      </section>
+
+      <section class="section">
+        <h2>Tag Cloud</h2>
+        <p class="section-intro" data-tag-summary>Browse by topic or scan the full archive below.</p>
+        <ul class="tag-cloud" data-tag-cloud></ul>
+      </section>
+
+      <section class="section">
+        <h2>Start by Topic</h2>
+        <div class="topic-path-grid">
+          <article class="topic-path">
+            <h3>Reliability Path</h3>
+            <p>Use these readings for overload control, graceful degradation, and failure handling decisions.</p>
+            <div class="topic-path-links">
+              <a class="tag-chip" href="/blog/index.html?tag=backpressure">Backpressure</a>
+              <a class="tag-chip" href="/blog/index.html?tag=reliability">Reliability</a>
+              <a href="/writing/distributed-systems-reliability/">Reliability pillar</a>
+              <a href="/writing/backpressure-in-distributed-systems/">Core essay</a>
+            </div>
+          </article>
+          <article class="topic-path">
+            <h3>Control Plane Path</h3>
+            <p>Start with control-plane fundamentals, then review multitenant workflow and migration context.</p>
+            <div class="topic-path-links">
+              <a class="tag-chip" href="/blog/index.html?tag=control-planes">Control Planes</a>
+              <a href="/writing/control-plane-architecture-guide/">Control-plane pillar</a>
+              <a href="/blog/what-is-a-control-plane.html">Primer</a>
+              <a href="/case-studies/control-plane-workflow-platform/">Case study</a>
+            </div>
+          </article>
+          <article class="topic-path">
+            <h3>Distributed Systems Path</h3>
+            <p>Follow this path for consensus, correctness, and messaging trade-offs in production systems.</p>
+            <div class="topic-path-links">
+              <a class="tag-chip" href="/blog/index.html?tag=distributed-systems">Distributed Systems</a>
+              <a class="tag-chip" href="/blog/index.html?tag=consensus">Consensus</a>
+              <a class="tag-chip" href="/blog/index.html?tag=kafka">Kafka</a>
+            </div>
+          </article>
+          <article class="topic-path">
+            <h3>Cloud Migration Path</h3>
+            <p>Read migration execution strategy with rollout sequencing, stability safeguards, and operational trade-offs.</p>
+            <div class="topic-path-links">
+              <a href="/case-studies/distributed-systems-migration/">Migration hub</a>
+              <a href="/case-studies/oracle-cns-oci-migration/">OCI flagship case study</a>
+              <a href="/case-studies/java-17-global-modernization/">Modernization case study</a>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section class="section">
@@ -160,7 +201,7 @@
             <p>Use the distributed systems overview, interview guide, lock primer, and lease deep dive as a progression from fundamentals to correctness detail.</p>
             <span>Landing Page • Interview Prep • Correctness</span>
           </article>
-          <article class="project">
+          <article class="project" data-article-slug="api-backpressure-explained-simply">
             <h3><a href="./api-backpressure-explained-simply.html">Backpressure and API Stability</a></h3>
             <p>Begin with the simple API backpressure explainer, then branch into the broader systems article and the GraphQL/CDN-specific analyses.</p>
             <span>Primer • Topic Cluster • Reliability</span>
@@ -170,7 +211,17 @@
 
       <section class="section">
         <h2>Archive</h2>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="what-it-took-to-modernize-a-legacy-service-across-32-global-regions">
+          <p class="date">March 2026 • 8 min read</p>
+          <h3>
+            <a href="./what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html">What It Took to Modernize a Legacy Service Across 32 Global Regions</a>
+          </h3>
+          <p>
+            A practical modernization sequence for compatibility checks, staged regional rollout,
+            and operational safeguards across globally distributed infrastructure.
+          </p>
+        </article>
+        <article class="card blog-post" data-article-slug="what-is-eventual-consistency">
           <p class="date">March 2026 • 6 min read</p>
           <h3>
             <a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (Explained Simply)</a>
@@ -180,7 +231,7 @@
             and how conflict resolution strategies like CRDTs differ from last-write-wins.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="what-is-the-cap-theorem">
           <p class="date">March 2026 • 6 min read</p>
           <h3>
             <a href="./what-is-the-cap-theorem.html">What Is the CAP Theorem? (Explained Simply)</a>
@@ -190,7 +241,7 @@
             how CP and AP systems differ, and where the "pick two" framing breaks down.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="what-is-idempotency">
           <p class="date">March 2026 • 6 min read</p>
           <h3>
             <a href="./what-is-idempotency.html">What Is Idempotency? (And Why It Matters in Distributed Systems)</a>
@@ -200,7 +251,7 @@
             and where duplicate execution silently corrupts distributed workflows.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="what-is-a-control-plane">
           <p class="date">March 2026 • 5 min read</p>
           <h3>
             <a href="./what-is-a-control-plane.html">What Is a Control Plane?</a>
@@ -210,7 +261,7 @@
             and why cloud platforms need durable management systems.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="distributed-systems-interview-guide">
           <p class="date">March 2026 • 6 min read</p>
           <h3>
             <a href="./distributed-systems-interview-guide.html">Distributed Systems Interview Guide</a>
@@ -220,7 +271,7 @@
             senior backend and platform interviews.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="api-backpressure-explained-simply">
           <p class="date">March 2026 • 5 min read</p>
           <h3>
             <a href="./api-backpressure-explained-simply.html">API Backpressure Explained Simply</a>
@@ -230,7 +281,7 @@
             and why rate limiting alone is not enough.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="what-is-a-distributed-lock-with-examples">
           <p class="date">March 2026 • 7 min read</p>
           <h3>
             <a href="./what-is-a-distributed-lock-with-examples.html"
@@ -242,7 +293,7 @@
             and common stale-writer failure modes in distributed systems.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="raft-vs-paxos-vs-epaxos-practical-guide">
           <p class="date">March 2026 • 8 min read</p>
           <h3>
             <a href="./raft-vs-paxos-vs-epaxos-practical-guide.html"
@@ -254,7 +305,7 @@
             latency trade-offs, and choosing the right protocol family.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="polyglot-functional-languages-distributed-systems">
           <p class="date">March 2026 • 11 min read</p>
           <h3>
             <a href="./polyglot-functional-languages-distributed-systems.html"
@@ -263,7 +314,7 @@
           </h3>
           <p>A systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems.</p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective">
           <p class="date">March 2026 • 13 min read</p>
           <h3>
             <a href="./programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html"
@@ -272,7 +323,7 @@
           </h3>
           <p>A comparative analysis of Go, Rust, Java, and Python for distributed systems through the lens of concurrency, memory safety, tail-latency behavior, workload fit, and architectural cost placement.</p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="designing-backpressure-graphql-cdn-latency">
           <p class="date">March 2026 • 9 min read</p>
           <h3>
             <a href="./designing-backpressure-graphql-cdn-latency.html"
@@ -284,7 +335,7 @@
             and maintain stability under adversarial load.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems">
           <p class="date">March 2026 • 12 min read</p>
           <h3>
             <a href="./latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html"
@@ -297,7 +348,7 @@
             tracing is unavailable.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="backpressure-stability-correctness-distributed-systems">
           <p class="date">March 2026 • 10 min read</p>
           <h3>
             <a href="./backpressure-stability-correctness-distributed-systems.html"
@@ -310,7 +361,7 @@
             work together to prevent overload collapse.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">
           <p class="date">March 2026 • 12 min read</p>
           <h3>
             <a href="./architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html"
@@ -323,7 +374,7 @@
             partition-based tenant isolation.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="three-node-vs-five-node-kafka-clusters">
           <p class="date">March 2026 • 11 min read</p>
           <h3>
             <a href="./three-node-vs-five-node-kafka-clusters.html"
@@ -336,7 +387,7 @@
             production configurations.
           </p>
         </article>
-        <article class="card blog-post">
+        <article class="card blog-post" data-article-slug="kafka-at-hyperscale">
           <p class="date">March 2026 • 14 min read</p>
           <h3><a href="./kafka-at-hyperscale.html">Kafka at Hyperscale</a></h3>
           <p>
@@ -366,12 +417,29 @@
           </p>
         </article>
       </section>
+
+      <section class="section">
+        <h2>External Publishing</h2>
+        <p class="section-intro">
+          Selected essays are also shared on external platforms for broader technical discussion.
+        </p>
+        <ul>
+          <li><a href="https://dev.to/rich_robertson" target="_blank" rel="noopener noreferrer">Dev.to profile</a></li>
+          <li><a href="https://www.linkedin.com/in/royrobertson/" target="_blank" rel="noopener noreferrer">LinkedIn profile</a></li>
+          <li><a href="https://github.com/richrobertson" target="_blank" rel="noopener noreferrer">GitHub profile</a></li>
+        </ul>
+      </section>
     </main>
 
     <footer>
       <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
     </footer>
 
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
     <script src="../script.js"></script>
   </body>
 </html>
