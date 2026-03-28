@@ -111,6 +111,30 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
   color: var(--muted);
 }
 
+.failure-thinking ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.failure-thinking li {
+  margin-bottom: 0.3rem;
+  color: var(--muted);
+}
+.failure-takeaway {
+  margin: 0.7rem 0 0;
+  color: #d9e5ff;
+  font-weight: 600;
+}
+.related-thinking {
+  margin: 0.35rem 0 0.65rem;
+  border-left: 3px solid rgba(128, 169, 255, 0.5);
+  padding-left: 0.7rem;
+  font-size: 0.9rem;
+}
+.related-thinking span {
+  color: #c7d4f6;
+}
+
+
 .grid, .tech-grid, .timeline, .case-study-list, .signature-grid { display:grid; gap:1rem; }
 .card, .project {
   background: color-mix(in srgb, var(--panel) 88%, transparent);

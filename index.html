@@ -74,6 +74,17 @@
         </div>
       </section>
 
+      <section id="failure-thinking" class="section failure-thinking">
+        <h2>How I Think About Failure</h2>
+        <ul>
+          <li>Systems fail under load, not only from code defects.</li>
+          <li>Unbounded queues and retry storms can amplify partial failures.</li>
+          <li>Backpressure, admission control, and load shedding protect system stability.</li>
+          <li>Design for graceful degradation instead of idealized perfect uptime.</li>
+        </ul>
+        <p class="failure-takeaway">Systems don’t fail all at once — they fail under load. Backpressure is how you stay in control.</p>
+      </section>
+
       <section id="reputation" class="section known-for">
         <h2>Reputation</h2>
         <ul>
@@ -126,10 +137,11 @@
             </figure>
             <div class="proof-strip"><span class="chip"><strong>$2M</strong> deal support</span><span class="chip">OCI-native migration</span><span class="chip">Reliability and supportability gains</span></div>
             <p class="why-line"><strong>Why this matters:</strong> migration quality directly affected customer trust and delivery confidence.</p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and adaptive concurrency patterns that prevent cascading failure under load.</span></p>
             <div class="case-study-grid">
               <div><h4>My role</h4><p>Led migration execution and backend implementation planning.</p></div>
               <div><h4>Operational / business result</h4><p>Improved supportability/scalability and supported a <strong>$2M</strong> enterprise deal.</p></div>
-              <div><h4>Key decisions</h4><ul><li>OCI-native ingress + queueing model</li><li>Staged transition to preserve service continuity</li><li>Explicit operational visibility hooks</li></ul></div>
+              <div><h4>Key decisions</h4><ul><li>OCI-native ingress + queueing model</li><li>Staged transition to preserve service continuity</li><li>Admission control and bounded queue behavior to reduce overload risk</li><li>See: <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
               <div><h4>Tradeoffs / constraints</h4><p>Balanced migration speed with production safety.</p></div>
             </div>
           </article>
@@ -154,10 +166,11 @@
             </figure>
             <div class="proof-strip"><span class="chip">Shared Java framework</span><span class="chip">Durable command execution</span><span class="chip">Partition-aware workers</span></div>
             <p class="why-line"><strong>Why this matters:</strong> teams shipped faster without duplicating orchestration infrastructure.</p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
             <div class="case-study-grid">
               <div><h4>My role</h4><p>Architected and built the shared framework.</p></div>
               <div><h4>Operational / business result</h4><p>Standardized control-plane execution and reduced duplicated effort.</p></div>
-              <div><h4>Key decisions</h4><ul><li>Queue + workflow core model</li><li>Partition-aware worker execution</li><li>Durable state with callback handoff</li></ul></div>
+              <div><h4>Key decisions</h4><ul><li>Queue + workflow core model</li><li>Partition-aware worker execution</li><li>Graceful degradation paths for downstream pressure</li></ul></div>
               <div><h4>Tradeoffs / constraints</h4><p>Balanced framework reuse with service-level flexibility.</p></div>
             </div>
           </article>
