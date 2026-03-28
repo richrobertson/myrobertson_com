@@ -75,6 +75,31 @@ node scripts/generate-rss.mjs
 node scripts/generate-sitemap.mjs
 ```
 
+### Sitemap inclusion rules (source of truth)
+
+`scripts/generate-sitemap.mjs` includes a page only when all conditions are true:
+
+- page is a real public `.html` route
+- page has a canonical URL on the configured production domain (`SITE_URL` env override, otherwise `seo.config.json` `siteUrl`)
+- canonical path matches the file route exactly (prevents duplicate/canonical-alternate URLs)
+- page is **not** marked `noindex` via `<meta name="robots" ...>`
+- page is not a utility/alternate route (example: `/blog/index.html`)
+
+It excludes draft/planned scaffold pages automatically because those pages are `noindex,follow`.
+
+### `lastmod` policy
+
+- `<lastmod>` is derived from each file's filesystem modification date (`mtime`) instead of stamping all pages with one generated date.
+- This keeps values meaningful without requiring separate frontmatter timestamps.
+
+### Pre-Search Console QA checklist
+
+1. Run `node scripts/generate-sitemap.mjs`.
+2. Confirm `robots.txt` `Sitemap:` line points to the production canonical domain.
+3. Confirm no `noindex` pages are listed in `sitemap.xml`.
+4. Confirm major canonical pages (homepage, key case studies, key writing pages) are present.
+5. Confirm no duplicate/canonical-alternate URLs are present.
+
 ### Intended indexable pages
 
 - Homepage (`/`)

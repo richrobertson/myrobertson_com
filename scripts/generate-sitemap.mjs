@@ -1,32 +1,125 @@
-import { readFileSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { join, relative } from 'node:path';
 
 const root = new URL('..', import.meta.url).pathname;
 const config = JSON.parse(readFileSync(join(root, 'seo.config.json'), 'utf8'));
-const today = new Date().toISOString().split('T')[0];
+const siteUrl = (process.env.SITE_URL || config.siteUrl).replace(/\/$/, '');
 
-const routes = [
-  '/',
-  '/case-studies/',
-  '/case-studies/oracle-cns-oci-migration/',
-  '/case-studies/control-plane-workflow-platform/',
-  '/case-studies/java-17-global-modernization/',
-  '/case-studies/starbucks-loyalty-platform-integration/',
-  '/writing/',
-  '/writing/distributed-systems-reliability/',
-  '/writing/control-plane-architecture-guide/',
-  '/writing/backpressure-in-distributed-systems/',
-  '/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/',
-  '/writing/architecting-a-multitenant-control-plane/',
-  '/case-studies/distributed-systems-migration/',
-  '/blog/',
-  '/distributed-systems-engineer.html',
-  '/cloud-platform-engineer.html'
-];
+const EXCLUDED_DIRS = new Set(['node_modules', '.git', 'static']);
+const EXCLUDED_FILES = new Set(['404.html']);
 
-const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${routes
-  .map((route) => `  <url>\n    <loc>${config.siteUrl}${route}</loc>\n    <lastmod>${today}</lastmod>\n  </url>`)
+function readContentModelIndexability() {
+  const modelPath = join(root, 'content', 'content-model.js');
+  try {
+    const source = readFileSync(modelPath, 'utf8');
+    const rules = new Map();
+    const pattern = /\{[^{}]*canonicalPath:\s*'([^']+)'[^{}]*status:\s*'([^']+)'[^{}]*noindex:\s*(true|false)[^{}]*\}/g;
+    for (const match of source.matchAll(pattern)) {
+      const canonicalPath = match[1];
+      const status = match[2];
+      const noindex = match[3] === 'true';
+      rules.set(canonicalPath, {
+        status,
+        noindex,
+        indexable: status === 'published' && !noindex
+      });
+    }
+    return rules;
+  } catch {
+    return new Map();
+  }
+}
+
+function walkHtml(dir) {
+  const entries = readdirSync(dir, { withFileTypes: true });
+  const files = [];
+  for (const entry of entries) {
+    if (entry.isDirectory()) {
+      if (!EXCLUDED_DIRS.has(entry.name)) files.push(...walkHtml(join(dir, entry.name)));
+      continue;
+    }
+    if (entry.isFile() && entry.name.endsWith('.html') && !EXCLUDED_FILES.has(entry.name)) {
+      files.push(join(dir, entry.name));
+    }
+  }
+  return files;
+}
+
+function toRoute(filePath) {
+  const rel = relative(root, filePath).replace(/\\/g, '/');
+  if (rel === 'index.html') return '/';
+  if (rel.endsWith('/index.html')) return `/${rel.slice(0, -'index.html'.length)}`;
+  return `/${rel}`;
+}
+
+function readCanonicalPath(html) {
+  const canonicalMatch = html.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)["'][^>]*>/i);
+  if (!canonicalMatch) return null;
+  const href = canonicalMatch[1].trim();
+  if (!href.startsWith(siteUrl)) return null;
+  const path = href.slice(siteUrl.length) || '/';
+  return path.startsWith('/') ? path : `/${path}`;
+}
+
+function hasNoindex(html) {
+  const robots = html.match(/<meta[^>]*name=["']robots["'][^>]*content=["']([^"']+)["'][^>]*>/i);
+  if (!robots) return false;
+  return robots[1].toLowerCase().includes('noindex');
+}
+
+function isEligible({ route, canonicalPath, noindex, contentModelRules }) {
+  if (noindex) return false;
+  if (!canonicalPath) return false;
+  if (canonicalPath !== route) return false;
+
+  // Exclude utility/filter-like URLs or alternate index endpoints.
+  if (route.includes('?') || route.includes('#')) return false;
+  if (route === '/blog/index.html') return false;
+
+  // Central source-of-truth override from content model when present.
+  if (contentModelRules.has(route)) {
+    const rule = contentModelRules.get(route);
+    if (!rule.indexable) return false;
+  }
+
+  return true;
+}
+
+const htmlFiles = walkHtml(root);
+const entries = [];
+const seen = new Set();
+const contentModelRules = readContentModelIndexability();
+
+for (const filePath of htmlFiles) {
+  const html = readFileSync(filePath, 'utf8');
+  const route = toRoute(filePath);
+  const canonicalPath = readCanonicalPath(html);
+  const noindex = hasNoindex(html);
+
+  if (!isEligible({ route, canonicalPath, noindex, contentModelRules })) continue;
+  if (seen.has(route)) continue;
+
+  const lastmod = statSync(filePath).mtime.toISOString().split('T')[0];
+  entries.push({ route, lastmod });
+  seen.add(route);
+}
+
+entries.sort((a, b) => a.route.localeCompare(b.route));
+
+const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries
+  .map((entry) => `  <url>\n    <loc>${siteUrl}${entry.route}</loc>\n    <lastmod>${entry.lastmod}</lastmod>\n  </url>`)
   .join('\n')}\n</urlset>\n`;
 
 writeFileSync(join(root, 'sitemap.xml'), xml);
-console.log('Updated sitemap.xml with', routes.length, 'routes');
+
+// Keep robots.txt aligned with sitemap canonical origin.
+const robotsPath = join(root, 'robots.txt');
+const robots = readFileSync(robotsPath, 'utf8');
+const sitemapLine = `Sitemap: ${siteUrl}/sitemap.xml`;
+const updatedRobots = robots.match(/^Sitemap:/m)
+  ? robots.replace(/^Sitemap:.*$/m, sitemapLine)
+  : `${robots.trim()}\n\n${sitemapLine}\n`;
+writeFileSync(robotsPath, `${updatedRobots.replace(/\n{3,}/g, '\n\n').trim()}\n`);
+
+console.log('Updated sitemap.xml with', entries.length, 'routes');
+console.log('Canonical site URL:', siteUrl);
