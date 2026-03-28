@@ -38,7 +38,10 @@
   panel.style.boxShadow = "0 20px 44px rgba(2, 6, 23, 0.22)";
   panel.style.overflow = "hidden";
   panel.setAttribute("role", "dialog");
+  panel.setAttribute("aria-modal", "true");
   panel.setAttribute("aria-label", "Ask Rich recruiter chat");
+  panel.setAttribute("aria-hidden", "true");
+  panel.hidden = true;
 
   const header = document.createElement("div");
   header.style.display = "flex";
@@ -74,6 +77,7 @@
   input.type = "text";
   input.required = true;
   input.placeholder = "Ask about impact, migrations, or technical depth";
+  input.setAttribute("aria-label", "Ask Rich a question");
   input.style.flex = "1";
   input.style.padding = "10px 12px";
   input.style.border = "1px solid #cbd5e1";
@@ -88,6 +92,59 @@
   send.style.background = "#0f172a";
   send.style.color = "#ffffff";
   send.style.cursor = "pointer";
+
+  const focusableSelector = [
+    "a[href]",
+    "button:not([disabled])",
+    "textarea:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])",
+  ].join(",");
+
+  let previousFocus = null;
+
+  function closePanel() {
+    panel.style.display = "none";
+    panel.setAttribute("aria-hidden", "true");
+    panel.hidden = true;
+    launcher.setAttribute("aria-expanded", "false");
+    launcher.focus();
+  }
+
+  function openPanel() {
+    previousFocus = document.activeElement;
+    panel.style.display = "flex";
+    panel.setAttribute("aria-hidden", "false");
+    panel.hidden = false;
+    launcher.setAttribute("aria-expanded", "true");
+    input.focus();
+  }
+
+  function trapFocus(event) {
+    if (event.key !== "Tab" || panel.style.display !== "flex") {
+      return;
+    }
+
+    const focusables = panel.querySelectorAll(focusableSelector);
+    if (!focusables.length) {
+      return;
+    }
+
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+      return;
+    }
+
+    if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
 
   function appendMessage(role, text) {
     const msg = document.createElement("div");
@@ -122,28 +179,31 @@
   }
 
   launcher.addEventListener("click", function () {
-    const opening = panel.style.display === "none";
-    panel.style.display = opening ? "flex" : "none";
-    launcher.setAttribute("aria-expanded", opening ? "true" : "false");
-    if (opening) {
-      input.focus();
+    if (panel.style.display === "none") {
+      openPanel();
     } else {
-      launcher.focus();
+      closePanel();
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
     }
   });
 
   closeBtn.addEventListener("click", function () {
-    panel.style.display = "none";
-    launcher.setAttribute("aria-expanded", "false");
-    launcher.focus();
+    closePanel();
+    if (previousFocus && typeof previousFocus.focus === "function") {
+      previousFocus.focus();
+    }
   });
 
   document.addEventListener("keydown", function (event) {
     if (event.key === "Escape" && panel.style.display === "flex") {
-      panel.style.display = "none";
-      launcher.setAttribute("aria-expanded", "false");
-      launcher.focus();
+      closePanel();
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus();
+      }
     }
+    trapFocus(event);
   });
 
   form.addEventListener("submit", async function (event) {

@@ -191,7 +191,14 @@ function askRichBindForm() {
 }
 
 function askRichInit() {
-  if (!askRichEls.form || !askRichEls.input || !askRichEls.messages) {
+  if (
+    !askRichEls.form
+    || !askRichEls.input
+    || !askRichEls.messages
+    || !askRichEls.send
+    || !askRichEls.promptList
+    || !askRichEls.apiBase
+  ) {
     return;
   }
 
