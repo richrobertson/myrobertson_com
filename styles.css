@@ -409,3 +409,171 @@ section[id] { scroll-margin-top: 4.4rem; }
 .blog-diagram figcaption { margin-top:0.75rem; font-size:0.95rem; line-height:1.5; color:#cbd5e1; }
 .blog-post table { width:100%; border-collapse:collapse; margin:1.5rem 0; }
 .blog-post th, .blog-post td { border:1px solid rgba(148,163,184,0.3); }
+
+.askrich-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.askrich-setup p {
+  margin-top: 0;
+}
+
+.askrich-prompt-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.prompt-chip {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  font: 500 0.92rem/1.2 "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.prompt-chip:hover {
+  border-color: var(--accent);
+}
+
+.askrich-settings {
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.8rem;
+}
+
+.askrich-settings summary {
+  cursor: pointer;
+  color: var(--muted);
+  margin-bottom: 0.65rem;
+}
+
+.askrich-settings label {
+  display: block;
+  margin: 0.4rem 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.askrich-settings input {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.65rem 0.75rem;
+  background: #0e1731;
+  color: var(--text);
+}
+
+.askrich-chat-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.askrich-chat-card h2 {
+  margin-top: 0;
+}
+
+.askrich-messages {
+  min-height: 360px;
+  max-height: 560px;
+  overflow-y: auto;
+  background: #0d1530;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem;
+}
+
+.message {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.65rem 0.75rem;
+  margin-bottom: 0.7rem;
+}
+
+.message .role {
+  display: block;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.35rem;
+}
+
+.message .answer {
+  color: var(--text);
+  white-space: pre-wrap;
+}
+
+.message.user {
+  background: #0f234b;
+}
+
+.message.assistant {
+  background: #172243;
+}
+
+.message.system {
+  background: #232020;
+  border-color: #4f2f2f;
+}
+
+.citations {
+  margin-top: 0.65rem;
+}
+
+.citations summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.citations ol {
+  margin: 0.55rem 0 0;
+  padding-left: 1.15rem;
+}
+
+.citations li {
+  color: var(--muted);
+  margin-bottom: 0.35rem;
+}
+
+.askrich-form {
+  margin-top: 0.85rem;
+}
+
+.askrich-form textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.7rem 0.8rem;
+  background: #0e1731;
+  color: var(--text);
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.45;
+  resize: vertical;
+}
+
+.askrich-form button {
+  margin-top: 0.7rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 920px) {
+  .askrich-grid {
+    grid-template-columns: minmax(260px, 0.9fr) minmax(0, 1.6fr);
+    align-items: start;
+  }
+}

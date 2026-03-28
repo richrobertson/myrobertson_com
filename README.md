@@ -10,6 +10,14 @@ python3 -m http.server 4173
 
 Open <http://localhost:4173>.
 
+## Ask Rich integration
+
+- Dedicated page: `/ask-rich.html`
+- Global widget launcher: included on home, blog index, and topic landing pages
+- Default API base: `https://api.myrobertson.com`
+
+If you need to validate against staging, open Ask Rich and change the API base URL in connection settings.
+
 ## Featured distributed systems writing
 
 - [What Is a Distributed Lock? (With Examples)](https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html)

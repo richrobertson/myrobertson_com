@@ -1,6 +1,7 @@
 (function () {
   const navItems = [
     { label: "Home", href: "/", key: "home" },
+    { label: "Ask Rich", href: "/ask-rich.html", key: "ask-rich" },
     { label: "Case Studies", href: "/case-studies/", key: "case-studies" },
     { label: "Writing", href: "/writing/", key: "writing" },
     { label: "Experience", href: "/#experience", key: "experience" },
@@ -9,6 +10,7 @@
 
   function getPageKey() {
     const path = window.location.pathname;
+    if (path === '/ask-rich.html') return 'ask-rich';
     if (path.startsWith('/case-studies/')) return 'case-studies';
     if (path.startsWith('/writing/') || path.startsWith('/blog/')) return 'writing';
     return document.body.dataset.page || 'home';

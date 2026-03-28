@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ask Rich | Recruiter Q&A on Experience, Impact, and Architecture</title>
+    <meta
+      name="description"
+      content="Ask Rich a focused question about platform engineering, distributed systems, migrations, and measurable delivery impact."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/ask-rich.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ask Rich | Recruiter Q&A" />
+    <meta
+      property="og:description"
+      content="Chat with Ask Rich to quickly evaluate technical depth, outcomes, and role fit with citation-backed responses."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/ask-rich.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Ask Rich | Recruiter Q&A" />
+    <meta
+      name="twitter:description"
+      content="Ask focused questions about backend architecture, distributed systems, and delivery impact."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="top">
+      <nav class="nav">
+        <a class="logo" href="index.html">myrobertson.com</a>
+        <div class="nav-links">
+          <a href="index.html#about">About</a>
+          <a href="index.html#experience">Experience</a>
+          <a href="index.html#projects">Projects</a>
+          <a href="index.html#skills">Tech</a>
+          <a href="index.html#education">Education</a>
+          <a href="index.html#contact">Contact</a>
+          <a href="ask-rich.html" aria-current="page">Ask Rich</a>
+          <a href="blog/index.html">Blog</a>
+        </div>
+      </nav>
+
+      <div class="hero-content">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span aria-current="page">Ask Rich</span></p>
+        <p class="eyebrow">Recruiter Copilot for Technical Evaluation</p>
+        <h1>Ask Rich About Outcomes, Architecture, and Leadership</h1>
+        <p class="intro">
+          Ask specific questions about production impact, distributed-systems tradeoffs, modernization strategy, and cross-team execution.
+          Responses include source citations so you can validate claims quickly.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <section class="section askrich-shell">
+        <div class="askrich-grid">
+          <article class="card askrich-setup">
+            <h2>Prompt Starters</h2>
+            <p>Use one of these recruiter-style prompts or write your own.</p>
+            <div class="askrich-prompt-list" id="askrich-prompt-list"></div>
+            <details class="askrich-settings">
+              <summary>Connection settings</summary>
+              <label for="api-base">API base URL</label>
+              <input id="api-base" type="url" value="https://api.myrobertson.com" />
+              <p>Default is production API. Change for staging validation if needed.</p>
+            </details>
+          </article>
+
+          <article class="card askrich-chat-card">
+            <h2>Chat</h2>
+            <div id="askrich-messages" class="askrich-messages" aria-live="polite"></div>
+            <form id="askrich-form" class="askrich-form">
+              <label class="sr-only" for="askrich-question">Question</label>
+              <textarea
+                id="askrich-question"
+                rows="3"
+                required
+                minlength="3"
+                maxlength="2000"
+                placeholder="Example: What platform outcomes did Rich deliver at Oracle and how were they measured?"
+              ></textarea>
+              <button id="askrich-send" class="btn primary" type="submit">Send question</button>
+            </form>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>I also write about distributed systems, platform architecture, and production engineering to make my technical approach visible beyond the resume.</p>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="ask-rich.js"></script>
+  </body>
+</html>
