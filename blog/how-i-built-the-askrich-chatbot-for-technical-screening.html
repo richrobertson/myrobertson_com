@@ -137,15 +137,15 @@
         </p>
         <div class="mermaid" aria-label="AskRich high-level architecture diagram">
           flowchart TD
-            U[Recruiter / Hiring Manager Browser] -->|"HTTPS POST /api/chat<br/>{question, top_k}"| G[AskRich API Gateway]
-            G --> O[Answer Orchestrator]
-            O -->|retrieve relevant context| I[Content Index]
-            O -->|compose grounded response| L[LLM Response Layer]
-            I --> C[Citations + supporting chunks]
-            L --> A[Answer text]
-            C --> R[Web UI Message Renderer]
-            A --> R
-            R --> V[Visible answer + source links]
+            U[Recruiter / Hiring Manager Browser] --&gt;|"HTTPS POST /api/chat<br/>{question, top_k}"| G[AskRich API Gateway]
+            G --&gt; O[Answer Orchestrator]
+            O --&gt;|retrieve relevant context| I[Content Index]
+            O --&gt;|compose grounded response| L[LLM Response Layer]
+            I --&gt; C[Citations + supporting chunks]
+            L --&gt; A[Answer text]
+            C --&gt; R[Web UI Message Renderer]
+            A --&gt; R
+            R --&gt; V[Visible answer + source links]
         </div>
 
         <p>

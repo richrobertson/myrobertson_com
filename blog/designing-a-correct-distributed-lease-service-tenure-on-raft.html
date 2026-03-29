@@ -384,13 +384,13 @@ def renew(
   current match {
     case held: Held
         if held.owner == requester &&
-           now.isBefore(held.expiry) =>
+           now.isBefore(held.expiry) =&gt;
       Right(held.copy(expiry = now.plusMillis(ttl.toMillis)))
 
-    case held: Held if now.isBefore(held.expiry) =>
+    case held: Held if now.isBefore(held.expiry) =&gt;
       Left(LeaseOwnedByAnotherRequester)
 
-    case _ =>
+    case _ =&gt;
       Left(LeaseExpired)
   }</code></pre>
             </section>
