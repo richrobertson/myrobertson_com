@@ -137,8 +137,7 @@
         </p>
         <div class="mermaid" aria-label="AskRich high-level architecture diagram">
           flowchart TD
-            U[Recruiter / Hiring Manager Browser] -->|HTTPS POST /api/chat
-{question, top_k}| G[AskRich API Gateway]
+            U[Recruiter / Hiring Manager Browser] -->|"HTTPS POST /api/chat<br/>{question, top_k}"| G[AskRich API Gateway]
             G --> O[Answer Orchestrator]
             O -->|retrieve relevant context| I[Content Index]
             O -->|compose grounded response| L[LLM Response Layer]
@@ -186,7 +185,7 @@
     <script src="/content/content-model.js"></script>
     <script src="/blog/taxonomy.js"></script>
     <script src="/blog/blog.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.13.0/dist/mermaid.min.js"></script>
     <script>
       mermaid.initialize({ startOnLoad: true, securityLevel: "loose", theme: "dark" });
     </script>
