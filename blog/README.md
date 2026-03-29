@@ -14,6 +14,7 @@ This folder contains standalone blog post pages and blog-specific scripts.
 - Each published post should include canonical, description, and `BlogPosting` JSON-LD metadata.
 - Use `noindex` for draft or planned posts that should not enter search indices.
 - Keep article slugs stable once published to avoid breaking inbound links.
+- The `/blog/` base path is canonical and must not be changed, because previously shared links depend on it.
 
 ## Publishing checklist
 

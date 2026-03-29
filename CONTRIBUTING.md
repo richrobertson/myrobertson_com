@@ -10,6 +10,15 @@ This repository is a static website. Contributions should preserve:
 - Clear technical writing and SEO integrity
 - Stable public URLs and canonical metadata
 
+## Maintainer rule: keep /blog/ canonical
+
+The `/blog/` path is a long-lived canonical public URL and must not be renamed, replaced, or moved.
+
+- Do not change `/blog/` to another base path.
+- Do not migrate published blog links to a new URL scheme.
+- Treat changes to `/blog/` routing as breaking changes because previously shared links would fail.
+- If a structural change is ever unavoidable, a complete redirect plan for every legacy path is required before merge.
+
 ## Development
 
 Run a local server from the repository root:
