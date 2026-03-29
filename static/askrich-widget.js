@@ -239,14 +239,14 @@
     ].join("\n");
   }
 
-  async function sendQuestion(question) {
+  async function sendQuestion(question, contextualQuestion) {
     // top_k limits retrieval context size for predictable response latency.
     const response = await fetch(API_BASE.replace(/\/$/, "") + "/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         question: question,
-        contextual_question: buildContextualQuestion(question),
+        contextual_question: contextualQuestion,
         conversation: conversation.slice(-MAX_HISTORY),
         top_k: 5,
       }),
@@ -289,13 +289,17 @@
     }
 
     appendMessage("You", question);
-    remember("user", question);
     input.value = "";
     send.disabled = true;
     send.textContent = "...";
 
+    // Build context from history before this turn, then remember the question
+    // so history stays consistent with what the UI already shows.
+    const contextualQuestion = buildContextualQuestion(question);
+    remember("user", question);
+
     try {
-      const answer = await sendQuestion(question);
+      const answer = await sendQuestion(question, contextualQuestion);
       appendMessage("Ask Rich", answer);
       remember("assistant", answer);
     } catch (error) {

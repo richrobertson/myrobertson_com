@@ -31,7 +31,7 @@ function askRichSafeUrl(sourceUrl) {
     if (parsed.protocol === "http:" || parsed.protocol === "https:") {
       return parsed.href;
     }
-    } catch {
+  } catch {
     return null;
   }
 
@@ -157,13 +157,12 @@ function askRichRemember(role, text) {
   }
 }
 
-async function askRichRequest(question) {
+async function askRichRequest(question, contextualQuestion) {
   const base = askRichEls.apiBase
     ? (askRichEls.apiBase.value || "").trim().replace(/\/$/, "") || "https://api.myrobertson.com"
     : "https://api.myrobertson.com";
   const endpoint = `${base}/api/chat`;
 
-  const contextualQuestion = askRichBuildConversationContext(question);
   const history = askRichConversation.slice(-ASK_RICH_MAX_HISTORY);
 
   const response = await fetch(endpoint, {
@@ -241,12 +240,16 @@ function askRichBindForm() {
     }
 
     askRichAppend("user", question);
-    askRichRemember("user", question);
     askRichEls.input.value = "";
     askRichSetBusy(true);
 
+    // Build context from history before this turn, then remember the question
+    // so history stays consistent with what the UI already shows.
+    const contextualQuestion = askRichBuildConversationContext(question);
+    askRichRemember("user", question);
+
     try {
-      const result = await askRichRequest(question);
+      const result = await askRichRequest(question, contextualQuestion);
       askRichAppend("assistant", result.answer, result.citations);
       askRichRemember("assistant", result.answer);
     } catch (error) {
