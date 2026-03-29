@@ -1,5 +1,13 @@
 (function () {
   const articles = [
+
+    {
+      slug: 'how-i-built-the-askrich-chatbot-for-technical-screening',
+      title: 'How I Built the AskRich Chatbot for Technical Screening',
+      url: '/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html',
+      summary: 'Implementation decisions behind a recruiter-focused chatbot with citation-backed answers.',
+      tags: ['APIs', 'Architecture', 'Cloud Platforms']
+    },
     {
       slug: 'what-is-a-control-plane',
       title: 'What Is a Control Plane?',

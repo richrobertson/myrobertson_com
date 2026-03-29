@@ -7,6 +7,20 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>How I Built the AskRich Chatbot for Technical Screening</title>
+      <link>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</link>
+      <description>A practical breakdown of how AskRich works: recruiter-focused prompts, citation-backed answers, API integration, and deployment decisions.</description>
+      <guid>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</guid>
+      <pubDate>Sun, 29 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What It Took to Modernize a Legacy Service Across 32 Global Regions</title>
+      <link>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html</link>
+      <description>A practical engineering breakdown of modernizing a legacy backend service across 32 global regions with reliability, rollout safety, and operational continuity.</description>
+      <guid>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html</guid>
+      <pubDate>Sat, 28 Mar 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>What Is Eventual Consistency? (Explained Simply)</title>
       <link>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</link>
       <description>A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency.</description>
@@ -37,7 +51,7 @@
     <item>
       <title>Designing a Correct Distributed Lease Service: Tenure on Raft</title>
       <link>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</link>
-      <description>A systems-level analysis of Tenure as a Raft-based distributed lease service, focused on lease semantics, time authority, fencing tokens, and failure safety.</description>
+      <description>A distributed systems deep dive on building a correct lease service with Raft, leader-based time authority, fencing tokens, and failure handling.</description>
       <guid>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
@@ -72,7 +86,7 @@
     <item>
       <title>Polyglot Architectures: A Case for Functional Languages in Distributed Systems</title>
       <link>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</link>
-      <description>A systems-level analysis of where functional programming languages fit within modern distributed architectures, and how they complement object-oriented systems.</description>
+      <description>A distributed systems architecture analysis of where functional languages fit alongside object-oriented platforms in backend and cloud systems.</description>
       <guid>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</guid>
       <pubDate>Thu, 19 Mar 2026 00:00:00 GMT</pubDate>
     </item>
@@ -100,7 +114,7 @@
     <item>
       <title>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</title>
       <link>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</link>
-      <description>A technical analysis of backpressure as a stability and correctness mechanism in distributed systems, with practical guidance on admission control, bounded queues, load shedding, and adaptive concurrency.</description>
+      <description>A distributed systems deep dive on backpressure, admission control, bounded queues, adaptive concurrency, and graceful degradation in backend services.</description>
       <guid>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</guid>
       <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
     </item>
@@ -114,7 +128,7 @@
     <item>
       <title>Architecting a Multitenant Control Plane for a Next-Generation Data Tier</title>
       <link>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</link>
-      <description>An engineering article on designing a multitenant control plane for a next-generation data tier using durable command queues, workflow orchestration, distributed workers, and partition-based tenant isolation.</description>
+      <description>A cloud architecture deep dive on multitenant control planes, durable command queues, workflow orchestration, distributed workers, and tenant isolation.</description>
       <guid>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</guid>
       <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
     </item>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How I Built the AskRich Chatbot for Technical Screening | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A practical breakdown of how AskRich works: recruiter-focused prompts, citation-backed answers, API integration, and deployment decisions."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How I Built the AskRich Chatbot for Technical Screening" />
+    <meta
+      property="og:description"
+      content="A practical breakdown of how AskRich works: recruiter-focused prompts, citation-backed answers, API integration, and deployment decisions."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How I Built the AskRich Chatbot for Technical Screening" />
+    <meta
+      name="twitter:description"
+      content="Why I built AskRich and the implementation decisions that make it useful for recruiter and hiring-manager evaluation."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How I Built the AskRich Chatbot for Technical Screening",
+        "description": "A practical breakdown of how AskRich works: recruiter-focused prompts, citation-backed answers, API integration, and deployment decisions.",
+        "url": "https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html",
+        "datePublished": "2026-03-29",
+        "dateModified": "2026-03-29",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/writing/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Writing",
+            "item": "https://www.myrobertson.com/writing/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How I Built the AskRich Chatbot for Technical Screening",
+            "item": "https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="how-i-built-the-askrich-chatbot-for-technical-screening">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+<div class="hero-content" data-article-meta data-article-slug="how-i-built-the-askrich-chatbot-for-technical-screening">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="../index.html">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <h1>How I Built the AskRich Chatbot for Technical Screening</h1>
+        <p class="intro blog-dek">
+          AskRich is a recruiter-focused chatbot that lets hiring teams ask targeted questions about architecture, delivery outcomes, and leadership scope — with citation-backed answers instead of generic claims.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h3>Why I Built AskRich</h3>
+        <p>
+          Most recruiting conversations start with the same challenge: people want signal quickly. A resume gives breadth, but not always the system details behind impact statements. AskRich was built to shorten that gap.
+        </p>
+        <p>
+          The goal was simple: give recruiters and hiring managers a way to ask specific technical questions and get direct answers grounded in source material from my portfolio and writing.
+        </p>
+
+        <h3>What the Experience Is Optimized For</h3>
+        <p>
+          The AskRich page uses prompt starters tuned for realistic recruiter workflows, including project impact, architecture trade-offs, and staff-level ownership examples.
+        </p>
+        <ul>
+          <li>fast onboarding through one-click prompt chips</li>
+          <li>a low-friction chat input for custom questions</li>
+          <li>citations attached to assistant responses for validation</li>
+          <li>an optional API endpoint override for staging and local testing</li>
+        </ul>
+        <p>
+          In production, the endpoint settings are hidden automatically on the public domain so the UX stays clean for external visitors.
+        </p>
+
+        <h3>Implementation Notes</h3>
+        <p>
+          The chat UI is intentionally lightweight and dependency-free: plain JavaScript, semantic HTML, and a minimal state model for busy handling, validation, and message rendering.
+        </p>
+        <p>
+          The client posts questions to a dedicated chat API endpoint and expects a structured response containing an answer plus citation metadata. When citations include source URLs, links are sanitized before rendering and opened safely in a new tab.
+        </p>
+        <p>
+          I built both an embedded page experience and a standalone widget script. The widget mounts a floating launcher, opens a keyboard-accessible dialog, traps focus while open, and restores focus on close for accessibility.
+        </p>
+
+        <h3>Why Citations Matter</h3>
+        <p>
+          The key product decision is citation-backed output. Recruiters can inspect supporting references instead of taking a generated answer at face value. That keeps the tool useful as a screening aid rather than a black-box demo.
+        </p>
+        <p>
+          It also encourages better questions. Once someone sees where answers come from, they tend to ask more precise follow-ups around architecture constraints, rollout sequencing, and measurable outcomes.
+        </p>
+
+        <h3>What I’d Improve Next</h3>
+        <ul>
+          <li>session history persistence for longer evaluation workflows</li>
+          <li>structured answer modes (impact summary, architecture deep dive, leadership lens)</li>
+          <li>more explicit confidence indicators alongside citations</li>
+          <li>analytics for prompt quality and unanswered question clusters</li>
+        </ul>
+
+        <h3>Try It</h3>
+        <p>
+          You can use AskRich directly at <a href="/ask-rich.html">Ask Rich</a> to explore architecture decisions, migration strategy, and platform outcomes.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
