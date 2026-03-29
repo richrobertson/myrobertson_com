@@ -130,6 +130,37 @@
           I built both an embedded page experience and a standalone widget script. The widget mounts a floating launcher, opens a keyboard-accessible dialog, traps focus while open, and restores focus on close for accessibility.
         </p>
 
+        <h3>High-Level Architecture</h3>
+        <p>
+          At a high level, AskRich is a thin web client over a retrieval-backed chat API. The browser handles input, rendering,
+          and citation display. The API layer handles retrieval, answer synthesis, and structured citation output.
+        </p>
+        <pre aria-label="AskRich high-level architecture diagram"><code>[Recruiter / Hiring Manager Browser]
+              |
+              | HTTPS POST /api/chat { question, top_k }
+              v
+      [AskRich API Gateway]
+              |
+              | invokes chat orchestration
+              v
+      [Answer Orchestrator]
+          |                      | retrieves    \ generates grounded answer
+          v              v
+   [Content Index]    [LLM Response Layer]
+          |              |
+          +------ citations + answer ------+
+                              |
+                              v
+                     [Web UI Message Renderer]
+                              |
+                              v
+                  [Visible answer + source links]</code></pre>
+
+        <p>
+          This split keeps the front end lightweight while allowing retrieval quality, ranking strategy, and response
+          composition to evolve independently in the API stack.
+        </p>
+
         <h3>Why Citations Matter</h3>
         <p>
           The key product decision is citation-backed output. Recruiters can inspect supporting references instead of taking a generated answer at face value. That keeps the tool useful as a screening aid rather than a black-box demo.
