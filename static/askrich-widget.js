@@ -116,6 +116,8 @@
   ].join(",");
 
   let previousFocus = null;
+  const MAX_HISTORY = 6;
+  const conversation = [];
 
   function closePanel() {
     // Return focus to the element that opened the dialog for keyboard users.
@@ -186,12 +188,49 @@
     body.scrollTop = body.scrollHeight;
   }
 
+  function remember(role, text) {
+    if (!text) {
+      return;
+    }
+
+    conversation.push({ role, text });
+    if (conversation.length > MAX_HISTORY * 2) {
+      conversation.splice(0, conversation.length - MAX_HISTORY * 2);
+    }
+  }
+
+  function buildContextualQuestion(question) {
+    const recent = conversation.slice(-MAX_HISTORY);
+    if (!recent.length) {
+      return question;
+    }
+
+    const transcript = recent
+      .map(function (turn) {
+        return (turn.role === "assistant" ? "Ask Rich" : "You") + ": " + turn.text;
+      })
+      .join("\n");
+
+    return [
+      "Conversation so far:",
+      transcript,
+      "",
+      "Follow-up question from You: " + question,
+      "Answer the follow-up directly and concisely using context above when relevant.",
+    ].join("\n");
+  }
+
   async function sendQuestion(question) {
     // top_k limits retrieval context size for predictable response latency.
     const response = await fetch(API_BASE.replace(/\/$/, "") + "/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ question, top_k: 5 }),
+      body: JSON.stringify({
+        question: question,
+        contextual_question: buildContextualQuestion(question),
+        conversation: conversation.slice(-MAX_HISTORY),
+        top_k: 5,
+      }),
     });
 
     const payload = await response.json().catch(function () {
@@ -231,6 +270,7 @@
     }
 
     appendMessage("You", question);
+    remember("user", question);
     input.value = "";
     send.disabled = true;
     send.textContent = "...";
@@ -238,6 +278,7 @@
     try {
       const answer = await sendQuestion(question);
       appendMessage("Ask Rich", answer);
+      remember("assistant", answer);
     } catch (error) {
       appendMessage("Ask Rich", "Sorry, I could not fetch a response right now.");
       if (window && window.console && error) {
@@ -262,5 +303,7 @@
     input.style.boxShadow = "none";
   });
 
-  appendMessage("Ask Rich", "Ask about measurable outcomes, architecture decisions, or leadership impact.");
+  const welcome = "Ask about measurable outcomes, architecture decisions, or leadership impact. Follow-up questions are supported.";
+  appendMessage("Ask Rich", welcome);
+  remember("assistant", welcome);
 })();
