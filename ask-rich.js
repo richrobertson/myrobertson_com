@@ -17,6 +17,9 @@ const askRichEls = {
 };
 
 let askRichBusy = false;
+const ASK_RICH_MAX_HISTORY = 6;
+const ASK_RICH_MAX_TURN_CHARS = 1200;
+const askRichConversation = [];
 
 function askRichSafeUrl(sourceUrl) {
   if (typeof sourceUrl !== "string" || sourceUrl.trim() === "") {
@@ -28,7 +31,7 @@ function askRichSafeUrl(sourceUrl) {
     if (parsed.protocol === "http:" || parsed.protocol === "https:") {
       return parsed.href;
     }
-  } catch (_error) {
+  } catch {
     return null;
   }
 
@@ -94,7 +97,7 @@ function askRichGetApiBase() {
     if (stored && stored.trim()) {
       return stored.trim().replace(/\/$/, "");
     }
-  } catch (_error) {
+  } catch {
     // Storage is optional; continue with fallback value.
   }
   return "https://api.myrobertson.com";
@@ -106,16 +109,71 @@ function askRichSetBusy(isBusy) {
   askRichEls.send.textContent = isBusy ? "Thinking..." : "Send question";
 }
 
-async function askRichRequest(question) {
+function askRichBuildConversationContext(question) {
+  const recent = askRichConversation.slice(-ASK_RICH_MAX_HISTORY);
+  if (!recent.length) {
+    return question;
+  }
+
+  const transcript = recent
+    .map((turn) => `${turn.role === "assistant" ? "Ask Rich" : "You"}: ${turn.text}`)
+    .join("\n");
+
+  return [
+    "Conversation so far:",
+    transcript,
+    "",
+    `Follow-up question from You: ${question}`,
+    "Answer the follow-up directly and concisely using context above when relevant.",
+  ].join("\n");
+}
+
+function askRichNormalizeTurnText(text) {
+  if (typeof text !== "string") {
+    return null;
+  }
+
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return null;
+  }
+
+  if (trimmed.length <= ASK_RICH_MAX_TURN_CHARS) {
+    return trimmed;
+  }
+
+  return `${trimmed.slice(0, ASK_RICH_MAX_TURN_CHARS)}...`;
+}
+
+function askRichRemember(role, text) {
+  const normalized = askRichNormalizeTurnText(text);
+  if (!normalized) {
+    return;
+  }
+
+  askRichConversation.push({ role, text: normalized });
+  if (askRichConversation.length > ASK_RICH_MAX_HISTORY) {
+    askRichConversation.splice(0, askRichConversation.length - ASK_RICH_MAX_HISTORY);
+  }
+}
+
+async function askRichRequest(question, contextualQuestion) {
   const base = askRichEls.apiBase
     ? (askRichEls.apiBase.value || "").trim().replace(/\/$/, "") || "https://api.myrobertson.com"
     : "https://api.myrobertson.com";
   const endpoint = `${base}/api/chat`;
 
+  const history = askRichConversation.slice(-ASK_RICH_MAX_HISTORY);
+
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question, top_k: 5 }),
+    body: JSON.stringify({
+      question,
+      contextual_question: contextualQuestion,
+      conversation: history,
+      top_k: 5,
+    }),
   });
 
   const payload = await response.json().catch(() => ({}));
@@ -154,7 +212,7 @@ function askRichBindApiBasePersistence() {
     const trimmed = (askRichEls.apiBase.value || "").trim().replace(/\/$/, "");
     try {
       localStorage.setItem("askrich.apiBase", trimmed || "https://api.myrobertson.com");
-    } catch (_error) {
+    } catch {
       // Continue even if browser storage is unavailable.
     }
   });
@@ -185,9 +243,15 @@ function askRichBindForm() {
     askRichEls.input.value = "";
     askRichSetBusy(true);
 
+    // Build context from history before this turn, then remember the question
+    // so history stays consistent with what the UI already shows.
+    const contextualQuestion = askRichBuildConversationContext(question);
+    askRichRemember("user", question);
+
     try {
-      const result = await askRichRequest(question);
+      const result = await askRichRequest(question, contextualQuestion);
       askRichAppend("assistant", result.answer, result.citations);
+      askRichRemember("assistant", result.answer);
     } catch (error) {
       const message = error && error.message ? error.message : "Unable to fetch a response right now.";
       askRichAppend("system", `Unable to get an answer right now. ${message}`);
@@ -220,10 +284,9 @@ function askRichInit() {
   askRichInitPromptStarters();
   askRichBindApiBasePersistence();
   askRichBindForm();
-  askRichAppend(
-    "system",
-    "Ask about architecture decisions, modernization strategy, delivery outcomes, or technical leadership."
-  );
+  const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, or technical leadership. Follow-up questions are supported.";
+  askRichAppend("system", welcome);
+  askRichRemember("assistant", welcome);
 }
 
 askRichInit();

@@ -116,6 +116,9 @@
   ].join(",");
 
   let previousFocus = null;
+  const MAX_HISTORY = 6;
+  const MAX_TURN_CHARS = 1200;
+  const conversation = [];
 
   function closePanel() {
     // Return focus to the element that opened the dialog for keyboard users.
@@ -186,12 +189,67 @@
     body.scrollTop = body.scrollHeight;
   }
 
-  async function sendQuestion(question) {
+  function remember(role, text) {
+    const normalized = normalizeTurnText(text);
+    if (!normalized) {
+      return;
+    }
+
+    conversation.push({ role, text: normalized });
+    if (conversation.length > MAX_HISTORY) {
+      conversation.splice(0, conversation.length - MAX_HISTORY);
+    }
+  }
+
+  function normalizeTurnText(text) {
+    if (typeof text !== "string") {
+      return null;
+    }
+
+    const trimmed = text.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    if (trimmed.length <= MAX_TURN_CHARS) {
+      return trimmed;
+    }
+
+    return trimmed.slice(0, MAX_TURN_CHARS) + "...";
+  }
+
+  function buildContextualQuestion(question) {
+    const recent = conversation.slice(-MAX_HISTORY);
+    if (!recent.length) {
+      return question;
+    }
+
+    const transcript = recent
+      .map(function (turn) {
+        return (turn.role === "assistant" ? "Ask Rich" : "You") + ": " + turn.text;
+      })
+      .join("\n");
+
+    return [
+      "Conversation so far:",
+      transcript,
+      "",
+      "Follow-up question from You: " + question,
+      "Answer the follow-up directly and concisely using context above when relevant.",
+    ].join("\n");
+  }
+
+  async function sendQuestion(question, contextualQuestion) {
     // top_k limits retrieval context size for predictable response latency.
     const response = await fetch(API_BASE.replace(/\/$/, "") + "/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify({ question, top_k: 5 }),
+      body: JSON.stringify({
+        question: question,
+        contextual_question: contextualQuestion,
+        conversation: conversation.slice(-MAX_HISTORY),
+        top_k: 5,
+      }),
     });
 
     const payload = await response.json().catch(function () {
@@ -235,9 +293,15 @@
     send.disabled = true;
     send.textContent = "...";
 
+    // Build context from history before this turn, then remember the question
+    // so history stays consistent with what the UI already shows.
+    const contextualQuestion = buildContextualQuestion(question);
+    remember("user", question);
+
     try {
-      const answer = await sendQuestion(question);
+      const answer = await sendQuestion(question, contextualQuestion);
       appendMessage("Ask Rich", answer);
+      remember("assistant", answer);
     } catch (error) {
       appendMessage("Ask Rich", "Sorry, I could not fetch a response right now.");
       if (window && window.console && error) {
@@ -262,5 +326,7 @@
     input.style.boxShadow = "none";
   });
 
-  appendMessage("Ask Rich", "Ask about measurable outcomes, architecture decisions, or leadership impact.");
+  const welcome = "Ask about measurable outcomes, architecture decisions, or leadership impact. Follow-up questions are supported.";
+  appendMessage("Ask Rich", welcome);
+  remember("assistant", welcome);
 })();
