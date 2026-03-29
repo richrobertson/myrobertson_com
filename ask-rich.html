@@ -34,19 +34,7 @@
   </head>
   <body class="ask-rich-page">
     <header class="hero" id="top">
-      <nav class="nav">
-        <a class="logo" href="index.html">myrobertson.com</a>
-        <div class="nav-links">
-          <a href="index.html#about">About</a>
-          <a href="index.html#experience">Experience</a>
-          <a href="index.html#projects">Projects</a>
-          <a href="index.html#skills">Tech</a>
-          <a href="index.html#education">Education</a>
-          <a href="index.html#contact">Contact</a>
-          <a href="ask-rich.html" aria-current="page">Ask Rich</a>
-          <a href="blog/index.html">Blog</a>
-        </div>
-      </nav>
+      <div data-site-header></div>
 
       <div class="hero-content">
         <p class="breadcrumb" aria-label="Breadcrumb"><a href="index.html">Home</a> / <span aria-current="page">Ask Rich</span></p>
@@ -95,10 +83,11 @@
     </main>
 
     <footer>
-      <p>I also write about distributed systems, platform architecture, and production engineering to make my technical approach visible beyond the resume.</p>
+      <div data-site-footer></div>
       <p>© <span id="year"></span> Rich Robertson.</p>
     </footer>
 
+    <script src="nav.js"></script>
     <script src="script.js"></script>
     <script src="ask-rich.js"></script>
   </body>

@@ -5,6 +5,7 @@
     { label: "Case Studies", href: "/case-studies/", key: "case-studies" },
     { label: "Writing", href: "/writing/", key: "writing" },
     { label: "Experience", href: "/#experience", key: "experience" },
+    { label: "Education", href: "/#education", key: "education" },
     { label: "Contact", href: "/#contact", key: "contact" }
   ];
 
