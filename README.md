@@ -66,7 +66,7 @@ Then open <http://localhost:4173>.
 - At minimum, a post is excluded if either of these is true:
   - JSON-LD has `"draft": true`
   - Page includes robots `noindex`
-- In addition, `scripts/generate-rss.mjs` only includes posts with complete, valid `BlogPosting` metadata (`headline`, `description`, `url`, and `datePublished`), a parseable `datePublished`, and canonical/link URLs on the configured `SITE_URL` origin.
+- In addition, `scripts/generate-rss.mjs` only includes posts with complete, valid `BlogPosting` metadata (`headline`, `description`, `url`, and `datePublished`), a parseable `datePublished`, and canonical/link URLs on the production origin (`https://www.myrobertson.com`, currently hard-coded in the script).
 
 Regenerate RSS after publishing or changing blog posts:
 
