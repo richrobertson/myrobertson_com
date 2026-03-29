@@ -66,8 +66,9 @@
 
   function renderFooter(slot) {
     if (!slot) return;
+    const tagName = slot.parentElement && slot.parentElement.tagName === 'FOOTER' ? 'div' : 'footer';
     slot.innerHTML = `
-      <div class="site-footer-nav">
+      <${tagName} class="site-footer-nav">
         <p>
           <a href="/">Home</a> ·
           <a href="/blog/">Blog</a> ·
@@ -82,7 +83,7 @@
           <a href="https://github.com/richrobertson/myrobertson_com" target="_blank" rel="noopener noreferrer">GitHub Repo</a> ·
           <a href="/#contact">Contact</a>
         </p>
-      </div>
+      </${tagName}>
     `;
   }
 
