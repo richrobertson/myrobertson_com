@@ -67,7 +67,7 @@
   function renderFooter(slot) {
     if (!slot) return;
     slot.innerHTML = `
-      <footer class="site-footer-nav">
+      <div class="site-footer-nav">
         <p>
           <a href="/">Home</a> ·
           <a href="/blog/">Blog</a> ·
@@ -82,7 +82,7 @@
           <a href="https://github.com/richrobertson/myrobertson_com" target="_blank" rel="noopener noreferrer">GitHub Repo</a> ·
           <a href="/#contact">Contact</a>
         </p>
-      </footer>
+      </div>
     `;
   }
 
