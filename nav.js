@@ -5,6 +5,7 @@
     { label: "Case Studies", href: "/case-studies/", key: "case-studies" },
     { label: "Writing", href: "/writing/", key: "writing" },
     { label: "Experience", href: "/#experience", key: "experience" },
+    { label: "Education", href: "/#education", key: "education" },
     { label: "Contact", href: "/#contact", key: "contact" }
   ];
 
@@ -65,8 +66,9 @@
 
   function renderFooter(slot) {
     if (!slot) return;
+    const tagName = slot.parentElement && slot.parentElement.tagName === 'FOOTER' ? 'div' : 'footer';
     slot.innerHTML = `
-      <footer class="site-footer-nav">
+      <${tagName} class="site-footer-nav">
         <p>
           <a href="/">Home</a> ·
           <a href="/blog/">Blog</a> ·
@@ -81,7 +83,7 @@
           <a href="https://github.com/richrobertson/myrobertson_com" target="_blank" rel="noopener noreferrer">GitHub Repo</a> ·
           <a href="/#contact">Contact</a>
         </p>
-      </footer>
+      </${tagName}>
     `;
   }
 
