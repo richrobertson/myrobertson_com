@@ -117,6 +117,7 @@
 
   let previousFocus = null;
   const MAX_HISTORY = 6;
+  const MAX_TURN_CHARS = 1200;
   const conversation = [];
 
   function closePanel() {
@@ -189,14 +190,32 @@
   }
 
   function remember(role, text) {
-    if (!text) {
+    const normalized = normalizeTurnText(text);
+    if (!normalized) {
       return;
     }
 
-    conversation.push({ role, text });
-    if (conversation.length > MAX_HISTORY * 2) {
-      conversation.splice(0, conversation.length - MAX_HISTORY * 2);
+    conversation.push({ role, text: normalized });
+    if (conversation.length > MAX_HISTORY) {
+      conversation.splice(0, conversation.length - MAX_HISTORY);
     }
+  }
+
+  function normalizeTurnText(text) {
+    if (typeof text !== "string") {
+      return null;
+    }
+
+    const trimmed = text.trim();
+    if (!trimmed) {
+      return null;
+    }
+
+    if (trimmed.length <= MAX_TURN_CHARS) {
+      return trimmed;
+    }
+
+    return trimmed.slice(0, MAX_TURN_CHARS) + "...";
   }
 
   function buildContextualQuestion(question) {

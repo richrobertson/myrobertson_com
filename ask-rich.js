@@ -18,6 +18,7 @@ const askRichEls = {
 
 let askRichBusy = false;
 const ASK_RICH_MAX_HISTORY = 6;
+const ASK_RICH_MAX_TURN_CHARS = 1200;
 const askRichConversation = [];
 
 function askRichSafeUrl(sourceUrl) {
@@ -30,7 +31,7 @@ function askRichSafeUrl(sourceUrl) {
     if (parsed.protocol === "http:" || parsed.protocol === "https:") {
       return parsed.href;
     }
-  } catch (_error) {
+    } catch {
     return null;
   }
 
@@ -96,7 +97,7 @@ function askRichGetApiBase() {
     if (stored && stored.trim()) {
       return stored.trim().replace(/\/$/, "");
     }
-  } catch (_error) {
+  } catch {
     // Storage is optional; continue with fallback value.
   }
   return "https://api.myrobertson.com";
@@ -127,14 +128,32 @@ function askRichBuildConversationContext(question) {
   ].join("\n");
 }
 
+function askRichNormalizeTurnText(text) {
+  if (typeof text !== "string") {
+    return null;
+  }
+
+  const trimmed = text.trim();
+  if (!trimmed) {
+    return null;
+  }
+
+  if (trimmed.length <= ASK_RICH_MAX_TURN_CHARS) {
+    return trimmed;
+  }
+
+  return `${trimmed.slice(0, ASK_RICH_MAX_TURN_CHARS)}...`;
+}
+
 function askRichRemember(role, text) {
-  if (!text || typeof text !== "string") {
+  const normalized = askRichNormalizeTurnText(text);
+  if (!normalized) {
     return;
   }
 
-  askRichConversation.push({ role, text });
-  if (askRichConversation.length > ASK_RICH_MAX_HISTORY * 2) {
-    askRichConversation.splice(0, askRichConversation.length - ASK_RICH_MAX_HISTORY * 2);
+  askRichConversation.push({ role, text: normalized });
+  if (askRichConversation.length > ASK_RICH_MAX_HISTORY) {
+    askRichConversation.splice(0, askRichConversation.length - ASK_RICH_MAX_HISTORY);
   }
 }
 
@@ -194,7 +213,7 @@ function askRichBindApiBasePersistence() {
     const trimmed = (askRichEls.apiBase.value || "").trim().replace(/\/$/, "");
     try {
       localStorage.setItem("askrich.apiBase", trimmed || "https://api.myrobertson.com");
-    } catch (_error) {
+    } catch {
       // Continue even if browser storage is unavailable.
     }
   });
