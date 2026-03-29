@@ -27,7 +27,7 @@ Run a local server from the repository root:
 python3 -m http.server 4173
 ```
 
-Open http://localhost:4173.
+Open <http://localhost:4173>.
 
 ## Before opening a pull request
 

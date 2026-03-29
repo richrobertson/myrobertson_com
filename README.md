@@ -1,6 +1,6 @@
 # myrobertson.com portfolio site
 
-Static-first personal site for https://www.myrobertson.com with long-form writing, case studies, and the Ask Rich assistant. The repository is deployed as static assets on Cloudflare.
+Static-first personal site for <https://www.myrobertson.com> with long-form writing, case studies, and the Ask Rich assistant. The repository is deployed as static assets on Cloudflare.
 
 ## Current architecture
 
@@ -41,7 +41,7 @@ Run a local static server from repo root:
 python3 -m http.server 4173
 ```
 
-Then open http://localhost:4173.
+Then open <http://localhost:4173>.
 
 ## Ask Rich integration
 
