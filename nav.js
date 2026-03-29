@@ -9,6 +9,7 @@
   ];
 
   function getPageKey() {
+    // Keep nav highlighting consistent across landing pages and nested content routes.
     const path = window.location.pathname;
     if (path === '/ask-rich.html') return 'ask-rich';
     if (path.startsWith('/case-studies/')) return 'case-studies';
@@ -47,6 +48,7 @@
         toggle.setAttribute('aria-expanded', 'false');
         linksContainer.classList.remove('is-open');
       }
+      // Mobile menu state is controlled via aria-expanded and a single CSS open class.
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true';
         toggle.setAttribute('aria-expanded', String(!expanded));
@@ -67,10 +69,16 @@
       <footer class="site-footer-nav">
         <p>
           <a href="/">Home</a> ·
+          <a href="/blog/">Blog</a> ·
           <a href="/case-studies/">Case Studies</a> ·
           <a href="/writing/">Writing</a> ·
+          <a href="/ask-rich.html">Ask Rich</a> ·
+          <a href="/distributed-systems-engineer.html">Distributed Systems Engineer</a> ·
+          <a href="/cloud-platform-engineer.html">Cloud Platform Engineer</a>
+        </p>
+        <p>
           <a href="https://www.linkedin.com/in/royrobertson/" target="_blank" rel="noopener noreferrer">LinkedIn</a> ·
-          <a href="https://github.com/richrobertson" target="_blank" rel="noopener noreferrer">GitHub</a> ·
+          <a href="https://github.com/richrobertson/myrobertson_com" target="_blank" rel="noopener noreferrer">GitHub Repo</a> ·
           <a href="/#contact">Contact</a>
         </p>
       </footer>
