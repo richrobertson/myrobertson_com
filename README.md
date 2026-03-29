@@ -1,124 +1,152 @@
 # myrobertson.com portfolio site
 
-Static portfolio website for **myrobertson.com**, optimized for deployment on Cloudflare Pages.
+Static-first personal site for https://www.myrobertson.com with long-form writing, case studies, and the Ask Rich assistant. The repository is deployed as static assets on Cloudflare.
 
-## Run locally
+## Current architecture
+
+- Primary static routes are top-level HTML pages plus directory index routes.
+- Blog posts are standalone HTML files under `blog/`.
+- Writing and case studies are grouped under `writing/` and `case-studies/`.
+- Shared UI behavior and nav logic live in small vanilla JS files (`nav.js`, `script.js`, `blog/blog.js`, `ask-rich.js`).
+- Global styling lives in `styles.css`.
+- Runtime widget script for Ask Rich lives in `static/askrich-widget.js`.
+
+## Repository layout
+
+```text
+.
+|- index.html
+|- ask-rich.html
+|- blog/
+|- writing/
+|- case-studies/
+|- static/
+|- scripts/
+|  |- generate-rss.mjs
+|  |- generate-sitemap.mjs
+|- content/
+|  |- content-model.js
+|- seo.config.json
+|- robots.txt
+|- sitemap.xml
+|- rss.xml
+|- wrangler.jsonc
+```
+
+## Local development
+
+Run a local static server from repo root:
 
 ```bash
 python3 -m http.server 4173
 ```
 
-Open <http://localhost:4173>.
+Then open http://localhost:4173.
 
 ## Ask Rich integration
 
-- Dedicated page: `/ask-rich.html`
-- Global widget launcher: included on home, blog index, and topic landing pages
+- Dedicated route: `/ask-rich.html`
 - Default API base: `https://api.myrobertson.com`
+- API base override is available through Ask Rich settings for staging validation
+- Production host hides advanced API settings in the UI automatically
 
-If you need to validate against staging, open Ask Rich and change the API base URL in connection settings.
+## Content and publishing model
 
-## Featured distributed systems writing
+- Blog entry pages: `blog/*.html`.
+- Writing hubs and article pages: `writing/**/index.html`.
+- Case-study pages: `case-studies/**/index.html`.
+- Indexability and publication intent are centrally tracked in `content/content-model.js` and reinforced by page-level canonical and robots tags.
 
-- [What Is a Distributed Lock? (With Examples)](https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html)
-- [Raft vs Paxos vs EPaxos: A Practical Guide](https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html)
-- [Designing a Correct Distributed Lease Service: Tenure on Raft](https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html)
-- [Architecting a Multitenant Control Plane for a Next-Generation Data Tier](https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html)
+## SEO and feed generation
 
-## Personalize from resume + LinkedIn files
+### RSS
 
-Use this quick mapping process to copy your exact content into `index.html`:
+- Output file: `rss.xml`.
+- Source of truth: published blog pages containing `BlogPosting` JSON-LD.
+- A post is excluded if either of these is true:
+  - JSON-LD has `"draft": true`
+  - Page includes robots `noindex`
 
-1. **Professional summary** → `#about` section.
-2. **Work history bullets** → `#experience` cards (most recent to oldest).
-3. **Top projects/case studies** → `#projects` cards (include stack + outcomes).
-4. **Skills block** → `#skills` cards.
-5. **Contact links** → `#contact` section.
-
-Tip: prefer quantified bullets (latency, costs, revenue, uptime, cycle time, adoption).
-
-## Deploy to Cloudflare Pages
-
-1. Push this repo to GitHub.
-2. In Cloudflare Dashboard, go to **Workers & Pages** → **Create** → **Pages**.
-3. Connect your repository.
-4. Use:
-   - Framework preset: **None**
-   - Build command: *(leave blank)*
-   - Build output directory: `/`
-5. Add custom domain `myrobertson.com` in Pages settings.
-6. Update Cloudflare DNS records to point to the Pages project.
-
-## RSS feed
-
-- Feed output lives at `/rss.xml` (generated file committed to the repo).
-- Source of truth for items is each published `blog/*.html` post with `BlogPosting` JSON-LD metadata (`headline`, `description`, `url`, `datePublished`).
-- Drafts are excluded automatically when a post has `"draft": true` in JSON-LD or `<meta name="robots" content="noindex">` in the document head.
-- Canonical site URL is configured in `scripts/generate-rss.mjs` as `SITE_URL` and must remain `https://www.myrobertson.com` for production-canonical links.
-
-Regenerate the feed after publishing or updating posts:
+Regenerate RSS after publishing or changing blog posts:
 
 ```bash
 node scripts/generate-rss.mjs
 ```
 
-## SEO foundation (Search Console ready)
+### Sitemap and robots
 
-### Canonical + metadata source of truth
+- Output sitemap: `sitemap.xml`
+- `robots.txt` sitemap reference is kept aligned by the sitemap generator.
+- URL canonical origin comes from `SITE_URL` env var (if set) or `seo.config.json` `siteUrl`.
 
-- `seo.config.json` stores:
-  - `siteUrl`
-  - `siteName`
-  - default title/description
-  - default social image
-- Canonical URLs on indexable pages point to `https://www.myrobertson.com/...`.
-
-### Crawl/index artifacts
-
-- `robots.txt` lives at `/robots.txt` and references `/sitemap.xml`.
-- `sitemap.xml` lives at `/sitemap.xml`.
-- Regenerate sitemap after adding/removing SEO landing pages:
+Regenerate sitemap and align robots:
 
 ```bash
 node scripts/generate-sitemap.mjs
 ```
 
-### Sitemap inclusion rules (source of truth)
+Sitemap inclusion requires all of the following:
 
-`scripts/generate-sitemap.mjs` includes a page only when all conditions are true:
+- Route is a public HTML page.
+- Canonical URL exists and matches the physical route.
+- Route is not `noindex`.
+- Route is not an excluded utility route.
+- If route exists in `content/content-model.js`, it must be `status: 'published'` and `noindex: false`.
 
-- page is a real public `.html` route
-- page has a canonical URL on the configured production domain (`SITE_URL` env override, otherwise `seo.config.json` `siteUrl`)
-- canonical path matches the file route exactly (prevents duplicate/canonical-alternate URLs)
-- page is **not** marked `noindex` via `<meta name="robots" ...>`
-- page is not a utility/alternate route (example: `/blog/index.html`)
+## Deployment
 
-It excludes draft/planned scaffold pages automatically because those pages are `noindex,follow`.
+### Cloudflare Pages / static assets
 
-### `lastmod` policy
+- Deploy target is static assets from repository root.
+- `wrangler.jsonc` defines the Cloudflare asset directory as `.`.
 
-- `<lastmod>` is derived from each file's filesystem modification date (`mtime`) instead of stamping all pages with one generated date.
-- This keeps values meaningful without requiring separate frontmatter timestamps.
+### Typical Pages settings
 
-### Pre-Search Console QA checklist
+- Framework preset: None
+- Build command: none
+- Build output directory: `/`
 
-1. Run `node scripts/generate-sitemap.mjs`.
-2. Confirm `robots.txt` `Sitemap:` line points to the production canonical domain.
-3. Confirm no `noindex` pages are listed in `sitemap.xml`.
-4. Confirm major canonical pages (homepage, key case studies, key writing pages) are present.
-5. Confirm no duplicate/canonical-alternate URLs are present.
+## Static analysis and CI best practices
 
-### Intended indexable pages
+This repository now includes GitHub Actions workflows for static code analysis:
 
-- Homepage (`/`)
-- Dedicated case study pages under `/case-studies/`
-- Dedicated writing pages under `/writing/`
-- Blog index and key topic pages
-- Core profile pages (`/distributed-systems-engineer.html`, `/cloud-platform-engineer.html`)
+- `.github/workflows/static-analysis.yml`
+  - Runs Super-Linter on HTML, CSS, JavaScript, Markdown, and YAML.
+  - Runs on push and pull request.
+  - Excludes generated XML artifacts (`rss.xml`, `sitemap.xml`) from lint noise.
+- `.github/workflows/codeql.yml`
+  - Runs GitHub CodeQL analysis for JavaScript security and code-quality scanning.
+  - Runs weekly and on push/pull request.
 
-### Search Console submission checklist
+These workflows provide baseline quality gates for static sites without requiring a full bundler or framework build.
 
-1. Verify property for `https://www.myrobertson.com`.
-2. Submit `https://www.myrobertson.com/sitemap.xml`.
-3. Request indexing for new `/case-studies/*` and `/writing/*` landing pages.
-4. Monitor Coverage + Enhancements for structured data and canonical issues.
+## Public repository standards
+
+This repository includes standard public-facing governance and collaboration files:
+
+- `LICENSE` clarifies content/code usage terms.
+- `CODE_OF_CONDUCT.md` sets participation expectations.
+- `CONTRIBUTING.md` defines contribution and validation flow.
+- `SECURITY.md` documents private vulnerability reporting.
+- `.github/CODEOWNERS` sets review ownership.
+- `.github/ISSUE_TEMPLATE/` provides structured bug/feature intake.
+- `.github/pull_request_template.md` standardizes review context.
+- `.github/dependabot.yml` keeps GitHub Actions dependencies updated.
+- `.editorconfig` enforces consistent formatting across editors.
+
+## Recommended update checklist
+
+When publishing new writing or case studies:
+
+1. Add/update the HTML page.
+2. Verify canonical URL and robots directives.
+3. If applicable, update `content/content-model.js` publication status.
+4. Run:
+
+```bash
+node scripts/generate-rss.mjs
+node scripts/generate-sitemap.mjs
+```
+
+5. Commit generated `rss.xml` and `sitemap.xml` updates.
+6. Open a PR and confirm static-analysis and CodeQL checks pass.

@@ -17,6 +17,7 @@
     const params = new URLSearchParams(window.location.search);
     const activeTag = params.get('tag') || '';
 
+    // Prioritize high-frequency tags while keeping ordering stable for equal counts.
     const entries = Object.values(taxonomy.tags).sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
     cloud.innerHTML = '';
     for (const entry of entries) {
@@ -43,6 +44,7 @@
       tagsRow.innerHTML = '';
       article.tags.forEach((tag) => tagsRow.appendChild(createTagChip(tag, activeTag)));
 
+      // Card visibility is fully URL-driven so filters are shareable via query string.
       const visible = !activeTag || article.tags.some((tag) => tag.slug === activeTag);
       card.classList.toggle('is-hidden', !visible);
     });
@@ -83,6 +85,7 @@
     const relatedHost = document.querySelector('[data-related-writing]');
     if (!relatedHost) return;
 
+    // Related items are ranked by tag overlap, then title for deterministic output.
     const scored = taxonomy.articles
       .filter((item) => item.slug !== article.slug)
       .map((candidate) => {

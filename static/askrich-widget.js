@@ -118,6 +118,7 @@
   let previousFocus = null;
 
   function closePanel() {
+    // Return focus to the element that opened the dialog for keyboard users.
     panel.style.display = "none";
     panel.setAttribute("aria-hidden", "true");
     panel.hidden = true;
@@ -130,6 +131,7 @@
   }
 
   function openPanel() {
+    // Store the previously focused element so close restores a predictable focus path.
     previousFocus = document.activeElement;
     panel.style.display = "flex";
     panel.setAttribute("aria-hidden", "false");
@@ -143,6 +145,7 @@
       return;
     }
 
+    // Keep Tab/Shift+Tab cycling inside the dialog while it is open.
     const focusables = panel.querySelectorAll(focusableSelector);
     if (!focusables.length) {
       return;
@@ -184,6 +187,7 @@
   }
 
   async function sendQuestion(question) {
+    // top_k limits retrieval context size for predictable response latency.
     const response = await fetch(API_BASE.replace(/\/$/, "") + "/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
