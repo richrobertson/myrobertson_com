@@ -581,6 +581,47 @@ section[id] { scroll-margin-top: 4.4rem; }
   margin-bottom: 0.35rem;
 }
 
+.feedback-controls {
+  margin-top: 0.65rem;
+  padding-top: 0.55rem;
+  border-top: 1px dashed var(--ask-border);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.feedback-prompt {
+  font-size: 0.82rem;
+  color: var(--ask-muted);
+}
+
+.feedback-btn {
+  border: 1px solid var(--ask-border);
+  border-radius: 8px;
+  background: #0f1b39;
+  color: var(--ask-text);
+  font-size: 0.82rem;
+  padding: 0.24rem 0.54rem;
+  cursor: pointer;
+}
+
+.feedback-btn.selected {
+  background: #0369a1;
+  border-color: #0369a1;
+  color: #ffffff;
+}
+
+.feedback-btn.selected.unhelpful {
+  background: #b91c1c;
+  border-color: #b91c1c;
+}
+
+.feedback-status {
+  font-size: 0.8rem;
+  color: var(--ask-muted);
+}
+
 .askrich-form {
   margin-top: 0.85rem;
 }

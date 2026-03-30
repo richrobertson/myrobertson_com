@@ -38,7 +38,43 @@ function askRichSafeUrl(sourceUrl) {
   return null;
 }
 
-function askRichAppend(role, text, citations) {
+async function askRichSubmitFeedback(eventIds, sentiment, controls) {
+  const endpoint = `${askRichGetApiBase()}/api/feedback`;
+
+  controls.helpfulBtn.disabled = true;
+  controls.unhelpfulBtn.disabled = true;
+  controls.status.textContent = "Sending...";
+
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        questionEventId: eventIds.questionEventId,
+        answerEventId: eventIds.answerEventId,
+        sentiment,
+        optionalNote: "",
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Feedback submission failed");
+    }
+
+    if (sentiment === "helpful") {
+      controls.helpfulBtn.classList.add("selected");
+    } else {
+      controls.unhelpfulBtn.classList.add("selected", "unhelpful");
+    }
+    controls.status.textContent = "Thanks for your feedback.";
+  } catch (_error) {
+    controls.helpfulBtn.disabled = false;
+    controls.unhelpfulBtn.disabled = false;
+    controls.status.textContent = "Could not submit feedback.";
+  }
+}
+
+function askRichAppend(role, text, citations, eventIds) {
   const card = document.createElement("article");
   card.className = `message ${role}`;
 
@@ -85,6 +121,47 @@ function askRichAppend(role, text, citations) {
 
     details.append(summary, list);
     card.append(details);
+  }
+
+  if (
+    role === "assistant"
+    && eventIds
+    && eventIds.questionEventId
+    && eventIds.answerEventId
+  ) {
+    const controls = document.createElement("div");
+    controls.className = "feedback-controls";
+
+    const prompt = document.createElement("span");
+    prompt.className = "feedback-prompt";
+    prompt.textContent = "Was this helpful?";
+
+    const helpfulBtn = document.createElement("button");
+    helpfulBtn.type = "button";
+    helpfulBtn.className = "feedback-btn";
+    helpfulBtn.textContent = "Yes";
+
+    const unhelpfulBtn = document.createElement("button");
+    unhelpfulBtn.type = "button";
+    unhelpfulBtn.className = "feedback-btn";
+    unhelpfulBtn.textContent = "No";
+
+    const status = document.createElement("span");
+    status.className = "feedback-status";
+
+    helpfulBtn.addEventListener("click", () => askRichSubmitFeedback(
+      eventIds,
+      "helpful",
+      { helpfulBtn, unhelpfulBtn, status },
+    ));
+    unhelpfulBtn.addEventListener("click", () => askRichSubmitFeedback(
+      eventIds,
+      "unhelpful",
+      { helpfulBtn, unhelpfulBtn, status },
+    ));
+
+    controls.append(prompt, helpfulBtn, unhelpfulBtn, status);
+    card.append(controls);
   }
 
   askRichEls.messages.append(card);
@@ -146,6 +223,10 @@ function askRichNormalizeTurnText(text) {
 }
 
 function askRichRemember(role, text) {
+  if (role !== "user" && role !== "assistant") {
+    return;
+  }
+
   const normalized = askRichNormalizeTurnText(text);
   if (!normalized) {
     return;
@@ -157,22 +238,27 @@ function askRichRemember(role, text) {
   }
 }
 
-async function askRichRequest(question, contextualQuestion) {
+async function askRichRequest(question) {
   const base = askRichEls.apiBase
     ? (askRichEls.apiBase.value || "").trim().replace(/\/$/, "") || "https://api.myrobertson.com"
     : "https://api.myrobertson.com";
   const endpoint = `${base}/api/chat`;
 
-  const history = askRichConversation.slice(-ASK_RICH_MAX_HISTORY);
+  const history = askRichConversation
+    .slice(-ASK_RICH_MAX_HISTORY)
+    .map((turn) => ({
+      role: turn.role,
+      content: turn.text,
+    }));
 
   const response = await fetch(endpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       question,
-      contextual_question: contextualQuestion,
-      conversation: history,
+      history,
       top_k: 5,
+      humor_mode: "clean_professional",
     }),
   });
 
@@ -185,6 +271,8 @@ async function askRichRequest(question, contextualQuestion) {
   return {
     answer: payload.data && payload.data.answer ? payload.data.answer : "No answer returned.",
     citations: payload.data && Array.isArray(payload.data.citations) ? payload.data.citations : [],
+    questionEventId: response.headers.get("X-Question-Event-ID") || "",
+    answerEventId: response.headers.get("X-Answer-Event-ID") || "",
   };
 }
 
@@ -243,14 +331,14 @@ function askRichBindForm() {
     askRichEls.input.value = "";
     askRichSetBusy(true);
 
-    // Build context from history before this turn, then remember the question
-    // so history stays consistent with what the UI already shows.
-    const contextualQuestion = askRichBuildConversationContext(question);
     askRichRemember("user", question);
 
     try {
-      const result = await askRichRequest(question, contextualQuestion);
-      askRichAppend("assistant", result.answer, result.citations);
+      const result = await askRichRequest(question);
+      askRichAppend("assistant", result.answer, result.citations, {
+        questionEventId: result.questionEventId,
+        answerEventId: result.answerEventId,
+      });
       askRichRemember("assistant", result.answer);
     } catch (error) {
       const message = error && error.message ? error.message : "Unable to fetch a response right now.";
@@ -286,7 +374,6 @@ function askRichInit() {
   askRichBindForm();
   const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, or technical leadership. Follow-up questions are supported.";
   askRichAppend("system", welcome);
-  askRichRemember("assistant", welcome);
 }
 
 askRichInit();
