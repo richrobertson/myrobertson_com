@@ -197,7 +197,7 @@
         controls.unhelpfulBtn.style.background = "#b91c1c";
       }
       controls.status.textContent = "Thanks for your feedback.";
-    } catch (_error) {
+    } catch {
       controls.helpfulBtn.disabled = false;
       controls.unhelpfulBtn.disabled = false;
       controls.status.textContent = "Could not submit feedback.";
