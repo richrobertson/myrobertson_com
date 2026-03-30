@@ -373,7 +373,7 @@ function askRichInit() {
   askRichInitPromptStarters();
   askRichBindApiBasePersistence();
   askRichBindForm();
-  const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, TFS and ALM consulting work, or technical leadership. Follow-up questions are supported.";
+  const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, delivery tooling and ALM consulting work, or technical leadership. Follow-up questions are supported.";
   askRichAppend("system", welcome);
 }
 
