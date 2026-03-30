@@ -2,119 +2,147 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.myrobertson.com/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/ask-rich.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/</loc>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-a-control-plane.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-idempotency.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-the-cap-theorem.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/career-arc.html</loc>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/case-studies/care-management-scoring-engine/</loc>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/case-studies/cloud-api-consulting-bridge/</loc>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/control-plane-workflow-platform/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/distributed-systems-migration/</loc>
     <lastmod>2026-03-29</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/case-studies/enterprise-test-automation-alm-modernization/</loc>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/case-studies/healthcare-application-stabilization-wpf-migration/</loc>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/case-studies/java-17-global-modernization/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/case-studies/release-pipeline-configuration-management/</loc>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/starbucks-loyalty-platform-integration/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/cloud-platform-engineer.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/distributed-systems-engineer.html</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/</loc>
@@ -122,11 +150,11 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/backpressure-in-distributed-systems/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/control-plane-architecture-guide/</loc>
@@ -134,7 +162,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-03-30</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/distributed-systems-reliability/</loc>

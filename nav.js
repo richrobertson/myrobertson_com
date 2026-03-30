@@ -2,6 +2,7 @@
   const navItems = [
     { label: "Home", href: "/", key: "home" },
     { label: "Ask Rich", href: "/ask-rich.html", key: "ask-rich" },
+    { label: "Career Arc", href: "/career-arc.html", key: "career-arc" },
     { label: "Case Studies", href: "/case-studies/", key: "case-studies" },
     { label: "Writing", href: "/writing/", key: "writing" },
     { label: "Experience", href: "/#experience", key: "experience" },
@@ -13,6 +14,7 @@
     // Keep nav highlighting consistent across landing pages and nested content routes.
     const path = window.location.pathname;
     if (path === '/ask-rich.html') return 'ask-rich';
+    if (path === '/career-arc.html') return 'career-arc';
     if (path.startsWith('/case-studies/')) return 'case-studies';
     if (path.startsWith('/writing/') || path.startsWith('/blog/')) return 'writing';
     return document.body.dataset.page || 'home';
@@ -73,6 +75,7 @@
           <a href="/">Home</a> ·
           <a href="/blog/">Blog</a> ·
           <a href="/case-studies/">Case Studies</a> ·
+          <a href="/career-arc.html">Career Arc</a> ·
           <a href="/writing/">Writing</a> ·
           <a href="/ask-rich.html">Ask Rich</a> ·
           <a href="/distributed-systems-engineer.html">Distributed Systems Engineer</a> ·

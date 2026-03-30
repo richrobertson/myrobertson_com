@@ -1,9 +1,10 @@
 const ASK_RICH_PROMPTS = [
   "What measurable outcomes did Rich deliver in the Oracle CNS migration?",
-  "How does Rich balance correctness and delivery speed in distributed systems?",
   "What examples demonstrate cross-team technical leadership?",
   "Which projects best show staff-level ownership and architecture depth?",
   "How relevant is Rich's experience for cloud platform and control-plane roles?",
+  "What did Rich do at Slalom for Microsoft and Starbucks before joining Starbucks full time?",
+  "How did Rich's career evolve from Microsoft .NET consulting into distributed systems and platform engineering?",
 ];
 
 const askRichEls = {
@@ -372,7 +373,7 @@ function askRichInit() {
   askRichInitPromptStarters();
   askRichBindApiBasePersistence();
   askRichBindForm();
-  const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, or technical leadership. Follow-up questions are supported.";
+  const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, TFS and ALM consulting work, or technical leadership. Follow-up questions are supported.";
   askRichAppend("system", welcome);
 }
 
