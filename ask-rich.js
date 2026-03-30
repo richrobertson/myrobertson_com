@@ -1,9 +1,10 @@
 const ASK_RICH_PROMPTS = [
   "What measurable outcomes did Rich deliver in the Oracle CNS migration?",
-  "How does Rich balance correctness and delivery speed in distributed systems?",
   "What examples demonstrate cross-team technical leadership?",
   "Which projects best show staff-level ownership and architecture depth?",
   "How relevant is Rich's experience for cloud platform and control-plane roles?",
+  "What did Rich do at Slalom for Microsoft and Starbucks before joining Starbucks full time?",
+  "How did Rich's career evolve from Microsoft .NET consulting into distributed systems and platform engineering?",
 ];
 
 const askRichEls = {
@@ -67,7 +68,7 @@ async function askRichSubmitFeedback(eventIds, sentiment, controls) {
       controls.unhelpfulBtn.classList.add("selected", "unhelpful");
     }
     controls.status.textContent = "Thanks for your feedback.";
-  } catch (_error) {
+  } catch {
     controls.helpfulBtn.disabled = false;
     controls.unhelpfulBtn.disabled = false;
     controls.status.textContent = "Could not submit feedback.";
@@ -184,25 +185,6 @@ function askRichSetBusy(isBusy) {
   askRichBusy = isBusy;
   askRichEls.send.disabled = isBusy;
   askRichEls.send.textContent = isBusy ? "Thinking..." : "Send question";
-}
-
-function askRichBuildConversationContext(question) {
-  const recent = askRichConversation.slice(-ASK_RICH_MAX_HISTORY);
-  if (!recent.length) {
-    return question;
-  }
-
-  const transcript = recent
-    .map((turn) => `${turn.role === "assistant" ? "Ask Rich" : "You"}: ${turn.text}`)
-    .join("\n");
-
-  return [
-    "Conversation so far:",
-    transcript,
-    "",
-    `Follow-up question from You: ${question}`,
-    "Answer the follow-up directly and concisely using context above when relevant.",
-  ].join("\n");
 }
 
 function askRichNormalizeTurnText(text) {
@@ -372,7 +354,7 @@ function askRichInit() {
   askRichInitPromptStarters();
   askRichBindApiBasePersistence();
   askRichBindForm();
-  const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, or technical leadership. Follow-up questions are supported.";
+  const welcome = "Ask about architecture decisions, modernization strategy, delivery outcomes, delivery tooling and ALM consulting work, or technical leadership. Follow-up questions are supported.";
   askRichAppend("system", welcome);
 }
 

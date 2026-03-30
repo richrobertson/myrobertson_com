@@ -84,7 +84,7 @@
   const input = document.createElement("input");
   input.type = "text";
   input.required = true;
-  input.placeholder = "Ask about impact, migrations, or technical depth";
+  input.placeholder = "Ask about impact, migrations, ALM and delivery-tooling work, scoring engines, or technical depth";
   input.setAttribute("aria-label", "Ask Rich a question");
   input.style.flex = "1";
   input.style.padding = "10px 12px";
@@ -197,7 +197,7 @@
         controls.unhelpfulBtn.style.background = "#b91c1c";
       }
       controls.status.textContent = "Thanks for your feedback.";
-    } catch (_error) {
+    } catch {
       controls.helpfulBtn.disabled = false;
       controls.unhelpfulBtn.disabled = false;
       controls.status.textContent = "Could not submit feedback.";
@@ -403,7 +403,7 @@
     input.style.boxShadow = "none";
   });
 
-  const welcome = "Ask about measurable outcomes, architecture decisions, or leadership impact. Follow-up questions are supported.";
+  const welcome = "Ask about measurable outcomes, architecture decisions, ALM and delivery-tooling consulting work, inherited-system modernization, or leadership impact. Follow-up questions are supported.";
   appendMessage("Ask Rich", welcome);
   remember("assistant", welcome);
 })();
