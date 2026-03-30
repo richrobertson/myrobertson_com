@@ -1,0 +1,6 @@
+Contact: https://www.myrobertson.com/#contact
+Contact: https://github.com/richrobertson/myrobertson_com/security/advisories/new
+Policy: https://github.com/richrobertson/myrobertson_com/security/policy
+Canonical: https://www.myrobertson.com/Security.txt
+Preferred-Languages: en
+Expires: 2027-03-30T00:00:00.000Z
