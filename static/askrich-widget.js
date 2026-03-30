@@ -169,7 +169,42 @@
     }
   }
 
-  function appendMessage(role, text) {
+  async function submitFeedback(eventIds, sentiment, controls) {
+    const endpoint = API_BASE.replace(/\/$/, "") + "/api/feedback";
+    controls.helpfulBtn.disabled = true;
+    controls.unhelpfulBtn.disabled = true;
+    controls.status.textContent = "Sending...";
+
+    try {
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          questionEventId: eventIds.questionEventId,
+          answerEventId: eventIds.answerEventId,
+          sentiment: sentiment,
+          optionalNote: "",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Feedback request failed");
+      }
+
+      if (sentiment === "helpful") {
+        controls.helpfulBtn.style.background = "#0f766e";
+      } else {
+        controls.unhelpfulBtn.style.background = "#b91c1c";
+      }
+      controls.status.textContent = "Thanks for your feedback.";
+    } catch (_error) {
+      controls.helpfulBtn.disabled = false;
+      controls.unhelpfulBtn.disabled = false;
+      controls.status.textContent = "Could not submit feedback.";
+    }
+  }
+
+  function appendMessage(role, text, eventIds) {
     const msg = document.createElement("div");
     msg.style.margin = "0 0 10px";
     msg.style.padding = "10px";
@@ -185,11 +220,66 @@
     roleLabel.style.textTransform = "uppercase";
     roleLabel.textContent = role + ": ";
     msg.append(roleLabel, document.createTextNode(text));
+
+    if (role === "Ask Rich" && eventIds && eventIds.questionEventId && eventIds.answerEventId) {
+      const controls = document.createElement("div");
+      controls.style.marginTop = "8px";
+      controls.style.paddingTop = "7px";
+      controls.style.borderTop = "1px dashed #3a4f82";
+      controls.style.display = "flex";
+      controls.style.alignItems = "center";
+      controls.style.gap = "6px";
+      controls.style.flexWrap = "wrap";
+
+      const prompt = document.createElement("span");
+      prompt.textContent = "Was this helpful?";
+      prompt.style.fontSize = "12px";
+      prompt.style.color = "#c7d5f3";
+
+      const helpfulBtn = document.createElement("button");
+      helpfulBtn.type = "button";
+      helpfulBtn.textContent = "Yes";
+      helpfulBtn.style.border = "1px solid #4d6396";
+      helpfulBtn.style.background = "#132245";
+      helpfulBtn.style.color = "#f5f8ff";
+      helpfulBtn.style.padding = "4px 8px";
+      helpfulBtn.style.borderRadius = "8px";
+      helpfulBtn.style.cursor = "pointer";
+
+      const unhelpfulBtn = document.createElement("button");
+      unhelpfulBtn.type = "button";
+      unhelpfulBtn.textContent = "No";
+      unhelpfulBtn.style.border = "1px solid #4d6396";
+      unhelpfulBtn.style.background = "#132245";
+      unhelpfulBtn.style.color = "#f5f8ff";
+      unhelpfulBtn.style.padding = "4px 8px";
+      unhelpfulBtn.style.borderRadius = "8px";
+      unhelpfulBtn.style.cursor = "pointer";
+
+      const status = document.createElement("span");
+      status.style.fontSize = "12px";
+      status.style.color = "#c7d5f3";
+
+      helpfulBtn.addEventListener("click", function () {
+        submitFeedback(eventIds, "helpful", { helpfulBtn: helpfulBtn, unhelpfulBtn: unhelpfulBtn, status: status });
+      });
+      unhelpfulBtn.addEventListener("click", function () {
+        submitFeedback(eventIds, "unhelpful", { helpfulBtn: helpfulBtn, unhelpfulBtn: unhelpfulBtn, status: status });
+      });
+
+      controls.append(prompt, helpfulBtn, unhelpfulBtn, status);
+      msg.append(controls);
+    }
+
     body.append(msg);
     body.scrollTop = body.scrollHeight;
   }
 
   function remember(role, text) {
+    if (role !== "user" && role !== "assistant") {
+      return;
+    }
+
     const normalized = normalizeTurnText(text);
     if (!normalized) {
       return;
@@ -218,37 +308,20 @@
     return trimmed.slice(0, MAX_TURN_CHARS) + "...";
   }
 
-  function buildContextualQuestion(question) {
-    const recent = conversation.slice(-MAX_HISTORY);
-    if (!recent.length) {
-      return question;
-    }
-
-    const transcript = recent
-      .map(function (turn) {
-        return (turn.role === "assistant" ? "Ask Rich" : "You") + ": " + turn.text;
-      })
-      .join("\n");
-
-    return [
-      "Conversation so far:",
-      transcript,
-      "",
-      "Follow-up question from You: " + question,
-      "Answer the follow-up directly and concisely using context above when relevant.",
-    ].join("\n");
-  }
-
-  async function sendQuestion(question, contextualQuestion) {
+  async function sendQuestion(question) {
     // top_k limits retrieval context size for predictable response latency.
+    const history = conversation.slice(-MAX_HISTORY).map(function (turn) {
+      return { role: turn.role, content: turn.text };
+    });
+
     const response = await fetch(API_BASE.replace(/\/$/, "") + "/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
         question: question,
-        contextual_question: contextualQuestion,
-        conversation: conversation.slice(-MAX_HISTORY),
+        history: history,
         top_k: 5,
+        humor_mode: "clean_professional",
       }),
     });
 
@@ -259,7 +332,11 @@
       throw new Error(payload.error || payload.detail || "Request failed");
     }
 
-    return payload.data && payload.data.answer ? payload.data.answer : "No answer returned.";
+    return {
+      answer: payload.data && payload.data.answer ? payload.data.answer : "No answer returned.",
+      questionEventId: response.headers.get("X-Question-Event-ID") || "",
+      answerEventId: response.headers.get("X-Answer-Event-ID") || "",
+    };
   }
 
   launcher.addEventListener("click", function () {
@@ -293,15 +370,15 @@
     send.disabled = true;
     send.textContent = "...";
 
-    // Build context from history before this turn, then remember the question
-    // so history stays consistent with what the UI already shows.
-    const contextualQuestion = buildContextualQuestion(question);
     remember("user", question);
 
     try {
-      const answer = await sendQuestion(question, contextualQuestion);
-      appendMessage("Ask Rich", answer);
-      remember("assistant", answer);
+      const result = await sendQuestion(question);
+      appendMessage("Ask Rich", result.answer, {
+        questionEventId: result.questionEventId,
+        answerEventId: result.answerEventId,
+      });
+      remember("assistant", result.answer);
     } catch (error) {
       appendMessage("Ask Rich", "Sorry, I could not fetch a response right now.");
       if (window && window.console && error) {
