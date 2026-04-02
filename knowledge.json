@@ -89,7 +89,10 @@
           "page:circuit-breakers-in-distributed-systems",
           "page:load-shedding-in-distributed-systems",
           "page:graceful-degradation-in-distributed-systems",
-          "page:oracle-cns-oci-migration"
+          "page:oracle-cns-oci-migration",
+          "page:why-systems-fail-under-load",
+          "page:retry-strategies-and-idempotency",
+          "page:queue-design-under-load"
         ],
         "parent": "page:distributed-systems",
         "level": "advanced",
@@ -126,7 +129,10 @@
           "page:rate-limiting-in-distributed-systems",
           "page:load-shedding-in-distributed-systems",
           "page:graceful-degradation-in-distributed-systems",
-          "page:architecting-a-multitenant-control-plane"
+          "page:architecting-a-multitenant-control-plane",
+          "page:retry-strategies-and-idempotency",
+          "page:queue-design-under-load",
+          "page:why-systems-fail-under-load"
         ],
         "parent": "page:distributed-systems",
         "level": "foundational",
@@ -155,7 +161,8 @@
         "canonicalTopic": "overload control",
         "related": [
           "page:backpressure-in-distributed-systems",
-          "page:load-shedding-in-distributed-systems"
+          "page:load-shedding-in-distributed-systems",
+          "page:retry-strategies-and-idempotency"
         ],
         "parent": "page:distributed-systems",
         "level": "intermediate",
@@ -227,7 +234,9 @@
         "canonicalTopic": "overload control",
         "related": [
           "page:rate-limiting-in-distributed-systems",
-          "page:backpressure-in-distributed-systems"
+          "page:backpressure-in-distributed-systems",
+          "page:queue-design-under-load",
+          "page:why-systems-fail-under-load"
         ],
         "parent": "page:distributed-systems",
         "level": "advanced",
@@ -326,6 +335,97 @@
         "id": "tag:migration",
         "nodeType": "tag",
         "label": "migration"
+      },
+      {
+        "id": "page:why-systems-fail-under-load",
+        "nodeType": "page",
+        "title": "Why Systems Fail Under Load, Not Just Bugs",
+        "url": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/",
+        "contentType": "article",
+        "summary": "Conceptual anchor explaining overload dynamics, amplification loops, and cascading failure modes in distributed systems.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "reliability",
+        "related": [
+          "page:retry-strategies-and-idempotency",
+          "page:queue-design-under-load",
+          "page:admission-control-in-distributed-systems",
+          "page:backpressure-in-distributed-systems",
+          "page:load-shedding-in-distributed-systems",
+          "page:graceful-degradation-in-distributed-systems"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:failure-modes",
+        "nodeType": "tag",
+        "label": "failure modes"
+      },
+      {
+        "id": "page:retry-strategies-and-idempotency",
+        "nodeType": "page",
+        "title": "Retry Strategies and Idempotency",
+        "url": "https://www.myrobertson.com/writing/retry-strategies-and-idempotency/",
+        "contentType": "article",
+        "summary": "Safe retry semantics, duplicate suppression, idempotent API design, and retry budgets under load.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "overload control",
+        "related": [
+          "page:why-systems-fail-under-load",
+          "page:queue-design-under-load",
+          "page:admission-control-in-distributed-systems",
+          "page:backpressure-in-distributed-systems"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:idempotency",
+        "nodeType": "tag",
+        "label": "idempotency"
+      },
+      {
+        "id": "tag:retry-semantics",
+        "nodeType": "tag",
+        "label": "retry semantics"
+      },
+      {
+        "id": "page:queue-design-under-load",
+        "nodeType": "page",
+        "title": "Queue Design Under Load",
+        "url": "https://www.myrobertson.com/writing/queue-design-under-load/",
+        "contentType": "article",
+        "summary": "Bounded queues, fairness, queue latency as an amplification vector, and rejection policies under overload.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "overload control",
+        "related": [
+          "page:why-systems-fail-under-load",
+          "page:retry-strategies-and-idempotency",
+          "page:admission-control-in-distributed-systems",
+          "page:backpressure-in-distributed-systems",
+          "page:load-shedding-in-distributed-systems"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "tag:queue-design",
+        "nodeType": "tag",
+        "label": "queue design"
+      },
+      {
+        "id": "tag:queue-depth",
+        "nodeType": "tag",
+        "label": "queue depth"
       },
       {
         "id": "page:distributed-systems-writing",
@@ -1082,6 +1182,286 @@
           "tag:migration"
         ],
         "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "tag:failure-modes",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "tag:overload-control",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "tag:idempotency",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "tag:retry-semantics",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "tag:overload-control",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "tag:queue-design",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "tag:queue-depth",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "tag:overload-control",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:why-systems-fail-under-load",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:queue-design-under-load",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:backpressure-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:backpressure-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:backpressure-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability",
+          "tag:overload-control"
+        ],
+        "strength": 3
       }
     ]
   }

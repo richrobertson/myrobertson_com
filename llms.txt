@@ -7,6 +7,9 @@ Case studies index: https://www.myrobertson.com/case-studies/
 Distributed systems topic hub: https://www.myrobertson.com/distributed-systems/
 Knowledge index (machine-readable): https://www.myrobertson.com/knowledge.json
 Reliability cluster:
+- https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/
+- https://www.myrobertson.com/writing/retry-strategies-and-idempotency/
+- https://www.myrobertson.com/writing/queue-design-under-load/
 - https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/
 - https://www.myrobertson.com/writing/backpressure-in-distributed-systems/
 - https://www.myrobertson.com/writing/admission-control-in-distributed-systems/

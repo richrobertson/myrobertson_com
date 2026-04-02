@@ -211,10 +211,9 @@
       </section>
 
       <section class="section">
-        <h2>Distributed Systems Topic Cluster (Structure)</h2>
+        <h2>Overload Control and Failure Dynamics (Complete Cluster)</h2>
         <p class="section-intro">
-          Reliability and overload-control pages that extend the backpressure baseline with concrete production
-          mechanisms and failure-containment strategy.
+          A cohesive cluster covering why systems fail under load, how retries and queues amplify failure, and the full stack of controls (admission, rate-limiting, backpressure, circuit breakers, graceful degradation, load shedding) that keep distributed systems stable under pressure.
         </p>
         <div class="grid">
           <article class="project">
@@ -222,8 +221,16 @@
             <p>Flagship synthesis of the full overload-control pipeline and interaction model.</p>
           </article>
           <article class="project">
+            <h3><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load, Not Just Bugs</a></h3>
+            <p>Conceptual anchor: overload dynamics, amplification loops, and why systems collapse under pressure rather than from isolated defects.</p>
+          </article>
+          <article class="project">
             <h3><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></h3>
-            <p>Outline for safe retries, duplicate suppression, and idempotent API/workflow design.</p>
+            <p>Safe retries, duplicate suppression, idempotent API/workflow design, and retry budgets under load.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/writing/queue-design-under-load/">Queue Design Under Load</a></h3>
+            <p>Bounded queues, fairness, queue latency as an amplification vector, and when to reject instead of enqueueing.</p>
           </article>
           <article class="project">
             <h3><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a></h3>
@@ -244,14 +251,6 @@
           <article class="project">
             <h3><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a></h3>
             <p>Intentional rejection, drop, defer, and downgrade policy when live capacity is exceeded.</p>
-          </article>
-          <article class="project">
-            <h3><a href="/writing/queue-design-under-load/">Queue Design Under Load</a></h3>
-            <p>Outline for queue depth boundaries, drain behavior, and overload strategy.</p>
-          </article>
-          <article class="project">
-            <h3><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load, Not Just Bugs</a></h3>
-            <p>Outline for production failure modes driven by load amplification and coordination limits.</p>
           </article>
         </div>
       </section>

@@ -199,6 +199,16 @@
         <p class="failure-takeaway">Systems don’t fail all at once — they fail under load. Backpressure is how you stay in control.</p>
       </section>
 
+      <section id="failure-reading" class="section failure-reading">
+        <h2 class="section-subhead">Reliability Cluster Reading</h2>
+        <p class="section-intro">Three essays that anchor failure dynamics and overload control:</p>
+        <ul>
+          <li><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load, Not Just Bugs</a> — Conceptual foundation for understanding amplification loops and cascading failures.</li>
+          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a> — How retries amplify load and what idempotency semantics actually buy you.</li>
+          <li><a href="/writing/queue-design-under-load/">Queue Design Under Load</a> — Why bounded queues and rejection policy matter more than queue depth.</li>
+        </ul>
+      </section>
+
       <section id="reputation" class="section known-for">
         <h2>What I’m Known For</h2>
         <ul>
@@ -260,12 +270,12 @@
               <div><h4>Why this mattered</h4><p>Migration quality directly influenced customer confidence and enterprise delivery readiness.</p></div>
               <div><h4>Core problem</h4><p>Legacy pathways constrained elasticity, supportability, and controlled rollout operations.</p></div>
               <div><h4>My role</h4><p>Led migration execution and backend implementation planning across the service transition.</p></div>
-              <div><h4>Key engineering decisions</h4><ul><li>Controlled traffic shifts instead of all-at-once cutover</li><li>Queueing and worker isolation to reduce overload amplification</li><li>Observability-first rollout with explicit metrics checkpoints</li><li>See: <a href="writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
+              <div><h4>Key engineering decisions</h4><ul><li>Controlled traffic shifts instead of all-at-once cutover</li><li>Queueing and worker isolation to reduce overload amplification</li><li>Observability-first rollout with explicit metrics checkpoints</li><li>See: <a href="/writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
               <div><h4>Tradeoffs</h4><p>Balanced migration speed against operational safety and support continuity.</p></div>
               <div><h4>How I think about failure</h4><p>Traffic shifting and migration can expose hidden failure paths; bounded transitions and observability reduce cascading risk.</p></div>
               <div><h4>Outcome</h4><p>Improved supportability and delivery stability while supporting a <strong>$2M enterprise deal</strong>.</p></div>
             </div>
-            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</span></p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="/writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</span></p>
           </article>
 
           <article id="case-control-plane" class="project case-study">
@@ -289,7 +299,7 @@
             </figure>
             <div class="proof-strip"><span class="chip">Shared Java framework</span><span class="chip">Durable command execution</span><span class="chip">Partition-aware workers</span></div>
             <p class="why-line"><strong>Why this matters:</strong> teams shipped faster without duplicating orchestration infrastructure.</p>
-            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="/writing/backpressure-in-distributed-systems/" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
             <div class="case-study-grid">
               <div><h4>Context</h4><p>Multitenant control-plane environment with multiple services needing durable orchestration.</p></div><div><h4>Problem</h4><p>Teams needed safe distributed workflow execution without rebuilding infrastructure repeatedly.</p></div><div><h4>My role</h4><p>Architected and built the shared framework.</p></div>
               <div><h4>Operational / business result</h4><p>Standardized control-plane execution and reduced duplicated effort.</p></div>
@@ -347,7 +357,7 @@
         <div class="grid">
           <article class="project"><h3><a href="writing/designing-a-correct-distributed-lease-service-tenure-on-raft/">Designing a Correct Distributed Lease Service: Tenure on Raft</a></h3><p>Correctness model for lease semantics, fencing tokens, and failure handling in distributed coordination.</p><span>Reasoning Artifact • Correctness Engineering</span></article>
           <article class="project"><h3><a href="writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a></h3><p>Architecture framework behind durable command execution and control-plane workflow systems.</p><span>Reasoning Artifact • Platform Architecture</span></article>
-          <article class="project"><h3><a href="blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a></h3><p>Operational stability approach for admission control, bounded queues, and graceful degradation.</p><span>Reasoning Artifact • Reliability Strategy</span></article>
+          <article class="project"><h3><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></h3><p>Operational stability approach for admission control, bounded queues, and graceful degradation.</p><span>Reasoning Artifact • Reliability Strategy</span></article>
         </div>
       </section>
 
