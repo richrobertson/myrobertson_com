@@ -86,6 +86,12 @@
           <a href="https://github.com/richrobertson/myrobertson_com" target="_blank" rel="noopener noreferrer">GitHub Repo</a> ·
           <a href="/#contact">Contact</a>
         </p>
+        <p>
+          Machine-readable:
+          <a href="/llms.txt">llms.txt</a> ·
+          <a href="/knowledge.json">knowledge.json</a> ·
+          <a href="/sitemap.xml">sitemap.xml</a>
+        </p>
       </${tagName}>
     `;
   }

@@ -9,7 +9,7 @@ const siteUrl = (process.env.SITE_URL || config.siteUrl).replace(/\/$/, '');
 const EXCLUDED_DIRS = new Set(['node_modules', '.git', 'static']);
 const EXCLUDED_FILES = new Set(['404.html']);
 
-const EXTRA_ROUTES = ['/knowledge.json'];
+const EXTRA_ROUTES = ['/knowledge.json', '/llms.txt'];
 
 function readContentModelIndexability() {
   const modelPath = join(root, 'content', 'content-model.js');

@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.myrobertson.com/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/ask-rich.html</loc>
@@ -98,7 +98,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/care-management-scoring-engine/</loc>
@@ -130,7 +130,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/release-pipeline-configuration-management/</loc>
@@ -138,7 +138,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/starbucks-loyalty-platform-integration/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/cloud-platform-engineer.html</loc>
@@ -150,23 +150,27 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/distributed-systems/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/knowledge.json</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/llms.txt</loc>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/backpressure-in-distributed-systems/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/control-plane-architecture-guide/</loc>
@@ -174,7 +178,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-01</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/distributed-systems-reliability/</loc>
