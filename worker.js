@@ -17,6 +17,7 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const normalizedPath = normalizePath(url.pathname);
+    const hasAssetsBinding = Boolean(env?.ASSETS && typeof env.ASSETS.fetch === 'function');
 
     if (url.pathname === '/blog/index.html') {
       return redirect(url, '/blog/');
@@ -24,6 +25,10 @@ export default {
 
     const legacyTarget = LEGACY_TO_PUBLIC.get(normalizedPath);
     if (legacyTarget) {
+      if (!hasAssetsBinding) {
+        // If ASSETS is unavailable, allow legacy paths to resolve via origin.
+        return fetch(request);
+      }
       return redirect(url, legacyTarget);
     }
 
@@ -34,12 +39,23 @@ export default {
 
     const assetPath = PUBLIC_TO_ASSET.get(url.pathname);
     if (assetPath && assetPath !== url.pathname) {
+      if (!hasAssetsBinding) {
+        // Prevent runtime 500s when ASSETS is not bound in production.
+        return redirect(url, assetPath);
+      }
+
       const assetFilePath = toAssetFilePath(assetPath);
       const assetUrl = new URL(url.toString());
       assetUrl.pathname = assetFilePath;
-      return env.ASSETS.fetch(new Request(assetUrl, request));
+      try {
+        const rewrittenRequest = new Request(assetUrl.toString(), request);
+        return env.ASSETS.fetch(rewrittenRequest);
+      } catch {
+        // Fall back to the underlying asset route instead of returning a 500.
+        return redirect(url, assetPath);
+      }
     }
 
-    return env.ASSETS.fetch(request);
+    return hasAssetsBinding ? env.ASSETS.fetch(request) : fetch(request);
   }
 };
