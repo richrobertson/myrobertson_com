@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>End-to-End Overload Control in Distributed Systems | Rich Robertson</title>
+    <meta name="description" content="How admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation work together to keep distributed systems stable under real-world load." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="End-to-End Overload Control in Distributed Systems | Rich Robertson" />
+    <meta property="og:description" content="A system-level model for overload control across admission, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation." />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="End-to-End Overload Control in Distributed Systems" />
+    <meta name="twitter:description" content="How overload-control mechanisms operate as one production system instead of isolated patterns." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.myrobertson.com/#person-rich-robertson",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "jobTitle": "Senior Backend Engineer",
+            "sameAs": ["https://www.linkedin.com/in/royrobertson/", "https://github.com/richrobertson"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.myrobertson.com/#website",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Article",
+            "@id": "https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/#main",
+            "headline": "End-to-End Overload Control in Distributed Systems",
+            "author": { "@id": "https://www.myrobertson.com/#person-rich-robertson" },
+            "datePublished": "2026-04-02",
+            "dateModified": "2026-04-02",
+            "description": "How admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation work together to keep distributed systems stable under real-world load.",
+            "mainEntityOfPage": { "@id": "https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/" },
+            "url": "https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/",
+            "inLanguage": "en",
+            "keywords": ["distributed systems", "overload control", "admission control", "rate limiting", "backpressure", "circuit breakers", "load shedding", "graceful degradation"],
+            "isPartOf": { "@id": "https://www.myrobertson.com/#website" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Writing", "item": "https://www.myrobertson.com/writing/" },
+              { "@type": "ListItem", "position": 3, "name": "End-to-End Overload Control in Distributed Systems", "item": "https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/" }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing">
+    <main class="hero blog-post">
+      <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">End-to-End Overload Control</span></p>
+      <h1>End-to-End Overload Control in Distributed Systems</h1>
+      <p class="section-intro">Distributed systems do not fail instantly. They drift into overload as queues stretch, retries multiply, and dependencies degrade at different speeds.</p>
+      <p><strong>Summary:</strong> Overload control is the coordinated decision system that determines whether a distributed architecture degrades in a controlled way or collapses under its own recovery behavior.</p>
+
+      <section class="section">
+        <h2>The Core Idea: Systems Fail Under Load</h2>
+        <p><strong>Summary:</strong> Most production failures are dynamic capacity failures, not static code failures.</p>
+        <p>Under stress, local bottlenecks become global instability: one pool saturates, latency rises, clients retry, and new traffic arrives while old work is still unresolved. The failure is systemic because every layer keeps making independent decisions without a shared overload model.</p>
+        <p>End-to-end overload control introduces explicit control points where the system can slow, reject, isolate, or downgrade work before instability propagates.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Overload Control Pipeline</h2>
+        <p><strong>Summary:</strong> Stability comes from ordered controls: ingress shaping, safe acceptance, pressure propagation, dependency isolation, selective drop, then user-facing service mode.</p>
+        <pre><code>Ingress -&gt; Admission Control -&gt; Rate Limiting -&gt; Backpressure
+        -&gt; Circuit Breakers -&gt; Load Shedding -&gt; Graceful Degradation</code></pre>
+        <ul>
+          <li><strong>Ingress:</strong> Identifies caller, tenant, and priority context so downstream controls can enforce policy coherently.</li>
+          <li><strong>Admission Control:</strong> Decides whether work enters at all, based on live capacity and protection priorities.</li>
+          <li><strong>Rate Limiting:</strong> Shapes traffic over time to prevent burst behavior from continually refilling hot paths.</li>
+          <li><strong>Backpressure:</strong> Propagates saturation upstream so producers align with consumer drain capacity.</li>
+          <li><strong>Circuit Breakers:</strong> Isolates unhealthy dependencies so failures do not consume remaining concurrency.</li>
+          <li><strong>Load Shedding:</strong> Intentionally drops or defers lower-value work when active demand still exceeds safe capacity.</li>
+          <li><strong>Graceful Degradation:</strong> Maintains must-have product behavior by reducing feature scope, fidelity, or freshness.</li>
+        </ul>
+        <p>Ordering matters because each stage narrows blast radius at a different cost point. Rejecting at ingress is cheaper than timing out deep in dependency trees; shedding optional fan-out is safer than sacrificing a transactional path; degradation is most effective after isolation and shedding have protected core capacity.</p>
+      </section>
+
+      <section class="section">
+        <h2>The Control Points (Deep Dive Overview)</h2>
+        <p><strong>Summary:</strong> Each mechanism protects a different failure boundary; together they form one reliability control surface.</p>
+        <ul>
+          <li><strong><a href="/writing/admission-control-in-distributed-systems/">Admission Control</a>:</strong> Protects intake boundaries; operates at system entry and queue edges; prevents unsafe work from entering.</li>
+          <li><strong><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting</a>:</strong> Protects fairness and burst behavior; operates at ingress identity scopes (tenant/client/route); stabilizes arrival patterns.</li>
+          <li><strong><a href="/writing/backpressure-in-distributed-systems/">Backpressure</a>:</strong> Protects downstream drain capacity; operates between producers and consumers; prevents unbounded in-flight growth.</li>
+          <li><strong><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers</a>:</strong> Protects dependency-facing concurrency budgets; operates on remote call edges; fails fast when dependencies are unhealthy.</li>
+          <li><strong><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding</a>:</strong> Protects critical-path resources during active overload; operates in workers, queues, and fan-out branches; drops lower-value work intentionally.</li>
+          <li><strong><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation</a>:</strong> Protects user-visible continuity; operates at product/service mode boundaries; preserves core outcomes while reducing optional behavior.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>How These Mechanisms Interact</h2>
+        <p><strong>Summary:</strong> The value is in interaction design, not in implementing six independent patterns.</p>
+        <ul>
+          <li><strong>Admission control vs rate limiting:</strong> rate limits shape expected demand; admission control enforces real-time capacity truth. A request can pass limits and still be rejected if live saturation is unsafe.</li>
+          <li><strong>Backpressure vs load shedding:</strong> backpressure asks producers to slow down; load shedding decides certain work should not continue even if producers comply, because remaining capacity must be reserved for critical paths.</li>
+          <li><strong>Circuit breakers vs retries:</strong> open circuits must suppress aggressive retry loops. Otherwise retries turn dependency failure into local thread and queue starvation.</li>
+          <li><strong>Graceful degradation vs product behavior:</strong> degradation must map to explicit product semantics (for example stale but correct read, delayed notification, reduced recommendation quality), not generic "service unavailable" noise.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Failure Without This System</h2>
+        <p><strong>Summary:</strong> Without coordinated overload controls, systems fail by amplification, not by a single point break.</p>
+        <ul>
+          <li><strong>Retry storms:</strong> clients and workers reissue failed calls faster than dependencies can recover.</li>
+          <li><strong>Queue explosion:</strong> intake exceeds drain rate, queue age grows, and work times out after consuming scarce memory and scheduling slots.</li>
+          <li><strong>Cascading dependency failure:</strong> one slow dependency saturates shared pools, dragging unrelated paths into failure.</li>
+          <li><strong>Latency collapse:</strong> long-tail latency dominates, making timeout-driven behavior the steady state.</li>
+          <li><strong>Resource starvation:</strong> optional or low-value work consumes the exact CPU, I/O, and concurrency needed for core user commitments.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Production Example: Multitenant Notification Control Plane</h2>
+        <p><strong>Summary:</strong> A stable system engages controls progressively as pressure moves from ingress burst to downstream impairment.</p>
+        <p>Consider a multitenant notification control plane during a migration rollout window like the <a href="/case-studies/oracle-cns-oci-migration/">OCI migration case study</a>. A tenant launch event spikes campaign and transactional commands at the same time while one regional provider path begins timing out.</p>
+        <ul>
+          <li><strong>Admission control</strong> protects command ingestion by rejecting non-critical bulk requests once queue age and worker saturation cross policy thresholds.</li>
+          <li><strong>Rate limiting</strong> enforces tenant and endpoint burst ceilings so one launch does not starve other customers.</li>
+          <li><strong>Backpressure</strong> slows upstream producers when downstream dispatch workers fall behind.</li>
+          <li><strong>Circuit breakers</strong> open on unhealthy provider paths, preserving thread pools and avoiding timeout pileups.</li>
+          <li><strong>Load shedding</strong> drops low-priority fan-out and optional enrichments while preserving compliance and transactional flows.</li>
+          <li><strong>Graceful degradation</strong> shifts product behavior to delayed campaign delivery with explicit status while critical notifications continue.</li>
+        </ul>
+        <p>The system stays stable not because load disappeared, but because each control point reduced amplification and preserved the right work.</p>
+      </section>
+
+      <section class="section">
+        <h2>Design Principles</h2>
+        <p><strong>Summary:</strong> Overload control design is mostly disciplined refusal and prioritization.</p>
+        <ul>
+          <li>Never accept work you cannot process safely.</li>
+          <li>Bound everything: queues, concurrency, retry budgets, and fan-out width.</li>
+          <li>Fail early, not late; late failure wastes scarce capacity.</li>
+          <li>Protect critical paths first, then spend residual capacity.</li>
+          <li>Design degradation modes explicitly as product behavior, not incident improvisation.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Observability Across the Pipeline</h2>
+        <p><strong>Summary:</strong> You detect overload early by watching decision points, not only final error rates.</p>
+        <ul>
+          <li>Admission accept/reject/defer rates by reason, tenant, and priority.</li>
+          <li>Rate-limit hit ratios, burst violations, and fairness skew across tenants.</li>
+          <li>Queue depth plus queue age and time-in-queue distributions.</li>
+          <li>Backpressure activation frequency and producer slow-down behavior.</li>
+          <li>Circuit breaker state transitions correlated with downstream latency and error spikes.</li>
+          <li>Load-shedding volumes by class and resulting critical-path success rates.</li>
+          <li>Degradation mode activation mapped to user outcomes and SLA commitments.</li>
+        </ul>
+      </section>
+
+      <section class="section related-concepts">
+        <h2>Related Concepts</h2>
+        <ul>
+          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a></li>
+          <li><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a></li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></li>
+          <li><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers in Distributed Systems</a></li>
+          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a></li>
+          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a></li>
+          <li><a href="/writing/distributed-systems-reliability/">Distributed Systems Reliability pillar</a></li>
+          <li><a href="/distributed-systems/">Distributed systems hub</a></li>
+          <li><a href="/case-studies/oracle-cns-oci-migration/">OCI migration case study</a></li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Closing Summary</h2>
+        <p><strong>Summary:</strong> Overload control is not a feature; it is the operating system for reliability decisions that determines whether architecture survives real production conditions.</p>
+      </section>
+
+      <div data-site-footer></div>
+    </main>
+    <script src="/nav.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

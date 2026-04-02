@@ -72,6 +72,30 @@
         "importance": 2
       },
       {
+        "id": "page:overload-control-pipeline",
+        "nodeType": "page",
+        "title": "End-to-End Overload Control in Distributed Systems",
+        "url": "https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/",
+        "contentType": "article",
+        "summary": "System-level synthesis of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "distributed systems",
+        "related": [
+          "page:admission-control-in-distributed-systems",
+          "page:rate-limiting-in-distributed-systems",
+          "page:backpressure-in-distributed-systems",
+          "page:circuit-breakers-in-distributed-systems",
+          "page:load-shedding-in-distributed-systems",
+          "page:graceful-degradation-in-distributed-systems",
+          "page:oracle-cns-oci-migration"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
         "id": "tag:backpressure",
         "nodeType": "tag",
         "label": "backpressure"
@@ -396,6 +420,21 @@
         "type": "hasTag"
       },
       {
+        "source": "page:overload-control-pipeline",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "tag:overload-control",
+        "type": "hasTag"
+      },
+      {
         "source": "page:admission-control-in-distributed-systems",
         "target": "tag:admission-control",
         "type": "hasTag"
@@ -594,6 +633,11 @@
         "source": "page:case-studies",
         "target": "tag:platform-modernization",
         "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:overload-control-pipeline",
+        "type": "indexes"
       },
       {
         "source": "page:distributed-systems-writing",
