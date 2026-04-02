@@ -1,7 +1,6 @@
 import { writeFileSync } from 'node:fs';
 
 const site = 'https://www.myrobertson.com';
-const generatedAt = new Date().toISOString();
 
 const entries = [
   {
@@ -96,7 +95,6 @@ const entries = [
 
 const payload = {
   version: 1,
-  generatedAt,
   canonical: `${site}/knowledge.json`,
   entries
 };

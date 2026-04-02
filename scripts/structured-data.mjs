@@ -1,4 +1,10 @@
-const SITE_URL = 'https://www.myrobertson.com';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
+
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const seoConfig = JSON.parse(readFileSync(path.join(repoRoot, 'seo.config.json'), 'utf8'));
+const SITE_URL = (process.env.SITE_URL || seoConfig.siteUrl || 'https://www.myrobertson.com').replace(/\/$/, '');
 
 export const personNode = {
   '@type': 'Person',
