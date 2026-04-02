@@ -6,6 +6,13 @@ function redirect(url, pathname) {
   return Response.redirect(next.toString(), 301);
 }
 
+function toAssetFilePath(assetPath) {
+  if (!assetPath) return assetPath;
+  if (assetPath.endsWith('.html')) return assetPath;
+  if (assetPath.endsWith('/')) return `${assetPath}index.html`;
+  return `${assetPath}/index.html`;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -27,9 +34,10 @@ export default {
 
     const assetPath = PUBLIC_TO_ASSET.get(url.pathname);
     if (assetPath && assetPath !== url.pathname) {
+      const assetFilePath = toAssetFilePath(assetPath);
       const assetUrl = new URL(url.toString());
-      assetUrl.pathname = assetPath;
-      return env.ASSETS.fetch(new Request(assetUrl.toString(), request));
+      assetUrl.pathname = assetFilePath;
+      return env.ASSETS.fetch(new Request(assetUrl, request));
     }
 
     return env.ASSETS.fetch(request);
