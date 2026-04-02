@@ -87,6 +87,112 @@
         "label": "backend reliability"
       },
       {
+        "id": "page:rate-limiting-in-distributed-systems",
+        "nodeType": "page",
+        "title": "Rate Limiting in Distributed Systems",
+        "url": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/",
+        "contentType": "article",
+        "summary": "Fairness and capacity protection with explicit intake boundaries before overload becomes systemic.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "overload control",
+        "related": [
+          "page:backpressure-in-distributed-systems",
+          "page:load-shedding-in-distributed-systems"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "tag:rate-limiting",
+        "nodeType": "tag",
+        "label": "rate limiting"
+      },
+      {
+        "id": "tag:overload-control",
+        "nodeType": "tag",
+        "label": "overload control"
+      },
+      {
+        "id": "page:circuit-breakers-in-distributed-systems",
+        "nodeType": "page",
+        "title": "Circuit Breakers in Distributed Systems",
+        "url": "https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/",
+        "contentType": "article",
+        "summary": "Failure containment for unhealthy dependencies using open, closed, and half-open transitions.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "reliability",
+        "related": [
+          "page:graceful-degradation-in-distributed-systems",
+          "page:architecting-a-multitenant-control-plane"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "tag:circuit-breakers",
+        "nodeType": "tag",
+        "label": "circuit breakers"
+      },
+      {
+        "id": "tag:failure-isolation",
+        "nodeType": "tag",
+        "label": "failure isolation"
+      },
+      {
+        "id": "page:graceful-degradation-in-distributed-systems",
+        "nodeType": "page",
+        "title": "Graceful Degradation in Distributed Systems",
+        "url": "https://www.myrobertson.com/writing/graceful-degradation-in-distributed-systems/",
+        "contentType": "article",
+        "summary": "Service-mode strategy to preserve essential behavior by reducing non-critical scope under stress.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "distributed systems",
+        "related": [
+          "page:load-shedding-in-distributed-systems",
+          "page:oracle-cns-oci-migration"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "page:load-shedding-in-distributed-systems",
+        "nodeType": "page",
+        "title": "Load Shedding in Distributed Systems",
+        "url": "https://www.myrobertson.com/writing/load-shedding-in-distributed-systems/",
+        "contentType": "article",
+        "summary": "Intentional rejection, drop, defer, or downgrade policy to protect core paths during overload.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "overload control",
+        "related": [
+          "page:rate-limiting-in-distributed-systems",
+          "page:backpressure-in-distributed-systems"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:load-shedding",
+        "nodeType": "tag",
+        "label": "load shedding"
+      },
+      {
+        "id": "tag:admission-control",
+        "nodeType": "tag",
+        "label": "admission control"
+      },
+      {
         "id": "page:architecting-a-multitenant-control-plane",
         "nodeType": "page",
         "title": "Architecting a Multitenant Control Plane",
@@ -268,6 +374,91 @@
         "type": "hasTag"
       },
       {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "tag:rate-limiting",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "tag:overload-control",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "tag:circuit-breakers",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "tag:failure-isolation",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "tag:graceful-degradation",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "tag:overload-control",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "tag:load-shedding",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "tag:admission-control",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "tag:overload-control",
+        "type": "hasTag"
+      },
+      {
         "source": "page:architecting-a-multitenant-control-plane",
         "target": "tag:control-planes",
         "type": "hasTag"
@@ -369,6 +560,26 @@
       },
       {
         "source": "page:distributed-systems-writing",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
         "target": "page:architecting-a-multitenant-control-plane",
         "type": "indexes"
       },
@@ -403,6 +614,46 @@
       },
       {
         "source": "page:distributed-systems",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
         "target": "page:architecting-a-multitenant-control-plane",
         "type": "relatedByTag",
         "sharedTags": [
@@ -432,6 +683,42 @@
       },
       {
         "source": "page:oracle-cns-oci-migration",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
         "target": "page:architecting-a-multitenant-control-plane",
         "type": "relatedByTag",
         "sharedTags": [
@@ -456,6 +743,154 @@
           "tag:distributed-systems"
         ],
         "strength": 1
+      },
+      {
+        "source": "page:backpressure-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:graceful-degradation"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
       },
       {
         "source": "page:architecting-a-multitenant-control-plane",

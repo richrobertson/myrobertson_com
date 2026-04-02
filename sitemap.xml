@@ -173,6 +173,10 @@
     <lastmod>2026-04-01</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/</loc>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/writing/control-plane-architecture-guide/</loc>
     <lastmod>2026-04-01</lastmod>
   </url>
@@ -183,5 +187,17 @@
   <url>
     <loc>https://www.myrobertson.com/writing/distributed-systems-reliability/</loc>
     <lastmod>2026-04-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/writing/graceful-degradation-in-distributed-systems/</loc>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/writing/load-shedding-in-distributed-systems/</loc>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/</loc>
+    <lastmod>2026-04-02</lastmod>
   </url>
 </urlset>

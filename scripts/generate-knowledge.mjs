@@ -37,6 +37,70 @@ const pages = [
     importance: 2
   },
   {
+    id: 'page:rate-limiting-in-distributed-systems',
+    title: 'Rate Limiting in Distributed Systems',
+    url: `${site}/writing/rate-limiting-in-distributed-systems/`,
+    contentType: 'article',
+    summary: 'Fairness and capacity protection with explicit intake boundaries before overload becomes systemic.',
+    tags: ['rate limiting', 'distributed systems', 'reliability', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'overload control',
+    related: ['page:backpressure-in-distributed-systems', 'page:load-shedding-in-distributed-systems'],
+    parent: 'page:distributed-systems',
+    level: 'intermediate',
+    status: 'published'
+  },
+  {
+    id: 'page:circuit-breakers-in-distributed-systems',
+    title: 'Circuit Breakers in Distributed Systems',
+    url: `${site}/writing/circuit-breakers-in-distributed-systems/`,
+    contentType: 'article',
+    summary: 'Failure containment for unhealthy dependencies using open, closed, and half-open transitions.',
+    tags: ['circuit breakers', 'distributed systems', 'reliability', 'failure isolation'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'reliability',
+    related: ['page:graceful-degradation-in-distributed-systems', 'page:architecting-a-multitenant-control-plane'],
+    parent: 'page:distributed-systems',
+    level: 'intermediate',
+    status: 'published'
+  },
+  {
+    id: 'page:graceful-degradation-in-distributed-systems',
+    title: 'Graceful Degradation in Distributed Systems',
+    url: `${site}/writing/graceful-degradation-in-distributed-systems/`,
+    contentType: 'article',
+    summary: 'Service-mode strategy to preserve essential behavior by reducing non-critical scope under stress.',
+    tags: ['graceful degradation', 'distributed systems', 'reliability', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'distributed systems',
+    related: ['page:load-shedding-in-distributed-systems', 'page:oracle-cns-oci-migration'],
+    parent: 'page:distributed-systems',
+    level: 'intermediate',
+    status: 'published'
+  },
+  {
+    id: 'page:load-shedding-in-distributed-systems',
+    title: 'Load Shedding in Distributed Systems',
+    url: `${site}/writing/load-shedding-in-distributed-systems/`,
+    contentType: 'article',
+    summary: 'Intentional rejection, drop, defer, or downgrade policy to protect core paths during overload.',
+    tags: ['load shedding', 'distributed systems', 'reliability', 'admission control', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'overload control',
+    related: ['page:rate-limiting-in-distributed-systems', 'page:backpressure-in-distributed-systems'],
+    parent: 'page:distributed-systems',
+    level: 'advanced',
+    status: 'published'
+  },
+  {
     id: 'page:architecting-a-multitenant-control-plane',
     title: 'Architecting a Multitenant Control Plane',
     url: `${site}/writing/architecting-a-multitenant-control-plane/`,
@@ -122,7 +186,12 @@ for (const page of pages) {
     summary: page.summary,
     publishedDate: page.publishedDate,
     updatedDate: page.updatedDate,
-    importance: page.importance
+    importance: page.importance,
+    canonicalTopic: page.canonicalTopic,
+    related: page.related,
+    parent: page.parent,
+    level: page.level,
+    status: page.status
   });
 
   for (const label of page.tags) {

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rate Limiting in Distributed Systems | Fairness, Capacity, and Overload Boundaries</title>
+    <meta name="description" content="How rate limiting protects shared capacity, tenant fairness, and overload boundaries in distributed systems before queue growth becomes systemic." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Rate Limiting in Distributed Systems" />
+    <meta property="og:description" content="Rate limiting as an upstream control for fairness, burst handling, and capacity protection." />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rate Limiting in Distributed Systems" />
+    <meta name="twitter:description" content="Practical guidance for rate limits that preserve fairness and prevent overload amplification." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.myrobertson.com/#person-rich-robertson",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "jobTitle": "Senior Backend Engineer",
+            "sameAs": ["https://www.linkedin.com/in/royrobertson/", "https://github.com/richrobertson"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.myrobertson.com/#website",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "TechArticle",
+            "@id": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/#main",
+            "headline": "Rate Limiting in Distributed Systems",
+            "author": { "@id": "https://www.myrobertson.com/#person-rich-robertson" },
+            "datePublished": "2026-04-02",
+            "dateModified": "2026-04-02",
+            "description": "How rate limiting protects shared capacity, tenant fairness, and overload boundaries in distributed systems before queue growth becomes systemic.",
+            "mainEntityOfPage": { "@id": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/" },
+            "url": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/",
+            "inLanguage": "en",
+            "keywords": ["rate limiting", "distributed systems", "admission control", "overload control", "reliability"],
+            "isPartOf": { "@id": "https://www.myrobertson.com/#website" }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing">
+    <main class="hero blog-post">
+      <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Rate Limiting</span></p>
+      <h1>Rate Limiting in Distributed Systems</h1>
+      <p class="section-intro">Rate limiting sets explicit intake boundaries before a shared system enters uncontrolled queue growth. It is how you protect fairness and capacity before overload turns into cascading failure.</p>
+      <p><strong>Takeaway:</strong> Treat rate limiting as upstream traffic policy for fairness and protection, not as a downstream recovery mechanism.</p>
+
+      <section class="section">
+        <h2>What it is</h2>
+        <p><strong>Summary:</strong> Rate limiting caps request or consumption rate over a defined interval to preserve fairness, protect shared capacity, and shape demand before overload becomes systemic.</p>
+        <p>A rate limiter is an admission decision at a boundary: ingress gateway, API edge, tenant policy layer, or internal producer path. If a client exceeds its budget, work is delayed or rejected before it consumes scarce queues, workers, connections, and downstream retry budget.</p>
+      </section>
+
+      <section class="section">
+        <h2>Why it matters</h2>
+        <p><strong>Summary:</strong> Without enforced intake boundaries, a small set of clients can consume shared capacity and push the whole service into latency collapse.</p>
+        <p>Most production incidents under burst traffic begin as unfair consumption and only later appear as timeouts, queue growth, and dependency saturation. Rate limiting handles the problem while work is still cheap to reject.</p>
+      </section>
+
+      <section class="section">
+        <h2>What problem it solves</h2>
+        <p><strong>Summary:</strong> Rate limiting prevents unfair tenant usage, queue blow-up, and tail-latency amplification caused by unconstrained request volume.</p>
+        <ul>
+          <li>Prevents one tenant or integration from starving others.</li>
+          <li>Protects downstream services before bounded queues reach dangerous depth.</li>
+          <li>Contains accidental traffic spikes during rollouts, retries, or client bugs.</li>
+          <li>Keeps per-endpoint hot spots from collapsing the full API surface.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>How it works</h2>
+        <p><strong>Summary:</strong> Practical limiters combine policy scope, algorithm choice, and burst budget tuning.</p>
+        <h3>Policy scope</h3>
+        <ul>
+          <li><strong>Global limits:</strong> protect platform-wide hard capacity.</li>
+          <li><strong>Per-tenant limits:</strong> isolate consumer behavior in multitenant systems.</li>
+          <li><strong>Per-endpoint limits:</strong> guard expensive or abuse-prone paths.</li>
+        </ul>
+        <h3>Common algorithms</h3>
+        <ul>
+          <li><strong>Token bucket:</strong> allows bursts up to bucket size with sustained refill rate.</li>
+          <li><strong>Leaky bucket:</strong> smooths bursts into a fixed drain rate.</li>
+          <li><strong>Fixed window:</strong> simple but can allow boundary spikes.</li>
+          <li><strong>Sliding window:</strong> tighter fairness at higher implementation cost.</li>
+        </ul>
+        <h3>Burst tolerance vs sustained protection</h3>
+        <p>Short bursts can be healthy for client experience, but sustained excess must be clipped early. The wrong balance either harms legitimate traffic or allows instability to accumulate into your queues.</p>
+      </section>
+
+      <section class="section">
+        <h2>Rate limiting vs backpressure</h2>
+        <p><strong>Summary:</strong> Rate limiting is static or policy-driven boundary control; backpressure is dynamic feedback from actual downstream capacity.</p>
+        <p>Use rate limiting to shape demand at the edges and preserve fairness. Use <a href="/writing/backpressure-in-distributed-systems/">backpressure</a> to adapt concurrency and queue intake based on real-time saturation signals. They are complementary, not interchangeable.</p>
+      </section>
+
+      <section class="section">
+        <h2>Rate limiting vs load shedding</h2>
+        <p><strong>Summary:</strong> Rate limiting sets planned boundaries before overload; load shedding is an emergency overload action once capacity is exceeded.</p>
+        <p>Rate limiting is proactive policy. <a href="/writing/load-shedding-in-distributed-systems/">Load shedding</a> is a deliberate protective drop path when the system is already under pressure.</p>
+      </section>
+
+      <section class="section">
+        <h2>What it is not</h2>
+        <p><strong>Summary:</strong> Rate limiting is not retry control, not circuit breaking, and not a substitute for queue boundaries.</p>
+        <p>It cannot detect dependency health by itself, and it cannot compensate for unbounded internal buffers. You still need explicit queue design, timeout policy, and failure containment.</p>
+      </section>
+
+      <section class="section">
+        <h2>Tradeoffs and constraints</h2>
+        <p><strong>Summary:</strong> Limiters fail when policy granularity, defaults, or customer contracts are misaligned.</p>
+        <ul>
+          <li>False throttling can block legitimate batch jobs or migration backfills.</li>
+          <li>Poorly chosen keys can create noisy-neighbor unfairness.</li>
+          <li>Overly strict limits damage product experience and support load.</li>
+          <li>Stale counters in distributed limiter stores can create oscillation.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Where it fits in the system</h2>
+        <p><strong>Summary:</strong> Apply rate limiting at ingress as one layer in a broader overload-control stack.</p>
+        <p>Typical order: rate limits at edge → admission control at service boundary → bounded queues and backpressure in workers → circuit breakers for unhealthy dependencies → load shedding and graceful degradation under stress.</p>
+      </section>
+
+      <section class="section">
+        <h2>Production scenarios</h2>
+        <p><strong>Summary:</strong> Effective rate limits are tuned per path and tenant, not one platform-wide constant.</p>
+        <ul>
+          <li><strong>Multitenant control plane:</strong> cap per-tenant workflow submissions so one large migration cannot starve orchestration for all customers.</li>
+          <li><strong>Notification platform:</strong> enforce burst budgets per integration endpoint while preserving global send pipeline health.</li>
+          <li><strong>Customer API under incident:</strong> tighten non-critical endpoint limits during dependency slowness to preserve core write-path SLAs.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Design guidance</h2>
+        <p><strong>Summary:</strong> Tune limits with real traffic distributions and instrument the decisions, not only the outcomes.</p>
+        <ul>
+          <li>Start by protecting scarce resources: DB pools, worker slots, downstream quotas.</li>
+          <li>Define separate limits for critical and best-effort endpoints.</li>
+          <li>Measure allowed, throttled, and burst-token depletion per policy key.</li>
+          <li>Track saturation trends to adjust before hard throttling spikes.</li>
+          <li>Roll out with dry-run counters before enforcing rejects.</li>
+        </ul>
+      </section>
+
+      <section class="section related-concepts">
+        <h2>Related concepts</h2>
+        <ul>
+          <li><a href="/distributed-systems/">Distributed Systems hub</a> — map of reliability and control-plane topics.</li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — dynamic saturation feedback once work is admitted.</li>
+          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a> — intentional rejection under live overload.</li>
+          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — preserving essential behavior when limits are reached.</li>
+          <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration</a> — large-scale operational context for overload-control policy.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Closing summary</h2>
+        <p><strong>Summary:</strong> Rate limiting is the fairness and capacity contract at your system boundaries, and it works best when paired with backpressure, queue limits, and explicit degradation strategy.</p>
+      </section>
+
+      <div data-site-footer></div>
+    </main>
+    <script src="/nav.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>
