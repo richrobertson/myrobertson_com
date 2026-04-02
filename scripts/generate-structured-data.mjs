@@ -50,6 +50,32 @@ function gitDate(file, type='first') {
   }
 }
 
+function extractExistingJsonLdDates(html) {
+  const cleaned = html.replace(/<!-- AI-SCHEMA:START -->[\s\S]*<!-- AI-SCHEMA:END -->/m, '');
+  const scripts = [...cleaned.matchAll(/<script\s+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  const values = { datePublished: '', dateModified: '' };
+  for (const scriptMatch of scripts) {
+    const raw = scriptMatch[1]?.trim();
+    if (!raw) continue;
+    try {
+      const parsed = JSON.parse(raw);
+      const nodes = Array.isArray(parsed) ? parsed : parsed['@graph'] ? parsed['@graph'] : [parsed];
+      for (const node of nodes) {
+        if (!node || typeof node !== 'object') continue;
+        if (!values.datePublished && typeof node.datePublished === 'string') {
+          values.datePublished = node.datePublished;
+        }
+        if (!values.dateModified && typeof node.dateModified === 'string') {
+          values.dateModified = node.dateModified;
+        }
+      }
+    } catch {
+      // Ignore malformed legacy blocks and continue.
+    }
+  }
+  return values;
+}
+
 function breadcrumb(url, headline) {
   const u = new URL(url);
   const segs = u.pathname.split('/').filter(Boolean);
@@ -79,8 +105,9 @@ for (const file of targets) {
   const description = getMeta(html, 'description');
   const url = getCanonical(html, file);
   const h1 = getH1(html) || title;
-  const published = gitDate(file, 'first');
-  const modified = gitDate(file, 'last');
+  const existingDates = extractExistingJsonLdDates(html);
+  const published = existingDates.datePublished || gitDate(file, 'first');
+  const modified = existingDates.dateModified || published;
   const keywords = keywordsFromPath(file);
   const about = [
     'distributed systems',
