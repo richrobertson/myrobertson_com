@@ -2,6 +2,14 @@
   const articles = [
 
     {
+      slug: 'reviewing-ai-generated-pull-requests-reliability-risk',
+      title: 'Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck',
+      url: '/blog/reviewing-ai-generated-pull-requests-reliability-risk.html',
+      summary: 'AI-generated pull requests at scale require reliability-first reviewability, explicit risk controls, and line-level ownership.',
+      tags: ['Reliability', 'Engineering Leadership', 'Software Delivery', 'AI', 'Distributed Systems']
+    },
+
+    {
       slug: 'how-i-built-the-askrich-chatbot-for-technical-screening',
       title: 'How I Built the AskRich Chatbot for Technical Screening',
       url: '/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html',

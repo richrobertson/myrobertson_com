@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck</title>
+      <link>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html</link>
+      <description>AI can generate code faster than teams can safely review it. This creates a new reliability problem in software delivery, one that staff+ engineers must actively design for.</description>
+      <guid>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html</guid>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>How I Built the AskRich Chatbot for Technical Screening</title>
       <link>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</link>
       <description>A practical breakdown of how AskRich works: recruiter-focused prompts, citation-backed answers, API integration, and deployment decisions.</description>

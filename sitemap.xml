@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.myrobertson.com/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/ask-rich.html</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</loc>
@@ -61,6 +61,10 @@
     <lastmod>2026-03-30</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html</loc>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</loc>
     <lastmod>2026-03-30</lastmod>
   </url>
@@ -90,19 +94,19 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/career-arc.html</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/care-management-scoring-engine/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/cloud-api-consulting-bridge/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/control-plane-workflow-platform/</loc>
@@ -114,11 +118,11 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/enterprise-test-automation-alm-modernization/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/healthcare-application-stabilization-wpf-migration/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/java-17-global-modernization/</loc>
@@ -130,7 +134,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/release-pipeline-configuration-management/</loc>
-    <lastmod>2026-03-30</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/case-studies/starbucks-loyalty-platform-integration/</loc>
@@ -166,6 +170,6 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/writing/distributed-systems-reliability/</loc>
-    <lastmod>2026-03-29</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
 </urlset>
