@@ -3,21 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Retry Strategies and Idempotency in Distributed Systems | Outline</title>
-    <meta name="description" content="Designing safe retries, duplicate suppression, and idempotent workflows for distributed systems." />
-    <meta name="robots" content="noindex,follow" />
+    <title>Retry Strategies, Retry Storms, and Idempotency | Distributed Systems</title>
+    <meta name="description" content="How retries and idempotency interact under load: retry budgets, jittered backoff, deadlines, dedupe windows, and safe duplicate handling." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/writing/retry-strategies-and-idempotency/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Retry Strategies and Idempotency in Distributed Systems | Outline" />
-    <meta property="og:description" content="Designing safe retries, duplicate suppression, and idempotent workflows for distributed systems." />
+    <meta property="og:title" content="Retry Strategies, Retry Storms, and Idempotency" />
+    <meta property="og:description" content="Retries are required in distributed systems, but unbounded retries amplify incidents. Practical guidance for retry policy and idempotent behavior." />
     <meta property="og:url" content="https://www.myrobertson.com/writing/retry-strategies-and-idempotency/" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Retry Strategies and Idempotency in Distributed Systems | Outline" />
-    <meta name="twitter:description" content="Designing safe retries, duplicate suppression, and idempotent workflows for distributed systems." />
+    <meta name="twitter:title" content="Retry Strategies, Retry Storms, and Idempotency" />
+    <meta name="twitter:description" content="Designing retries that recover from transient failure without causing retry storms or duplicate side effects." />
     <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
-  
+
     <!-- AI-SCHEMA:START -->
     <script type="application/ld+json">
     {
@@ -32,13 +32,6 @@
           "sameAs": [
             "https://www.linkedin.com/in/royrobertson/",
             "https://github.com/richrobertson"
-          ],
-          "knowsAbout": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
           ]
         },
         {
@@ -46,55 +39,35 @@
           "@id": "https://www.myrobertson.com/#website",
           "name": "Rich Robertson",
           "url": "https://www.myrobertson.com/",
-          "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ]
+          "inLanguage": "en"
         },
         {
           "@type": "TechArticle",
           "@id": "https://www.myrobertson.com/writing/retry-strategies-and-idempotency/#main",
-          "headline": "Retry Strategies and Idempotency in Distributed Systems",
+          "headline": "Retry Strategies, Retry Storms, and Idempotency",
           "author": {
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
           },
-          "datePublished": "2026-03-28T14:54:24-07:00",
-          "dateModified": "2026-03-28T14:54:24-07:00",
-          "description": "Designing safe retries, duplicate suppression, and idempotent workflows for distributed systems.",
+          "datePublished": "2026-04-02",
+          "dateModified": "2026-04-02",
+          "description": "How retries and idempotency interact under load: retry budgets, jittered backoff, deadlines, dedupe windows, and safe duplicate handling.",
           "keywords": [
-            "retry",
-            "strategies",
-            "and",
+            "retry storms",
             "idempotency",
-            "distributed systems",
-            "control planes",
-            "backend engineering",
-            "cloud migration",
-            "OCI"
+            "at-least-once delivery",
+            "overload",
+            "backpressure",
+            "cascading failure",
+            "dedupe window"
           ],
           "mainEntityOfPage": {
             "@id": "https://www.myrobertson.com/writing/retry-strategies-and-idempotency/"
           },
           "url": "https://www.myrobertson.com/writing/retry-strategies-and-idempotency/",
           "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ],
           "isPartOf": {
             "@id": "https://www.myrobertson.com/#website"
-          },
-          "sameAs": [
-            "https://www.linkedin.com/in/royrobertson/",
-            "https://github.com/richrobertson"
-          ]
+          }
         },
         {
           "@type": "BreadcrumbList",
@@ -114,7 +87,7 @@
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Retry Strategies and Idempotency in Distributed Systems",
+              "name": "Retry Strategies, Retry Storms, and Idempotency",
               "item": "https://www.myrobertson.com/writing/retry-strategies-and-idempotency/"
             }
           ]
@@ -123,30 +96,97 @@
     }
     </script>
     <!-- AI-SCHEMA:END -->
-</head>
+  </head>
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Outline</span></p>
-      <h1>Retry Strategies and Idempotency in Distributed Systems</h1>
-      <p class="section-intro">Designing safe retries, duplicate suppression, and idempotent workflows for distributed systems. This page is a structured outline for a future full article and is intentionally kept out of search indexing until expanded.</p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Retry Strategies and Idempotency</span></p>
+      <h1>Retry Strategies, Retry Storms, and Idempotency</h1>
+      <p class="section-intro">Retries are essential because distributed calls fail ambiguously. They are also one of the fastest ways to melt a system if they are not bounded, budgeted, jittered, and paired with idempotent semantics.</p>
 
       <section class="section">
-        <h2>Planned Coverage</h2>
-        <ul>
-          <li>Problem framing and failure mode taxonomy</li>
-          <li>Design patterns and implementation boundaries</li>
-          <li>Operational metrics and rollout validation approach</li>
-          <li>Trade-off analysis and recommended defaults</li>
-        </ul>
+        <h2>Why distributed systems need retries</h2>
+        <p>Timeouts are ambiguous. A caller cannot reliably tell whether a timed-out request never reached the service, reached it and failed, or succeeded but lost its response on the way back. In that ambiguity window, retrying is rational.</p>
+        <p>That is why retries exist in every serious production stack: clients, SDKs, message consumers, schedulers, and workflow engines. The question is never whether retries exist. The question is whether they are designed to recover from transient faults without amplifying overload.</p>
+        <p>If you need a conceptual primer first, start with <a href="/blog/what-is-idempotency.html">What Is Idempotency? (And Why It Matters in Distributed Systems)</a>. This page focuses on production retry behavior under pressure.</p>
       </section>
 
       <section class="section">
-        <h2>Related Reading Now</h2>
+        <h2>How retries turn into retry storms</h2>
+        <p>Retries help when failure is brief and capacity exists. They hurt when failure is overload-induced.</p>
+        <p>Suppose service A calls service B, and each request fans out to three downstream calls. If each layer retries three times under timeout, total attempted work grows multiplicatively. The dependency was already slow; retries now increase queue growth, tail latency, and connection-pool pressure across the full chain.</p>
+        <p>That loop is classic incident amplification: timeout leads to retry, retry increases load, load causes more timeout. Without controls, this becomes cascading failure across shared dependencies.</p>
+        <p>This behavior is tightly coupled with <a href="/writing/backpressure-in-distributed-systems/">backpressure and graceful degradation</a> and with queue policy choices discussed in <a href="/writing/queue-design-under-load/">Queue Design Under Load</a>. Retries are not an isolated feature; they are part of overload control.</p>
+      </section>
+
+      <section class="section">
+        <h2>What a good retry policy includes</h2>
+        <p>A production retry policy should be explicit and dependency-aware, not left to library defaults.</p>
         <ul>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></li>
-          <li><a href="/blog/what-is-idempotency.html">What Is Idempotency?</a></li>
-          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a></li>
+          <li><strong>Error classification:</strong> retry only errors that are plausibly transient (transport failures, 429, some 503). Do not retry validation errors or deterministic business failures.</li>
+          <li><strong>Retry budget:</strong> cap retries as a fraction of original traffic so retries cannot dominate steady-state load.</li>
+          <li><strong>Exponential backoff with jitter:</strong> spread retry timing to avoid synchronized bursts.</li>
+          <li><strong>Deadline-aware attempts:</strong> each retry must fit inside an end-to-end deadline. If budgeted time is gone, fail fast.</li>
+          <li><strong>Cancellation propagation:</strong> when upstream times out or cancels, stop downstream work.</li>
+          <li><strong>Concurrency limits:</strong> bound in-flight retries separately from first attempts.</li>
+        </ul>
+        <p>Also define when <strong>not</strong> to retry: during active load shedding, when idempotency is unavailable, or when a dependency reports hard failure with no chance of near-term recovery.</p>
+      </section>
+
+      <section class="section">
+        <h2>Why idempotency is non-negotiable</h2>
+        <p>Retry safety depends on idempotency. Without it, the same transient timeout can execute side effects multiple times: duplicate charges, duplicate emails, duplicate workflow transitions, duplicate inventory reservations.</p>
+        <p>For write-like operations, use idempotency keys scoped to operation intent. Store first-result state durably in a dedupe store, then replay the same result for duplicate keys inside a defined dedupe window.</p>
+        <p>Important details that often get missed:</p>
+        <ul>
+          <li>Keys must include enough request identity to prevent semantic mismatch.</li>
+          <li>Dedupe TTL must align with realistic client retry windows and async replay delay.</li>
+          <li>The write and dedupe record must be committed atomically or with equivalent recovery semantics.</li>
+          <li>Return a consistent response body for duplicate keys to keep callers deterministic.</li>
+        </ul>
+        <p>There is no free “exactly-once” guarantee across unreliable networks. What you can build is at-least-once delivery with idempotent processing and controlled duplicate suppression.</p>
+      </section>
+
+      <section class="section">
+        <h2>Examples across APIs, queues, and workflows</h2>
+        <p><strong>Payment-like APIs:</strong> Client sends an idempotency key with each charge attempt. On timeout, client retries with the same key. Server returns original result if already committed.</p>
+        <p><strong>Queue consumers:</strong> Message brokers often provide at-least-once delivery, so duplicates are expected. Consumers should dedupe by operation key and make side effects repeat-safe.</p>
+        <p><strong>Workflow engines:</strong> Activity retries should honor per-step and end-to-end deadlines. Compensating steps should also be idempotent so recovery does not create new inconsistency.</p>
+        <p><strong>Schedulers and cron jobs:</strong> Jobs should be safe for rerun after partial failure or leader failover. A rerun that double-applies changes is an availability incident waiting to happen.</p>
+      </section>
+
+      <section class="section">
+        <h2>Implementation checklist</h2>
+        <ul>
+          <li>Classify retryable errors per dependency, not globally.</li>
+          <li>Set default max attempts and retry budget, then tune with production telemetry.</li>
+          <li>Use full-jitter or decorrelated-jitter backoff, never fixed retry intervals.</li>
+          <li>Enforce request deadlines and propagate cancellation across service boundaries.</li>
+          <li>Require idempotency keys for non-idempotent create/execute operations.</li>
+          <li>Measure retry rate, retry success rate, duplicate suppression hit rate, and retry-induced load.</li>
+          <li>During incidents, reduce retry budget before scaling aggressively; autoscaling is usually slower than burst amplification.</li>
+        </ul>
+        <p>The aim is straightforward: recover from uncertainty without multiplying work faster than the system can drain it.</p>
+      </section>
+
+      <section class="section">
+        <h2>References</h2>
+        <ul>
+          <li>Amazon Web Services. (2023). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</li>
+          <li>Google Cloud. (2023). <em>Addressing cascading failures</em>. https://cloud.google.com/architecture/addressing-cascading-failures</li>
+          <li>Stripe. (2025). <em>Idempotent requests</em>. https://docs.stripe.com/idempotency</li>
+          <li>IETF. (2022). <em>HTTP semantics (RFC 9110)</em>. https://www.rfc-editor.org/rfc/rfc9110</li>
+        </ul>
+      </section>
+
+      <section class="section related-concepts">
+        <h2>What to Read Next</h2>
+        <ul>
+          <li><a href="/blog/what-is-idempotency.html">What Is Idempotency? (And Why It Matters in Distributed Systems)</a></li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li>
+          <li><a href="/writing/queue-design-under-load/">Queue Design Under Load</a></li>
+          <li><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load</a></li>
+          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a></li>
         </ul>
       </section>
 

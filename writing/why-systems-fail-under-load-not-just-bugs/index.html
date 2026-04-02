@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Why Systems Fail Under Load, Not Just Bugs | Draft Outline</title>
-    <meta name="description" content="Failure modes that emerge from scaling pressure, retries, and coordination limits." />
-    <meta name="robots" content="noindex,follow" />
+    <title>Why Distributed Systems Fail Under Load | Stability Before Outage</title>
+    <meta name="description" content="Why distributed systems fail under load: backlog growth, retry amplification, dependency saturation, and the controls that preserve stability." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Why Systems Fail Under Load, Not Just Bugs | Draft Outline" />
-    <meta property="og:description" content="Failure modes that emerge from scaling pressure, retries, and coordination limits." />
+    <meta property="og:title" content="Why Distributed Systems Fail Under Load" />
+    <meta property="og:description" content="Most outages are overload dynamics, not single bugs. How queues, retries, and dependencies push systems past stability boundaries." />
     <meta property="og:url" content="https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Why Distributed Systems Fail Under Load" />
+    <meta name="twitter:description" content="A production framing of overload: arrival vs service rate, queue growth, retry storms, and cascading failure." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
-  
+
     <!-- AI-SCHEMA:START -->
     <script type="application/ld+json">
     {
@@ -29,13 +32,6 @@
           "sameAs": [
             "https://www.linkedin.com/in/royrobertson/",
             "https://github.com/richrobertson"
-          ],
-          "knowsAbout": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
           ]
         },
         {
@@ -43,58 +39,36 @@
           "@id": "https://www.myrobertson.com/#website",
           "name": "Rich Robertson",
           "url": "https://www.myrobertson.com/",
-          "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ]
+          "inLanguage": "en"
         },
         {
           "@type": "TechArticle",
           "@id": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/#main",
-          "headline": "Why Systems Fail Under Load, Not Just Bugs",
+          "headline": "Why Distributed Systems Fail Under Load",
           "author": {
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
           },
-          "datePublished": "2026-03-28T14:54:24-07:00",
-          "dateModified": "2026-03-28T14:54:24-07:00",
-          "description": "Failure modes that emerge from scaling pressure, retries, and coordination limits.",
+          "datePublished": "2026-04-02",
+          "dateModified": "2026-04-02",
+          "description": "Why distributed systems fail under load: backlog growth, retry amplification, dependency saturation, and the controls that preserve stability.",
           "keywords": [
-            "why",
-            "systems",
-            "fail",
-            "under",
-            "load",
-            "not",
-            "just",
-            "bugs",
-            "distributed systems",
-            "control planes",
-            "backend engineering",
-            "cloud migration"
+            "overload",
+            "queue growth",
+            "tail latency",
+            "dependency saturation",
+            "retry storms",
+            "cascading failure",
+            "admission control",
+            "graceful degradation"
           ],
           "mainEntityOfPage": {
             "@id": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/"
           },
           "url": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/",
           "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ],
           "isPartOf": {
             "@id": "https://www.myrobertson.com/#website"
-          },
-          "sameAs": [
-            "https://www.linkedin.com/in/royrobertson/",
-            "https://github.com/richrobertson"
-          ]
+          }
         },
         {
           "@type": "BreadcrumbList",
@@ -114,7 +88,7 @@
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "Why Systems Fail Under Load, Not Just Bugs",
+              "name": "Why Distributed Systems Fail Under Load",
               "item": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/"
             }
           ]
@@ -123,36 +97,91 @@
     }
     </script>
     <!-- AI-SCHEMA:END -->
-</head>
+  </head>
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Draft outline</span></p>
-      <h1>Why Systems Fail Under Load, Not Just Bugs</h1>
-      <p class="section-intro">Failure modes that emerge from scaling pressure, retries, and coordination limits. This structured draft captures scope, tradeoffs, and implementation direction, and remains noindex until full publication quality is reached.</p>
-      <p class="eyebrow">Cluster: distributed-systems-reliability • Status: planned • Indexing: noindex</p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Why Systems Fail Under Load</span></p>
+      <h1>Why Distributed Systems Fail Under Load</h1>
+      <p class="section-intro">Most production failures are overload dynamics, not clean binary crashes. Systems fail under load, not only from code defects, because queues, retries, fan-out, and shared dependencies amplify pressure faster than control loops can react.</p>
 
       <section class="section">
-        <h2>Problem Framing</h2>
-        <p>This topic sits in the content roadmap because teams commonly encounter it when reliability or migration work reaches production scale.</p>
+        <h2>Systems fail under load, not only from code defects</h2>
+        <p>A defect can trigger an incident, but overload is often what turns a local issue into a broad outage. The pattern is common: a dependency slows down, requests stay in flight longer, concurrency rises, queue growth starts, and tail latency climbs. Then retries arrive and push the system across a stability boundary.</p>
+        <p>From the outside, this looks sudden: “everything was fine until it wasn't.” Internally, the failure was building for minutes through saturation and backlog debt.</p>
       </section>
 
       <section class="section">
-        <h2>Planned Sections</h2>
+        <h2>The mechanics of overload</h2>
+        <p>Overload starts when arrival rate exceeds effective service rate for long enough. Effective service rate drops not just from traffic spikes, but from lock contention, cache misses, dependency slowdown, garbage collection, or connection pool exhaustion.</p>
+        <p>As utilization approaches saturation, latency becomes nonlinear. A small load increase can produce a large tail-latency jump. That extra latency keeps work in system longer, which further increases concurrency and queue depth. This is a positive feedback loop, not a linear degradation curve.</p>
+        <p>Average latency hides this. You need saturation signals: in-flight concurrency, queue age, pool wait time, timeout rate, and per-dependency error budget burn.</p>
+      </section>
+
+      <section class="section">
+        <h2>Amplification loops: retries, fan-out, shared dependencies</h2>
+        <p>Three multipliers show up repeatedly in real incidents:</p>
         <ul>
-          <li>Context and failure modes</li>
-          <li>Design patterns and tradeoffs</li>
-          <li>Operational metrics and rollout checks</li>
-          <li>Pitfalls and recommended defaults</li>
+          <li><strong>Retry amplification:</strong> callers retry timeouts without budget limits, creating retry storms.</li>
+          <li><strong>Fan-out amplification:</strong> one request fans out to many downstream calls, so partial slowdown multiplies total work.</li>
+          <li><strong>Shared dependency collapse:</strong> multiple services rely on the same datastore, cache, or auth service, so one bottleneck destabilizes many paths at once.</li>
+        </ul>
+        <p>A single slow dependency can therefore destabilize the entire request path even if every individual service is “healthy” by CPU average.</p>
+        <p>For a deeper API-centric framing, see <a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a>. For queue-level mechanics, see <a href="/writing/queue-design-under-load/">Queue Design Under Load</a>. For duplicate-work behavior, see <a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a>.</p>
+      </section>
+
+      <section class="section">
+        <h2>Why failures appear sudden even when they were building</h2>
+        <p>Control planes and autoscalers react on minute-scale loops. Burst overload can destabilize a request path in seconds. By the time additional capacity comes online, queues may already hold expired work and clients may already be in retry mode.</p>
+        <p>Resource exhaustion usually appears in specific pools before host-level metrics look catastrophic:</p>
+        <ul>
+          <li>thread pools saturated by blocking calls</li>
+          <li>connection pools exhausted by long dependency waits</li>
+          <li>socket and file descriptor pressure</li>
+          <li>memory growth from unbounded queues or large in-flight payloads</li>
+          <li>CPU burn from timeout handling and duplicate request processing</li>
+        </ul>
+        <p>This is why “we had spare CPU” does not prove the system had spare capacity.</p>
+      </section>
+
+      <section class="section">
+        <h2>What stable systems do differently</h2>
+        <p>Stable systems are explicit about limits and refusal. They do not pretend capacity is infinite.</p>
+        <ul>
+          <li><strong>Backpressure:</strong> communicate saturation quickly to upstream callers.</li>
+          <li><strong>Admission control:</strong> enforce front-door limits before deep queues form.</li>
+          <li><strong>Bounded queues:</strong> trade unlimited buffering for predictable latency behavior.</li>
+          <li><strong>Load shedding:</strong> drop low-value work first.</li>
+          <li><strong>Graceful degradation:</strong> preserve core user paths while optional features degrade.</li>
+          <li><strong>Deadline propagation:</strong> avoid completing stale work that cannot satisfy callers.</li>
+        </ul>
+        <p>This is the operating model behind <a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>.</p>
+      </section>
+
+      <section class="section">
+        <h2>Engineering conclusion</h2>
+        <p>Reliability work is not only about preventing defects. It is about managing system dynamics under pressure. The architecture choice that matters most during incidents is often not algorithmic correctness; it is whether the system can bound work, refuse excess demand, and recover quickly once pressure drops.</p>
+        <p>In practice, resilient systems survive because they reject work intentionally, isolate blast radius, and keep overload from propagating across service chains.</p>
+      </section>
+
+      <section class="section">
+        <h2>References</h2>
+        <ul>
+          <li>Google SRE. (2023). <em>Addressing cascading failures</em>. Google Cloud Architecture Center. https://cloud.google.com/architecture/addressing-cascading-failures</li>
+          <li>Amazon Web Services. (2023). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</li>
+          <li>Reactive Streams. (2022). <em>Reactive Streams specification</em>. https://www.reactive-streams.org/</li>
+          <li>The Linux Foundation. (2022). <em>OpenTelemetry semantic conventions</em>. https://opentelemetry.io/docs/specs/semconv/</li>
         </ul>
       </section>
 
-      <section class="section">
-        <h2>Related Reading</h2>
+      <section class="section related-concepts">
+        <h2>What to Read Next</h2>
         <ul>
-          <li><a href="/writing/distributed-systems-reliability/">Distributed Systems Reliability</a></li>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure In Distributed Systems</a></li>
-          <li><a href="/blog/distributed-systems-interview-guide.html">Distributed Systems Interview Guide</a></li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li>
+          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a></li>
+          <li><a href="/writing/queue-design-under-load/">Queue Design Under Load</a></li>
+          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></li>
+          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a></li>
         </ul>
       </section>
 
