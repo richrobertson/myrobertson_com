@@ -1,0 +1,8 @@
+# myrobertson.com discovery hints
+Homepage: https://www.myrobertson.com/
+Sitemap: https://www.myrobertson.com/sitemap.xml
+Flagship OCI migration case study: https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/
+Technical writing index: https://www.myrobertson.com/writing/
+Case studies index: https://www.myrobertson.com/case-studies/
+Distributed systems topic hub: https://www.myrobertson.com/distributed-systems/
+Knowledge index (machine-readable): https://www.myrobertson.com/knowledge.json

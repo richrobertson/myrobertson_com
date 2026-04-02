@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distributed Systems | Rich Robertson</title>
+    <meta name="description" content="Canonical distributed-systems hub for control planes, migration safety, backpressure, coordination, and operability patterns from Rich Robertson." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/distributed-systems/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Distributed Systems | Rich Robertson" />
+    <meta property="og:description" content="Technical map of distributed-systems work: flagship OCI migration, control planes, backpressure, coordination, and rollout safety." />
+    <meta property="og:url" content="https://www.myrobertson.com/distributed-systems/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Distributed Systems | Rich Robertson" />
+    <meta name="twitter:description" content="A practical map of distributed systems content: migration safety, control planes, reliability, and coordination." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.myrobertson.com/#person-rich-robertson",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "jobTitle": "Senior Backend Engineer, Distributed Systems and Platform Modernization",
+            "sameAs": ["https://github.com/richrobertson", "https://www.linkedin.com/in/royrobertson/"],
+            "knowsAbout": ["distributed systems", "control planes", "cloud migration", "platform modernization", "backend reliability", "workflow orchestration", "operability"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.myrobertson.com/#website",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://www.myrobertson.com/#person-rich-robertson" }
+          },
+          {
+            "@type": "CollectionPage",
+            "@id": "https://www.myrobertson.com/distributed-systems/#main",
+            "name": "Distributed Systems",
+            "description": "Canonical topic hub for distributed systems content spanning migration safety, control planes, and reliability under load.",
+            "url": "https://www.myrobertson.com/distributed-systems/",
+            "inLanguage": "en",
+            "about": ["distributed systems", "control planes", "cloud migration", "workflow orchestration", "operability"],
+            "isPartOf": { "@id": "https://www.myrobertson.com/#website" }
+          },
+          {
+            "@type": "ItemList",
+            "name": "Distributed systems topic map",
+            "itemListOrder": "https://schema.org/ItemListUnordered",
+            "numberOfItems": 8,
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "url": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" },
+              { "@type": "ListItem", "position": 2, "url": "https://www.myrobertson.com/writing/backpressure-in-distributed-systems/" },
+              { "@type": "ListItem", "position": 3, "url": "https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/" },
+              { "@type": "ListItem", "position": 4, "url": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/" },
+              { "@type": "ListItem", "position": 5, "url": "https://www.myrobertson.com/writing/modernizing-java-services-without-breaking-production/" },
+              { "@type": "ListItem", "position": 6, "url": "https://www.myrobertson.com/writing/graceful-degradation-patterns/" },
+              { "@type": "ListItem", "position": 7, "url": "https://www.myrobertson.com/writing/designing-durable-workflow-execution/" },
+              { "@type": "ListItem", "position": 8, "url": "https://www.myrobertson.com/writing/designing-safe-rollouts-across-global-regions/" }
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Distributed Systems", "item": "https://www.myrobertson.com/distributed-systems/" }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing">
+    <main class="hero">
+      <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <span aria-current="page">Distributed Systems</span></p>
+      <h1>Distributed Systems</h1>
+      <p class="section-intro">I focus on systems where correctness, migration safety, and operability determine production outcomes more than idealized architecture diagrams.</p>
+
+      <section class="section">
+        <h2>What this site covers</h2>
+        <p><strong>Summary:</strong> The content is centered on practical design and delivery decisions for distributed systems under real operational constraints.</p>
+        <p>You will find material on backpressure and graceful degradation, control-plane architecture, durable workflow orchestration, migration sequencing, distributed coordination, and modernization safety controls.</p>
+      </section>
+
+      <section class="section">
+        <h2>Start here</h2>
+        <ul>
+          <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle Customer Notification Service migration to OCI</a> — flagship system and rollout-safety reference.</li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — overload control and graceful degradation baseline.</li>
+          <li><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a> — workflow execution and multitenant control patterns.</li>
+        </ul>
+      </section>
+
+      <section class="section flagship-callout">
+        <h2>Flagship migration artifact</h2>
+        <p><strong>Summary:</strong> OCI migration across 32 global data centers is the anchor project tying together migration safety, observability, and operability.</p>
+        <p><a href="/case-studies/oracle-cns-oci-migration/">Read the OCI migration case study</a> and then continue to <a href="/writing/designing-safe-rollouts-across-global-regions/">rollout safety</a> and <a href="/writing/lessons-from-oci-migration-under-real-constraints/">migration constraints</a> notes.</p>
+      </section>
+
+      <section class="section">
+        <h2>Topic map</h2>
+        <div class="grid">
+          <article class="project"><h3>Backpressure and graceful degradation</h3><p><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a><br /><a href="/writing/graceful-degradation-patterns/">Graceful Degradation Patterns</a></p></article>
+          <article class="project"><h3>Control planes and orchestration</h3><p><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a><br /><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a></p></article>
+          <article class="project"><h3>Migration safety and modernization</h3><p><a href="/writing/modernizing-java-services-without-breaking-production/">Modernizing Java Services Without Breaking Production</a><br /><a href="/writing/designing-safe-rollouts-across-global-regions/">Designing Safe Rollouts Across Global Regions</a></p></article>
+          <article class="project"><h3>Coordination and leases</h3><p><a href="/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/">Distributed Lease Service: Tenure on Raft</a><br /><a href="/blog/what-is-a-distributed-lock-with-examples.html">Distributed locks and tradeoffs</a></p></article>
+          <article class="project"><h3>Operability and observability</h3><p><a href="/case-studies/oracle-cns-oci-migration/">OCI migration case study</a><br /><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why systems fail under load</a></p></article>
+        </div>
+      </section>
+
+      <div data-site-footer></div>
+    </main>
+    <script src="/nav.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

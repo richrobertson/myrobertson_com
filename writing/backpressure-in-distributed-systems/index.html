@@ -140,26 +140,21 @@
         This article explains how admission control, bounded queues, and adaptive concurrency keep distributed systems
         stable under burst traffic and partial failure.
       </p>
+      <section class="section">
+        <h2>Why this matters in production</h2>
+        <p><strong>Summary:</strong> Backpressure is the control surface that prevents overload from turning partial failure into systemic failure.</p>
+        <p>When request intake, queue depth, and worker concurrency are unconstrained, reliability drops even before hard outages. This model is used repeatedly across the site’s migration and control-plane material.</p>
+      </section>
       <p>Read the full article on Dev.to: <a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems</a>.</p>
 
-      <section class="section">
-        <h2>Related Case Studies</h2>
+      <section class="section related-concepts">
+        <h2>Related Concepts</h2>
         <ul>
-          <li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a></li>
-          <li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a></li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <h2>Related Topic Cluster Outlines</h2>
-        <p class="section-intro">These structured outlines map the adjacent topics that extend this backpressure work.</p>
-        <ul>
-          <li><a href="/writing/distributed-systems-reliability/">Distributed Systems Reliability pillar</a></li>
-          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></li>
-          <li><a href="/writing/rate-limiting-vs-backpressure/">Rate Limiting vs Backpressure</a></li>
-          <li><a href="/writing/circuit-breakers-and-failure-isolation/">Circuit Breakers and Failure Isolation</a></li>
-          <li><a href="/writing/graceful-degradation-patterns/">Graceful Degradation Patterns</a></li>
-          <li><a href="../../case-studies/oracle-cns-oci-migration/">Flagship OCI migration case study</a></li>
+          <li><a href="/writing/graceful-degradation-patterns/">Graceful Degradation Patterns</a> — degrade intentionally before queues collapse.</li>
+          <li><a href="/writing/rate-limiting-vs-backpressure/">Rate Limiting vs Backpressure</a> — boundary setting versus dynamic overload control.</li>
+          <li><a href="/writing/circuit-breakers-and-failure-isolation/">Circuit Breakers and Failure Isolation</a> — contain dependency failure once pressure rises.</li>
+          <li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a> — rollout controls under load-sensitive migration constraints.</li>
+          <li><a href="/distributed-systems/">Distributed Systems topic hub</a> — anchor page for adjacent reliability and control-plane topics.</li>
         </ul>
       </section>
 

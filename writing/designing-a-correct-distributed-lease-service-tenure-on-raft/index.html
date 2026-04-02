@@ -1,124 +1,98 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Designing a Correct Distributed Lease Service | Tenure on Raft</title>
-<meta name="description" content="Essay on lease correctness, fencing tokens, and failure handling in distributed systems based on Tenure on Raft." />
-<meta name="robots" content="index,follow" />
-<link rel="canonical" href="https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/" />
-<meta property="og:type" content="article" /><meta property="og:title" content="Designing a Correct Distributed Lease Service" /><meta property="og:description" content="Lease correctness and failure handling in distributed systems." /><meta property="og:url" content="https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/" /><meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
-<meta name="twitter:card" content="summary_large_image" />
-<link rel="stylesheet" href="../../styles.css" />
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Designing a Correct Distributed Lease Service: Tenure on Raft","url":"https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/","author":{"@type":"Person","name":"Rich Robertson"}}</script>
-
-    <!-- AI-SCHEMA:START -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designing a Correct Distributed Lease Service | Tenure on Raft</title>
+    <meta name="description" content="Lease correctness guide covering fencing tokens, leader-time authority, and failure handling in distributed coordination systems." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Designing a Correct Distributed Lease Service | Tenure on Raft" />
+    <meta property="og:description" content="Lease correctness and fencing-token strategy for distributed coordination under failure." />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Distributed Lease Service | Tenure on Raft" />
+    <meta name="twitter:description" content="Correctness patterns for leases, fencing tokens, and coordination safety in distributed systems." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Person",
-          "@id": "https://www.myrobertson.com/#person-rich-robertson",
-          "name": "Rich Robertson",
-          "url": "https://www.myrobertson.com/",
-          "jobTitle": "Senior Backend Engineer",
-          "sameAs": [
-            "https://www.linkedin.com/in/royrobertson/",
-            "https://github.com/richrobertson"
-          ],
-          "knowsAbout": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://www.myrobertson.com/#website",
-          "name": "Rich Robertson",
-          "url": "https://www.myrobertson.com/",
-          "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ]
-        },
-        {
-          "@type": "TechArticle",
-          "@id": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/#main",
-          "headline": "Designing a Correct Distributed Lease Service: Tenure on Raft",
-          "author": {
-            "@id": "https://www.myrobertson.com/#person-rich-robertson"
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.myrobertson.com/#person-rich-robertson",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "jobTitle": "Senior Backend Engineer, Distributed Systems and Platform Modernization",
+            "sameAs": ["https://github.com/richrobertson", "https://www.linkedin.com/in/royrobertson/"],
+            "knowsAbout": ["distributed systems", "control planes", "cloud migration", "platform modernization", "backend reliability", "workflow orchestration", "operability"]
           },
-          "datePublished": "2026-03-28T14:54:24-07:00",
-          "dateModified": "2026-03-28T14:54:24-07:00",
-          "description": "Essay on lease correctness, fencing tokens, and failure handling in distributed systems based on Tenure on Raft.",
-          "keywords": [
-            "designing",
-            "a",
-            "correct",
-            "distributed",
-            "lease",
-            "service",
-            "tenure",
-            "on",
-            "raft",
-            "distributed systems",
-            "control planes",
-            "backend engineering"
-          ],
-          "mainEntityOfPage": {
-            "@id": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/"
+          {
+            "@type": "WebSite",
+            "@id": "https://www.myrobertson.com/#website",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "inLanguage": "en",
+            "publisher": { "@id": "https://www.myrobertson.com/#person-rich-robertson" }
           },
-          "url": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/",
-          "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ],
-          "isPartOf": {
-            "@id": "https://www.myrobertson.com/#website"
+          {
+            "@type": "TechArticle",
+            "@id": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/#main",
+            "headline": "Designing a Correct Distributed Lease Service: Tenure on Raft",
+            "description": "Lease correctness guide covering fencing tokens, leader-time authority, and failure handling in distributed coordination systems.",
+            "author": { "@id": "https://www.myrobertson.com/#person-rich-robertson" },
+            "url": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/",
+            "mainEntityOfPage": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/",
+            "datePublished": "2026-03-28T14:54:24-07:00",
+            "dateModified": "2026-03-28T14:54:24-07:00",
+            "inLanguage": "en",
+            "keywords": ["distributed leases", "fencing tokens", "distributed coordination", "raft", "correctness"],
+            "about": ["distributed coordination", "leases", "correctness", "operability"],
+            "isPartOf": { "@id": "https://www.myrobertson.com/#website" }
           },
-          "sameAs": [
-            "https://www.linkedin.com/in/royrobertson/",
-            "https://github.com/richrobertson"
-          ]
-        },
-        {
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://www.myrobertson.com/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "name": "Writing",
-              "item": "https://www.myrobertson.com/writing/"
-            },
-            {
-              "@type": "ListItem",
-              "position": 3,
-              "name": "Designing a Correct Distributed Lease Service: Tenure on Raft",
-              "item": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/"
-            }
-          ]
-        }
-      ]
-    }
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Writing", "item": "https://www.myrobertson.com/writing/" },
+              { "@type": "ListItem", "position": 3, "name": "Designing a Correct Distributed Lease Service", "item": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/" }
+            ]
+          }
+        ]
+      }
     </script>
-    <!-- AI-SCHEMA:END -->
-</head><body data-page="writing"><main class="hero blog-post">
-  <div data-site-header></div><p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Distributed Lease Service</span></p><h1>Designing a Correct Distributed Lease Service: Tenure on Raft</h1><p>This essay covers lease semantics, correctness, and fencing-token strategies for distributed coordination systems.</p><p><a href="../../blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Read the full article</a>.</p><section class="section"><h2>Related Case Studies</h2><ul><li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a></li><li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a></li></ul></section>      <div data-site-footer></div>
+  </head>
+  <body data-page="writing">
+    <main class="hero blog-post">
+      <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Distributed Lease Service</span></p>
+      <h1>Designing a Correct Distributed Lease Service: Tenure on Raft</h1>
+      <p class="section-intro">This essay covers lease semantics, correctness guarantees, and fencing-token strategies for distributed coordination systems.</p>
+
+      <section class="section">
+        <h2>Correctness framing</h2>
+        <p><strong>Summary:</strong> Lease services are correctness infrastructure, not convenience APIs, and must explicitly defend against stale ownership.</p>
+        <p>The article focuses on time authority, lease issuance semantics, and write-side fencing so coordination remains safe under partition, restart, and leader changes.</p>
+        <p><a href="../../blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Read the full article</a>.</p>
+      </section>
+
+      <section class="section related-concepts">
+        <h2>Related Concepts</h2>
+        <ul>
+          <li><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a> — where lease semantics protect command ownership.</li>
+          <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a> — timeout and resume semantics around long-running work.</li>
+          <li><a href="../../blog/what-is-a-distributed-lock-with-examples.html">Distributed lock primer</a> — lock and lease tradeoffs in simpler terms.</li>
+          <li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a> — coordination patterns applied in delivery context.</li>
+          <li><a href="/distributed-systems/">Distributed Systems topic hub</a> — adjacent reliability and migration material.</li>
+        </ul>
+      </section>
+
+      <div data-site-footer></div>
     </main>
     <script src="/nav.js"></script>
     <script src="/script.js"></script>
-  </body></html>
+  </body>
+</html>

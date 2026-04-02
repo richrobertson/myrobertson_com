@@ -197,6 +197,18 @@ h1 { font-size: clamp(2rem, 4.6vw, 3.5rem); line-height:1.1; margin:0.35rem 0 0.
 }
 
 
+.related-concepts ul {
+  margin: 0.65rem 0 0;
+  padding-left: 1.1rem;
+}
+.related-concepts li {
+  margin-bottom: 0.45rem;
+  color: var(--muted);
+}
+.related-concepts a {
+  font-weight: 600;
+}
+
 .grid, .tech-grid, .timeline, .case-study-list, .signature-grid { display:grid; gap:1rem; }
 .card, .project {
   background: color-mix(in srgb, var(--panel) 88%, transparent);
