@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck | Rich Robertson</title>
+    <meta
+      name="description"
+      content="AI can generate code faster than teams can safely review it. This creates a new reliability problem in software delivery, one that staff+ engineers must actively design for."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck" />
+    <meta
+      property="og:description"
+      content="AI can generate code faster than teams can safely review it. This creates a new reliability problem in software delivery, one that staff+ engineers must actively design for."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck" />
+    <meta
+      name="twitter:description"
+      content="AI can generate code faster than teams can safely review it. This creates a new reliability problem in software delivery, one that staff+ engineers must actively design for."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck",
+        "description": "AI can generate code faster than teams can safely review it. This creates a new reliability problem in software delivery, one that staff+ engineers must actively design for.",
+        "url": "https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html",
+        "datePublished": "2026-04-01",
+        "dateModified": "2026-04-01",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "keywords": [
+          "AI code review",
+          "pull requests",
+          "software reliability",
+          "engineering leadership",
+          "secure coding",
+          "staff engineering",
+          "software delivery",
+          "distributed systems"
+        ],
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/writing/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Writing",
+            "item": "https://www.myrobertson.com/writing/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck",
+            "item": "https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="reviewing-ai-generated-pull-requests-reliability-risk">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+      <div class="hero-content" data-article-meta data-article-slug="reviewing-ai-generated-pull-requests-reliability-risk">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck</h1>
+        <p class="intro blog-dek">
+          AI has made code generation cheap. Validation, review, and accountability are still expensive.
+          In production systems, that gap is now a reliability problem.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          It is hard to reason about five-nines systems when your inputs are only 98 to 99 percent correct.
+        </p>
+        <p>
+          AI-assisted development has changed the economics of writing code. Generation is fast and increasingly polished, but review and validation have not become proportionally cheaper. Teams can now produce code faster than they can safely understand it. The bottleneck is no longer writing. The bottleneck is trust.
+        </p>
+
+        <h3>The Problem Is Not Code Generation</h3>
+        <p>
+          The central question is not whether generated code looks good. The operational question is whether a change is safe to ship. AI shifted the bottleneck from implementation to assurance. You can generate ten versions quickly. You still need to prove which version preserves invariants, survives failure paths, and behaves correctly under load.
+        </p>
+        <p>
+          Code generation is cheap. Confidence remains expensive.
+        </p>
+
+        <h3>When Output Scales Faster Than Trust</h3>
+        <p>
+          Recent security measurements illustrate the gap. Veracode reports that only 55% of tested AI-generated tasks were secure by default, meaning known vulnerabilities appeared in 45% of generated outputs (Brombacher, 2026). At the same time, syntax correctness exceeded 95%, which is exactly the kind of mismatch that can create false confidence.
+        </p>
+        <p>
+          At production scale, tail risk dominates. If a team increases change throughput without increasing validation capacity, low-probability defects become frequent incidents.
+        </p>
+
+        <h3>The 1,000-Line PR Problem</h3>
+        <p>
+          AI makes very large pull requests easy to produce. Human review still runs on bounded attention and bounded context. When diffs jump from a few hundred lines to thousands, review quality becomes probabilistic.
+        </p>
+        <p>
+          Reviewers scan for plausibility. They do not prove behavior. That is not a reviewer quality issue. It is a system design issue. Deep validation does not scale linearly with diff size.
+        </p>
+
+        <h3>The Illusion of Mechanical Correctness</h3>
+        <p>
+          A change can compile, pass tests, and still fail in production. Mechanical checks are necessary, but they are local signals. System correctness is global.
+        </p>
+        <p>
+          Recent empirical work also shows that generated code can include assumptions the engineer did not request explicitly. Provider-bias findings show models may autonomously alter choices in ways that diverge from user intent (Zhang et al., 2025). Separately, large-scale analysis of autonomous agent pull requests associates agent-authored contributions with higher long-term churn than human-authored changes (Popescu et al., 2026). Both findings reinforce the same point: plausibility is not proof.
+        </p>
+
+        <h3>Responsibility Does Not Scale Down With Effort</h3>
+        <p>
+          AI reduces effort, not responsibility.
+        </p>
+        <p>
+          Engineers are increasingly reviewing outputs instead of understanding behavior end to end (Tang et al., 2026). In production systems, that is a dangerous substitution. A responsible engineer should be able to answer four questions before a merge:
+        </p>
+        <ul>
+          <li>What does this code do?</li>
+          <li>Why does it behave that way?</li>
+          <li>What assumptions does it rely on?</li>
+          <li>What happens when those assumptions fail?</li>
+        </ul>
+        <p>
+          If those questions cannot be answered, the code is not understood. If it is not understood, it is not owned.
+        </p>
+        <p>
+          AI wrote it is not an abstraction boundary.
+        </p>
+        <p>
+          Code entering production without deep human understanding is an ownership failure, not a tooling failure.
+        </p>
+
+        <h3>Reviewability Is a First-Class Constraint</h3>
+        <p>
+          A change is not done when it is generated. A change is done when it is reviewable, testable, observable, and revertible.
+        </p>
+        <p>
+          Reviewability is a system property. If a process accepts changes that cannot be reviewed deeply under normal engineering constraints, that process is manufacturing operational risk.
+        </p>
+
+        <h3>The Staff+ Responsibility</h3>
+        <p>
+          This is not just a workflow problem. It is an ownership and system design problem.
+        </p>
+
+        <h3>1. Bound the Size of Change</h3>
+        <p>
+          Enforce pull request size limits by default. Treat oversized diffs as elevated-risk events requiring decomposition or stronger review protocol.
+        </p>
+
+        <h3>2. Require Intent, Not Just Output</h3>
+        <p>
+          Pull requests should state intended behavior, assumptions, and invariants. Generated code without explicit intent creates ambiguity during review and during incident response.
+        </p>
+
+        <h3>3. Elevate Test Evidence</h3>
+        <p>
+          Tests are the primary validation artifact. AI-generated tests are useful, but not inherently trustworthy. They are evidence, not authority.
+        </p>
+
+        <h3>4. Classify Risk</h3>
+        <p>
+          Use explicit risk classes (low, medium, high) and tie review depth, rollout strategy, and approval thresholds to risk class.
+        </p>
+
+        <h3>5. Enforce Ownership</h3>
+        <p>
+          Every pull request needs a human owner who can defend design decisions and operational behavior after merge.
+        </p>
+
+        <h3>6. Design for Safe Failure</h3>
+        <p>
+          Require observability hooks, incremental rollout paths, and fast rollback plans before merge.
+        </p>
+
+        <h3>7. Enforce Line-Level Ownership</h3>
+        <p>
+          Every engineer must be able to stand behind every line of code they submit.
+        </p>
+        <p>
+          Ownership exists at a mechanical level, not only at an architectural summary level. Engineers should understand control flow, edge cases, failure paths, and operational consequences of what they merge.
+        </p>
+        <p>
+          If you cannot meaningfully modify, debug, or explain a piece of code without returning to the model, you do not yet own it.
+        </p>
+        <p>
+          On call, nobody debugs AI-generated code. They debug their own system.
+        </p>
+
+        <h3>A Practical Review Framework</h3>
+        <p>
+          Before merge, every pull request should answer seven questions:
+        </p>
+        <ol>
+          <li>What is the intent?</li>
+          <li>Why is this correct?</li>
+          <li>What can fail?</li>
+          <li>What tests validate the behavior?</li>
+          <li>What is the blast radius?</li>
+          <li>How is failure detected quickly?</li>
+          <li>How is rollback handled?</li>
+        </ol>
+
+        <h3>The Real Bottleneck</h3>
+        <p>
+          The bottleneck is trust, not generation.
+        </p>
+        <p>
+          The reliability analogy is backpressure. When validation capacity is finite, generation throughput must be controlled. Otherwise, teams accumulate unstable work in flight and turn local defects into systemic incidents.
+          This follows the same control logic used in <a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> and the practical API version in
+          <a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a>.
+        </p>
+
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></li>
+          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a></li>
+          <li><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane for a Next-Generation Data Tier</a></li>
+          <li><a href="/writing/graceful-degradation-patterns/">Graceful Degradation Patterns</a></li>
+        </ul>
+
+        <h3>Conclusion</h3>
+        <p>
+          AI accelerates output. It does not reduce ownership.
+        </p>
+        <p>
+          The teams that win are not the teams that generate the most code. They are the teams that understand their code, validate rigorously, and accept responsibility for what they ship.
+        </p>
+        <p>
+          In production systems, ownership is the difference between controlled failure and uncontrolled outage.
+        </p>
+
+        <h3>References</h3>
+        <p>
+          Bauer, J. (2025, February 6). <em>Does GitHub Copilot improve code quality? Here is what the data says</em>. GitHub Blog. <a href="https://github.blog/news-insights/research/does-github-copilot-improve-code-quality-heres-what-the-data-says/">https://github.blog/news-insights/research/does-github-copilot-improve-code-quality-heres-what-the-data-says/</a>
+        </p>
+        <p>
+          Brombacher, F. (2026, March 24). <em>Spring 2026 GenAI code security update: Despite claims, AI models are still failing security</em>. Veracode Blog. <a href="https://www.veracode.com/blog/spring-2026-genai-code-security/">https://www.veracode.com/blog/spring-2026-genai-code-security/</a>
+        </p>
+        <p>
+          Gopu, R., &amp; Apirian, D. (2026, March 5). <em>60 million Copilot code reviews and counting</em>. GitHub Blog. <a href="https://github.blog/ai-and-ml/github-copilot/60-million-copilot-code-reviews-and-counting/">https://github.blog/ai-and-ml/github-copilot/60-million-copilot-code-reviews-and-counting/</a>
+        </p>
+        <p>
+          Popescu, R. M., Gros, D., Botocan, A., Pandita, R., Devanbu, P., &amp; Izadi, M. (2026). <em>Investigating autonomous agent contributions in the wild: Activity patterns and code change over time</em> (arXiv:2604.00917). arXiv. <a href="https://arxiv.org/abs/2604.00917">https://arxiv.org/abs/2604.00917</a>
+        </p>
+        <p>
+          Tang, N., Chen, C., Fang, Z., Xu, G., Dhakal, M., Shi, Y., McMillan, C., Huang, Y., &amp; Li, T. J.-J. (2026). <em>Programming by chat: A large-scale behavioral analysis of 11,579 real-world AI-assisted IDE sessions</em> (arXiv:2604.00436). arXiv. <a href="https://arxiv.org/abs/2604.00436">https://arxiv.org/abs/2604.00436</a>
+        </p>
+        <p>
+          Zhang, X., Zhai, J., Ma, S., Bao, Q., Jiang, W., Wang, Q., Shen, C., &amp; Liu, Y. (2025). <em>The invisible hand: Unveiling provider bias in large language models for code generation</em> (arXiv:2501.07849). arXiv. <a href="https://arxiv.org/abs/2501.07849">https://arxiv.org/abs/2501.07849</a>
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+    <script src="../static/askrich-widget.js" data-api-base="https://api.myrobertson.com" data-title="Ask Rich"></script>
+  </body>
+</html>
