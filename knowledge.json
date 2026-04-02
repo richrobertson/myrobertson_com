@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-04-02T05:10:10.709Z",
+  "generatedAt": "2026-04-02T05:24:43.239Z",
   "canonical": "https://www.myrobertson.com/knowledge.json",
   "entries": [
     {
@@ -14,6 +14,8 @@
         "reliability",
         "migration safety"
       ],
+      "publishedDate": "2026-04-02",
+      "updatedDate": "2026-04-02",
       "importance": 1
     },
     {
@@ -27,6 +29,8 @@
         "rollout safety",
         "operability"
       ],
+      "publishedDate": "2026-03-28",
+      "updatedDate": "2026-04-02",
       "importance": 1
     },
     {
@@ -39,6 +43,8 @@
         "graceful degradation",
         "backend reliability"
       ],
+      "publishedDate": "2026-03-28",
+      "updatedDate": "2026-04-02",
       "importance": 2
     },
     {
@@ -51,6 +57,8 @@
         "workflow orchestration",
         "distributed systems"
       ],
+      "publishedDate": "2026-03-28",
+      "updatedDate": "2026-04-02",
       "importance": 2
     },
     {
@@ -64,6 +72,8 @@
         "fencing tokens",
         "correctness"
       ],
+      "publishedDate": "2026-03-28",
+      "updatedDate": "2026-04-02",
       "importance": 2
     },
     {
@@ -76,6 +86,8 @@
         "migration safety",
         "compatibility"
       ],
+      "publishedDate": "2026-03-28",
+      "updatedDate": "2026-04-02",
       "importance": 2
     },
     {
@@ -88,6 +100,8 @@
         "migration",
         "operability"
       ],
+      "publishedDate": "2026-03-28",
+      "updatedDate": "2026-04-02",
       "importance": 2
     },
     {
@@ -100,6 +114,7 @@
         "distributed systems",
         "reliability"
       ],
+      "updatedDate": "2026-04-02",
       "importance": 3
     },
     {
@@ -112,6 +127,7 @@
         "migration",
         "platform modernization"
       ],
+      "updatedDate": "2026-04-02",
       "importance": 3
     }
   ]
