@@ -39,20 +39,26 @@ export default {
 
     const assetPath = PUBLIC_TO_ASSET.get(url.pathname);
     if (assetPath && assetPath !== url.pathname) {
+      const assetFilePath = toAssetFilePath(assetPath);
+
       if (!hasAssetsBinding) {
-        // Prevent runtime 500s when ASSETS is not bound in production.
-        return redirect(url, assetPath);
+        // If ASSETS is unavailable, proxy the underlying asset file via origin fetch
+        // so the browser can keep the canonical /blog URL.
+        const originAssetUrl = new URL(url.toString());
+        originAssetUrl.pathname = assetFilePath;
+        return fetch(new Request(originAssetUrl.toString(), request));
       }
 
-      const assetFilePath = toAssetFilePath(assetPath);
       const assetUrl = new URL(url.toString());
       assetUrl.pathname = assetFilePath;
       try {
         const rewrittenRequest = new Request(assetUrl.toString(), request);
         return env.ASSETS.fetch(rewrittenRequest);
       } catch {
-        // Fall back to the underlying asset route instead of returning a 500.
-        return redirect(url, assetPath);
+        // Fall back to origin asset proxy instead of returning a 500.
+        const originAssetUrl = new URL(url.toString());
+        originAssetUrl.pathname = assetFilePath;
+        return fetch(new Request(originAssetUrl.toString(), request));
       }
     }
 
