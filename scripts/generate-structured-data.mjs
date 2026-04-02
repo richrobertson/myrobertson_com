@@ -1,8 +1,6 @@
 import fs from 'node:fs';
-import path from 'node:path';
 import { execSync } from 'node:child_process';
 
-const ROOT = process.cwd();
 const SITE = 'https://www.myrobertson.com';
 const PERSON_ID = `${SITE}/#person-rich-robertson`;
 const WEBSITE_ID = `${SITE}/#website`;
