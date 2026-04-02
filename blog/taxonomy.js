@@ -145,6 +145,24 @@
   ];
 
   const model = window.siteContentModel;
+  if (model && Array.isArray(model.items)) {
+    const existingSlugs = new Set(articles.map((article) => article.slug));
+    for (const item of model.items) {
+      if (item.type !== 'article' || item.noindex || item.status !== 'published') continue;
+      if (!item.canonicalPath || !item.canonicalPath.startsWith('/blog/')) continue;
+      if (existingSlugs.has(item.slug)) continue;
+
+      articles.push({
+        slug: item.slug,
+        title: item.title,
+        url: item.canonicalPath,
+        summary: item.summary,
+        tags: item.tags.map((tag) => tag.name)
+      });
+      existingSlugs.add(item.slug);
+    }
+  }
+
   function slugifyTag(value) {
     if (model && typeof model.slugify === 'function') return model.slugify(value);
     return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');

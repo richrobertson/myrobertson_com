@@ -64,7 +64,7 @@
         "id": "page:backpressure-in-distributed-systems",
         "nodeType": "page",
         "title": "Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation",
-        "url": "https://www.myrobertson.com/writing/backpressure-in-distributed-systems/",
+        "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html",
         "contentType": "article",
         "summary": "Backpressure, bounded queues, and admission control patterns for overload resilience.",
         "publishedDate": "2026-03-28",
@@ -72,10 +72,25 @@
         "importance": 2
       },
       {
+        "id": "tag:backpressure",
+        "nodeType": "tag",
+        "label": "backpressure"
+      },
+      {
+        "id": "tag:graceful-degradation",
+        "nodeType": "tag",
+        "label": "graceful degradation"
+      },
+      {
+        "id": "tag:backend-reliability",
+        "nodeType": "tag",
+        "label": "backend reliability"
+      },
+      {
         "id": "page:overload-control-pipeline",
         "nodeType": "page",
         "title": "End-to-End Overload Control in Distributed Systems",
-        "url": "https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/",
+        "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html",
         "contentType": "article",
         "summary": "System-level synthesis of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.",
         "publishedDate": "2026-04-02",
@@ -99,25 +114,15 @@
         "status": "published"
       },
       {
-        "id": "tag:backpressure",
+        "id": "tag:overload-control",
         "nodeType": "tag",
-        "label": "backpressure"
-      },
-      {
-        "id": "tag:graceful-degradation",
-        "nodeType": "tag",
-        "label": "graceful degradation"
-      },
-      {
-        "id": "tag:backend-reliability",
-        "nodeType": "tag",
-        "label": "backend reliability"
+        "label": "overload control"
       },
       {
         "id": "page:admission-control-in-distributed-systems",
         "nodeType": "page",
         "title": "Admission Control in Distributed Systems",
-        "url": "https://www.myrobertson.com/writing/admission-control-in-distributed-systems/",
+        "url": "https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html",
         "contentType": "article",
         "summary": "Front-door intake boundary for accept/reject/defer decisions driven by live capacity, fairness, and priority protection.",
         "publishedDate": "2026-04-02",
@@ -129,10 +134,7 @@
           "page:rate-limiting-in-distributed-systems",
           "page:load-shedding-in-distributed-systems",
           "page:graceful-degradation-in-distributed-systems",
-          "page:architecting-a-multitenant-control-plane",
-          "page:retry-strategies-and-idempotency",
-          "page:queue-design-under-load",
-          "page:why-systems-fail-under-load"
+          "page:architecting-a-multitenant-control-plane"
         ],
         "parent": "page:distributed-systems",
         "level": "foundational",
@@ -144,15 +146,10 @@
         "label": "admission control"
       },
       {
-        "id": "tag:overload-control",
-        "nodeType": "tag",
-        "label": "overload control"
-      },
-      {
         "id": "page:rate-limiting-in-distributed-systems",
         "nodeType": "page",
         "title": "Rate Limiting in Distributed Systems",
-        "url": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/",
+        "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html",
         "contentType": "article",
         "summary": "Fairness and capacity protection with explicit intake boundaries before overload becomes systemic.",
         "publishedDate": "2026-04-02",
@@ -161,8 +158,7 @@
         "canonicalTopic": "overload control",
         "related": [
           "page:backpressure-in-distributed-systems",
-          "page:load-shedding-in-distributed-systems",
-          "page:retry-strategies-and-idempotency"
+          "page:load-shedding-in-distributed-systems"
         ],
         "parent": "page:distributed-systems",
         "level": "intermediate",
@@ -177,7 +173,7 @@
         "id": "page:circuit-breakers-in-distributed-systems",
         "nodeType": "page",
         "title": "Circuit Breakers in Distributed Systems",
-        "url": "https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/",
+        "url": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html",
         "contentType": "article",
         "summary": "Failure containment for unhealthy dependencies using open, closed, and half-open transitions.",
         "publishedDate": "2026-04-02",
@@ -206,7 +202,7 @@
         "id": "page:graceful-degradation-in-distributed-systems",
         "nodeType": "page",
         "title": "Graceful Degradation in Distributed Systems",
-        "url": "https://www.myrobertson.com/writing/graceful-degradation-in-distributed-systems/",
+        "url": "https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html",
         "contentType": "article",
         "summary": "Service-mode strategy to preserve essential behavior by reducing non-critical scope under stress.",
         "publishedDate": "2026-04-02",
@@ -225,7 +221,7 @@
         "id": "page:load-shedding-in-distributed-systems",
         "nodeType": "page",
         "title": "Load Shedding in Distributed Systems",
-        "url": "https://www.myrobertson.com/writing/load-shedding-in-distributed-systems/",
+        "url": "https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html",
         "contentType": "article",
         "summary": "Intentional rejection, drop, defer, or downgrade policy to protect core paths during overload.",
         "publishedDate": "2026-04-02",
@@ -234,9 +230,7 @@
         "canonicalTopic": "overload control",
         "related": [
           "page:rate-limiting-in-distributed-systems",
-          "page:backpressure-in-distributed-systems",
-          "page:queue-design-under-load",
-          "page:why-systems-fail-under-load"
+          "page:backpressure-in-distributed-systems"
         ],
         "parent": "page:distributed-systems",
         "level": "advanced",
@@ -248,99 +242,10 @@
         "label": "load shedding"
       },
       {
-        "id": "page:architecting-a-multitenant-control-plane",
-        "nodeType": "page",
-        "title": "Architecting a Multitenant Control Plane",
-        "url": "https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/",
-        "contentType": "article",
-        "summary": "Control-plane architecture patterns for durable workflows and multitenant execution.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:workflow-orchestration",
-        "nodeType": "tag",
-        "label": "workflow orchestration"
-      },
-      {
-        "id": "page:distributed-lease-service",
-        "nodeType": "page",
-        "title": "Designing a Correct Distributed Lease Service: Tenure on Raft",
-        "url": "https://www.myrobertson.com/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/",
-        "contentType": "article",
-        "summary": "Correctness-oriented lease semantics, fencing tokens, and coordination under failure.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:distributed-coordination",
-        "nodeType": "tag",
-        "label": "distributed coordination"
-      },
-      {
-        "id": "tag:leases",
-        "nodeType": "tag",
-        "label": "leases"
-      },
-      {
-        "id": "tag:fencing-tokens",
-        "nodeType": "tag",
-        "label": "fencing tokens"
-      },
-      {
-        "id": "tag:correctness",
-        "nodeType": "tag",
-        "label": "correctness"
-      },
-      {
-        "id": "page:modernizing-java-services",
-        "nodeType": "page",
-        "title": "Modernizing Java Services Without Breaking Production",
-        "url": "https://www.myrobertson.com/writing/modernizing-java-services-without-breaking-production/",
-        "contentType": "article",
-        "summary": "Java modernization patterns for compatibility validation and rollout safety.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:java-modernization",
-        "nodeType": "tag",
-        "label": "java modernization"
-      },
-      {
-        "id": "tag:compatibility",
-        "nodeType": "tag",
-        "label": "compatibility"
-      },
-      {
-        "id": "page:starbucks-loyalty-platform-integration",
-        "nodeType": "page",
-        "title": "Starbucks Loyalty Platform Integration Case Study",
-        "url": "https://www.myrobertson.com/case-studies/starbucks-loyalty-platform-integration/",
-        "contentType": "case-study",
-        "summary": "Integration and migration work supporting loyalty systems at scale with continuity constraints.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:integration",
-        "nodeType": "tag",
-        "label": "integration"
-      },
-      {
-        "id": "tag:migration",
-        "nodeType": "tag",
-        "label": "migration"
-      },
-      {
         "id": "page:why-systems-fail-under-load",
         "nodeType": "page",
         "title": "Why Systems Fail Under Load, Not Just Bugs",
-        "url": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/",
+        "url": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html",
         "contentType": "article",
         "summary": "Conceptual anchor explaining overload dynamics, amplification loops, and cascading failure modes in distributed systems.",
         "publishedDate": "2026-04-02",
@@ -368,7 +273,7 @@
         "id": "page:retry-strategies-and-idempotency",
         "nodeType": "page",
         "title": "Retry Strategies and Idempotency",
-        "url": "https://www.myrobertson.com/writing/retry-strategies-and-idempotency/",
+        "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html",
         "contentType": "article",
         "summary": "Safe retry semantics, duplicate suppression, idempotent API design, and retry budgets under load.",
         "publishedDate": "2026-04-02",
@@ -399,7 +304,7 @@
         "id": "page:queue-design-under-load",
         "nodeType": "page",
         "title": "Queue Design Under Load",
-        "url": "https://www.myrobertson.com/writing/queue-design-under-load/",
+        "url": "https://www.myrobertson.com/blog/queue-design-under-load.html",
         "contentType": "article",
         "summary": "Bounded queues, fairness, queue latency as an amplification vector, and rejection policies under overload.",
         "publishedDate": "2026-04-02",
@@ -428,10 +333,78 @@
         "label": "queue depth"
       },
       {
+        "id": "page:architecting-a-multitenant-control-plane",
+        "nodeType": "page",
+        "title": "Architecting a Multitenant Control Plane",
+        "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html",
+        "contentType": "article",
+        "summary": "Control-plane architecture patterns for durable workflows and multitenant execution.",
+        "publishedDate": "2026-03-28",
+        "updatedDate": "2026-04-02",
+        "importance": 2
+      },
+      {
+        "id": "tag:workflow-orchestration",
+        "nodeType": "tag",
+        "label": "workflow orchestration"
+      },
+      {
+        "id": "page:distributed-lease-service",
+        "nodeType": "page",
+        "title": "Designing a Correct Distributed Lease Service: Tenure on Raft",
+        "url": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html",
+        "contentType": "article",
+        "summary": "Correctness-oriented lease semantics, fencing tokens, and coordination under failure.",
+        "publishedDate": "2026-03-28",
+        "updatedDate": "2026-04-02",
+        "importance": 2
+      },
+      {
+        "id": "tag:distributed-coordination",
+        "nodeType": "tag",
+        "label": "distributed coordination"
+      },
+      {
+        "id": "tag:leases",
+        "nodeType": "tag",
+        "label": "leases"
+      },
+      {
+        "id": "tag:fencing-tokens",
+        "nodeType": "tag",
+        "label": "fencing tokens"
+      },
+      {
+        "id": "tag:correctness",
+        "nodeType": "tag",
+        "label": "correctness"
+      },
+      {
+        "id": "page:starbucks-loyalty-platform-integration",
+        "nodeType": "page",
+        "title": "Starbucks Loyalty Platform Integration Case Study",
+        "url": "https://www.myrobertson.com/case-studies/starbucks-loyalty-platform-integration/",
+        "contentType": "case-study",
+        "summary": "Integration and migration work supporting loyalty systems at scale with continuity constraints.",
+        "publishedDate": "2026-03-28",
+        "updatedDate": "2026-04-02",
+        "importance": 2
+      },
+      {
+        "id": "tag:integration",
+        "nodeType": "tag",
+        "label": "integration"
+      },
+      {
+        "id": "tag:migration",
+        "nodeType": "tag",
+        "label": "migration"
+      },
+      {
         "id": "page:distributed-systems-writing",
         "nodeType": "page",
         "title": "Distributed Systems Writing",
-        "url": "https://www.myrobertson.com/writing/",
+        "url": "https://www.myrobertson.com/blog/",
         "contentType": "index",
         "summary": "Technical writing index for distributed systems, control planes, and reliability under load.",
         "updatedDate": "2026-04-02",
@@ -640,550 +613,6 @@
         "type": "hasTag"
       },
       {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "tag:control-planes",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "tag:workflow-orchestration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:distributed-coordination",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:leases",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:fencing-tokens",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:correctness",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:modernizing-java-services",
-        "target": "tag:java-modernization",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:modernizing-java-services",
-        "target": "tag:migration-safety",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:modernizing-java-services",
-        "target": "tag:compatibility",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "tag:integration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "tag:migration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "tag:operability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "tag:writing",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "tag:case-studies",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "tag:migration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "tag:platform-modernization",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:overload-control-pipeline",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:backpressure-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:admission-control-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:distributed-lease-service",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:modernizing-java-services",
-        "type": "indexes"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "page:oracle-cns-oci-migration",
-        "type": "indexes"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "page:starbucks-loyalty-platform-integration",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:oracle-cns-oci-migration",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:admission-control-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:control-planes",
-          "tag:distributed-systems"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:modernizing-java-services",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:migration-safety"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:admission-control-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:starbucks-loyalty-platform-integration",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:operability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:backpressure-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:graceful-degradation"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:admission-control",
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 4
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "page:case-studies",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:migration"
-        ],
-        "strength": 1
-      },
-      {
         "source": "page:why-systems-fail-under-load",
         "target": "tag:failure-modes",
         "type": "hasTag"
@@ -1254,56 +683,129 @@
         "type": "hasTag"
       },
       {
+        "source": "page:architecting-a-multitenant-control-plane",
+        "target": "tag:control-planes",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:architecting-a-multitenant-control-plane",
+        "target": "tag:workflow-orchestration",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:architecting-a-multitenant-control-plane",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-lease-service",
+        "target": "tag:distributed-coordination",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-lease-service",
+        "target": "tag:leases",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-lease-service",
+        "target": "tag:fencing-tokens",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-lease-service",
+        "target": "tag:correctness",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:starbucks-loyalty-platform-integration",
+        "target": "tag:integration",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:starbucks-loyalty-platform-integration",
+        "target": "tag:migration",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:starbucks-loyalty-platform-integration",
+        "target": "tag:operability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "tag:writing",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:case-studies",
+        "target": "tag:case-studies",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:case-studies",
+        "target": "tag:migration",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:case-studies",
+        "target": "tag:platform-modernization",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:backpressure-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:overload-control-pipeline",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
         "source": "page:distributed-systems-writing",
         "target": "page:why-systems-fail-under-load",
         "type": "indexes"
       },
       {
-        "source": "page:distributed-systems",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
         "source": "page:distributed-systems-writing",
         "target": "page:retry-strategies-and-idempotency",
         "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
       },
       {
         "source": "page:distributed-systems-writing",
@@ -1311,19 +813,37 @@
         "type": "indexes"
       },
       {
-        "source": "page:distributed-systems",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
-        ],
-        "strength": 3
+        "source": "page:distributed-systems-writing",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "indexes"
       },
       {
-        "source": "page:queue-design-under-load",
-        "target": "page:distributed-systems-writing",
+        "source": "page:distributed-systems-writing",
+        "target": "page:distributed-lease-service",
+        "type": "indexes"
+      },
+      {
+        "source": "page:case-studies",
+        "target": "page:oracle-cns-oci-migration",
+        "type": "indexes"
+      },
+      {
+        "source": "page:case-studies",
+        "target": "page:starbucks-loyalty-platform-integration",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:oracle-cns-oci-migration",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:overload-control-pipeline",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
@@ -1332,70 +852,732 @@
         "strength": 2
       },
       {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
+        "source": "page:distributed-systems",
         "target": "page:admission-control-in-distributed-systems",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:reliability"
         ],
-        "strength": 3
+        "strength": 2
       },
       {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:backpressure-in-distributed-systems",
+        "source": "page:distributed-systems",
+        "target": "page:rate-limiting-in-distributed-systems",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:reliability"
         ],
-        "strength": 3
+        "strength": 2
       },
       {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:load-shedding-in-distributed-systems",
+        "source": "page:distributed-systems",
+        "target": "page:circuit-breakers-in-distributed-systems",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:reliability"
         ],
-        "strength": 3
+        "strength": 2
       },
       {
-        "source": "page:why-systems-fail-under-load",
+        "source": "page:distributed-systems",
         "target": "page:graceful-degradation-in-distributed-systems",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:control-planes",
+          "tag:distributed-systems"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:overload-control-pipeline",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:starbucks-loyalty-platform-integration",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:operability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:backpressure-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:graceful-degradation"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
         ],
         "strength": 3
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:admission-control",
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 4
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
       },
       {
         "source": "page:retry-strategies-and-idempotency",
@@ -1403,65 +1585,66 @@
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:overload-control",
+          "tag:reliability"
         ],
         "strength": 3
       },
       {
         "source": "page:retry-strategies-and-idempotency",
-        "target": "page:admission-control-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
         "type": "relatedByTag",
         "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:distributed-systems"
         ],
-        "strength": 3
+        "strength": 1
       },
       {
         "source": "page:retry-strategies-and-idempotency",
-        "target": "page:backpressure-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:reliability"
         ],
-        "strength": 3
+        "strength": 2
       },
       {
         "source": "page:queue-design-under-load",
-        "target": "page:admission-control-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
         "type": "relatedByTag",
         "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:distributed-systems"
         ],
-        "strength": 3
+        "strength": 1
       },
       {
         "source": "page:queue-design-under-load",
-        "target": "page:backpressure-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:reliability"
         ],
-        "strength": 3
+        "strength": 2
       },
       {
-        "source": "page:queue-design-under-load",
-        "target": "page:load-shedding-in-distributed-systems",
+        "source": "page:architecting-a-multitenant-control-plane",
+        "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability",
-          "tag:overload-control"
+          "tag:distributed-systems"
         ],
-        "strength": 3
+        "strength": 1
+      },
+      {
+        "source": "page:starbucks-loyalty-platform-integration",
+        "target": "page:case-studies",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:migration"
+        ],
+        "strength": 1
       }
     ]
   }

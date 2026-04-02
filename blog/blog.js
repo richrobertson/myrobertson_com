@@ -5,7 +5,7 @@
   function createTagChip(tag, activeSlug) {
     const a = document.createElement('a');
     a.className = `tag-chip${activeSlug === tag.slug ? ' is-active' : ''}`;
-    a.href = `/blog/index.html?tag=${encodeURIComponent(tag.slug)}`;
+    a.href = `/blog/?tag=${encodeURIComponent(tag.slug)}`;
     a.textContent = tag.name;
     return a;
   }

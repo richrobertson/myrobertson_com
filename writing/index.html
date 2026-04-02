@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Distributed Systems Writing | Control Planes, Backpressure, Correctness</title>
     <meta name="description" content="Technical writing on distributed systems, backpressure, control-plane architecture, consensus, and correctness in production systems." />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content="noindex,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/writing/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Distributed Systems Writing | Rich Robertson" />
@@ -146,23 +146,23 @@
         <h2>Core Essays</h2>
         <div class="grid">
           <article class="project">
-            <h3><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a></h3>
+            <h3><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a></h3>
             <p>How admission control, bounded queues, and graceful degradation preserve stability under load.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a></h3>
+            <h3><a href="/blog/admission-control-in-distributed-systems.html">Admission Control in Distributed Systems</a></h3>
             <p>Front-door accept/reject/defer policy that keeps overload from entering faster than safe system capacity.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a></h3>
+            <h3><a href="/blog/end-to-end-overload-control-in-distributed-systems.html">End-to-End Overload Control in Distributed Systems</a></h3>
             <p>System-level synthesis of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/">Designing a Correct Distributed Lease Service</a></h3>
+            <h3><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service</a></h3>
             <p>Lease semantics, leader time authority, and fencing strategy for safer distributed ownership.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a></h3>
+            <h3><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane</a></h3>
             <p>A systems walkthrough of durable command processing and partition-aware workflow execution.</p>
           </article>
         </div>
@@ -176,7 +176,7 @@
             <p>For overload control, retries, and graceful degradation.</p>
             <div class="topic-path-links">
               <a href="/writing/distributed-systems-reliability/">Reliability pillar</a>
-              <a href="/blog/index.html?tag=reliability">Reliability tag view</a>
+              <a href="/blog/?tag=reliability">Reliability tag view</a>
             </div>
           </article>
           <article class="topic-path">
@@ -184,7 +184,7 @@
             <p>For multitenant orchestration and workflow architecture.</p>
             <div class="topic-path-links">
               <a href="/writing/control-plane-architecture-guide/">Control-plane pillar</a>
-              <a href="/blog/index.html?tag=control-planes">Control Planes tag view</a>
+              <a href="/blog/?tag=control-planes">Control Planes tag view</a>
             </div>
           </article>
           <article class="topic-path">
@@ -192,7 +192,7 @@
             <p>For rollout safety and modernization execution under production constraints.</p>
             <div class="topic-path-links">
               <a href="/case-studies/distributed-systems-migration/">Migration case-study hub</a>
-              <a href="/blog/index.html?tag=cloud-platforms">Migration-related writing</a>
+              <a href="/blog/?tag=cloud-platforms">Migration-related writing</a>
             </div>
           </article>
         </div>
@@ -202,10 +202,10 @@
         <h2>Article Library</h2>
         <p class="section-intro">
           For primers, interview prep, and focused topic clusters (consensus, APIs, Kafka, correctness), use the
-          full archive in the writing library.
+          canonical blog archive.
         </p>
         <article class="project">
-          <h3><a href="/blog/index.html">Open the writing library</a></h3>
+          <h3><a href="/blog/">Open the blog archive</a></h3>
           <p>The archive includes tag-based browsing, featured reads, and related topic pathways.</p>
         </article>
       </section>
@@ -217,39 +217,39 @@
         </p>
         <div class="grid">
           <article class="project">
-            <h3><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a></h3>
+            <h3><a href="/blog/end-to-end-overload-control-in-distributed-systems.html">End-to-End Overload Control in Distributed Systems</a></h3>
             <p>Flagship synthesis of the full overload-control pipeline and interaction model.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load, Not Just Bugs</a></h3>
+            <h3><a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Why Systems Fail Under Load, Not Just Bugs</a></h3>
             <p>Conceptual anchor: overload dynamics, amplification loops, and why systems collapse under pressure rather than from isolated defects.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></h3>
+            <h3><a href="/blog/retry-strategies-and-idempotency.html">Retry Strategies and Idempotency</a></h3>
             <p>Safe retries, duplicate suppression, idempotent API/workflow design, and retry budgets under load.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/queue-design-under-load/">Queue Design Under Load</a></h3>
+            <h3><a href="/blog/queue-design-under-load.html">Queue Design Under Load</a></h3>
             <p>Bounded queues, fairness, queue latency as an amplification vector, and when to reject instead of enqueueing.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a></h3>
+            <h3><a href="/blog/admission-control-in-distributed-systems.html">Admission Control in Distributed Systems</a></h3>
             <p>Capacity-aware accept/reject/defer boundary before queues and retries amplify overload.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a></h3>
+            <h3><a href="/blog/rate-limiting-in-distributed-systems.html">Rate Limiting in Distributed Systems</a></h3>
             <p>Fairness and capacity protection with upstream request-shaping policy.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers in Distributed Systems</a></h3>
+            <h3><a href="/blog/circuit-breakers-in-distributed-systems.html">Circuit Breakers in Distributed Systems</a></h3>
             <p>Dependency isolation and fast-failure containment for unhealthy downstreams.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a></h3>
+            <h3><a href="/blog/graceful-degradation-in-distributed-systems.html">Graceful Degradation in Distributed Systems</a></h3>
             <p>Preserve must-have behavior by reducing quality, freshness, or feature scope under stress.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a></h3>
+            <h3><a href="/blog/load-shedding-in-distributed-systems.html">Load Shedding in Distributed Systems</a></h3>
             <p>Intentional rejection, drop, defer, and downgrade policy when live capacity is exceeded.</p>
           </article>
         </div>

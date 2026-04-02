@@ -7,6 +7,69 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Admission Control in Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html</link>
+      <description>How admission control protects distributed systems by deciding what work can safely enter under real capacity, priority, and overload constraints.</description>
+      <guid>https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Circuit Breakers in Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html</link>
+      <description>How circuit breakers contain dependency failure, fail fast, and protect retries, thread pools, and connection budgets in distributed systems.</description>
+      <guid>https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>End-to-End Overload Control in Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html</link>
+      <description>How admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation work together to keep distributed systems stable under real-world load.</description>
+      <guid>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Graceful Degradation in Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html</link>
+      <description>How graceful degradation preserves essential service behavior by reducing non-critical quality or scope during overload and dependency failure.</description>
+      <guid>https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Load Shedding in Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html</link>
+      <description>How load shedding intentionally rejects, drops, defers, or downgrades work to preserve core paths when distributed systems exceed capacity.</description>
+      <guid>https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Queue Design Under Load</title>
+      <link>https://www.myrobertson.com/blog/queue-design-under-load.html</link>
+      <description>How to design queues for overload: bounded queues, worker limits, fairness, queue observability, and explicit backpressure behavior.</description>
+      <guid>https://www.myrobertson.com/blog/queue-design-under-load.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Rate Limiting in Distributed Systems</title>
+      <link>https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html</link>
+      <description>How rate limiting protects shared capacity, tenant fairness, and overload boundaries in distributed systems before queue growth becomes systemic.</description>
+      <guid>https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Retry Strategies, Retry Storms, and Idempotency</title>
+      <link>https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html</link>
+      <description>How retries and idempotency interact under load: retry budgets, jittered backoff, deadlines, dedupe windows, and safe duplicate handling.</description>
+      <guid>https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Why Systems Fail Under Load, Not Just Bugs</title>
+      <link>https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html</link>
+      <description>Why distributed systems fail under load: backlog growth, retry amplification, dependency saturation, and the controls that preserve stability.</description>
+      <guid>https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html</guid>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck</title>
       <link>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html</link>
       <description>AI can generate code faster than teams can safely review it. This creates a new reliability problem in software delivery, one that staff+ engineers must actively design for.</description>

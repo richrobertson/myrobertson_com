@@ -6,11 +6,11 @@
     <title>Rate Limiting in Distributed Systems | Fairness, Capacity, and Overload Boundaries</title>
     <meta name="description" content="How rate limiting protects shared capacity, tenant fairness, and overload boundaries in distributed systems before queue growth becomes systemic." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Rate Limiting in Distributed Systems" />
     <meta property="og:description" content="Rate limiting as an upstream control for fairness, burst handling, and capacity protection." />
-    <meta property="og:url" content="https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/" />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Rate Limiting in Distributed Systems" />
@@ -38,14 +38,14 @@
           },
           {
             "@type": "TechArticle",
-            "@id": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/#main",
+            "@id": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html#main",
             "headline": "Rate Limiting in Distributed Systems",
             "author": { "@id": "https://www.myrobertson.com/#person-rich-robertson" },
             "datePublished": "2026-04-02",
             "dateModified": "2026-04-02",
             "description": "How rate limiting protects shared capacity, tenant fairness, and overload boundaries in distributed systems before queue growth becomes systemic.",
-            "mainEntityOfPage": { "@id": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/" },
-            "url": "https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/",
+            "mainEntityOfPage": { "@id": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html" },
+            "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html",
             "inLanguage": "en",
             "keywords": ["rate limiting", "distributed systems", "admission control", "overload control", "reliability"],
             "isPartOf": { "@id": "https://www.myrobertson.com/#website" }
@@ -57,7 +57,7 @@
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Rate Limiting</span></p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Rate Limiting</span></p>
       <h1>Rate Limiting in Distributed Systems</h1>
       <p class="section-intro">Rate limiting sets explicit intake boundaries before a shared system enters uncontrolled queue growth. It is how you protect fairness and capacity before overload turns into cascading failure.</p>
       <p><strong>Takeaway:</strong> Treat rate limiting as upstream traffic policy for fairness and protection, not as a downstream recovery mechanism.</p>
@@ -108,19 +108,19 @@
       <section class="section">
         <h2>Rate limiting vs admission control</h2>
         <p><strong>Summary:</strong> Rate limiting governs request frequency by policy; admission control decides whether capacity can safely accept work now.</p>
-        <p>Use rate limits for planned fairness and abuse boundaries. Use <a href="/writing/admission-control-in-distributed-systems/">admission control</a> for real-time safety based on saturation and priority. Mature systems usually need both.</p>
+        <p>Use rate limits for planned fairness and abuse boundaries. Use <a href="/blog/admission-control-in-distributed-systems.html">admission control</a> for real-time safety based on saturation and priority. Mature systems usually need both.</p>
       </section>
 
       <section class="section">
         <h2>Rate limiting vs backpressure</h2>
         <p><strong>Summary:</strong> Rate limiting is static or policy-driven boundary control; backpressure is dynamic feedback from actual downstream capacity.</p>
-        <p>Use rate limiting to shape demand at the edges and preserve fairness. Use <a href="/writing/backpressure-in-distributed-systems/">backpressure</a> to adapt concurrency and queue intake based on real-time saturation signals. They are complementary, not interchangeable.</p>
+        <p>Use rate limiting to shape demand at the edges and preserve fairness. Use <a href="/blog/backpressure-stability-correctness-distributed-systems.html">backpressure</a> to adapt concurrency and queue intake based on real-time saturation signals. They are complementary, not interchangeable.</p>
       </section>
 
       <section class="section">
         <h2>Rate limiting vs load shedding</h2>
         <p><strong>Summary:</strong> Rate limiting sets planned boundaries before overload; load shedding is an emergency overload action once capacity is exceeded.</p>
-        <p>Rate limiting is proactive policy. <a href="/writing/load-shedding-in-distributed-systems/">Load shedding</a> is a deliberate protective drop path when the system is already under pressure.</p>
+        <p>Rate limiting is proactive policy. <a href="/blog/load-shedding-in-distributed-systems.html">Load shedding</a> is a deliberate protective drop path when the system is already under pressure.</p>
       </section>
 
       <section class="section">
@@ -171,12 +171,12 @@
       <section class="section related-concepts">
         <h2>Related concepts</h2>
         <ul>
-                    <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline.</li>
+                    <li><a href="/blog/end-to-end-overload-control-in-distributed-systems.html">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline.</li>
 <li><a href="/distributed-systems/">Distributed Systems hub</a> — map of reliability and control-plane topics.</li>
-          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a> — capacity-aware intake decision layer that complements rate policy.</li>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — dynamic saturation feedback once work is admitted.</li>
-          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a> — intentional rejection under live overload.</li>
-          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — preserving essential behavior when limits are reached.</li>
+          <li><a href="/blog/admission-control-in-distributed-systems.html">Admission Control in Distributed Systems</a> — capacity-aware intake decision layer that complements rate policy.</li>
+          <li><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a> — dynamic saturation feedback once work is admitted.</li>
+          <li><a href="/blog/load-shedding-in-distributed-systems.html">Load Shedding in Distributed Systems</a> — intentional rejection under live overload.</li>
+          <li><a href="/blog/graceful-degradation-in-distributed-systems.html">Graceful Degradation in Distributed Systems</a> — preserving essential behavior when limits are reached.</li>
           <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration</a> — large-scale operational context for overload-control policy.</li>
         </ul>
       </section>

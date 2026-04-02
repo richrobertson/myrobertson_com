@@ -267,10 +267,11 @@
             <h3>Reliability Path</h3>
             <p>Use these readings for overload control, graceful degradation, and failure handling decisions.</p>
             <div class="topic-path-links">
-              <a class="tag-chip" href="/blog/index.html?tag=backpressure">Backpressure</a>
-              <a class="tag-chip" href="/blog/index.html?tag=reliability">Reliability</a>
-              <a href="/writing/distributed-systems-reliability/">Reliability pillar</a>
-              <a href="/writing/backpressure-in-distributed-systems/">Core essay</a>
+              <a class="tag-chip" href="/blog/?tag=backpressure">Backpressure</a>
+              <a class="tag-chip" href="/blog/?tag=reliability">Reliability</a>
+              <a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Failure dynamics</a>
+              <a href="/blog/end-to-end-overload-control-in-distributed-systems.html">System map</a>
+              <a href="/blog/backpressure-stability-correctness-distributed-systems.html">Core essay</a>
               <a href="./reviewing-ai-generated-pull-requests-reliability-risk.html">AI-generated PR reliability and reviewability</a>
             </div>
           </article>
@@ -278,9 +279,9 @@
             <h3>Control Plane Path</h3>
             <p>Start with control-plane fundamentals, then review multitenant workflow and migration context.</p>
             <div class="topic-path-links">
-              <a class="tag-chip" href="/blog/index.html?tag=control-planes">Control Planes</a>
-              <a href="/writing/control-plane-architecture-guide/">Control-plane pillar</a>
+              <a class="tag-chip" href="/blog/?tag=control-planes">Control Planes</a>
               <a href="/blog/what-is-a-control-plane.html">Primer</a>
+              <a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Deep dive</a>
               <a href="/case-studies/control-plane-workflow-platform/">Case study</a>
             </div>
           </article>
@@ -288,9 +289,9 @@
             <h3>Distributed Systems Path</h3>
             <p>Follow this path for consensus, correctness, and messaging trade-offs in production systems.</p>
             <div class="topic-path-links">
-              <a class="tag-chip" href="/blog/index.html?tag=distributed-systems">Distributed Systems</a>
-              <a class="tag-chip" href="/blog/index.html?tag=consensus">Consensus</a>
-              <a class="tag-chip" href="/blog/index.html?tag=kafka">Kafka</a>
+              <a class="tag-chip" href="/blog/?tag=distributed-systems">Distributed Systems</a>
+              <a class="tag-chip" href="/blog/?tag=consensus">Consensus</a>
+              <a class="tag-chip" href="/blog/?tag=kafka">Kafka</a>
             </div>
           </article>
           <article class="topic-path">
@@ -302,6 +303,16 @@
               <a href="/case-studies/java-17-global-modernization/">Modernization case study</a>
             </div>
           </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Reliability Deep Dives</h2>
+        <div class="grid">
+          <article class="project"><h3><a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Why Systems Fail Under Load, Not Just Bugs</a></h3><p>Conceptual foundation for amplification loops, overload propagation, and cascading failure.</p><span>Deep Dive • Reliability</span></article>
+          <article class="project"><h3><a href="/blog/retry-strategies-and-idempotency.html">Retry Strategies and Idempotency</a></h3><p>Retry budgets, duplicate suppression, and how retries multiply work during incidents.</p><span>Deep Dive • Reliability</span></article>
+          <article class="project"><h3><a href="/blog/queue-design-under-load.html">Queue Design Under Load</a></h3><p>Bounded queues, drain rate, fairness, and when to reject instead of absorbing more work.</p><span>Deep Dive • Reliability</span></article>
+          <article class="project"><h3><a href="/blog/end-to-end-overload-control-in-distributed-systems.html">End-to-End Overload Control in Distributed Systems</a></h3><p>The system-level view of admission control, backpressure, circuit breakers, and graceful degradation.</p><span>Deep Dive • Overload Control</span></article>
         </div>
       </section>
 

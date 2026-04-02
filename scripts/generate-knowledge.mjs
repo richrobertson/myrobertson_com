@@ -1,6 +1,8 @@
 import { writeFileSync } from 'node:fs';
+import { canonicalArticleUrl } from '../content/article-routing.mjs';
 
 const site = 'https://www.myrobertson.com';
+const articleUrl = (pathOrUrl) => canonicalArticleUrl(pathOrUrl, site) || pathOrUrl;
 
 const pages = [
   {
@@ -28,7 +30,7 @@ const pages = [
   {
     id: 'page:backpressure-in-distributed-systems',
     title: 'Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation',
-    url: `${site}/writing/backpressure-in-distributed-systems/`,
+    url: articleUrl(`${site}/blog/backpressure-stability-correctness-distributed-systems.html`),
     contentType: 'article',
     summary: 'Backpressure, bounded queues, and admission control patterns for overload resilience.',
     tags: ['backpressure', 'graceful degradation', 'backend reliability'],
@@ -37,9 +39,25 @@ const pages = [
     importance: 2
   },
   {
+    id: 'page:overload-control-pipeline',
+    title: 'End-to-End Overload Control in Distributed Systems',
+    url: articleUrl(`${site}/blog/end-to-end-overload-control-in-distributed-systems.html`),
+    contentType: 'article',
+    summary: 'System-level synthesis of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.',
+    tags: ['distributed systems', 'reliability', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'distributed systems',
+    related: ['page:admission-control-in-distributed-systems', 'page:rate-limiting-in-distributed-systems', 'page:backpressure-in-distributed-systems', 'page:circuit-breakers-in-distributed-systems', 'page:load-shedding-in-distributed-systems', 'page:graceful-degradation-in-distributed-systems', 'page:oracle-cns-oci-migration', 'page:why-systems-fail-under-load', 'page:retry-strategies-and-idempotency', 'page:queue-design-under-load'],
+    parent: 'page:distributed-systems',
+    level: 'advanced',
+    status: 'published'
+  },
+  {
     id: 'page:admission-control-in-distributed-systems',
     title: 'Admission Control in Distributed Systems',
-    url: `${site}/writing/admission-control-in-distributed-systems/`,
+    url: articleUrl(`${site}/blog/admission-control-in-distributed-systems.html`),
     contentType: 'article',
     summary: 'Front-door intake boundary for accept/reject/defer decisions driven by live capacity, fairness, and priority protection.',
     tags: ['admission control', 'distributed systems', 'reliability', 'overload control'],
@@ -55,7 +73,7 @@ const pages = [
   {
     id: 'page:rate-limiting-in-distributed-systems',
     title: 'Rate Limiting in Distributed Systems',
-    url: `${site}/writing/rate-limiting-in-distributed-systems/`,
+    url: articleUrl(`${site}/blog/rate-limiting-in-distributed-systems.html`),
     contentType: 'article',
     summary: 'Fairness and capacity protection with explicit intake boundaries before overload becomes systemic.',
     tags: ['rate limiting', 'distributed systems', 'reliability', 'overload control'],
@@ -71,7 +89,7 @@ const pages = [
   {
     id: 'page:circuit-breakers-in-distributed-systems',
     title: 'Circuit Breakers in Distributed Systems',
-    url: `${site}/writing/circuit-breakers-in-distributed-systems/`,
+    url: articleUrl(`${site}/blog/circuit-breakers-in-distributed-systems.html`),
     contentType: 'article',
     summary: 'Failure containment for unhealthy dependencies using open, closed, and half-open transitions.',
     tags: ['circuit breakers', 'distributed systems', 'reliability', 'failure isolation'],
@@ -87,7 +105,7 @@ const pages = [
   {
     id: 'page:graceful-degradation-in-distributed-systems',
     title: 'Graceful Degradation in Distributed Systems',
-    url: `${site}/writing/graceful-degradation-in-distributed-systems/`,
+    url: articleUrl(`${site}/blog/graceful-degradation-in-distributed-systems.html`),
     contentType: 'article',
     summary: 'Service-mode strategy to preserve essential behavior by reducing non-critical scope under stress.',
     tags: ['graceful degradation', 'distributed systems', 'reliability', 'overload control'],
@@ -103,7 +121,7 @@ const pages = [
   {
     id: 'page:load-shedding-in-distributed-systems',
     title: 'Load Shedding in Distributed Systems',
-    url: `${site}/writing/load-shedding-in-distributed-systems/`,
+    url: articleUrl(`${site}/blog/load-shedding-in-distributed-systems.html`),
     contentType: 'article',
     summary: 'Intentional rejection, drop, defer, or downgrade policy to protect core paths during overload.',
     tags: ['load shedding', 'distributed systems', 'reliability', 'admission control', 'overload control'],
@@ -117,9 +135,57 @@ const pages = [
     status: 'published'
   },
   {
+    id: 'page:why-systems-fail-under-load',
+    title: 'Why Systems Fail Under Load, Not Just Bugs',
+    url: articleUrl(`${site}/blog/why-systems-fail-under-load-not-just-bugs.html`),
+    contentType: 'article',
+    summary: 'Conceptual anchor explaining overload dynamics, amplification loops, and cascading failure modes in distributed systems.',
+    tags: ['failure modes', 'reliability', 'distributed systems', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'reliability',
+    related: ['page:retry-strategies-and-idempotency', 'page:queue-design-under-load', 'page:admission-control-in-distributed-systems', 'page:backpressure-in-distributed-systems', 'page:load-shedding-in-distributed-systems', 'page:graceful-degradation-in-distributed-systems'],
+    parent: 'page:distributed-systems',
+    level: 'foundational',
+    status: 'published'
+  },
+  {
+    id: 'page:retry-strategies-and-idempotency',
+    title: 'Retry Strategies and Idempotency',
+    url: articleUrl(`${site}/blog/retry-strategies-and-idempotency.html`),
+    contentType: 'article',
+    summary: 'Safe retry semantics, duplicate suppression, idempotent API design, and retry budgets under load.',
+    tags: ['idempotency', 'retry semantics', 'reliability', 'distributed systems', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'overload control',
+    related: ['page:why-systems-fail-under-load', 'page:queue-design-under-load', 'page:admission-control-in-distributed-systems', 'page:backpressure-in-distributed-systems'],
+    parent: 'page:distributed-systems',
+    level: 'foundational',
+    status: 'published'
+  },
+  {
+    id: 'page:queue-design-under-load',
+    title: 'Queue Design Under Load',
+    url: articleUrl(`${site}/blog/queue-design-under-load.html`),
+    contentType: 'article',
+    summary: 'Bounded queues, fairness, queue latency as an amplification vector, and rejection policies under overload.',
+    tags: ['queue design', 'queue depth', 'reliability', 'distributed systems', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'overload control',
+    related: ['page:why-systems-fail-under-load', 'page:retry-strategies-and-idempotency', 'page:admission-control-in-distributed-systems', 'page:backpressure-in-distributed-systems', 'page:load-shedding-in-distributed-systems'],
+    parent: 'page:distributed-systems',
+    level: 'intermediate',
+    status: 'published'
+  },
+  {
     id: 'page:architecting-a-multitenant-control-plane',
     title: 'Architecting a Multitenant Control Plane',
-    url: `${site}/writing/architecting-a-multitenant-control-plane/`,
+    url: articleUrl(`${site}/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html`),
     contentType: 'article',
     summary: 'Control-plane architecture patterns for durable workflows and multitenant execution.',
     tags: ['control planes', 'workflow orchestration', 'distributed systems'],
@@ -130,21 +196,10 @@ const pages = [
   {
     id: 'page:distributed-lease-service',
     title: 'Designing a Correct Distributed Lease Service: Tenure on Raft',
-    url: `${site}/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/`,
+    url: articleUrl(`${site}/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html`),
     contentType: 'article',
     summary: 'Correctness-oriented lease semantics, fencing tokens, and coordination under failure.',
     tags: ['distributed coordination', 'leases', 'fencing tokens', 'correctness'],
-    publishedDate: '2026-03-28',
-    updatedDate: '2026-04-02',
-    importance: 2
-  },
-  {
-    id: 'page:modernizing-java-services',
-    title: 'Modernizing Java Services Without Breaking Production',
-    url: `${site}/writing/modernizing-java-services-without-breaking-production/`,
-    contentType: 'article',
-    summary: 'Java modernization patterns for compatibility validation and rollout safety.',
-    tags: ['java modernization', 'migration safety', 'compatibility'],
     publishedDate: '2026-03-28',
     updatedDate: '2026-04-02',
     importance: 2
@@ -163,7 +218,7 @@ const pages = [
   {
     id: 'page:distributed-systems-writing',
     title: 'Distributed Systems Writing',
-    url: `${site}/writing/`,
+    url: `${site}/blog/`,
     contentType: 'index',
     summary: 'Technical writing index for distributed systems, control planes, and reliability under load.',
     tags: ['writing', 'distributed systems', 'reliability'],

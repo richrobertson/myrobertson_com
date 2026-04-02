@@ -6,11 +6,11 @@
     <title>Why Systems Fail Under Load, Not Just Bugs | Distributed Systems</title>
     <meta name="description" content="Why distributed systems fail under load: backlog growth, retry amplification, dependency saturation, and the controls that preserve stability." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Why Systems Fail Under Load, Not Just Bugs" />
     <meta property="og:description" content="Most outages are overload dynamics, not single bugs. How queues, retries, and dependencies push systems past stability boundaries." />
-    <meta property="og:url" content="https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/" />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Why Systems Fail Under Load, Not Just Bugs" />
@@ -43,7 +43,7 @@
         },
         {
           "@type": "TechArticle",
-          "@id": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/#main",
+          "@id": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html#main",
           "headline": "Why Systems Fail Under Load, Not Just Bugs",
           "author": {
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
@@ -62,9 +62,9 @@
             "graceful degradation"
           ],
           "mainEntityOfPage": {
-            "@id": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/"
+            "@id": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html"
           },
-          "url": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/",
+          "url": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html",
           "inLanguage": "en",
           "isPartOf": {
             "@id": "https://www.myrobertson.com/#website"
@@ -82,14 +82,14 @@
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "Writing",
-              "item": "https://www.myrobertson.com/writing/"
+              "name": "Blog",
+              "item": "https://www.myrobertson.com/blog/"
             },
             {
               "@type": "ListItem",
               "position": 3,
               "name": "Why Systems Fail Under Load, Not Just Bugs",
-              "item": "https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/"
+              "item": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html"
             }
           ]
         }
@@ -101,7 +101,7 @@
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Why Systems Fail Under Load, Not Just Bugs</span></p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Why Systems Fail Under Load, Not Just Bugs</span></p>
       <h1>Why Systems Fail Under Load, Not Just Bugs</h1>
       <p class="section-intro">Most production failures are overload dynamics, not clean binary crashes. Systems fail under load, not only from code defects, because queues, retries, fan-out, and shared dependencies amplify pressure faster than control loops can react.</p>
       <p><strong>Takeaway:</strong> Reliability work is not only about preventing bugs. It is about designing systems that stay recoverable under pressure by bounding work, managing amplification, and protecting critical paths.</p>
@@ -128,7 +128,7 @@
           <li><strong>Shared dependency collapse:</strong> multiple services rely on the same datastore, cache, or auth service, so one bottleneck destabilizes many paths at once.</li>
         </ul>
         <p>A single slow dependency can therefore destabilize the entire request path even if every individual service is “healthy” by CPU average.</p>
-        <p>For a deeper API-centric framing, see <a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a>. For queue-level mechanics, see <a href="/writing/queue-design-under-load/">Queue Design Under Load</a>. For duplicate-work behavior, see <a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a>.</p>
+        <p>For a deeper API-centric framing, see <a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a>. For queue-level mechanics, see <a href="/blog/queue-design-under-load.html">Queue Design Under Load</a>. For duplicate-work behavior, see <a href="/blog/retry-strategies-and-idempotency.html">Retry Strategies and Idempotency</a>.</p>
       </section>
 
       <section class="section">
@@ -156,7 +156,7 @@
           <li><strong>Graceful degradation:</strong> preserve core user paths while optional features degrade.</li>
           <li><strong>Deadline propagation:</strong> avoid completing stale work that cannot satisfy callers.</li>
         </ul>
-        <p>This is the operating model behind <a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>.</p>
+        <p>This is the operating model behind <a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>.</p>
       </section>
 
       <section class="section">
@@ -178,18 +178,18 @@
       <section class="section related-concepts">
         <h2>Related concepts</h2>
         <ul>
-          <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline and the controls that prevent overload propagation.</li>
+          <li><a href="/blog/end-to-end-overload-control-in-distributed-systems.html">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline and the controls that prevent overload propagation.</li>
           <li><a href="/distributed-systems/">Distributed Systems hub</a> — conceptual overview and navigation for reliability patterns.</li>
           <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a> — client-facing overload semantics and failure modes.</li>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a> — bounded intake and saturation signals that prevent amplification.</li>
-          <li><a href="/writing/queue-design-under-load/">Queue Design Under Load</a> — queue mechanics as an amplification vector.</li>
-          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a> — retry amplification and load multiplication.</li>
-          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a> — front-door capacity and fairness enforcement.</li>
-          <li><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a> — upstream traffic policy and burst handling.</li>
-          <li><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers in Distributed Systems</a> — dependency failure containment and fast failure.</li>
-          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a> — intentional work rejection to preserve critical paths.</li>
-          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — service-mode strategy under pressure.</li>
-          <li><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a> — production context for multi-service and multi-tenant systems.</li>
+          <li><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a> — bounded intake and saturation signals that prevent amplification.</li>
+          <li><a href="/blog/queue-design-under-load.html">Queue Design Under Load</a> — queue mechanics as an amplification vector.</li>
+          <li><a href="/blog/retry-strategies-and-idempotency.html">Retry Strategies and Idempotency</a> — retry amplification and load multiplication.</li>
+          <li><a href="/blog/admission-control-in-distributed-systems.html">Admission Control in Distributed Systems</a> — front-door capacity and fairness enforcement.</li>
+          <li><a href="/blog/rate-limiting-in-distributed-systems.html">Rate Limiting in Distributed Systems</a> — upstream traffic policy and burst handling.</li>
+          <li><a href="/blog/circuit-breakers-in-distributed-systems.html">Circuit Breakers in Distributed Systems</a> — dependency failure containment and fast failure.</li>
+          <li><a href="/blog/load-shedding-in-distributed-systems.html">Load Shedding in Distributed Systems</a> — intentional work rejection to preserve critical paths.</li>
+          <li><a href="/blog/graceful-degradation-in-distributed-systems.html">Graceful Degradation in Distributed Systems</a> — service-mode strategy under pressure.</li>
+          <li><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane</a> — production context for multi-service and multi-tenant systems.</li>
           <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI Migration</a> — real-world case study with overload dynamics under pressure.</li>
         </ul>
       </section>

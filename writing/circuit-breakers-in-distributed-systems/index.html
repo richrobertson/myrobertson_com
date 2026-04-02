@@ -6,11 +6,11 @@
     <title>Circuit Breakers in Distributed Systems | Dependency Isolation and Fast Failure</title>
     <meta name="description" content="How circuit breakers contain dependency failure, fail fast, and protect retries, thread pools, and connection budgets in distributed systems." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Circuit Breakers in Distributed Systems" />
     <meta property="og:description" content="Failure containment with open, closed, and half-open state transitions for unhealthy dependencies." />
-    <meta property="og:url" content="https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/" />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Circuit Breakers in Distributed Systems" />
@@ -21,20 +21,20 @@
       {
         "@context": "https://schema.org",
         "@type": "TechArticle",
-        "@id": "https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/#main",
+        "@id": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html#main",
         "headline": "Circuit Breakers in Distributed Systems",
         "author": { "@type": "Person", "name": "Rich Robertson" },
         "datePublished": "2026-04-02",
         "dateModified": "2026-04-02",
         "description": "How circuit breakers contain dependency failure, fail fast, and protect retries, thread pools, and connection budgets in distributed systems.",
-        "mainEntityOfPage": "https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/"
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html"
       }
     </script>
   </head>
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Circuit Breakers</span></p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Circuit Breakers</span></p>
       <h1>Circuit Breakers in Distributed Systems</h1>
       <p class="section-intro">Circuit breakers stop repeated calls into unhealthy dependencies so partial failure does not consume the rest of your system. They trade slow failure accumulation for fast, controlled refusal.</p>
       <p><strong>Takeaway:</strong> A breaker is a failure-containment primitive around dependency calls, not a retry strategy and not a replacement for backpressure.</p>
@@ -138,13 +138,13 @@
       <section class="section related-concepts">
         <h2>Related concepts</h2>
         <ul>
-                    <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline.</li>
+                    <li><a href="/blog/end-to-end-overload-control-in-distributed-systems.html">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline.</li>
 <li><a href="/distributed-systems/">Distributed Systems hub</a> — context for reliability and failure-containment topics.</li>
-          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a> — front-door boundary before dependency-edge containment.</li>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — controlling intake and queue pressure.</li>
-          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — service-mode decisions after dependency failure.</li>
-          <li><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a> — practical boundary placement in orchestration systems.</li>
-          <li><a href="/writing/designing-a-correct-distributed-lease-service-tenure-on-raft/">Distributed Lease Service: Tenure on Raft</a> — correctness boundaries adjacent to failure isolation.</li>
+          <li><a href="/blog/admission-control-in-distributed-systems.html">Admission Control in Distributed Systems</a> — front-door boundary before dependency-edge containment.</li>
+          <li><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a> — controlling intake and queue pressure.</li>
+          <li><a href="/blog/graceful-degradation-in-distributed-systems.html">Graceful Degradation in Distributed Systems</a> — service-mode decisions after dependency failure.</li>
+          <li><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane</a> — practical boundary placement in orchestration systems.</li>
+          <li><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Distributed Lease Service: Tenure on Raft</a> — correctness boundaries adjacent to failure isolation.</li>
         </ul>
       </section>
 

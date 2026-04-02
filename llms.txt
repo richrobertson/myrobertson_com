@@ -2,18 +2,18 @@
 Homepage: https://www.myrobertson.com/
 Sitemap: https://www.myrobertson.com/sitemap.xml
 Flagship OCI migration case study: https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/
-Technical writing index: https://www.myrobertson.com/writing/
+Technical writing index: https://www.myrobertson.com/blog/
 Case studies index: https://www.myrobertson.com/case-studies/
 Distributed systems topic hub: https://www.myrobertson.com/distributed-systems/
 Knowledge index (machine-readable): https://www.myrobertson.com/knowledge.json
 Reliability cluster:
-- https://www.myrobertson.com/writing/why-systems-fail-under-load-not-just-bugs/
-- https://www.myrobertson.com/writing/retry-strategies-and-idempotency/
-- https://www.myrobertson.com/writing/queue-design-under-load/
-- https://www.myrobertson.com/writing/end-to-end-overload-control-in-distributed-systems/
-- https://www.myrobertson.com/writing/backpressure-in-distributed-systems/
-- https://www.myrobertson.com/writing/admission-control-in-distributed-systems/
-- https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/
-- https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/
-- https://www.myrobertson.com/writing/graceful-degradation-in-distributed-systems/
-- https://www.myrobertson.com/writing/load-shedding-in-distributed-systems/
+- https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html
+- https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html
+- https://www.myrobertson.com/blog/queue-design-under-load.html
+- https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html
+- https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html
+- https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html
+- https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html
+- https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html
+- https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html
+- https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html

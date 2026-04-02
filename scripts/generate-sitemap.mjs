@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { ARTICLE_ROUTE_MAP } from '../content/article-routing.mjs';
 
 const root = new URL('..', import.meta.url).pathname;
 const config = JSON.parse(readFileSync(join(root, 'seo.config.json'), 'utf8'));
@@ -106,6 +107,14 @@ function getLastModifiedDate(filePath) {
   return statSync(filePath).mtime.toISOString().split('T')[0];
 }
 
+function assetPathToFilePath(assetPath) {
+  const relativePath = assetPath.replace(/^\//, '');
+  if (assetPath.endsWith('.html')) {
+    return join(root, relativePath);
+  }
+  return join(root, relativePath, 'index.html');
+}
+
 const htmlFiles = walkHtml(root);
 const entries = [];
 const seen = new Set();
@@ -123,6 +132,14 @@ for (const filePath of htmlFiles) {
   const lastmod = getLastModifiedDate(filePath);
   entries.push({ route, lastmod });
   seen.add(route);
+}
+
+for (const route of ARTICLE_ROUTE_MAP) {
+  if (seen.has(route.publicPath)) continue;
+  const filePath = assetPathToFilePath(route.assetPath);
+  const lastmod = getLastModifiedDate(filePath);
+  entries.push({ route: route.publicPath, lastmod });
+  seen.add(route.publicPath);
 }
 
 
