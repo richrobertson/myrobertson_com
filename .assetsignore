@@ -1,0 +1,11 @@
+.git/
+.git/**
+.wrangler/
+.wrangler/**
+.venv/
+.venv/**
+.venv-1/
+.venv-1/**
+node_modules/
+node_modules/**
+.DS_Store
