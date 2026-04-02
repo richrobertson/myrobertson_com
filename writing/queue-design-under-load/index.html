@@ -104,6 +104,7 @@
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Queue Design Under Load</span></p>
       <h1>Queue Design Under Load</h1>
       <p class="section-intro">A queue is a control mechanism, not a safety blanket. Under real overload, queue design decides whether you absorb burst traffic cleanly or convert pressure into tail latency, memory growth, retry storms, and cascading failure.</p>
+      <p><strong>Takeaway:</strong> Treat bounded queues as explicit control points with clear admission policy, not as infinite buffers that hide overload.</p>
 
       <section class="section">
         <h2>Queues are burst absorbers, not infinite safety nets</h2>
@@ -189,14 +190,27 @@
       </section>
 
       <section class="section related-concepts">
-        <h2>What to Read Next</h2>
+        <h2>Related concepts</h2>
         <ul>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li>
-          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a></li>
-          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></li>
-          <li><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load</a></li>
-          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a></li>
+          <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline.</li>
+          <li><a href="/distributed-systems/">Distributed Systems hub</a> — conceptual overview of reliability patterns.</li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a> — bounded intake and saturation signals.</li>
+          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a> — client-facing overload semantics.</li>
+          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a> — retry interaction with queue pressure.</li>
+          <li><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load, Not Just Bugs</a> — overload dynamics and amplification.</li>
+          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a> — front-door protective boundaries.</li>
+          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a> — intentional work rejection during overload.</li>
+          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — preserving essential outcomes under pressure.</li>
+          <li><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers in Distributed Systems</a> — dependency failure containment.</li>
+          <li><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a> — upstream traffic policy.</li>
+          <li><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a> — queue strategy in orchestration systems.</li>
+          <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI Migration</a> — production context for queue and overload management.</li>
         </ul>
+      </section>
+
+      <section class="section">
+        <h2>Closing summary</h2>
+        <p><strong>Summary:</strong> Queues are useful for smoothing traffic, but unbounded queues are a stability liability. Design them as explicit control points with bounded capacity, clear admission policy, and observability that surfaces when work is aging and approaching deadline miss.</p>
       </section>
 
       <div data-site-footer></div>

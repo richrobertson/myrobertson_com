@@ -104,6 +104,7 @@
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Why Systems Fail Under Load, Not Just Bugs</span></p>
       <h1>Why Systems Fail Under Load, Not Just Bugs</h1>
       <p class="section-intro">Most production failures are overload dynamics, not clean binary crashes. Systems fail under load, not only from code defects, because queues, retries, fan-out, and shared dependencies amplify pressure faster than control loops can react.</p>
+      <p><strong>Takeaway:</strong> Reliability work is not only about preventing bugs. It is about designing systems that stay recoverable under pressure by bounding work, managing amplification, and protecting critical paths.</p>
 
       <section class="section">
         <h2>Systems fail under load, not only from code defects</h2>
@@ -175,14 +176,27 @@
       </section>
 
       <section class="section related-concepts">
-        <h2>What to Read Next</h2>
+        <h2>Related concepts</h2>
         <ul>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li>
-          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a></li>
-          <li><a href="/writing/queue-design-under-load/">Queue Design Under Load</a></li>
-          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></li>
-          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a></li>
+          <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline and the controls that prevent overload propagation.</li>
+          <li><a href="/distributed-systems/">Distributed Systems hub</a> — conceptual overview and navigation for reliability patterns.</li>
+          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a> — client-facing overload semantics and failure modes.</li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a> — bounded intake and saturation signals that prevent amplification.</li>
+          <li><a href="/writing/queue-design-under-load/">Queue Design Under Load</a> — queue mechanics as an amplification vector.</li>
+          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a> — retry amplification and load multiplication.</li>
+          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a> — front-door capacity and fairness enforcement.</li>
+          <li><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a> — upstream traffic policy and burst handling.</li>
+          <li><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers in Distributed Systems</a> — dependency failure containment and fast failure.</li>
+          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a> — intentional work rejection to preserve critical paths.</li>
+          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — service-mode strategy under pressure.</li>
+          <li><a href="/writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a> — production context for multi-service and multi-tenant systems.</li>
+          <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI Migration</a> — real-world case study with overload dynamics under pressure.</li>
         </ul>
+      </section>
+
+      <section class="section">
+        <h2>Closing summary</h2>
+        <p><strong>Summary:</strong> Systems fail under load when they lack explicit controls to bound work, manage amplification, and preserve critical paths. Reliability is not only about defects; it is about designing for pressure.</p>
       </section>
 
       <div data-site-footer></div>
