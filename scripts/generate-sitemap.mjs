@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const root = new URL('..', import.meta.url).pathname;
 const config = JSON.parse(readFileSync(join(root, 'seo.config.json'), 'utf8'));
@@ -85,6 +86,24 @@ function isEligible({ route, canonicalPath, noindex, contentModelRules }) {
   return true;
 }
 
+function getLastModifiedDate(filePath) {
+  const relPath = relative(root, filePath).replace(/\\/g, '/');
+  try {
+    const gitDate = execFileSync('git', ['log', '-1', '--format=%cs', '--', relPath], {
+      cwd: root,
+      encoding: 'utf8'
+    }).trim();
+
+    if (/^\d{4}-\d{2}-\d{2}$/.test(gitDate)) {
+      return gitDate;
+    }
+  } catch {
+    // Fall back to file mtime when git metadata is unavailable.
+  }
+
+  return statSync(filePath).mtime.toISOString().split('T')[0];
+}
+
 const htmlFiles = walkHtml(root);
 const entries = [];
 const seen = new Set();
@@ -99,7 +118,7 @@ for (const filePath of htmlFiles) {
   if (!isEligible({ route, canonicalPath, noindex, contentModelRules })) continue;
   if (seen.has(route)) continue;
 
-  const lastmod = statSync(filePath).mtime.toISOString().split('T')[0];
+  const lastmod = getLastModifiedDate(filePath);
   entries.push({ route, lastmod });
   seen.add(route);
 }
