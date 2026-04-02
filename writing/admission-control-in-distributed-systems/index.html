@@ -71,19 +71,19 @@
       <p><strong>Takeaway:</strong> If you accept work you cannot safely complete, failure has already started even before queues explode and timeouts appear.</p>
 
       <section class="section">
-        <h2>What Admission Control Is</h2>
+        <h2>What admission control is</h2>
         <p><strong>Summary:</strong> Admission control is the mechanism that decides whether a request, command, or job should enter the system at all, based on live capacity, protection policy, and priority.</p>
         <p>It is an explicit accept/reject/defer/downgrade gate. The goal is not maximum intake; the goal is bounded, stable processing that preserves core behavior under variable load and partial failure.</p>
       </section>
 
       <section class="section">
-        <h2>Why It Matters</h2>
+        <h2>Why it matters</h2>
         <p><strong>Summary:</strong> Blindly accepting work converts transient pressure into queue growth, latency collapse, and cascading retries.</p>
         <p>In production systems, overload often appears first as rising queue residence time and tail latency. By the time operators see broad timeout errors, the system has already admitted more work than it can clear. Admission control keeps that excess from entering in the first place.</p>
       </section>
 
       <section class="section">
-        <h2>What Problem It Solves</h2>
+        <h2>What problem it solves</h2>
         <p><strong>Summary:</strong> Admission control prevents overload amplification at the earliest boundary where rejection is still cheap and coherent.</p>
         <ul>
           <li>Rejects intake beyond safe processing capacity before queue depth becomes unrecoverable.</li>
@@ -95,7 +95,7 @@
       </section>
 
       <section class="section">
-        <h2>How Admission Control Works</h2>
+        <h2>How admission control works</h2>
         <p><strong>Summary:</strong> Good admission decisions combine real-time saturation signals with policy and priority constraints.</p>
         <p>Decision inputs typically include queue depth and queue age, worker utilization, concurrency budgets, memory and CPU pressure, downstream health, per-tenant quotas, and protected-path priorities.</p>
         <ul>
@@ -107,7 +107,7 @@
       </section>
 
       <section class="section">
-        <h2>What Admission Control Is Not</h2>
+        <h2>What admission control is not</h2>
         <p><strong>Summary:</strong> Admission control is a distinct gate, not a synonym for every overload mechanism.</p>
         <ul>
           <li><strong>Not rate limiting:</strong> <a href="/writing/rate-limiting-in-distributed-systems/">rate limiting</a> shapes request frequency over time; admission control checks whether the system can safely absorb work right now.</li>
@@ -120,13 +120,13 @@
       </section>
 
       <section class="section">
-        <h2>Where It Fits in the Overload-Control Stack</h2>
+        <h2>Where it fits in the overload-control stack</h2>
         <p><strong>Summary:</strong> Admission control sits at the front door between traffic shaping and downstream protection primitives.</p>
         <p>Common layering: ingress authentication and policy checks → rate limiting → admission control gate → bounded queueing and worker pools → backpressure propagation → circuit breakers on dependency edges → load shedding and <a href="/writing/graceful-degradation-in-distributed-systems/">graceful degradation</a> for user-visible continuity.</p>
       </section>
 
       <section class="section">
-        <h2>Design Tradeoffs and Constraints</h2>
+        <h2>Design tradeoffs and constraints</h2>
         <p><strong>Summary:</strong> Admission control is powerful, but tuning mistakes can either hide overload or over-reject healthy traffic.</p>
         <ul>
           <li><strong>False rejects:</strong> conservative thresholds can block legitimate bursts and reduce product utility.</li>
@@ -140,7 +140,7 @@
       </section>
 
       <section class="section">
-        <h2>Production Scenarios</h2>
+        <h2>Production scenarios</h2>
         <p><strong>Summary:</strong> Admission control is most valuable in multitenant and orchestration-heavy systems where accepted work can fan out quickly.</p>
         <ul>
           <li><strong>Multitenant control plane:</strong> preserve command-path capacity with per-tenant admission budgets so one migration wave does not block everyone else.</li>
@@ -152,19 +152,19 @@
       </section>
 
       <section class="section">
-        <h2>Admission Control in Multitenant Systems</h2>
+        <h2>Admission control in multitenant systems</h2>
         <p><strong>Summary:</strong> In shared platforms, admission policy is a fairness and isolation mechanism as much as an overload mechanism.</p>
         <p>Per-tenant budgets, weighted priorities, and reserved capacity for protected operations prevent large tenants from consuming all queue and worker headroom. This is a core design concern in <a href="/writing/architecting-a-multitenant-control-plane/">multitenant control planes</a>, where one tenant’s backlog can otherwise distort global responsiveness.</p>
       </section>
 
       <section class="section">
-        <h2>Admission Control in Workflow and Queue-Based Systems</h2>
+        <h2>Admission control in workflow and queue-based systems</h2>
         <p><strong>Summary:</strong> Queue depth by itself is not enough; admission should track end-to-end drain capability.</p>
         <p>Workflow systems fail when command intake outruns durable transition throughput, not just when queue length grows. Use queue age, worker saturation, state-store latency, and downstream health together to decide whether to admit, defer, or reject new units of work.</p>
       </section>
 
       <section class="section">
-        <h2>Product and UX Consequences</h2>
+        <h2>Product and UX consequences</h2>
         <p><strong>Summary:</strong> Honest, fast rejection with clear semantics is often better than slow ambiguity and eventual timeout.</p>
         <ul>
           <li>Return explicit retriable vs non-retriable outcomes (for example, overload retryable with bounded backoff).</li>
@@ -175,7 +175,7 @@
       </section>
 
       <section class="section">
-        <h2>How to Instrument It</h2>
+        <h2>How to instrument it</h2>
         <p><strong>Summary:</strong> Instrument admission decisions and surrounding saturation context, not just final error rates.</p>
         <ul>
           <li>Accepted vs rejected rate over time and by endpoint/tenant/priority.</li>
@@ -189,7 +189,7 @@
       </section>
 
       <section class="section">
-        <h2>Lightweight Decision Flow</h2>
+        <h2>Lightweight decision flow</h2>
         <p><strong>Summary:</strong> Keep the admission path explicit so operators can reason about where and why work is stopped.</p>
         <pre><code>Ingress request
   -> admission evaluation (capacity + policy + priority)
@@ -200,7 +200,7 @@
       </section>
 
       <section class="section related-concepts">
-        <h2>Related Concepts</h2>
+        <h2>Related concepts</h2>
         <ul>
           <li><a href="/distributed-systems/">Distributed Systems hub</a> — top-level map for reliability and control-plane content.</li>
           <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — how saturation signals propagate after work has been admitted.</li>
@@ -212,7 +212,7 @@
       </section>
 
       <section class="section">
-        <h2>Closing Summary</h2>
+        <h2>Closing summary</h2>
         <p><strong>Summary:</strong> Admission control is an early stability boundary: it keeps overload from entering faster than the system can safely absorb, so core paths remain operable when conditions are not ideal.</p>
       </section>
 
