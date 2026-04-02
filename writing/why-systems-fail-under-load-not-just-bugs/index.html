@@ -132,7 +132,7 @@
 
       <section class="section">
         <h2>Why failures appear sudden even when they were building</h2>
-        <p>Control planes and autoscalers react on minute-scale loops. Burst overload can destabilize a request path in seconds. By the time additional capacity comes online, queues may already hold expired work and clients may already be in retry mode.</p>
+        <p>Control planes and autoscalers react on minute-scale loops. Burst overload can destabilize a request path in seconds. By the time additional capacity comes online, queues may already hold expired work and clients may already be in retry mode. Autoscaling is useful, but it is too slow to be your only overload strategy.</p>
         <p>Resource exhaustion usually appears in specific pools before host-level metrics look catastrophic:</p>
         <ul>
           <li>thread pools saturated by blocking calls</li>
@@ -167,10 +167,10 @@
       <section class="section">
         <h2>References</h2>
         <ul>
-          <li>Google SRE. (2023). <em>Addressing cascading failures</em>. Google Cloud Architecture Center. https://cloud.google.com/architecture/addressing-cascading-failures</li>
+          <li>Google Cloud. (2023). <em>Addressing cascading failures</em>. https://cloud.google.com/architecture/addressing-cascading-failures</li>
           <li>Amazon Web Services. (2023). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</li>
-          <li>Reactive Streams. (2022). <em>Reactive Streams specification</em>. https://www.reactive-streams.org/</li>
-          <li>The Linux Foundation. (2022). <em>OpenTelemetry semantic conventions</em>. https://opentelemetry.io/docs/specs/semconv/</li>
+          <li>Reactive Streams. (2015). <em>Reactive Streams specification</em>. https://www.reactive-streams.org/</li>
+          <li>The Linux Foundation. (2025). <em>OpenTelemetry semantic conventions</em>. https://opentelemetry.io/docs/specs/semconv/</li>
         </ul>
       </section>
 
