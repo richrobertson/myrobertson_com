@@ -8,6 +8,7 @@ Distributed systems topic hub: https://www.myrobertson.com/distributed-systems/
 Knowledge index (machine-readable): https://www.myrobertson.com/knowledge.json
 Reliability cluster:
 - https://www.myrobertson.com/writing/backpressure-in-distributed-systems/
+- https://www.myrobertson.com/writing/admission-control-in-distributed-systems/
 - https://www.myrobertson.com/writing/rate-limiting-in-distributed-systems/
 - https://www.myrobertson.com/writing/circuit-breakers-in-distributed-systems/
 - https://www.myrobertson.com/writing/graceful-degradation-in-distributed-systems/

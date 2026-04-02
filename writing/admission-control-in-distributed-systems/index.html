@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admission Control in Distributed Systems | Rich Robertson</title>
+    <meta name="description" content="How admission control protects distributed systems by deciding what work can safely enter under real capacity, priority, and overload constraints." />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/writing/admission-control-in-distributed-systems/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Admission Control in Distributed Systems | Rich Robertson" />
+    <meta property="og:description" content="Admission control as the front-door stability boundary for overload, fairness, and critical-path protection." />
+    <meta property="og:url" content="https://www.myrobertson.com/writing/admission-control-in-distributed-systems/" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Admission Control in Distributed Systems" />
+    <meta name="twitter:description" content="A production-focused guide to admission decisions, overload boundaries, and reliability under load." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://www.myrobertson.com/#person-rich-robertson",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "jobTitle": "Senior Backend Engineer",
+            "sameAs": ["https://www.linkedin.com/in/royrobertson/", "https://github.com/richrobertson"]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://www.myrobertson.com/#website",
+            "name": "Rich Robertson",
+            "url": "https://www.myrobertson.com/",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "TechArticle",
+            "@id": "https://www.myrobertson.com/writing/admission-control-in-distributed-systems/#main",
+            "headline": "Admission Control in Distributed Systems",
+            "author": { "@id": "https://www.myrobertson.com/#person-rich-robertson" },
+            "datePublished": "2026-04-02",
+            "dateModified": "2026-04-02",
+            "description": "How admission control protects distributed systems by deciding what work can safely enter under real capacity, priority, and overload constraints.",
+            "mainEntityOfPage": { "@id": "https://www.myrobertson.com/writing/admission-control-in-distributed-systems/" },
+            "url": "https://www.myrobertson.com/writing/admission-control-in-distributed-systems/",
+            "inLanguage": "en",
+            "keywords": ["admission control", "distributed systems", "overload control", "reliability", "backpressure", "multitenant systems"],
+            "isPartOf": { "@id": "https://www.myrobertson.com/#website" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Writing", "item": "https://www.myrobertson.com/writing/" },
+              { "@type": "ListItem", "position": 3, "name": "Admission Control in Distributed Systems", "item": "https://www.myrobertson.com/writing/admission-control-in-distributed-systems/" }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing">
+    <main class="hero blog-post">
+      <div data-site-header></div>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Admission Control</span></p>
+      <h1>Admission Control in Distributed Systems</h1>
+      <p class="section-intro">Admission control is the front-door decision boundary for overload safety: accept work the system can process safely, and refuse or downgrade work that would destabilize critical paths.</p>
+      <p><strong>Takeaway:</strong> If you accept work you cannot safely complete, failure has already started even before queues explode and timeouts appear.</p>
+
+      <section class="section">
+        <h2>What admission control is</h2>
+        <p><strong>Summary:</strong> Admission control is the mechanism that decides whether a request, command, or job should enter the system at all, based on live capacity, protection policy, and priority.</p>
+        <p>It is an explicit accept/reject/defer/downgrade gate. The goal is not maximum intake; the goal is bounded, stable processing that preserves core behavior under variable load and partial failure.</p>
+      </section>
+
+      <section class="section">
+        <h2>Why it matters</h2>
+        <p><strong>Summary:</strong> Blindly accepting work converts transient pressure into queue growth, latency collapse, and cascading retries.</p>
+        <p>In production systems, overload often appears first as rising queue residence time and tail latency. By the time operators see broad timeout errors, the system has already admitted more work than it can clear. Admission control keeps that excess from entering in the first place.</p>
+      </section>
+
+      <section class="section">
+        <h2>What problem it solves</h2>
+        <p><strong>Summary:</strong> Admission control prevents overload amplification at the earliest boundary where rejection is still cheap and coherent.</p>
+        <ul>
+          <li>Rejects intake beyond safe processing capacity before queue depth becomes unrecoverable.</li>
+          <li>Prevents low-priority traffic from displacing correctness-critical or contractual paths.</li>
+          <li>Limits retry storms from adding work while capacity is already exhausted.</li>
+          <li>Protects multitenant fairness so one noisy tenant cannot monopolize shared worker pools.</li>
+          <li>Stops workflow engines from ingesting commands faster than durable state transitions can drain.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>How admission control works</h2>
+        <p><strong>Summary:</strong> Good admission decisions combine real-time saturation signals with policy and priority constraints.</p>
+        <p>Decision inputs typically include queue depth and queue age, worker utilization, concurrency budgets, memory and CPU pressure, downstream health, per-tenant quotas, and protected-path priorities.</p>
+        <ul>
+          <li><strong>Accept:</strong> capacity and policy both allow the request.</li>
+          <li><strong>Reject:</strong> fail fast with explicit overload semantics when acceptance would threaten stability.</li>
+          <li><strong>Defer:</strong> queue in a bounded deferred path with explicit delay contracts.</li>
+          <li><strong>Downgrade:</strong> allow reduced-scope execution (for example, skip enrichments or non-critical fan-out).</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>What admission control is not</h2>
+        <p><strong>Summary:</strong> Admission control is a distinct gate, not a synonym for every overload mechanism.</p>
+        <ul>
+          <li><strong>Not rate limiting:</strong> <a href="/writing/rate-limiting-in-distributed-systems/">rate limiting</a> shapes request frequency over time; admission control checks whether the system can safely absorb work right now.</li>
+          <li><strong>Not backpressure:</strong> <a href="/writing/backpressure-in-distributed-systems/">backpressure</a> propagates saturation signals after work has entered; admission control is the entry decision itself.</li>
+          <li><strong>Not load shedding:</strong> <a href="/writing/load-shedding-in-distributed-systems/">load shedding</a> often discards or downgrades work when overload is already active deeper in the path.</li>
+          <li><strong>Not circuit breakers:</strong> <a href="/writing/circuit-breakers-in-distributed-systems/">circuit breakers</a> isolate unhealthy dependency calls, not global intake.</li>
+          <li><strong>Not retries:</strong> retries are client/workflow behavior after failure; admission control decides if new work should start at all.</li>
+          <li><strong>Not queue sizing alone:</strong> queue depth without drain-rate or dependency health context is a partial signal that can hide pending collapse.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Where it fits in the overload-control stack</h2>
+        <p><strong>Summary:</strong> Admission control sits at the front door between traffic shaping and downstream protection primitives.</p>
+        <p>Common layering: ingress authentication and policy checks → rate limiting → admission control gate → bounded queueing and worker pools → backpressure propagation → circuit breakers on dependency edges → load shedding and <a href="/writing/graceful-degradation-in-distributed-systems/">graceful degradation</a> for user-visible continuity.</p>
+      </section>
+
+      <section class="section">
+        <h2>Design tradeoffs and constraints</h2>
+        <p><strong>Summary:</strong> Admission control is powerful, but tuning mistakes can either hide overload or over-reject healthy traffic.</p>
+        <ul>
+          <li><strong>False rejects:</strong> conservative thresholds can block legitimate bursts and reduce product utility.</li>
+          <li><strong>Stale signals:</strong> delayed telemetry can cause oscillation between over-accept and over-reject.</li>
+          <li><strong>Unfairness:</strong> weak tenant keys or priority abuse can still allow noisy-neighbor dominance.</li>
+          <li><strong>Policy complexity:</strong> multidimensional rules (tenant, endpoint, priority, region) increase operational overhead.</li>
+          <li><strong>Contract mismatch:</strong> rejection semantics must align with client retry expectations and SLA language.</li>
+          <li><strong>Permissive danger:</strong> if the gate is too loose, overload is pushed deeper where failure is more expensive.</li>
+          <li><strong>Aggressive danger:</strong> if too strict, user experience degrades even when spare capacity exists.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Production scenarios</h2>
+        <p><strong>Summary:</strong> Admission control is most valuable in multitenant and orchestration-heavy systems where accepted work can fan out quickly.</p>
+        <ul>
+          <li><strong>Multitenant control plane:</strong> preserve command-path capacity with per-tenant admission budgets so one migration wave does not block everyone else.</li>
+          <li><strong>Notification platform:</strong> accept transactional and compliance messages while deferring campaign traffic during provider or regional pressure.</li>
+          <li><strong>Workflow engine:</strong> gate new workflow starts using worker lag, durable state latency, and dependency health rather than ingress QPS alone.</li>
+          <li><strong>Customer-facing APIs under spike load:</strong> reject optional expensive actions early, preserve critical write paths, and return explicit retry semantics.</li>
+          <li><strong>Migration and cutover windows:</strong> use stricter admission during volatile traffic behavior to protect rollout control and observability paths, as seen in the <a href="/case-studies/oracle-cns-oci-migration/">OCI migration context</a>.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Admission control in multitenant systems</h2>
+        <p><strong>Summary:</strong> In shared platforms, admission policy is a fairness and isolation mechanism as much as an overload mechanism.</p>
+        <p>Per-tenant budgets, weighted priorities, and reserved capacity for protected operations prevent large tenants from consuming all queue and worker headroom. This is a core design concern in <a href="/writing/architecting-a-multitenant-control-plane/">multitenant control planes</a>, where one tenant’s backlog can otherwise distort global responsiveness.</p>
+      </section>
+
+      <section class="section">
+        <h2>Admission control in workflow and queue-based systems</h2>
+        <p><strong>Summary:</strong> Queue depth by itself is not enough; admission should track end-to-end drain capability.</p>
+        <p>Workflow systems fail when command intake outruns durable transition throughput, not just when queue length grows. Use queue age, worker saturation, state-store latency, and downstream health together to decide whether to admit, defer, or reject new units of work.</p>
+      </section>
+
+      <section class="section">
+        <h2>Product and UX consequences</h2>
+        <p><strong>Summary:</strong> Honest, fast rejection with clear semantics is often better than slow ambiguity and eventual timeout.</p>
+        <ul>
+          <li>Return explicit retriable vs non-retriable outcomes (for example, overload retryable with bounded backoff).</li>
+          <li>Publish stable API semantics for rejection reasons and optional degraded behavior.</li>
+          <li>Avoid forcing clients to infer overload from generic timeout noise.</li>
+          <li>Align support runbooks with admission reason codes so operators and customers see the same story.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>How to instrument it</h2>
+        <p><strong>Summary:</strong> Instrument admission decisions and surrounding saturation context, not just final error rates.</p>
+        <ul>
+          <li>Accepted vs rejected rate over time and by endpoint/tenant/priority.</li>
+          <li>Rejections by reason (capacity, policy, dependency health, fairness).</li>
+          <li>Queue depth, queue age, and time-in-queue at decision boundaries.</li>
+          <li>Worker and dependency saturation at the moment of reject.</li>
+          <li>Protected-path success rate during high reject windows.</li>
+          <li>Tenant starvation and fairness drift indicators.</li>
+          <li>Degradation or fallback activation correlated to admission decisions.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Lightweight decision flow</h2>
+        <p><strong>Summary:</strong> Keep the admission path explicit so operators can reason about where and why work is stopped.</p>
+        <pre><code>Ingress request
+  -&gt; admission evaluation (capacity + policy + priority)
+     -&gt; accept -&gt; bounded queue -&gt; workers
+     -&gt; reject -&gt; explicit overload response
+     -&gt; defer  -&gt; bounded delayed path
+     -&gt; downgrade -&gt; reduced-scope execution</code></pre>
+      </section>
+
+      <section class="section related-concepts">
+        <h2>Related concepts</h2>
+        <ul>
+          <li><a href="/distributed-systems/">Distributed Systems hub</a> — top-level map for reliability and control-plane content.</li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — how saturation signals propagate after work has been admitted.</li>
+          <li><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a> — policy-based request shaping at ingress.</li>
+          <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a> — intentional discard paths when live pressure exceeds safe bounds.</li>
+          <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — preserving core behavior when optional work is restricted.</li>
+          <li><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers in Distributed Systems</a> — dependency-edge failure containment after admission.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Closing summary</h2>
+        <p><strong>Summary:</strong> Admission control is an early stability boundary: it keeps overload from entering faster than the system can safely absorb, so core paths remain operable when conditions are not ideal.</p>
+      </section>
+
+      <div data-site-footer></div>
+    </main>
+    <script src="/nav.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

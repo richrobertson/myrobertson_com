@@ -37,6 +37,22 @@ const pages = [
     importance: 2
   },
   {
+    id: 'page:admission-control-in-distributed-systems',
+    title: 'Admission Control in Distributed Systems',
+    url: `${site}/writing/admission-control-in-distributed-systems/`,
+    contentType: 'article',
+    summary: 'Front-door intake boundary for accept/reject/defer decisions driven by live capacity, fairness, and priority protection.',
+    tags: ['admission control', 'distributed systems', 'reliability', 'overload control'],
+    publishedDate: '2026-04-02',
+    updatedDate: '2026-04-02',
+    importance: 2,
+    canonicalTopic: 'overload control',
+    related: ['page:backpressure-in-distributed-systems', 'page:rate-limiting-in-distributed-systems', 'page:load-shedding-in-distributed-systems', 'page:graceful-degradation-in-distributed-systems', 'page:architecting-a-multitenant-control-plane'],
+    parent: 'page:distributed-systems',
+    level: 'foundational',
+    status: 'published'
+  },
+  {
     id: 'page:rate-limiting-in-distributed-systems',
     title: 'Rate Limiting in Distributed Systems',
     url: `${site}/writing/rate-limiting-in-distributed-systems/`,

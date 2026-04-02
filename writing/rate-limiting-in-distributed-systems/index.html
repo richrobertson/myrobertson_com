@@ -106,6 +106,12 @@
       </section>
 
       <section class="section">
+        <h2>Rate limiting vs admission control</h2>
+        <p><strong>Summary:</strong> Rate limiting governs request frequency by policy; admission control decides whether capacity can safely accept work now.</p>
+        <p>Use rate limits for planned fairness and abuse boundaries. Use <a href="/writing/admission-control-in-distributed-systems/">admission control</a> for real-time safety based on saturation and priority. Mature systems usually need both.</p>
+      </section>
+
+      <section class="section">
         <h2>Rate limiting vs backpressure</h2>
         <p><strong>Summary:</strong> Rate limiting is static or policy-driven boundary control; backpressure is dynamic feedback from actual downstream capacity.</p>
         <p>Use rate limiting to shape demand at the edges and preserve fairness. Use <a href="/writing/backpressure-in-distributed-systems/">backpressure</a> to adapt concurrency and queue intake based on real-time saturation signals. They are complementary, not interchangeable.</p>
@@ -166,6 +172,7 @@
         <h2>Related concepts</h2>
         <ul>
           <li><a href="/distributed-systems/">Distributed Systems hub</a> — map of reliability and control-plane topics.</li>
+          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a> — capacity-aware intake decision layer that complements rate policy.</li>
           <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — dynamic saturation feedback once work is admitted.</li>
           <li><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a> — intentional rejection under live overload.</li>
           <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — preserving essential behavior when limits are reached.</li>
