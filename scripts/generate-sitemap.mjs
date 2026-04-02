@@ -9,6 +9,8 @@ const siteUrl = (process.env.SITE_URL || config.siteUrl).replace(/\/$/, '');
 const EXCLUDED_DIRS = new Set(['node_modules', '.git', 'static']);
 const EXCLUDED_FILES = new Set(['404.html']);
 
+const EXTRA_ROUTES = ['/knowledge.json'];
+
 function readContentModelIndexability() {
   const modelPath = join(root, 'content', 'content-model.js');
   try {
@@ -121,6 +123,19 @@ for (const filePath of htmlFiles) {
   const lastmod = getLastModifiedDate(filePath);
   entries.push({ route, lastmod });
   seen.add(route);
+}
+
+
+for (const route of EXTRA_ROUTES) {
+  if (seen.has(route)) continue;
+  const filePath = join(root, route.replace(/^\//, ''));
+  try {
+    const lastmod = getLastModifiedDate(filePath);
+    entries.push({ route, lastmod });
+    seen.add(route);
+  } catch {
+    // Skip missing optional endpoints.
+  }
 }
 
 entries.sort((a, b) => a.route.localeCompare(b.route));

@@ -17,17 +17,6 @@
     <meta name="twitter:description" content="Distributed systems migration across 32 global data centers with reliability-first rollout controls." />
     <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/"},
-          {"@type": "ListItem", "position": 2, "name": "Case Studies", "item": "https://www.myrobertson.com/case-studies/"},
-          {"@type": "ListItem", "position": 3, "name": "Oracle CNS OCI Migration", "item": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/"}
-        ]
-      }
-    </script>
   
     <!-- AI-SCHEMA:START -->
     <script type="application/ld+json">
@@ -111,11 +100,6 @@
               "@type": "CreativeWork",
               "name": "Oracle Customer Notification Service migration to OCI across 32 global data centers",
               "url": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/"
-            },
-            {
-              "@type": "CreativeWork",
-              "name": "External Dev.to article reference",
-              "url": "https://dev.to/rich_robertson"
             }
           ]
         },
@@ -194,8 +178,10 @@
 
       <section class="section">
         <h2>What This Migration Required</h2>
+        <p><strong>Summary:</strong> This migration prioritized controlled rollout sequencing, queue and worker isolation, and observability-driven decision points.</p>
         <p>This case study describes a distributed systems migration to OCI across global data centers, focusing on reliability, rollout safety, and operational stability.</p>
         <h3>Core problem</h3>
+        <p><strong>Summary:</strong> The legacy delivery path reduced control during a customer-critical migration window.</p>
         <p>Legacy pathways constrained supportability and rollout control during a customer-critical timeline.</p>
         <h3>My role</h3>
         <p>Led migration execution and backend implementation planning across the service transition.</p>
@@ -208,16 +194,20 @@
         <h3>Tradeoffs</h3>
         <p>Balanced migration speed against production safety and support continuity.</p>
         <h3>Outcome</h3>
+        <p><strong>Summary:</strong> The rollout held delivery stability and materially improved supportability during enterprise scrutiny.</p>
         <p>Improved supportability and delivery stability while supporting a $2M enterprise deal.</p>
       </section>
 
-      <section class="section">
-        <h2>Related Thinking</h2>
-        <p><a href="../../writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></p>
-        <p><a href="../../case-studies/distributed-systems-migration/">Distributed Systems Migration Case Studies hub</a></p>
-        <p><a href="../../writing/designing-safe-rollouts-across-global-regions/">Designing Safe Rollouts Across Global Regions</a> (draft outline, noindex)</p>
-        <p><a href="../../writing/lessons-from-oci-migration-under-real-constraints/">Lessons from OCI Migration Under Real Constraints</a> (draft outline, noindex)</p>
-        <p><a href="https://dev.to/rich_robertson/backpressure-in-distributed-systems-stability-correctness-and-graceful-degradation-2b4f" target="_blank" rel="noopener noreferrer">External Dev.to version</a> for shareable context.</p>
+      <section class="section related-concepts">
+        <h2>Related Concepts</h2>
+        <ul>
+          <li><a href="/distributed-systems/">Distributed Systems topic hub</a> — canonical map of adjacent material.</li>
+          <li><a href="../../writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — load-safety mechanics that informed migration controls.</li>
+          <li><a href="../../writing/designing-safe-rollouts-across-global-regions/">Designing Safe Rollouts Across Global Regions</a> — phased release and rollback constraints.</li>
+          <li><a href="../../writing/architecting-a-multitenant-control-plane/">Architecting a Multitenant Control Plane</a> — workflow and execution-plane reasoning.
+          </li>
+          <li><a href="../../case-studies/distributed-systems-migration/">Distributed Systems Migration Case Studies</a> — related modernization work.</li>
+        </ul>
       </section>
 
       <div data-site-footer></div>

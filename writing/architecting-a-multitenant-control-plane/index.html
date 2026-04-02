@@ -12,6 +12,10 @@
     <meta property="og:description" content="Durable workflow and partition-aware orchestration patterns for multitenant systems." />
     <meta property="og:url" content="https://www.myrobertson.com/writing/architecting-a-multitenant-control-plane/" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Architecting a Multitenant Control Plane" />
+    <meta name="twitter:description" content="Durable workflow and partition-aware orchestration patterns for multitenant control-plane systems." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
   
     <!-- AI-SCHEMA:START -->
@@ -127,23 +131,21 @@
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Multitenant Control Plane</span></p>
       <h1>Architecting a Multitenant Control Plane</h1>
       <p class="section-intro">This page captures control-plane architecture patterns for durable workflow execution, state coordination, and partition-aware scaling in multitenant services.</p>
+      <section class="section">
+        <h2>System framing</h2>
+        <p><strong>Summary:</strong> Multitenant control planes need explicit ownership boundaries, durable intent capture, and orchestration guardrails.</p>
+        <p>The patterns here align with workflow correctness, admission control, and operability concerns covered across the case studies and reliability writing.</p>
+      </section>
       <p><a href="../../blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Read the full article</a>.</p>
 
-      <section class="section">
-        <h2>Related architecture roadmap</h2>
+      <section class="section related-concepts">
+        <h2>Related Concepts</h2>
         <ul>
-          <li><a href="/writing/control-plane-architecture-guide/">Control-plane pillar page</a></li>
-          <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a></li>
-          <li><a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a></li>
-          <li><a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers and Scalable Orchestration</a></li>
-        </ul>
-      </section>
-
-      <section class="section">
-        <h2>Related case studies</h2>
-        <ul>
-          <li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a></li>
-          <li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a></li>
+          <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a> — durability and resume semantics for long-running orchestration.</li>
+          <li><a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers</a> — execution partitioning and tenant isolation.</li>
+          <li><a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a> — interface boundaries and ownership splits.</li>
+          <li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a> — applied architecture under delivery pressure.</li>
+          <li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a> — migration sequencing with control-plane reasoning.</li>
         </ul>
       </section>
 
