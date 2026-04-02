@@ -81,6 +81,12 @@
       </section>
 
       <section class="section">
+        <h2>Load Shedding vs Admission Control</h2>
+        <p><strong>Summary:</strong> Admission control is usually the earlier intake boundary; load shedding is runtime triage once pressure is already high.</p>
+        <p><a href="/writing/admission-control-in-distributed-systems/">Admission control</a> rejects or defers work before it enters deep processing paths. Load shedding protects the system when overload still exceeds safe operating budgets.</p>
+      </section>
+
+      <section class="section">
         <h2>Load shedding vs rate limiting</h2>
         <p><strong>Summary:</strong> Rate limiting enforces planned quotas; load shedding is runtime overload triage.</p>
         <p><a href="/writing/rate-limiting-in-distributed-systems/">Rate limiting</a> is usually policy and fairness control. Load shedding activates when current capacity cannot sustain accepted demand.</p>
@@ -144,6 +150,7 @@
         <h2>Related concepts</h2>
         <ul>
           <li><a href="/distributed-systems/">Distributed Systems hub</a> — overall map for reliability mechanisms.</li>
+          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a> — explicit accept/reject/defer gate before live overload triage.</li>
           <li><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a> — fairness policy before overload.</li>
           <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems</a> — bounded queue and intake control.</li>
           <li><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a> — preserving essential behavior for accepted traffic.</li>

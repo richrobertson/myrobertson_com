@@ -87,6 +87,38 @@
         "label": "backend reliability"
       },
       {
+        "id": "page:admission-control-in-distributed-systems",
+        "nodeType": "page",
+        "title": "Admission Control in Distributed Systems",
+        "url": "https://www.myrobertson.com/writing/admission-control-in-distributed-systems/",
+        "contentType": "article",
+        "summary": "Front-door intake boundary for accept/reject/defer decisions driven by live capacity, fairness, and priority protection.",
+        "publishedDate": "2026-04-02",
+        "updatedDate": "2026-04-02",
+        "importance": 2,
+        "canonicalTopic": "overload control",
+        "related": [
+          "page:backpressure-in-distributed-systems",
+          "page:rate-limiting-in-distributed-systems",
+          "page:load-shedding-in-distributed-systems",
+          "page:graceful-degradation-in-distributed-systems",
+          "page:architecting-a-multitenant-control-plane"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:admission-control",
+        "nodeType": "tag",
+        "label": "admission control"
+      },
+      {
+        "id": "tag:overload-control",
+        "nodeType": "tag",
+        "label": "overload control"
+      },
+      {
         "id": "page:rate-limiting-in-distributed-systems",
         "nodeType": "page",
         "title": "Rate Limiting in Distributed Systems",
@@ -109,11 +141,6 @@
         "id": "tag:rate-limiting",
         "nodeType": "tag",
         "label": "rate limiting"
-      },
-      {
-        "id": "tag:overload-control",
-        "nodeType": "tag",
-        "label": "overload control"
       },
       {
         "id": "page:circuit-breakers-in-distributed-systems",
@@ -186,11 +213,6 @@
         "id": "tag:load-shedding",
         "nodeType": "tag",
         "label": "load shedding"
-      },
-      {
-        "id": "tag:admission-control",
-        "nodeType": "tag",
-        "label": "admission control"
       },
       {
         "id": "page:architecting-a-multitenant-control-plane",
@@ -371,6 +393,26 @@
       {
         "source": "page:backpressure-in-distributed-systems",
         "target": "tag:backend-reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "tag:admission-control",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "tag:overload-control",
         "type": "hasTag"
       },
       {
@@ -560,6 +602,11 @@
       },
       {
         "source": "page:distributed-systems-writing",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
         "target": "page:rate-limiting-in-distributed-systems",
         "type": "indexes"
       },
@@ -611,6 +658,16 @@
           "tag:distributed-systems"
         ],
         "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
       },
       {
         "source": "page:distributed-systems",
@@ -683,6 +740,15 @@
       },
       {
         "source": "page:oracle-cns-oci-migration",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
         "target": "page:rate-limiting-in-distributed-systems",
         "type": "relatedByTag",
         "sharedTags": [
@@ -752,6 +818,69 @@
           "tag:graceful-degradation"
         ],
         "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:admission-control",
+          "tag:distributed-systems",
+          "tag:overload-control",
+          "tag:reliability"
+        ],
+        "strength": 4
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
       },
       {
         "source": "page:rate-limiting-in-distributed-systems",
