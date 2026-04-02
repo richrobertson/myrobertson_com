@@ -3,18 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Queue Design Under Load | Draft Outline</title>
-    <meta name="description" content="Queue boundaries, drain behavior, and overload response patterns for distributed systems." />
-    <meta name="robots" content="noindex,follow" />
+    <title>Queue Design Under Load | Bounded Queues, Fairness, and Backpressure</title>
+    <meta name="description" content="How to design queues for overload: bounded queues, worker limits, fairness, queue observability, and explicit backpressure behavior." />
+    <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/writing/queue-design-under-load/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Queue Design Under Load | Draft Outline" />
-    <meta property="og:description" content="Queue boundaries, drain behavior, and overload response patterns for distributed systems." />
+    <meta property="og:title" content="Queue Design Under Load" />
+    <meta property="og:description" content="Queues are burst absorbers, not infinite safety nets. Practical guidance for bounded queues, latency control, and graceful degradation." />
     <meta property="og:url" content="https://www.myrobertson.com/writing/queue-design-under-load/" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Queue Design Under Load" />
+    <meta name="twitter:description" content="Designing bounded queues and worker policies that prevent overload from turning into latency and timeout cascades." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
-  
+
     <!-- AI-SCHEMA:START -->
     <script type="application/ld+json">
     {
@@ -29,13 +32,6 @@
           "sameAs": [
             "https://www.linkedin.com/in/royrobertson/",
             "https://github.com/richrobertson"
-          ],
-          "knowsAbout": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
           ]
         },
         {
@@ -43,14 +39,7 @@
           "@id": "https://www.myrobertson.com/#website",
           "name": "Rich Robertson",
           "url": "https://www.myrobertson.com/",
-          "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ]
+          "inLanguage": "en"
         },
         {
           "@type": "TechArticle",
@@ -59,39 +48,27 @@
           "author": {
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
           },
-          "datePublished": "2026-03-28T14:54:24-07:00",
-          "dateModified": "2026-03-28T14:54:24-07:00",
-          "description": "Queue boundaries, drain behavior, and overload response patterns for distributed systems.",
+          "datePublished": "2026-04-02",
+          "dateModified": "2026-04-02",
+          "description": "How to design queues for overload: bounded queues, worker limits, fairness, queue observability, and explicit backpressure behavior.",
           "keywords": [
-            "queue",
-            "design",
-            "under",
-            "load",
-            "distributed systems",
-            "control planes",
-            "backend engineering",
-            "cloud migration",
-            "OCI"
+            "overload",
+            "backpressure",
+            "bounded queues",
+            "queue growth",
+            "tail latency",
+            "graceful degradation",
+            "admission control",
+            "load shedding"
           ],
           "mainEntityOfPage": {
             "@id": "https://www.myrobertson.com/writing/queue-design-under-load/"
           },
           "url": "https://www.myrobertson.com/writing/queue-design-under-load/",
           "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ],
           "isPartOf": {
             "@id": "https://www.myrobertson.com/#website"
-          },
-          "sameAs": [
-            "https://www.linkedin.com/in/royrobertson/",
-            "https://github.com/richrobertson"
-          ]
+          }
         },
         {
           "@type": "BreadcrumbList",
@@ -120,36 +97,105 @@
     }
     </script>
     <!-- AI-SCHEMA:END -->
-</head>
+  </head>
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Draft outline</span></p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Queue Design Under Load</span></p>
       <h1>Queue Design Under Load</h1>
-      <p class="section-intro">Queue boundaries, drain behavior, and overload response patterns for distributed systems. This structured draft captures scope, tradeoffs, and implementation direction, and remains noindex until full publication quality is reached.</p>
-      <p class="eyebrow">Cluster: distributed-systems-reliability • Status: planned • Indexing: noindex</p>
+      <p class="section-intro">A queue is a control mechanism, not a safety blanket. Under real overload, queue design decides whether you absorb burst traffic cleanly or convert pressure into tail latency, memory growth, retry storms, and cascading failure.</p>
 
       <section class="section">
-        <h2>Problem Framing</h2>
-        <p>This topic sits in the content roadmap because teams commonly encounter it when reliability or migration work reaches production scale.</p>
+        <h2>Queues are burst absorbers, not infinite safety nets</h2>
+        <p>Queues exist because arrival rate and service rate are rarely perfectly aligned. Short bursts are normal. A queue lets you absorb that mismatch long enough for workers to catch up without dropping user-visible traffic immediately.</p>
+        <p>The important qualifier is <strong>short</strong>. If incoming demand stays above sustainable throughput, queue growth becomes backlog debt. Little's Law intuition applies here: as work-in-system grows, latency grows with it. The queue is no longer smoothing variability; it is storing failure for later release.</p>
+        <p>That is why queue design sits in the same reliability layer as <a href="/writing/backpressure-in-distributed-systems/">backpressure and graceful degradation</a>. If queues hide overload instead of signaling it, the rest of the request path pays the bill with higher timeout rates and dependency saturation.</p>
       </section>
 
       <section class="section">
-        <h2>Planned Sections</h2>
+        <h2>Why unbounded queues fail in production</h2>
+        <p>Unbounded queues feel safe because they avoid immediate rejection. In practice they defer rejection until the most expensive point in the system.</p>
+        <p>When queue growth is unconstrained, you usually see this sequence: memory pressure rises, garbage collection or allocator overhead rises, queue age rises, work misses useful deadlines, clients timeout, and clients retry. Now the system is spending capacity on stale work while receiving duplicate work.</p>
+        <p>This is the core overload trap: unbounded queues hide the moment the system crossed its stability boundary. By the time alerts fire, tail latency has already exploded and cancellation signals may arrive too late to reclaim resources.</p>
+      </section>
+
+      <section class="section">
+        <h2>Bounded queues create explicit overload behavior</h2>
+        <p>A bounded queue converts silent failure into explicit overload signals. That gives you options: reject, shed low-priority work, degrade features, or ask upstream to retry later with jitter.</p>
+        <p>Bounded queues only work when paired with clear policy:</p>
         <ul>
-          <li>Context and failure modes</li>
-          <li>Design patterns and tradeoffs</li>
-          <li>Operational metrics and rollout checks</li>
-          <li>Pitfalls and recommended defaults</li>
+          <li><strong>Admission control:</strong> refuse new work once queue depth or in-flight concurrency crosses a threshold.</li>
+          <li><strong>Deadlines:</strong> drop work that can no longer meet SLOs instead of processing expired requests.</li>
+          <li><strong>Cancellation propagation:</strong> if callers timeout, stop downstream work rather than finishing orphaned tasks.</li>
+          <li><strong>Load shedding:</strong> preserve core flows and drop optional features during saturation.</li>
+        </ul>
+        <p>If this sounds strict, that is the point. Stable systems refuse work deliberately. See <a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a> for the client-facing side of these signals, and <a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load</a> for the systems dynamics behind them.</p>
+      </section>
+
+      <section class="section">
+        <h2>Fairness, isolation, and priority under shared load</h2>
+        <p>FIFO queues are simple, but in multi-tenant systems FIFO can let one noisy tenant consume the entire queue budget. That is not fairness; it is accidental starvation.</p>
+        <p>Better patterns depend on product constraints:</p>
+        <ul>
+          <li><strong>Tenant-isolated queues:</strong> cap blast radius so one customer cannot collapse everybody else.</li>
+          <li><strong>Priority queues with quotas:</strong> reserve capacity for critical paths, but cap high-priority abuse to avoid starving normal traffic.</li>
+          <li><strong>Worker-pool isolation:</strong> separate expensive or high-variance jobs from latency-sensitive traffic.</li>
+        </ul>
+        <p>Isolation is also where queue strategy meets retry strategy. If retries are allowed to re-enter the same hot queue without budgets, retry storms can starve first-attempt traffic. Align this page with <a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a> when defining queue admission rules.</p>
+      </section>
+
+      <section class="section">
+        <h2>Queue observability signals that actually matter</h2>
+        <p>Queue depth alone is a lagging indicator. You need rate and age signals to see instability early:</p>
+        <ul>
+          <li><strong>Depth:</strong> current buffered work.</li>
+          <li><strong>Oldest message age:</strong> direct measure of backlog debt and user-facing staleness risk.</li>
+          <li><strong>Enqueue and dequeue rates:</strong> whether service rate is keeping up with arrival rate.</li>
+          <li><strong>Drain time estimate:</strong> depth / net drain rate, with trend tracking.</li>
+          <li><strong>Redelivery rate:</strong> duplicate processing pressure in at-least-once pipelines.</li>
+          <li><strong>Timeout and cancellation rate:</strong> stale-work fraction.</li>
+        </ul>
+        <p>Track percentiles, not averages. Saturation usually appears first in tail latency and queue age spikes, not in mean response time.</p>
+      </section>
+
+      <section class="section">
+        <h2>Dead-letter queues help diagnostics, not capacity</h2>
+        <p>Dead-letter queues (DLQs) are useful for poison messages, schema mismatches, and triage workflows. They do not solve sustained overload by themselves.</p>
+        <p>If high volume is landing in DLQ because consumers cannot keep up, you have relocated failure, not fixed it. Validate whether the root cause is bad retry policy, missing idempotency controls, dependency slowdown, or insufficient worker isolation.</p>
+      </section>
+
+      <section class="section">
+        <h2>Practical design guidance</h2>
+        <p>When designing a queue under load, default to explicit limits and clear failure semantics:</p>
+        <ul>
+          <li>Set bounded queue capacity and bounded in-flight concurrency.</li>
+          <li>Define maximum queue age per workload class and drop expired work.</li>
+          <li>Choose fairness model (FIFO, priority, or tenant isolation) intentionally.</li>
+          <li>Ensure producers receive overload signals quickly (429/503, NACK, or backoff hints).</li>
+          <li>Tie retry behavior to queue pressure and dependency health.</li>
+          <li>Exercise overload drills so operators know how the system degrades.</li>
+        </ul>
+        <p>The goal is not to avoid all rejection. The goal is to reject the right work early, preserve critical paths, and keep the system recoverable.</p>
+      </section>
+
+      <section class="section">
+        <h2>References</h2>
+        <ul>
+          <li>Amazon Web Services. (n.d.). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</li>
+          <li>Google Cloud. (n.d.). <em>Addressing cascading failures</em>. https://cloud.google.com/architecture/addressing-cascading-failures</li>
+          <li>Kleppmann, M. (2017). <em>Designing data-intensive applications</em>. O'Reilly Media.</li>
+          <li>The Linux Foundation. (n.d.). <em>OpenTelemetry metrics data model</em>. https://opentelemetry.io/docs/specs/otel/metrics/data-model/</li>
         </ul>
       </section>
 
-      <section class="section">
-        <h2>Related Reading</h2>
+      <section class="section related-concepts">
+        <h2>What to Read Next</h2>
         <ul>
-          <li><a href="/writing/distributed-systems-reliability/">Distributed Systems Reliability</a></li>
-          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure In Distributed Systems</a></li>
-          <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle Cns Oci Migration</a></li>
+          <li><a href="/writing/backpressure-in-distributed-systems/">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li>
+          <li><a href="/blog/api-backpressure-explained-simply.html">API Backpressure Explained Simply</a></li>
+          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></li>
+          <li><a href="/writing/why-systems-fail-under-load-not-just-bugs/">Why Systems Fail Under Load</a></li>
+          <li><a href="/writing/admission-control-in-distributed-systems/">Admission Control in Distributed Systems</a></li>
         </ul>
       </section>
 
