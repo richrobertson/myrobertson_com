@@ -205,8 +205,8 @@
       <section class="section">
         <h2>Distributed Systems Topic Cluster (Structure)</h2>
         <p class="section-intro">
-          The following cluster pages are structured outlines for upcoming deep dives. They are intentionally scoped as
-          roadmap documents and currently marked <code>noindex</code> until expanded.
+          Reliability and overload-control pages that extend the backpressure baseline with concrete production
+          mechanisms and failure-containment strategy.
         </p>
         <div class="grid">
           <article class="project">
@@ -214,16 +214,20 @@
             <p>Outline for safe retries, duplicate suppression, and idempotent API/workflow design.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/rate-limiting-vs-backpressure/">Rate Limiting vs Backpressure</a></h3>
-            <p>Outline for bounded admission, queue control, and overload prevention under burst traffic.</p>
+            <h3><a href="/writing/rate-limiting-in-distributed-systems/">Rate Limiting in Distributed Systems</a></h3>
+            <p>Fairness and capacity protection with upstream request-shaping policy.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/circuit-breakers-and-failure-isolation/">Circuit Breakers and Failure Isolation</a></h3>
-            <p>Outline for blast-radius control and dependency failure containment.</p>
+            <h3><a href="/writing/circuit-breakers-in-distributed-systems/">Circuit Breakers in Distributed Systems</a></h3>
+            <p>Dependency isolation and fast-failure containment for unhealthy downstreams.</p>
           </article>
           <article class="project">
-            <h3><a href="/writing/graceful-degradation-patterns/">Graceful Degradation Patterns</a></h3>
-            <p>Outline for fallback behavior, partial-service modes, and user-visible stability strategies.</p>
+            <h3><a href="/writing/graceful-degradation-in-distributed-systems/">Graceful Degradation in Distributed Systems</a></h3>
+            <p>Preserve must-have behavior by reducing quality, freshness, or feature scope under stress.</p>
+          </article>
+          <article class="project">
+            <h3><a href="/writing/load-shedding-in-distributed-systems/">Load Shedding in Distributed Systems</a></h3>
+            <p>Intentional rejection, drop, defer, and downgrade policy when live capacity is exceeded.</p>
           </article>
           <article class="project">
             <h3><a href="/writing/queue-design-under-load/">Queue Design Under Load</a></h3>
