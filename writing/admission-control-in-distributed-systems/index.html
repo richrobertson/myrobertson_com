@@ -192,11 +192,11 @@
         <h2>Lightweight decision flow</h2>
         <p><strong>Summary:</strong> Keep the admission path explicit so operators can reason about where and why work is stopped.</p>
         <pre><code>Ingress request
-  -> admission evaluation (capacity + policy + priority)
-     -> accept -> bounded queue -> workers
-     -> reject -> explicit overload response
-     -> defer  -> bounded delayed path
-     -> downgrade -> reduced-scope execution</code></pre>
+  -&gt; admission evaluation (capacity + policy + priority)
+     -&gt; accept -&gt; bounded queue -&gt; workers
+     -&gt; reject -&gt; explicit overload response
+     -&gt; defer  -&gt; bounded delayed path
+     -&gt; downgrade -&gt; reduced-scope execution</code></pre>
       </section>
 
       <section class="section related-concepts">
