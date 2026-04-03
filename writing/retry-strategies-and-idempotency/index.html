@@ -98,12 +98,19 @@
     <!-- AI-SCHEMA:END -->
   </head>
   <body data-page="writing">
-    <main class="hero blog-post">
+    <header class="hero" id="top">
       <div data-site-header></div>
+
+      <div class="hero-content">
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Retry Strategies and Idempotency</span></p>
       <h1>Retry Strategies, Retry Storms, and Idempotency</h1>
       <p class="section-intro">Retries are essential because distributed calls fail ambiguously. They are also one of the fastest ways to melt a system if they are not bounded, budgeted, jittered, and paired with idempotent semantics.</p>
       <p><strong>Takeaway:</strong> Design retries as a load multiplier with explicit budgets and always pair them with idempotent operation semantics to avoid duplicate side effects under failure.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
 
       <section class="section">
         <h2>What it is</h2>
@@ -185,10 +192,10 @@
       <section class="section">
         <h2>References</h2>
         <ul>
-          <li>Amazon Web Services. (n.d.). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</li>
-          <li>Google Cloud. (n.d.). <em>Addressing cascading failures</em>. https://cloud.google.com/architecture/addressing-cascading-failures</li>
-          <li>Stripe. (n.d.). <em>Idempotent requests</em>. https://docs.stripe.com/idempotency</li>
-          <li>IETF. (2022). <em>HTTP semantics (RFC 9110)</em>. https://www.rfc-editor.org/rfc/rfc9110</li>
+          <li>Amazon Web Services. (n.d.). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. <a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/">https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</a></li>
+          <li>Google Cloud. (n.d.). <em>Addressing cascading failures</em>. <a href="https://cloud.google.com/architecture/addressing-cascading-failures">https://cloud.google.com/architecture/addressing-cascading-failures</a></li>
+          <li>Stripe. (n.d.). <em>Idempotent requests</em>. <a href="https://docs.stripe.com/idempotency">https://docs.stripe.com/idempotency</a></li>
+          <li>IETF. (2022). <em>HTTP semantics (RFC 9110)</em>. <a href="https://www.rfc-editor.org/rfc/rfc9110">https://www.rfc-editor.org/rfc/rfc9110</a></li>
         </ul>
       </section>
 
@@ -214,6 +221,8 @@
         <h2>Closing summary</h2>
         <p><strong>Summary:</strong> Retries are essential for distributed systems resilience, but they are a load multiplier. Design them with explicit budgets, pair them with idempotency, and integrate them with circuit breakers and backpressure for systems that remain stable under pressure.</p>
       </section>
+
+      </article>
 
       <div data-site-footer></div>
     </main>

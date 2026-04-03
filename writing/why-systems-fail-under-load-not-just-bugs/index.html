@@ -99,12 +99,19 @@
     <!-- AI-SCHEMA:END -->
   </head>
   <body data-page="writing">
-    <main class="hero blog-post">
+    <header class="hero" id="top">
       <div data-site-header></div>
+
+      <div class="hero-content">
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Why Systems Fail Under Load, Not Just Bugs</span></p>
       <h1>Why Systems Fail Under Load, Not Just Bugs</h1>
       <p class="section-intro">Most production failures are overload dynamics, not clean binary crashes. Systems fail under load, not only from code defects, because queues, retries, fan-out, and shared dependencies amplify pressure faster than control loops can react.</p>
       <p><strong>Takeaway:</strong> Reliability work is not only about preventing bugs. It is about designing systems that stay recoverable under pressure by bounding work, managing amplification, and protecting critical paths.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
 
       <section class="section">
         <h2>Systems fail under load, not only from code defects</h2>
@@ -168,10 +175,10 @@
       <section class="section">
         <h2>References</h2>
         <ul>
-          <li>Google Cloud. (n.d.). <em>Addressing cascading failures</em>. https://cloud.google.com/architecture/addressing-cascading-failures</li>
-          <li>Amazon Web Services. (n.d.). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</li>
-          <li>Reactive Streams. (2015). <em>Reactive Streams specification</em>. https://www.reactive-streams.org/</li>
-          <li>The Linux Foundation. (n.d.). <em>OpenTelemetry semantic conventions</em>. https://opentelemetry.io/docs/specs/semconv/</li>
+          <li>Google Cloud. (n.d.). <em>Addressing cascading failures</em>. <a href="https://cloud.google.com/architecture/addressing-cascading-failures">https://cloud.google.com/architecture/addressing-cascading-failures</a></li>
+          <li>Amazon Web Services. (n.d.). <em>Timeouts, retries, and backoff with jitter</em>. AWS Builders' Library. <a href="https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/">https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/</a></li>
+          <li>Reactive Streams. (2015). <em>Reactive Streams specification</em>. <a href="https://www.reactive-streams.org/">https://www.reactive-streams.org/</a></li>
+          <li>The Linux Foundation. (n.d.). <em>OpenTelemetry semantic conventions</em>. <a href="https://opentelemetry.io/docs/specs/semconv/">https://opentelemetry.io/docs/specs/semconv/</a></li>
         </ul>
       </section>
 
@@ -198,6 +205,8 @@
         <h2>Closing summary</h2>
         <p><strong>Summary:</strong> Systems fail under load when they lack explicit controls to bound work, manage amplification, and preserve critical paths. Reliability is not only about defects; it is about designing for pressure.</p>
       </section>
+
+      </article>
 
       <div data-site-footer></div>
     </main>

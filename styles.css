@@ -337,6 +337,13 @@ section[id] { scroll-margin-top: 4.4rem; }
 .breadcrumb a:hover { color: var(--text); }
 .blog-post pre { max-width:100%; overflow-x:auto; white-space: pre; }
 .blog-post pre code { word-break: normal; }
+.blog-post p,
+.blog-post li {
+  overflow-wrap: break-word;
+}
+.blog-post a {
+  overflow-wrap: anywhere;
+}
 .blog-post p code, .blog-post li code { overflow-wrap:anywhere; word-break:normal; }
 .blog-post .blog-dek { margin:0 0 1.5rem; font-size:1.05rem; line-height:1.7; color:#cbd5e1; }
 .article-tags { margin-top: 1rem; }

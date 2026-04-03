@@ -32,12 +32,19 @@
     </script>
   </head>
   <body data-page="writing">
-    <main class="hero blog-post">
+    <header class="hero" id="top">
       <div data-site-header></div>
+
+      <div class="hero-content">
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Circuit Breakers</span></p>
       <h1>Circuit Breakers in Distributed Systems</h1>
       <p class="section-intro">Circuit breakers stop repeated calls into unhealthy dependencies so partial failure does not consume the rest of your system. They trade slow failure accumulation for fast, controlled refusal.</p>
       <p><strong>Takeaway:</strong> A breaker is a failure-containment primitive around dependency calls, not a retry strategy and not a replacement for backpressure.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
 
       <section class="section">
         <h2>What it is</h2>
@@ -152,6 +159,8 @@
         <h2>Closing summary</h2>
         <p><strong>Summary:</strong> Circuit breakers keep dependency faults local by failing fast, preserving resources, and creating controlled recovery checkpoints.</p>
       </section>
+
+      </article>
 
       <div data-site-footer></div>
     </main>

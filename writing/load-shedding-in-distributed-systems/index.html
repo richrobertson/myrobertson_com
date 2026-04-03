@@ -32,12 +32,19 @@
     </script>
   </head>
   <body data-page="writing">
-    <main class="hero blog-post">
+    <header class="hero" id="top">
       <div data-site-header></div>
+
+      <div class="hero-content">
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Load Shedding</span></p>
       <h1>Load Shedding in Distributed Systems</h1>
       <p class="section-intro">Load shedding is deliberate rejection under overload so critical work can continue. It is a protective action, not an accidental failure.</p>
       <p><strong>Takeaway:</strong> Accepting unbounded work is usually worse than rejecting lower-priority work with explicit semantics.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
 
       <section class="section">
         <h2>What it is</h2>
@@ -163,6 +170,8 @@
         <h2>Closing summary</h2>
         <p><strong>Summary:</strong> Load shedding is intentional overload triage that protects system health and critical user paths when capacity is exceeded.</p>
       </section>
+
+      </article>
 
       <div data-site-footer></div>
     </main>

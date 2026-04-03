@@ -64,12 +64,19 @@
     </script>
   </head>
   <body data-page="writing">
-    <main class="hero blog-post">
+    <header class="hero" id="top">
       <div data-site-header></div>
+
+      <div class="hero-content">
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">End-to-End Overload Control</span></p>
       <h1>End-to-End Overload Control in Distributed Systems</h1>
       <p class="section-intro">Distributed systems do not fail instantly. They drift into overload as queues stretch, retries multiply, and dependencies degrade at different speeds.</p>
       <p><strong>Summary:</strong> Overload control is the coordinated decision system that determines whether a distributed architecture degrades in a controlled way or collapses under its own recovery behavior.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
 
       <section class="section">
         <h2>The Core Idea: Systems Fail Under Load</h2>
@@ -191,6 +198,8 @@
         <h2>Closing Summary</h2>
         <p><strong>Summary:</strong> Overload control is not a feature; it is the operating system for reliability decisions that determines whether architecture survives real production conditions.</p>
       </section>
+
+      </article>
 
       <div data-site-footer></div>
     </main>
