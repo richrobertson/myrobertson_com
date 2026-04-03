@@ -48,28 +48,80 @@
     </header>
     <main>
       <article class="card blog-post" data-related-writing>
-        <h3>Intro</h3>
-        <p>Most interview failures in AI-assisted settings are not new. They are old weaknesses with better lighting. AI increases speed, so mistakes compound faster. AI increases polish, so false confidence arrives sooner.</p>
+        <p>Most interview failures in AI-assisted settings are not new. They are old weaknesses with better lighting — running faster, polished by a tool that compresses the distance between bad instinct and visible consequence. Interviewers do not have to wait twenty minutes for weak reasoning to surface. With AI assistance, it often surfaces in the first five.</p>
+        <p>What follows is a diagnostic guide, not a motivational one. Each failure mode below describes a recognizable, repeating pattern: what the candidate does, what the interviewer observes, why trust erodes, and what the opposite looks like. Reading these as an interviewer would is the point.</p>
 
         <h3>Why AI Amplifies Existing Weaknesses</h3>
-        <p>If your default habit is to start coding before understanding constraints, AI helps you make that mistake faster. If your default habit is to trust first drafts, AI gives you more first drafts to trust blindly. If your default habit is vague communication, AI can hide it until probing begins.</p>
-        <p>That is why these failures feel sharper in AI-assisted rounds. The tool compresses the distance between bad instinct and visible consequence. Interviewers do not have to wait twenty minutes for weak reasoning to surface. It often surfaces in the first five.</p>
+        <p>If your default habit is to start coding before understanding constraints, AI helps you make that mistake faster. If your default habit is to trust first drafts, AI gives you more first drafts to trust blindly. If your default habit is vague communication, AI can hide it until probing begins — and then it surfaces all at once.</p>
+        <p>The tool compresses latency between instinct and consequence. Candidates who would have drifted for fifteen minutes before course-correcting now reveal the drift immediately. That is uncomfortable information for candidates who have not diagnosed their own defaults, and useful information for interviewers running the room.</p>
 
         <h3>Failure Mode Walkthroughs</h3>
-        <p><strong>Prompting before understanding the problem.</strong> The candidate hears the prompt, asks the model for an optimal solution immediately, and starts from whatever code comes back. The direction is fast and wrong. <strong>What the interviewer notices:</strong> the candidate never established a problem model of their own. <strong>Why trust drops:</strong> if the initial framing is outsourced, everything built on top of it becomes harder to attribute to the candidate. <strong>What strong candidates do instead:</strong> restate the problem, name assumptions, and only prompt after the contract is clear.</p>
-        <p><strong>Accepting generated code too quickly.</strong> The model returns plausible code, the candidate scans it lightly, and they move on because it compiles. Hidden assumptions about null handling, ordering, or duplicates remain untested. <strong>What the interviewer notices:</strong> the candidate treats polish as proof. <strong>Why trust drops:</strong> shallow review implies shallow ownership. <strong>What strong candidates do instead:</strong> inspect the output like a PR and challenge the most failure-prone assumptions first.</p>
-        <p><strong>Choosing the most elaborate solution.</strong> The candidate gravitates to the fanciest generated answer because it looks sophisticated. Complexity rises while clarity drops. <strong>What the interviewer notices:</strong> the candidate mistakes cleverness for strength. <strong>Why trust drops:</strong> reviewability and taste both look weak. <strong>What strong candidates do instead:</strong> choose the simplest answer that fits the constraints and explain why more machinery is unnecessary.</p>
-        <p><strong>Weak narration.</strong> The candidate generates in silence, then resurfaces with code and a vague claim that it should work. <strong>What the interviewer notices:</strong> they cannot see the decision process, only the artifact. <strong>Why trust drops:</strong> without legible reasoning, the interviewer cannot distinguish candidate judgment from tool output. <strong>What strong candidates do instead:</strong> narrate decision points, not every keystroke.</p>
-        <p><strong>No explicit constraint reasoning.</strong> The candidate keeps using words like "efficient" and "optimal" without ever defining what matters. <strong>What the interviewer notices:</strong> the candidate is solving against abstractions, not the actual prompt. <strong>Why trust drops:</strong> tradeoffs sound memorized instead of chosen. <strong>What strong candidates do instead:</strong> say what matters for this problem before defending a solution.</p>
-        <p><strong>Shallow edge-case checking.</strong> The candidate runs one normal example, sees success, and assumes correctness. Empty input, duplicates, boundary behavior, or malformed cases are untouched. <strong>What the interviewer notices:</strong> verification is decorative. <strong>Why trust drops:</strong> the candidate does not appear to know how to establish confidence. <strong>What strong candidates do instead:</strong> pick tests that are likely to invalidate the current assumptions.</p>
-        <p><strong>Inability to debug AI mistakes.</strong> The generated code fails, and the candidate responds by re-prompting again and again instead of forming a hypothesis. <strong>What the interviewer notices:</strong> the candidate can request output but cannot diagnose behavior. <strong>Why trust drops:</strong> repeated prompting looks like loss of control. <strong>What strong candidates do instead:</strong> localize the failure, name a likely cause, and fix deliberately.</p>
-        <p><strong>Failure to simplify.</strong> The AI introduces helpers, wrappers, or abstractions that are not buying much. The candidate leaves them all in place. <strong>What the interviewer notices:</strong> the answer is harder to review than the problem requires. <strong>Why trust drops:</strong> simplification instinct is part of engineering maturity. <strong>What strong candidates do instead:</strong> flatten, rename, or inline until the critical behavior is easy to inspect.</p>
-        <p><strong>Treating "it runs" as "it is correct."</strong> The candidate confuses execution success with proof. <strong>What the interviewer notices:</strong> there is no deeper correctness argument. <strong>Why trust drops:</strong> working once is not the same as being understood. <strong>What strong candidates do instead:</strong> pair execution with explanation, adversarial tests, and an explicit statement of what has and has not been proven.</p>
-        <p><strong>Outsourcing judgment.</strong> The candidate starts to talk as if the tool is the decision-maker: "the model suggested this," "the AI thought this was best." <strong>What the interviewer notices:</strong> authorship is dissolving. <strong>Why trust drops:</strong> nobody wants to hire a proxy for a model. <strong>What strong candidates do instead:</strong> keep the tool subordinate and speak in first-person engineering terms about the final answer.</p>
+        <h4>Prompting before understanding the problem</h4>
+        <p>The interviewer finishes the prompt. Before restating a single constraint, the candidate opens their tool and asks for an optimal solution. The model returns a polished implementation. The candidate begins adapting it. The direction is fast and wrong — the code targets a problem that was not fully defined. When the interviewer asks "what constraints did you optimize for?" the answer reveals that the problem model was outsourced at the start, not built by the candidate.</p>
+        <p>This failure compounds. Because the initial framing was borrowed from the model, the candidate often cannot defend why certain choices were made. The further into the solution they get, the more the instability of the foundation becomes visible.</p>
+        <p><strong>What the interviewer notices:</strong> there is no moment where the candidate established their own understanding of the problem. The solution exists before the problem model does.</p>
+        <p><strong>Why trust drops:</strong> if framing is outsourced, everything built on top of it is harder to attribute to the candidate. They have not demonstrated that they can establish a problem model — only that they can react to one.</p>
+        <p><strong>What strong candidates do instead:</strong> restate the problem in their own words, name assumptions explicitly, and only prompt after the contract is clear. The prompt is a direction, not a question.</p>
+
+        <h4>Accepting generated code too quickly</h4>
+        <p>The model returns plausible-looking code. The candidate scans it top to bottom in fifteen seconds, runs it against one normal input, sees success, and moves on. Hidden assumptions about null handling, boundary behavior, or duplicate input remain untested. The code handles the common case and breaks on anything that challenges its assumptions.</p>
+        <p>When the interviewer probes — "what happens if the input is empty?" or "what about repeated keys?" — the candidate hears the question for the first time. They did not test that. They assumed it was handled. The model looked confident, so the code must be correct.</p>
+        <p><strong>What the interviewer notices:</strong> the candidate treats polish as proof. The output looks correct, so they believe it is correct. The review was a gesture, not a test.</p>
+        <p><strong>Why trust drops:</strong> shallow review implies shallow ownership. It signals that the candidate cannot reliably evaluate code they did not write line by line — which is most of the code on any real team.</p>
+        <p><strong>What strong candidates do instead:</strong> inspect the output like a PR. Read it line by line. Ask: what assumptions is this making? Where does it break? Test the most failure-prone edge first, not the happy path.</p>
+
+        <h4>Choosing the most elaborate solution</h4>
+        <p>The model offers several approaches. The candidate picks the most complex one because it looks sophisticated. Extra layers of abstraction, unnecessary classes, or over-engineered data structures get added to a solution where simpler alternatives exist. Cleverness is being performed, not earned.</p>
+        <p><strong>What the interviewer notices:</strong> the candidate mistakes complexity for strength. Clarifying the solution takes more effort than solving the problem should require.</p>
+        <p><strong>Why trust drops:</strong> reviewability is a design quality. Choosing complexity that does not pay for itself signals poor taste and suggests the candidate has not yet paid the cost of maintaining overbuilt production code.</p>
+        <p><strong>What strong candidates do instead:</strong> choose the simplest answer that fits the actual constraints, and explain explicitly why more machinery is not needed.</p>
+
+        <h4>Weak narration</h4>
+        <p>The candidate generates in silence. They resurface minutes later with working code and a vague claim that it should work. The thinking was happening, but it was invisible.</p>
+        <p><strong>What the interviewer notices:</strong> they saw output, not reasoning. They cannot tell the difference between candidate judgment and model output, because the candidate never made a visible decision.</p>
+        <p><strong>Why trust drops:</strong> without legible reasoning, the interviewer cannot attribute the answer. Silence is not focus — it is opacity.</p>
+        <p><strong>What strong candidates do instead:</strong> narrate decision points, not every keystroke. "I'm going to prompt for the traversal but keep the state management explicit because I want control over the termination condition" is visible judgment that builds trust.</p>
+
+        <h4>No explicit constraint reasoning</h4>
+        <p>The candidate uses words like "efficient" and "optimal" without ever defining what matters for this problem. When asked why this approach was chosen, the answer could apply to almost anything.</p>
+        <p><strong>What the interviewer notices:</strong> tradeoffs sound memorized, not chosen. The candidate is solving against an abstraction, not the actual prompt.</p>
+        <p><strong>Why trust drops:</strong> tradeoffs should reflect the specific constraints declared earlier. Generic reasoning suggests the candidate is reciting rather than deciding.</p>
+        <p><strong>What strong candidates do instead:</strong> say what matters for this problem before defending a solution. "Given high-frequency calls with small input sets, I'm prioritizing readability over micro-optimization" is a real tradeoff statement.</p>
+
+        <h4>Shallow edge-case checking</h4>
+        <p>The candidate runs one normal example, sees success, and treats verification as complete. Empty input, duplicates, boundary values, and failure behavior are untouched. The test ran. The code worked. They are done.</p>
+        <p><strong>What the interviewer notices:</strong> verification is decorative. The candidate tested the path they already expected to succeed.</p>
+        <p><strong>Why trust drops:</strong> the ability to establish confidence in code is an engineering skill. Testing only happy paths is rehearsal, not verification.</p>
+        <p><strong>What strong candidates do instead:</strong> pick tests designed to invalidate the current assumptions. Start with the cases most likely to fail, not the cases most likely to pass.</p>
+
+        <h4>Inability to debug AI mistakes</h4>
+        <p>The generated code has a bug. Instead of reading the failure, forming a hypothesis, and localizing the problem, the candidate re-prompts. The new output has a different bug. They re-prompt again. Three or four iterations happen without diagnosis. The model is being asked to fix its own output while the candidate has no independent theory of what is wrong.</p>
+        <p>The interviewer watches the loop. Each iteration makes the situation worse, not better. The candidate is not debugging — they are querying. There is no visible reasoning, no hypothesis, no narrowing. Just successive requests for different output.</p>
+        <p><strong>What the interviewer notices:</strong> the candidate can request output but cannot diagnose behavior. When the tool produces something incorrect, they have no independent path forward.</p>
+        <p><strong>Why trust drops:</strong> prompting in a loop looks like loss of control. It reveals a dependency on the tool that becomes dangerous exactly when the tool is wrong — which it will be in production.</p>
+        <p><strong>What strong candidates do instead:</strong> stop prompting. Read the failure. Name a hypothesis. Localize the failure to a specific section of the code. Fix it deliberately, with a reason. If they then want AI assistance for a targeted fix, the prompt is specific and the candidate understands what they are asking for.</p>
+
+        <h4>Failure to simplify</h4>
+        <p>The AI introduces helpers, wrappers, or abstract interfaces that are not buying much. The candidate leaves them in place because deleting generated structure feels risky, or because the complexity looks sophisticated.</p>
+        <p><strong>What the interviewer notices:</strong> the answer is harder to review than the problem requires. Important logic is buried inside unnecessary structure.</p>
+        <p><strong>Why trust drops:</strong> simplification instinct is part of engineering maturity. A candidate who cannot strip unnecessary structure from small code will struggle to simplify anything in production.</p>
+        <p><strong>What strong candidates do instead:</strong> flatten, rename, or inline until the critical behavior is easy to inspect. Delete what is not earning its place.</p>
+
+        <h4>Treating "it runs" as "it is correct"</h4>
+        <p>The code executes. The candidate says: it works. They are ready to close. There is no correctness argument, no edge discussion, no statement of what was proved or what remains unproven.</p>
+        <p><strong>What the interviewer notices:</strong> working once is not the same as being understood. There is a gap where a correctness claim should be.</p>
+        <p><strong>Why trust drops:</strong> the ability to reason about what an answer actually demonstrates is core to engineering confidence. "It compiled and ran on one input" is not equivalent to "it handles all cases we care about."</p>
+        <p><strong>What strong candidates do instead:</strong> pair execution with explanation. Name what the tests proved, what was assumed, and what would need additional hardening before production use.</p>
+
+        <h4>Outsourcing judgment</h4>
+        <p>The candidate stops speaking as the author. They begin using phrases like "the model suggested this," "the AI thought this was best," or "I went with what it gave me." Authorship shifts from candidate to tool.</p>
+        <p><strong>What the interviewer notices:</strong> the candidate is no longer presenting themselves as the decision-maker.</p>
+        <p><strong>Why trust drops:</strong> nobody wants to hire a proxy for a model. Candidates who speak as though they are executing the model's decisions rather than their own have abdicated the engineering role. Whether they could have arrived at this answer without the tool becomes an uncomfortable open question.</p>
+        <p><strong>What strong candidates do instead:</strong> keep the tool subordinate. First-person engineering language: "I used that to generate the traversal skeleton, then restructured it because I wanted the termination condition explicit." Ownership stays with the engineer.</p>
 
         <h3>What Strong Candidates Do Instead</h3>
-        <p>The inverse pattern is consistent. Strong candidates frame first and clarify assumptions. They define constraints before implementation. They choose the approach before prompting. They use AI selectively and explicitly. They interrogate every generated segment. They simplify aggressively. They validate with boundary and failure cases. They narrate tradeoffs and closure clearly. They own the final answer end to end.</p>
-        <p>That is why this article is diagnostic rather than motivational. These are not abstract virtues. They are visible behaviors the interviewer can actually observe.</p>
+        <p>The inverse pattern is consistent across all ten modes: frame before generating, define constraints before implementing, choose the approach before prompting, use AI selectively and explicitly, interrogate every generated segment, simplify aggressively, validate against boundary and failure cases, narrate tradeoffs clearly, and own the final answer end to end.</p>
+        <p>These are not abstract virtues. They are visible behaviors the interviewer can observe in real time. That is what makes this diagnostic rather than motivational.</p>
 
         <h3>Quick Self-Audit Checklist</h3>
         <ul>
@@ -82,7 +134,8 @@
         </ul>
 
         <h3>Conclusion</h3>
-        <p>AI can improve interview execution, but only when judgment remains in charge. If judgment is weak, AI increases visibility of that weakness. If judgment is strong, AI becomes an amplifier. The difference is ownership.</p>
+        <p>AI does not conceal weak judgment. It exposes it faster, in a cleaner form, with less noise around it. Candidates who default to outsourcing framing, accepting output without inspection, and prompting in loops when something breaks do not hide those habits — they demonstrate them, early, in a format that is easy for interviewers to read.</p>
+        <p>Ownership is the differentiator. Not as a posture or a claim, but as a visible behavior: the candidate who defines what they are building, chooses how to build it, inspects what was generated, and closes with a defensible account of what was proved. Every failure mode above is, at its root, a failure of that.</p>
         <p>Read next: <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a>, <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a>, and <a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a>. Series hub: <a href="/blog/coding-interviews-in-the-ai-era.html">Coding Interviews in the AI Era</a>.</p>
       </article>
     </main>
