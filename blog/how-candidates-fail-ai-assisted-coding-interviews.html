@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Candidates Fail AI-Assisted Coding Interviews | Rich Robertson</title>
+    <meta name="description" content="AI creates new ways to fail visibly in coding interviews. A practical failure-mode breakdown and self-audit checklist for strong candidates." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Candidates Fail AI-Assisted Coding Interviews" />
+    <meta property="og:description" content="AI does not just create opportunity. It creates faster, clearer failure modes when judgment is weak." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How Candidates Fail AI-Assisted Coding Interviews" />
+    <meta name="twitter:description" content="A failure-mode guide for technical interviews where AI is allowed." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How Candidates Fail AI-Assisted Coding Interviews",
+        "description": "AI creates new ways to fail visibly in coding interviews. A practical failure-mode breakdown and self-audit checklist for strong candidates.",
+        "url": "https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html",
+        "datePublished": "2026-04-03",
+        "dateModified": "2026-04-03",
+        "author": { "@type": "Person", "name": "Rich Robertson", "url": "https://www.myrobertson.com/" },
+        "keywords": ["AI-assisted coding interviews", "failure modes", "technical interviews", "engineering judgment"],
+        "isPartOf": { "@type": "Blog", "name": "Rich Robertson Writing", "url": "https://www.myrobertson.com/blog/" }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="how-candidates-fail-ai-assisted-coding-interviews">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="how-candidates-fail-ai-assisted-coding-interviews">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>How Candidates Fail AI-Assisted Coding Interviews</h1>
+        <p class="intro blog-dek">AI amplifies existing weaknesses. It can make poor reasoning show up earlier and more clearly.</p>
+      </div>
+    </header>
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h3>Intro</h3>
+        <p>Most interview failures in AI-assisted settings are not new. They are old weaknesses with better lighting. AI increases speed, so mistakes compound faster. AI increases polish, so false confidence arrives sooner.</p>
+
+        <h3>Why AI Amplifies Existing Weaknesses</h3>
+        <p>If your default habit is to start coding before understanding constraints, AI helps you make that mistake faster. If your default habit is to trust first drafts, AI gives you more first drafts to trust blindly. If your default habit is vague communication, AI can hide it until probing begins.</p>
+        <p>That is why these failures feel sharper in AI-assisted rounds. The tool compresses the distance between bad instinct and visible consequence. Interviewers do not have to wait twenty minutes for weak reasoning to surface. It often surfaces in the first five.</p>
+
+        <h3>Failure Mode Walkthroughs</h3>
+        <p><strong>Prompting before understanding the problem.</strong> The candidate hears the prompt, asks the model for an optimal solution immediately, and starts from whatever code comes back. The direction is fast and wrong. <strong>What the interviewer notices:</strong> the candidate never established a problem model of their own. <strong>Why trust drops:</strong> if the initial framing is outsourced, everything built on top of it becomes harder to attribute to the candidate. <strong>What strong candidates do instead:</strong> restate the problem, name assumptions, and only prompt after the contract is clear.</p>
+        <p><strong>Accepting generated code too quickly.</strong> The model returns plausible code, the candidate scans it lightly, and they move on because it compiles. Hidden assumptions about null handling, ordering, or duplicates remain untested. <strong>What the interviewer notices:</strong> the candidate treats polish as proof. <strong>Why trust drops:</strong> shallow review implies shallow ownership. <strong>What strong candidates do instead:</strong> inspect the output like a PR and challenge the most failure-prone assumptions first.</p>
+        <p><strong>Choosing the most elaborate solution.</strong> The candidate gravitates to the fanciest generated answer because it looks sophisticated. Complexity rises while clarity drops. <strong>What the interviewer notices:</strong> the candidate mistakes cleverness for strength. <strong>Why trust drops:</strong> reviewability and taste both look weak. <strong>What strong candidates do instead:</strong> choose the simplest answer that fits the constraints and explain why more machinery is unnecessary.</p>
+        <p><strong>Weak narration.</strong> The candidate generates in silence, then resurfaces with code and a vague claim that it should work. <strong>What the interviewer notices:</strong> they cannot see the decision process, only the artifact. <strong>Why trust drops:</strong> without legible reasoning, the interviewer cannot distinguish candidate judgment from tool output. <strong>What strong candidates do instead:</strong> narrate decision points, not every keystroke.</p>
+        <p><strong>No explicit constraint reasoning.</strong> The candidate keeps using words like "efficient" and "optimal" without ever defining what matters. <strong>What the interviewer notices:</strong> the candidate is solving against abstractions, not the actual prompt. <strong>Why trust drops:</strong> tradeoffs sound memorized instead of chosen. <strong>What strong candidates do instead:</strong> say what matters for this problem before defending a solution.</p>
+        <p><strong>Shallow edge-case checking.</strong> The candidate runs one normal example, sees success, and assumes correctness. Empty input, duplicates, boundary behavior, or malformed cases are untouched. <strong>What the interviewer notices:</strong> verification is decorative. <strong>Why trust drops:</strong> the candidate does not appear to know how to establish confidence. <strong>What strong candidates do instead:</strong> pick tests that are likely to invalidate the current assumptions.</p>
+        <p><strong>Inability to debug AI mistakes.</strong> The generated code fails, and the candidate responds by re-prompting again and again instead of forming a hypothesis. <strong>What the interviewer notices:</strong> the candidate can request output but cannot diagnose behavior. <strong>Why trust drops:</strong> repeated prompting looks like loss of control. <strong>What strong candidates do instead:</strong> localize the failure, name a likely cause, and fix deliberately.</p>
+        <p><strong>Failure to simplify.</strong> The AI introduces helpers, wrappers, or abstractions that are not buying much. The candidate leaves them all in place. <strong>What the interviewer notices:</strong> the answer is harder to review than the problem requires. <strong>Why trust drops:</strong> simplification instinct is part of engineering maturity. <strong>What strong candidates do instead:</strong> flatten, rename, or inline until the critical behavior is easy to inspect.</p>
+        <p><strong>Treating "it runs" as "it is correct."</strong> The candidate confuses execution success with proof. <strong>What the interviewer notices:</strong> there is no deeper correctness argument. <strong>Why trust drops:</strong> working once is not the same as being understood. <strong>What strong candidates do instead:</strong> pair execution with explanation, adversarial tests, and an explicit statement of what has and has not been proven.</p>
+        <p><strong>Outsourcing judgment.</strong> The candidate starts to talk as if the tool is the decision-maker: "the model suggested this," "the AI thought this was best." <strong>What the interviewer notices:</strong> authorship is dissolving. <strong>Why trust drops:</strong> nobody wants to hire a proxy for a model. <strong>What strong candidates do instead:</strong> keep the tool subordinate and speak in first-person engineering terms about the final answer.</p>
+
+        <h3>What Strong Candidates Do Instead</h3>
+        <p>The inverse pattern is consistent. Strong candidates frame first and clarify assumptions. They define constraints before implementation. They choose the approach before prompting. They use AI selectively and explicitly. They interrogate every generated segment. They simplify aggressively. They validate with boundary and failure cases. They narrate tradeoffs and closure clearly. They own the final answer end to end.</p>
+        <p>That is why this article is diagnostic rather than motivational. These are not abstract virtues. They are visible behaviors the interviewer can actually observe.</p>
+
+        <h3>Quick Self-Audit Checklist</h3>
+        <ul>
+          <li>Did I define constraints before generating?</li>
+          <li>Can I explain every important line in the final solution?</li>
+          <li>Did I test edge and failure cases, not just happy path?</li>
+          <li>Did I simplify generated complexity where possible?</li>
+          <li>Can I state explicit tradeoffs and residual risks?</li>
+          <li>If asked to defend this in a PR review, could I?</li>
+        </ul>
+
+        <h3>Conclusion</h3>
+        <p>AI can improve interview execution, but only when judgment remains in charge. If judgment is weak, AI increases visibility of that weakness. If judgment is strong, AI becomes an amplifier. The difference is ownership.</p>
+        <p>Read next: <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a>, <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a>, and <a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a>. Series hub: <a href="/blog/coding-interviews-in-the-ai-era.html">Coding Interviews in the AI Era</a>.</p>
+      </article>
+    </main>
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

@@ -17,6 +17,62 @@
       tags: ['APIs', 'Architecture', 'Cloud Platforms']
     },
     {
+      slug: 'coding-interviews-in-the-ai-era',
+      title: 'Coding Interviews in the AI Era',
+      url: '/blog/coding-interviews-in-the-ai-era.html',
+      summary: 'Series hub and reading path for the AI-assisted interview cluster, with clearer routes into thesis, signal model, playbook, and failure analysis.',
+      tags: ['Interviews', 'AI', 'Engineering Judgment', 'Technical Interviews']
+    },
+    {
+      slug: 'coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower',
+      title: 'Coding With AI in Interviews: Why the Bar Is Higher, Not Lower',
+      url: '/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html',
+      summary: 'Flagship thesis on why AI lowers implementation friction while raising the premium on judgment, verification, and ownership.',
+      tags: ['Interviews', 'AI', 'Engineering Judgment', 'Senior Engineers', 'Technical Interviews']
+    },
+    {
+      slug: 'what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews',
+      title: 'What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews',
+      url: '/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html',
+      summary: 'Definitive signal model for framing, constraints, tool direction, simplification, verification, communication, and line-level ownership.',
+      tags: ['Interviews', 'AI', 'Engineering Judgment', 'Experienced Engineers', 'Technical Interviews']
+    },
+    {
+      slug: 'a-practical-playbook-for-ai-assisted-coding-interviews',
+      title: 'A Practical Playbook for AI-Assisted Coding Interviews',
+      url: '/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html',
+      summary: 'Field manual for running an AI-assisted coding round well: frame first, prompt narrowly, verify hard, simplify, and close with ownership.',
+      tags: ['Interviews', 'AI', 'Engineering Judgment', 'Technical Interviews', 'Software Engineering']
+    },
+    {
+      slug: 'you-still-own-every-line-accountability-in-ai-assisted-coding-interviews',
+      title: 'You Still Own Every Line: Accountability in AI-Assisted Coding Interviews',
+      url: '/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html',
+      summary: 'Sharp accountability thesis connecting interview ownership, reviewability, hidden assumptions, and production responsibility.',
+      tags: ['Interviews', 'AI', 'Engineering Judgment', 'Software Engineering', 'Reliability']
+    },
+    {
+      slug: 'how-candidates-fail-ai-assisted-coding-interviews',
+      title: 'How Candidates Fail AI-Assisted Coding Interviews',
+      url: '/blog/how-candidates-fail-ai-assisted-coding-interviews.html',
+      summary: 'Diagnostic failure-mode guide showing what weak AI-assisted interview behavior looks like in the room and why trust erodes.',
+      tags: ['Interviews', 'AI', 'Technical Interviews', 'Engineering Judgment']
+    },
+    {
+      slug: 'what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews',
+      title: 'What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews',
+      url: '/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html',
+      summary: 'Contrastive behavioral guide showing how strong senior engineers frame, simplify, verify, and close differently from average candidates.',
+      tags: ['Interviews', 'AI', 'Senior Engineers', 'Engineering Judgment', 'Technical Interviews']
+    },
+    {
+      slug: 'how-companies-should-evaluate-candidates-when-ai-is-allowed',
+      title: 'How Companies Should Evaluate Candidates When AI Is Allowed',
+      url: '/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html',
+      summary: 'Operational interviewer guide for AI-assisted evaluation: better prompts, better probes, better scoring, and less noise.',
+      tags: ['Interviews', 'AI', 'Engineering Leadership', 'Technical Interviews', 'Engineering Judgment']
+    },
+    {
       slug: 'what-is-a-control-plane',
       title: 'What Is a Control Plane?',
       url: '/blog/what-is-a-control-plane.html',

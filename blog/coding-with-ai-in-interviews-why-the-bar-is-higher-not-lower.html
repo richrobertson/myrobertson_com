@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding With AI in Interviews: Why the Bar Is Higher, Not Lower | Rich Robertson</title>
+    <meta name="description" content="AI-assisted coding interviews are changing the mechanics, but accountability remains with the engineer. Why experienced candidates are often held to a higher bar." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Coding With AI in Interviews: Why the Bar Is Higher, Not Lower" />
+    <meta property="og:description" content="AI lowers coding friction but raises the premium on engineering judgment, verification, and ownership." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Coding With AI in Interviews: Why the Bar Is Higher, Not Lower" />
+    <meta name="twitter:description" content="A practical framing article for experienced engineers navigating AI-assisted coding interviews." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Coding With AI in Interviews: Why the Bar Is Higher, Not Lower",
+        "description": "AI-assisted coding interviews are changing the mechanics, but accountability remains with the engineer. Why experienced candidates are often held to a higher bar.",
+        "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
+        "datePublished": "2026-04-03",
+        "dateModified": "2026-04-03",
+        "author": { "@type": "Person", "name": "Rich Robertson", "url": "https://www.myrobertson.com/" },
+        "keywords": ["AI-assisted coding interviews", "engineering judgment", "technical interviews", "senior engineers", "ownership"],
+        "isPartOf": { "@type": "Blog", "name": "Rich Robertson Writing", "url": "https://www.myrobertson.com/blog/" }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</h1>
+        <p class="intro blog-dek">AI makes code generation faster. It does not make engineering accountability optional. In many interview loops, that means the strongest candidates now need to demonstrate even clearer judgment.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h3>Intro Hook</h3>
+        <p>There is a tempting story about AI-assisted coding interviews: if code can be generated quickly, interviews should become easier. That story is comforting, and it is incomplete. Easier typing is not the same as stronger engineering. Interviewers are not trying to hire the person who can request the longest snippet. They are trying to hire the person who can own a solution under constraints.</p>
+        <p>In production, you do not get partial credit because a model produced plausible code. You own behavior, correctness, failure handling, and operational consequences. Hiring loops know this. As AI becomes available in coding rounds, they are adapting to test what still matters when keystrokes are cheap: framing, direction, verification, simplification, communication, and accountability.</p>
+        <p>A candidate can now generate a hash-map solution in seconds and still fail the round because they cannot explain why that approach is preferable to a sorting pass under the stated constraints. Another candidate can use AI tactically for implementation details, simplify the generated code aggressively, and score well because their reasoning remains visibly in charge. That is the new shape of the signal.</p>
+
+        <h3>Why Coding Interviews Are Changing Now</h3>
+        <p>Three forces are converging. First, AI tools are now present in normal engineering workflows, so interview environments increasingly reflect that reality. Second, candidate behavior changed fast: many people now default to generation before they clarify problem boundaries. Third, interviewers discovered that generated fluency can hide weak reasoning unless the loop deliberately probes for it.</p>
+        <p>That creates an obvious redesign pressure. If a loop still optimizes for raw code throughput, it is selecting for the easiest thing to automate. Better loops shift toward evaluating whether the candidate can keep reasoning in charge while using powerful tools responsibly.</p>
+        <p>This is analogous to reliability engineering under load. When one part of a pipeline gets dramatically faster, bottlenecks move. In this case, the bottleneck moved from writing syntax to validating behavior. Strong loops test around that bottleneck instead of pretending it does not exist.</p>
+
+        <h3>Reality Check: This Shift Is Already Visible</h3>
+        <p>Interview infrastructure has already started moving. In 2025, <a href="https://codesignal.com/blog/introducing-ai-assisted-coding-assessments-interviews/" target="_blank" rel="noopener noreferrer">CodeSignal announced AI-assisted coding assessments and interviews</a> with configurable AI modes, transcripts, and session replays so hiring teams can evaluate how candidates use AI, not just whether they use it. <a href="https://support.hackerrank.com/articles/1152916770-ai-assisted-tests" target="_blank" rel="noopener noreferrer">HackerRank now documents AI-Assisted Tests</a> with configurable assistance levels, candidate-AI transcripts, and recruiter-facing interaction insights.</p>
+        <p>Adoption is still uneven. That is the important part. Some companies and platforms are redesigning around AI-assisted conditions, while others are still operating with pre-AI assumptions. Reporting from <a href="https://www.404media.co/meta-is-going-to-let-job-candidates-use-ai-during-coding-tests/" target="_blank" rel="noopener noreferrer">404 Media</a> in July 2025 said Meta planned to allow some coding candidates to use an AI assistant during the interview process. That mix of formal platform support and uneven employer rollout is exactly why both candidates and interviewers need a sharper framework.</p>
+
+        <h3>Why AI Does Not Eliminate Engineering Signal</h3>
+        <p>AI can help with scaffolding, recall, and alternatives. It cannot own your assumptions. It cannot decide which tradeoff fits your constraints without your direction. It cannot defend a design in front of critical questions about edge cases and blast radius. Those are still human responsibilities, and they are exactly where experienced engineers differentiate.</p>
+        <p>When interviewers allow AI, they are not surrendering signal. They are relocating signal. The question becomes less "Can you produce code quickly?" and more "Can you direct, challenge, and verify generated output while preserving correctness and clarity?"</p>
+        <p>That is not a weaker test. For senior candidates, it is often a stronger test because it surfaces judgment quality directly. A weak candidate can appear fluent for five minutes. Sustained reasoning under probing is harder to fake.</p>
+
+        <h3>What Experienced Engineers Are Still Expected to Prove</h3>
+        <p>Experienced candidates are still expected to prove that they can frame problems before implementation. They should identify constraints explicitly, choose a coherent approach, and explain why it fits. They should interrogate generated output, not accept it as default truth. They should verify with targeted examples, edge cases, and failure paths. They should narrate tradeoffs and close with a crisp statement of what they would harden next in production.</p>
+        <p>That breaks down into a few durable expectations:</p>
+        <ul>
+          <li>declare assumptions before coding so the interviewer can see the problem model you are using</li>
+          <li>bound complexity instead of chasing elaborate answers because generated cleverness is not the same thing as good taste</li>
+          <li>spot and correct model mistakes without panic because verification discipline matters more than first-draft polish</li>
+          <li>use tests and examples as evidence, not decoration, especially when the model output looks plausible</li>
+          <li>explain operational risk beyond happy-path correctness, including readability, maintainability, and failure behavior</li>
+        </ul>
+        <p>Consider a common failure pattern. A candidate asks the tool for an "optimal" solution before naming the actual constraints. The model returns a recursion-heavy answer with memoization. The complexity is acceptable on paper, but the code is harder to reason about, harder to modify, and less readable than a straightforward iterative approach. A strong candidate notices that immediately, explains why the simpler approach is better for this setting, and rewrites toward clarity. That behavior is signal. The raw generation was not.</p>
+        <p>These are the same habits that matter in high-consequence backend systems. The interview is simply a compressed environment where those habits become observable.</p>
+
+        <h3>Why the Bar Is Often Higher, Not Lower</h3>
+        <p>When implementation speed increases, expectations shift upward. Interviewers have more time to evaluate your reasoning process because they are spending less time waiting for boilerplate. They can ask sharper questions: why this data structure, why this decomposition, what fails first, what is the simplification move, what would you change under tighter latency or memory constraints.</p>
+        <p>The bar also rises because generated output introduces a new failure mode: false confidence. Code that looks polished can still encode wrong assumptions, unbounded behavior, or hidden complexity. Strong candidates treat generated code as an input to review, not an answer to trust. They show healthy skepticism without being adversarial. They stay calm, precise, and accountable.</p>
+        <p>Picture two candidates in the same round. Both produce working code quickly with AI help. One cannot explain why they chose a priority queue, cannot name the edge cases the model missed, and cannot say how they would simplify the answer for reviewability. The other states the constraints first, requests bounded help, rejects one generated branch as unnecessarily complex, and closes by naming the remaining risks. Superficially, both were fast. In practice, one demonstrated engineering maturity and the other demonstrated tool dependence.</p>
+        <p>For experienced engineers, this is where maturity becomes visible. Junior friction points like syntax speed matter less. Senior signals like taste, risk awareness, simplification, and ownership matter more.</p>
+
+        <h3>How This Article Fits Into the Broader Series</h3>
+        <p>This piece is the entry point. It establishes the core thesis: AI changes mechanics, not accountability. The rest of the series goes deeper from different angles:</p>
+        <ul>
+          <li><a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a> for the detailed signal model</li>
+          <li><a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a> for the procedural operating model</li>
+          <li><a href="/blog/how-candidates-fail-ai-assisted-coding-interviews.html">How Candidates Fail AI-Assisted Coding Interviews</a> for failure analysis</li>
+          <li><a href="/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html">You Still Own Every Line: Accountability in AI-Assisted Coding Interviews</a> for the ownership argument</li>
+          <li><a href="/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html">What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews</a> for comparative behaviors</li>
+          <li><a href="/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html">How Companies Should Evaluate Candidates When AI Is Allowed</a> for interviewer and hiring-team design</li>
+        </ul>
+        <p>If you only read two articles after this one, read <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">the measured-on deep dive</a> and <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">the practical playbook</a>. Those are the two centerpieces.</p>
+
+        <h3>Conclusion: Ownership Is Still the Signal</h3>
+        <p>AI-assisted interviews are not about proving that you can produce many lines quickly. They are about proving that your thinking stays in charge when generation is easy. If you cannot explain a solution, verify it, simplify it, and defend its tradeoffs, you do not own it. If you do those things consistently, AI becomes an amplifier for strong engineering rather than a mask for weak reasoning.</p>
+        <p>The strongest candidates in this new format look familiar to anyone who has operated production systems: they are explicit about constraints, skeptical about assumptions, disciplined about verification, and accountable for outcomes. That was true before AI. It is more visible now.</p>
+        <p>Read next: <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a> for the definitive signal model, then <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a> for the field manual.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

@@ -13,36 +13,48 @@
     <lastmod>2026-04-02</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</loc>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html</loc>
     <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html</loc>
     <lastmod>2026-04-02</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html</loc>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html</loc>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html</loc>
@@ -53,16 +65,24 @@
     <lastmod>2026-04-02</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html</loc>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html</loc>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html</loc>
@@ -70,11 +90,11 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/queue-design-under-load.html</loc>
@@ -82,7 +102,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html</loc>
@@ -98,35 +118,47 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html</loc>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-a-control-plane.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-idempotency.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-the-cap-theorem.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html</loc>
-    <lastmod>2026-04-01</lastmod>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html</loc>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html</loc>
     <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html</loc>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/career-arc.html</loc>

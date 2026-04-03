@@ -17,3 +17,12 @@ Reliability cluster:
 - https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html
 - https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html
 - https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html
+AI-assisted coding interview series:
+- https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html
+- https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html
+- https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html
+- https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html
+- https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html
+- https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html
+- https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html
+- https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html

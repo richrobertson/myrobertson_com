@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>You Still Own Every Line: Accountability in AI-Assisted Coding Interviews | Rich Robertson</title>
+    <meta name="description" content="AI assistance does not transfer responsibility. Why ownership, reviewability, and correctness remain the core signal in coding interviews and production engineering." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="You Still Own Every Line: Accountability in AI-Assisted Coding Interviews" />
+    <meta property="og:description" content="Generated code can look safe while hiding flawed assumptions. Accountability remains with the engineer." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="You Still Own Every Line: Accountability in AI-Assisted Coding Interviews" />
+    <meta name="twitter:description" content="Ownership is still the seniority signal when coding with AI in interviews." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "You Still Own Every Line: Accountability in AI-Assisted Coding Interviews",
+        "description": "AI assistance does not transfer responsibility. Why ownership, reviewability, and correctness remain the core signal in coding interviews and production engineering.",
+        "url": "https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html",
+        "datePublished": "2026-04-03",
+        "dateModified": "2026-04-03",
+        "author": { "@type": "Person", "name": "Rich Robertson", "url": "https://www.myrobertson.com/" },
+        "keywords": ["AI-assisted coding interviews", "ownership", "accountability", "reviewability", "correctness"],
+        "isPartOf": { "@type": "Blog", "name": "Rich Robertson Writing", "url": "https://www.myrobertson.com/blog/" }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="you-still-own-every-line-accountability-in-ai-assisted-coding-interviews">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="you-still-own-every-line-accountability-in-ai-assisted-coding-interviews">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>You Still Own Every Line: Accountability in AI-Assisted Coding Interviews</h1>
+        <p class="intro blog-dek">Code generation is not responsibility transfer. If your name is on the solution, the behavior is yours.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h3>Intro: Code Generation Is Not Responsibility Transfer</h3>
+        <p>AI can write quickly, but accountability does not move from engineer to model. That is true in interviews and even more true in production. If a solution fails, nobody files the incident against a prompt. The engineer still owns the result.</p>
+        <p>The seduction is obvious: generated code arrives looking cleaner than the first draft most humans would type under pressure. It feels reviewed because it feels polished. That feeling is dangerous. The machine lowered effort. It did not lower responsibility.</p>
+
+        <h3>Why Generated Code Feels Safer Than It Is</h3>
+        <p>Generated code often looks polished. It compiles. It may pass shallow tests. But polish is not proof. Hidden assumptions can still be wrong and edge behavior can still be brittle. The reliability lesson applies: confidence should come from verification, not appearance.</p>
+        <p>That hidden-risk pattern shows up in familiar ways. A generated branch may assume nulls never appear because the prompt did not say otherwise. A helper may mutate shared state because the model optimized for brevity rather than safety. A loop may assume input ordering that the problem never guaranteed. A wrapper function may hide extra complexity behind an innocent name. None of these mistakes announce themselves. They inherit plausibility from the surface finish.</p>
+        <p>Consider a simple example. The model generates code that merges records by key and silently assumes the first occurrence should win. That choice may be reasonable. It may also be wrong if the required behavior is last-write-wins, stable ordering, or explicit duplicate rejection. If you did not inspect that assumption, you do not own the result.</p>
+
+        <h3>Ownership as the Real Seniority Signal</h3>
+        <p>In AI-assisted interviews, ownership is the deepest seniority signal. Can you explain every critical line? Can you defend tradeoffs? Can you identify failure paths and mitigation? Strong candidates curate and verify generated output until the final answer is clearly theirs.</p>
+        <p>That is why ownership reads as seniority rather than mere diligence. Experienced engineers know that work is not done when it looks plausible. It is done when the behavior is understood well enough to defend. That includes knowing what the code does, what assumptions it encodes, what cases are still risky, and what simplification was available but intentionally rejected.</p>
+        <p>A weak candidate may speak confidently about the overall idea while staying vague on the exact mechanics. A strong candidate can go line by line where it matters. They can say why a branch exists, why a comparison is strict versus non-strict, why mutation is safe here, and what would break if the input contract changed. That is ownership made visible.</p>
+
+        <h3>Reviewability, Correctness, and Hidden Assumptions</h3>
+        <p>Reviewability is a correctness strategy. If a solution is hard to review, it is hard to trust. Generated code can hide assumptions around input shape, ordering, mutability, null handling, and complexity. If assumptions stay implicit, defects stay latent.</p>
+        <p>Null handling is a classic example. A generated answer may assume every element has a value and then fail on the first missing field. Mutation is another. A model may reuse a list in place because it is shorter, even if that mutates caller-owned input in a way the contract never allowed. Ordering assumptions appear constantly in grouping and deduplication problems. Complexity can hide inside helper layers that perform additional scans or allocations the interviewer never asked for.</p>
+        <p>This is the same reason large AI-generated pull requests are risky in production: unreadable code is not merely annoying, it is harder to validate. Reviewability is not a style preference. It is part of the correctness story.</p>
+
+        <h3>What It Means to Stand Behind a Solution in an Interview</h3>
+        <p>Standing behind the code sounds concrete, not mystical. It sounds like this:</p>
+        <ul>
+          <li>"I chose this approach because it keeps the control flow obvious and the proof path short."</li>
+          <li>"This branch handles empty input and duplicate keys explicitly. Without it, we would silently drop a case."</li>
+          <li>"The generated version worked, but it relied on mutation in a way I did not want, so I rewrote that part."</li>
+          <li>"I have tested the boundary cases I care about, and the remaining risk is malformed input handling rather than the core merge logic."</li>
+          <li>"If this were production code, I would add stronger tests around ordering guarantees and malformed payloads before shipping."</li>
+        </ul>
+        <p>Notice what is absent from that language: appeals to the tool as authority. The engineer is describing behavior, tradeoffs, and proof. That is what ownership sounds like.</p>
+
+        <h3>Why This Matters Beyond Interviews</h3>
+        <p>Interview behavior predicts production behavior. Engineers who outsource judgment in interviews tend to do the same under delivery pressure. That creates lower review depth, hidden operational cost, and slower incident recovery when failures occur.</p>
+        <p>Production engineering is full of line-level accountability. Reviewability affects code review speed. Hidden assumptions affect incident rate. Excess abstraction affects modification cost during urgent fixes. Poorly understood helper layers become failure accelerants during outages. The interview is not an artificial morality play. It is a compressed preview of whether someone will treat powerful tools as leverage or as an excuse to stop thinking.</p>
+        <p>That is why this page belongs beside the broader site themes. Reliability work, migration work, and control-plane work all punish borrowed certainty. Good engineering is fast when it can be, skeptical when it must be, and accountable all the way down.</p>
+
+        <h3>Conclusion</h3>
+        <p>Responsible use of powerful tools means speed plus accountability, not speed instead of accountability. AI can accelerate your workflow. It cannot carry your engineering judgment for you.</p>
+        <p>If your name is on the answer, the assumptions are yours. The edge cases are yours. The tradeoffs are yours. The failure behavior is yours. You still own every line.</p>
+        <p>Read next: <a href="/blog/reviewing-ai-generated-pull-requests-reliability-risk.html">Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck</a>, <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a>, <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a>, <a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a>, and <a href="/blog/coding-interviews-in-the-ai-era.html">Coding Interviews in the AI Era</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

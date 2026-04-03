@@ -401,6 +401,233 @@
         "label": "migration"
       },
       {
+        "id": "page:coding-interviews-ai-era-hub",
+        "nodeType": "page",
+        "title": "Coding Interviews in the AI Era",
+        "url": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html",
+        "contentType": "article",
+        "summary": "Series hub and reading path for the AI-assisted interview cluster, with clearer routes into thesis, signal model, playbook, and failure analysis.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "technical interviews",
+        "related": [
+          "page:coding-with-ai-bar-higher",
+          "page:measured-on-ai-interviews",
+          "page:practical-playbook-ai-interviews",
+          "page:ownership-ai-interviews",
+          "page:failures-ai-interviews"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:ai-assisted-coding-interviews",
+        "nodeType": "tag",
+        "label": "AI-assisted coding interviews"
+      },
+      {
+        "id": "tag:engineering-judgment",
+        "nodeType": "tag",
+        "label": "engineering judgment"
+      },
+      {
+        "id": "tag:technical-interviews",
+        "nodeType": "tag",
+        "label": "technical interviews"
+      },
+      {
+        "id": "tag:ownership",
+        "nodeType": "tag",
+        "label": "ownership"
+      },
+      {
+        "id": "page:coding-with-ai-bar-higher",
+        "nodeType": "page",
+        "title": "Coding With AI in Interviews: Why the Bar Is Higher, Not Lower",
+        "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
+        "contentType": "article",
+        "summary": "Flagship thesis on why AI lowers implementation friction while raising the premium on judgment, verification, and ownership.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "technical interviews",
+        "related": [
+          "page:measured-on-ai-interviews",
+          "page:practical-playbook-ai-interviews",
+          "page:ownership-ai-interviews"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:senior-engineers",
+        "nodeType": "tag",
+        "label": "senior engineers"
+      },
+      {
+        "id": "page:measured-on-ai-interviews",
+        "nodeType": "page",
+        "title": "What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews",
+        "url": "https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html",
+        "contentType": "article",
+        "summary": "Definitive signal model for framing, constraints, tool direction, simplification, verification, communication, and line-level ownership.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "technical interviews",
+        "related": [
+          "page:practical-playbook-ai-interviews",
+          "page:failures-ai-interviews",
+          "page:ownership-ai-interviews",
+          "page:coding-with-ai-bar-higher",
+          "page:senior-behaviors-ai-interviews",
+          "page:coding-interviews-ai-era-hub"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:experienced-engineers",
+        "nodeType": "tag",
+        "label": "experienced engineers"
+      },
+      {
+        "id": "tag:verification",
+        "nodeType": "tag",
+        "label": "verification"
+      },
+      {
+        "id": "page:practical-playbook-ai-interviews",
+        "nodeType": "page",
+        "title": "A Practical Playbook for AI-Assisted Coding Interviews",
+        "url": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html",
+        "contentType": "article",
+        "summary": "Field manual for running an AI-assisted coding round well: frame first, prompt narrowly, verify hard, simplify, and close with ownership.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "technical interviews",
+        "related": [
+          "page:measured-on-ai-interviews",
+          "page:failures-ai-interviews",
+          "page:senior-behaviors-ai-interviews",
+          "page:ownership-ai-interviews"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:practical-playbook",
+        "nodeType": "tag",
+        "label": "practical playbook"
+      },
+      {
+        "id": "page:ownership-ai-interviews",
+        "nodeType": "page",
+        "title": "You Still Own Every Line: Accountability in AI-Assisted Coding Interviews",
+        "url": "https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html",
+        "contentType": "article",
+        "summary": "Sharp accountability thesis connecting interview ownership, reviewability, hidden assumptions, and production responsibility.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "software engineering",
+        "related": [
+          "page:practical-playbook-ai-interviews",
+          "page:measured-on-ai-interviews",
+          "page:coding-with-ai-bar-higher"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "tag:accountability",
+        "nodeType": "tag",
+        "label": "accountability"
+      },
+      {
+        "id": "tag:reviewability",
+        "nodeType": "tag",
+        "label": "reviewability"
+      },
+      {
+        "id": "page:failures-ai-interviews",
+        "nodeType": "page",
+        "title": "How Candidates Fail AI-Assisted Coding Interviews",
+        "url": "https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html",
+        "contentType": "article",
+        "summary": "Diagnostic failure-mode guide showing what weak AI-assisted interview behavior looks like in the room and why trust erodes.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "technical interviews",
+        "related": [
+          "page:practical-playbook-ai-interviews",
+          "page:measured-on-ai-interviews",
+          "page:senior-behaviors-ai-interviews"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "page:senior-behaviors-ai-interviews",
+        "nodeType": "page",
+        "title": "What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews",
+        "url": "https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html",
+        "contentType": "article",
+        "summary": "Contrastive behavioral guide showing how strong senior engineers frame, simplify, verify, and close differently from average candidates.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "technical interviews",
+        "related": [
+          "page:measured-on-ai-interviews",
+          "page:practical-playbook-ai-interviews",
+          "page:ownership-ai-interviews",
+          "page:failures-ai-interviews"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "page:evaluating-candidates-ai-allowed",
+        "nodeType": "page",
+        "title": "How Companies Should Evaluate Candidates When AI Is Allowed",
+        "url": "https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html",
+        "contentType": "article",
+        "summary": "Operational interviewer guide for AI-assisted evaluation: better prompts, better probes, better scoring, and less noise.",
+        "publishedDate": "2026-04-03",
+        "updatedDate": "2026-04-03",
+        "importance": 2,
+        "canonicalTopic": "technical interviews",
+        "related": [
+          "page:coding-with-ai-bar-higher",
+          "page:measured-on-ai-interviews",
+          "page:practical-playbook-ai-interviews"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:hiring",
+        "nodeType": "tag",
+        "label": "hiring"
+      },
+      {
+        "id": "tag:interviewer-rubric",
+        "nodeType": "tag",
+        "label": "interviewer rubric"
+      },
+      {
         "id": "page:distributed-systems-writing",
         "nodeType": "page",
         "title": "Distributed Systems Writing",
@@ -733,6 +960,171 @@
         "type": "hasTag"
       },
       {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "tag:engineering-judgment",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "tag:technical-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "tag:ownership",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "tag:engineering-judgment",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "tag:senior-engineers",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "tag:ownership",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "tag:experienced-engineers",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "tag:engineering-judgment",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "tag:verification",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "tag:practical-playbook",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "tag:engineering-judgment",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "tag:technical-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "tag:ownership",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "tag:accountability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "tag:reviewability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:failures-ai-interviews",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:failures-ai-interviews",
+        "target": "tag:failure-modes",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:failures-ai-interviews",
+        "target": "tag:engineering-judgment",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:failures-ai-interviews",
+        "target": "tag:technical-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:senior-behaviors-ai-interviews",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:senior-behaviors-ai-interviews",
+        "target": "tag:senior-engineers",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:senior-behaviors-ai-interviews",
+        "target": "tag:engineering-judgment",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:senior-behaviors-ai-interviews",
+        "target": "tag:technical-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:evaluating-candidates-ai-allowed",
+        "target": "tag:ai-assisted-coding-interviews",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:evaluating-candidates-ai-allowed",
+        "target": "tag:hiring",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:evaluating-candidates-ai-allowed",
+        "target": "tag:interviewer-rubric",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:evaluating-candidates-ai-allowed",
+        "target": "tag:engineering-judgment",
+        "type": "hasTag"
+      },
+      {
         "source": "page:distributed-systems-writing",
         "target": "tag:writing",
         "type": "hasTag"
@@ -820,6 +1212,46 @@
       {
         "source": "page:distributed-systems-writing",
         "target": "page:distributed-lease-service",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:coding-interviews-ai-era-hub",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:coding-with-ai-bar-higher",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:measured-on-ai-interviews",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:practical-playbook-ai-interviews",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ownership-ai-interviews",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:failures-ai-interviews",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:senior-behaviors-ai-interviews",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:evaluating-candidates-ai-allowed",
         "type": "indexes"
       },
       {
@@ -940,6 +1372,15 @@
           "tag:distributed-systems"
         ],
         "strength": 2
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
       },
       {
         "source": "page:distributed-systems",
@@ -1166,6 +1607,15 @@
       },
       {
         "source": "page:overload-control-pipeline",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1262,6 +1712,15 @@
       },
       {
         "source": "page:admission-control-in-distributed-systems",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1346,6 +1805,15 @@
       },
       {
         "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1415,6 +1883,15 @@
       },
       {
         "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1478,6 +1955,15 @@
       },
       {
         "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1530,6 +2016,15 @@
       },
       {
         "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1571,6 +2066,24 @@
       },
       {
         "source": "page:why-systems-fail-under-load",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:failures-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:failure-modes"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1601,6 +2114,15 @@
       },
       {
         "source": "page:retry-strategies-and-idempotency",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1615,6 +2137,15 @@
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
         ],
         "strength": 1
       },
@@ -1645,6 +2176,298 @@
           "tag:migration"
         ],
         "strength": 1
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "page:coding-with-ai-bar-higher",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:ownership"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "page:measured-on-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "page:practical-playbook-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:technical-interviews"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:ownership"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "page:failures-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:technical-interviews"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "page:senior-behaviors-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:technical-interviews"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:coding-interviews-ai-era-hub",
+        "target": "page:evaluating-candidates-ai-allowed",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "page:measured-on-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "page:practical-playbook-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:ownership"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "page:failures-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "page:senior-behaviors-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:senior-engineers"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:coding-with-ai-bar-higher",
+        "target": "page:evaluating-candidates-ai-allowed",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "page:practical-playbook-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "page:failures-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "page:senior-behaviors-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:measured-on-ai-interviews",
+        "target": "page:evaluating-candidates-ai-allowed",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "page:failures-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:technical-interviews"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "page:senior-behaviors-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:technical-interviews"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:practical-playbook-ai-interviews",
+        "target": "page:evaluating-candidates-ai-allowed",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:failures-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:senior-behaviors-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:evaluating-candidates-ai-allowed",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:failures-ai-interviews",
+        "target": "page:senior-behaviors-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment",
+          "tag:technical-interviews"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:failures-ai-interviews",
+        "target": "page:evaluating-candidates-ai-allowed",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:senior-behaviors-ai-interviews",
+        "target": "page:evaluating-candidates-ai-allowed",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-coding-interviews",
+          "tag:engineering-judgment"
+        ],
+        "strength": 2
       }
     ]
   }

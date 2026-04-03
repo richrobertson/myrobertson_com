@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How Companies Should Evaluate Candidates When AI Is Allowed | Rich Robertson</title>
+    <meta name="description" content="Interview design guidance for companies allowing AI: evaluate reasoning, direction, verification, communication, and ownership rather than output volume." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How Companies Should Evaluate Candidates When AI Is Allowed" />
+    <meta property="og:description" content="A practical engineering perspective on redesigning coding interviews when AI assistance is permitted." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How Companies Should Evaluate Candidates When AI Is Allowed" />
+    <meta name="twitter:description" content="Interview loop and rubric design for AI-assisted coding evaluations." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How Companies Should Evaluate Candidates When AI Is Allowed",
+        "description": "Interview design guidance for companies allowing AI: evaluate reasoning, direction, verification, communication, and ownership rather than output volume.",
+        "url": "https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html",
+        "datePublished": "2026-04-03",
+        "dateModified": "2026-04-03",
+        "author": { "@type": "Person", "name": "Rich Robertson", "url": "https://www.myrobertson.com/" },
+        "keywords": ["AI-assisted coding interviews", "interviewer rubric", "hiring evaluation", "engineering judgment", "technical interviews"],
+        "isPartOf": { "@type": "Blog", "name": "Rich Robertson Writing", "url": "https://www.myrobertson.com/blog/" }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="how-companies-should-evaluate-candidates-when-ai-is-allowed">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="how-companies-should-evaluate-candidates-when-ai-is-allowed">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>How Companies Should Evaluate Candidates When AI Is Allowed</h1>
+        <p class="intro blog-dek">If AI is permitted, interview design must test decision quality and ownership, not just code output rate.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h3>Intro</h3>
+        <p>Allowing AI in interviews without changing the rubric creates noisy hiring signals. You can accidentally reward tool fluency over engineering judgment. Better loops explicitly evaluate reasoning, direction, verification, communication, and ownership.</p>
+
+        <h3>Why Old Interview Assumptions Break Under AI Assistance</h3>
+        <p>Traditional coding screens often used implementation speed as a proxy for competence. Under AI assistance, that proxy weakens quickly. Candidates can generate scaffolding in seconds. The old assumptions no longer isolate the capabilities most relevant to production roles.</p>
+        <p>That does not mean coding rounds are obsolete. It means the scoring model needs to move closer to what production engineering actually values. If a candidate can generate a polished first draft but cannot explain, modify, simplify, or verify it, the interview has not surfaced durable signal. It has surfaced a fast artifact.</p>
+        <p>The operational problem is mismeasurement. Old rubrics over-weight output volume and under-weight the judgment required to use powerful tools responsibly. That is how teams end up hiring for the easiest part of the job to automate.</p>
+
+        <h3>Reality Check: Public Formats Are Already Changing Unevenly</h3>
+        <p>This shift is already visible in public hiring infrastructure. <a href="https://codesignal.com/blog/introducing-ai-assisted-coding-assessments-interviews/" target="_blank" rel="noopener noreferrer">CodeSignal now offers AI-assisted coding assessments and interviews</a> with transcripts and session replay so hiring teams can evaluate how candidates use AI. <a href="https://support.hackerrank.com/articles/1152916770-ai-assisted-tests" target="_blank" rel="noopener noreferrer">HackerRank documents AI-Assisted Tests</a> with configurable AI modes and recruiter-facing AI interaction data.</p>
+        <p>Employer behavior is less standardized. Some teams are redesigning formats intentionally, while others are still deciding whether to prohibit, permit, or partially instrument AI use. Reporting from <a href="https://www.404media.co/meta-is-going-to-let-job-candidates-use-ai-during-coding-tests/" target="_blank" rel="noopener noreferrer">404 Media</a> described Meta planning to let some coding candidates use an AI assistant. That unevenness is the point: companies need a rubric before the format drift outruns their hiring discipline.</p>
+
+        <h3>What Remains High-Signal</h3>
+        <ul>
+          <li>problem framing and assumption clarity</li>
+          <li>constraint identification and prioritization</li>
+          <li>approach selection under tradeoffs</li>
+          <li>verification depth and debugging quality</li>
+          <li>communication under probing</li>
+          <li>ownership of final solution behavior</li>
+        </ul>
+        <p>These are high-signal because they remain difficult to fake under probing. They reveal whether the candidate can actually direct work, judge quality, and stand behind a solution in a way that resembles real engineering.</p>
+
+        <h3>What Should Be De-Emphasized</h3>
+        <ul>
+          <li>raw typing speed</li>
+          <li>memorized syntax trivia</li>
+          <li>first-draft code polish without explanation</li>
+          <li>long generated implementations with low reviewability</li>
+        </ul>
+        <p>If a rubric still rewards these heavily, it is rewarding the surface area most easily inflated by AI while underweighting the behaviors that actually protect code quality after the interview ends.</p>
+
+        <h3>Better Prompt and Exercise Design</h3>
+        <p>Design prompts that force decisions, not just generation. Include explicit constraints and ask candidates to state assumptions. Prefer tasks with tradeoff surfaces over puzzle-heavy gotchas. Add follow-up probes that test whether candidates understand and can modify generated code safely.</p>
+        <p>Good exercises in this environment often include one or more of the following:</p>
+        <ul>
+          <li>prompts with explicit constraints so candidates must justify fit rather than hide behind generic optimality claims</li>
+          <li>modification tasks that require changing an already-plausible implementation without breaking behavior</li>
+          <li>debugging tasks where the important signal is diagnosis quality rather than first-draft generation</li>
+          <li>simplification tasks that reward reviewability and taste instead of additional cleverness</li>
+          <li>follow-up probes asking why a generated path was accepted, rejected, or rewritten</li>
+        </ul>
+        <p>A useful rule of thumb is that the best prompts create surfaces for explanation. If a question can be solved by dumping code and moving on, it is a weak fit for AI-assisted evaluation.</p>
+
+        <h3>Better Interviewer Rubrics</h3>
+        <p>A practical interviewer rubric should score behaviors that remain meaningful when AI is available:</p>
+        <ol>
+          <li><strong>Framing:</strong> clarity of assumptions, contract definition, and constraint identification</li>
+          <li><strong>Direction:</strong> intentional use of AI aligned to a chosen plan rather than prompt drift</li>
+          <li><strong>Verification:</strong> test depth, edge coverage, debugging rigor, and willingness to challenge plausible output</li>
+          <li><strong>Communication:</strong> coherent narration of decisions, tradeoffs, and closure under probing</li>
+          <li><strong>Ownership:</strong> ability to stand behind critical decisions line by line and describe remaining risks honestly</li>
+        </ol>
+        <p>At the same time, rubrics should explicitly de-emphasize typing speed, memorized syntax recall, and first-draft polish. Those signals are noisier now and easier to overvalue.</p>
+
+        <h3>Signals of Strong Candidates</h3>
+        <ul>
+          <li>frame before prompting</li>
+          <li>keep AI requests bounded and intentional</li>
+          <li>challenge generated output instead of accepting blindly</li>
+          <li>simplify solutions for clarity and reviewability</li>
+          <li>discuss risks and mitigation without repeated prompting</li>
+          <li>close with explicit ownership and next-step hardening</li>
+        </ul>
+        <p>Notice that every item here is observable. A useful rubric is not just principled. It is practical to apply consistently across interviewers.</p>
+
+        <h3>Signals of Shallow Dependence</h3>
+        <ul>
+          <li>prompt-first behavior with weak problem understanding</li>
+          <li>inability to explain generated logic</li>
+          <li>minimal edge-case reasoning</li>
+          <li>vague debugging language and repeated re-prompting</li>
+          <li>overly complex code with weak simplification instinct</li>
+          <li>equating "it runs" with "it is correct"</li>
+        </ul>
+        <p>These are the patterns that should lower confidence even when a candidate appears superficially fluent.</p>
+
+        <h3>Compact Interviewer Checklist</h3>
+        <ol>
+          <li>Did the candidate establish the problem model before using AI?</li>
+          <li>Did they define the constraints that made one approach preferable?</li>
+          <li>Did their prompts preserve authorship of the solution?</li>
+          <li>Did they review and challenge generated output instead of trusting it by default?</li>
+          <li>Did they simplify where simplification improved clarity?</li>
+          <li>Did they verify with informative edge cases?</li>
+          <li>Could they defend the final answer without appealing to the tool as authority?</li>
+        </ol>
+
+        <h3>Conclusion</h3>
+        <p>When AI is allowed, interviews should evolve toward production-relevant signal: judgment, verification, communication, and ownership. That is not a softer bar. It is a more honest one.</p>
+        <p>Start with <a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a>, then read <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a> and <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a>. Series hub: <a href="/blog/coding-interviews-in-the-ai-era.html">Coding Interviews in the AI Era</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

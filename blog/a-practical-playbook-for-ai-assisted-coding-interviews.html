@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A Practical Playbook for AI-Assisted Coding Interviews | Rich Robertson</title>
+    <meta name="description" content="A tactical field manual for AI-assisted coding interviews: frame first, design first, generate selectively, verify deeply, simplify, and own the final answer." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="A Practical Playbook for AI-Assisted Coding Interviews" />
+    <meta property="og:description" content="A procedural operating model for strong candidates in AI-assisted coding interviews." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="A Practical Playbook for AI-Assisted Coding Interviews" />
+    <meta name="twitter:description" content="How experienced candidates use AI selectively while keeping reasoning, verification, and ownership in charge." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "A Practical Playbook for AI-Assisted Coding Interviews",
+        "description": "A tactical field manual for AI-assisted coding interviews: frame first, design first, generate selectively, verify deeply, simplify, and own the final answer.",
+        "url": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html",
+        "datePublished": "2026-04-03",
+        "dateModified": "2026-04-03",
+        "author": { "@type": "Person", "name": "Rich Robertson", "url": "https://www.myrobertson.com/" },
+        "keywords": ["AI-assisted coding interviews", "practical playbook", "technical interviews", "engineering judgment", "verification"],
+        "isPartOf": { "@type": "Blog", "name": "Rich Robertson Writing", "url": "https://www.myrobertson.com/blog/" }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="a-practical-playbook-for-ai-assisted-coding-interviews">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="a-practical-playbook-for-ai-assisted-coding-interviews">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>A Practical Playbook for AI-Assisted Coding Interviews</h1>
+        <p class="intro blog-dek">Strong candidates treat AI as a tool inside an operating model. This playbook is that model.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h3>Intro</h3>
+        <p>If AI is allowed, you need a repeatable way to use it without surrendering judgment. The goal is high signal: clear reasoning, controlled implementation, and accountable results.</p>
+        <p>This article is not about clever prompting. It is about staying operationally coherent in a room where generation is cheap and trust still has to be earned. Strong candidates do not just "use AI well." They move through the round in an order that keeps their reasoning in charge.</p>
+
+        <h3>Frame the Problem Before Generating Anything</h3>
+        <p>Restate the problem in plain language, define input/output behavior, and name assumptions before prompting. If you cannot frame the problem without AI, you are already behind.</p>
+        <p>Your goal here is to create a stable problem contract. That means naming what the function should do, what counts as valid input, what the output should guarantee, and what ambiguities matter enough to clarify. This is the foundation for everything that follows. If the contract is fuzzy, every generated answer will be harder to judge.</p>
+        <p><strong>Say it like this:</strong> "Let me restate the task to make sure I&apos;m solving the right problem. I need to merge overlapping intervals, return them sorted, and I&apos;ll assume touching endpoints count as overlap unless you want different behavior."</p>
+
+        <h3>Define Constraints and Success Criteria Out Loud</h3>
+        <p>State what matters: complexity, memory, edge behavior, readability, and scale. Interviewers need explicit constraints to evaluate your choices.</p>
+        <p>This is where you decide what "good" means for this round. Are we optimizing primarily for asymptotic complexity? For readability? For safe handling of empty input and duplicates? For ease of modification? The better you state the constraints, the less likely you are to get dragged into a fancy answer that solves a different problem than the one being evaluated.</p>
+        <p><strong>Say it like this:</strong> "Given the likely input size, I want an answer that is correct, easy to explain, and no worse than O(n log n). I also want the merge condition and boundary handling to stay obvious in the code."</p>
+
+        <h3>Choose the Approach Before Asking AI for Implementation Help</h3>
+        <p>Pick decomposition and algorithm first. Then use AI for tactical help. This keeps architecture ownership with you.</p>
+        <p>If you ask the tool for a full solution before choosing an approach, you will spend the rest of the round reacting instead of leading. Decide the structure first. For many interview questions, that means naming the core algorithm, the key data structures, and any helper boundaries you expect. Once that is stable, AI can help with implementation details without hijacking the design.</p>
+        <p><strong>Say it like this:</strong> "I&apos;m going to sort first and then scan once to merge. After I sketch that, I may use AI to speed up the implementation, but I want the structure fixed before I do that."</p>
+
+        <h3>Use AI Selectively</h3>
+        <p>Use the tool for bounded help that preserves authorship rather than replacing it.</p>
+        <ul>
+          <li>scaffolding and boilerplate once the approach is already chosen</li>
+          <li>syntax recall when the language detail is not the point of the round</li>
+          <li>alternatives against explicit constraints you have already named</li>
+          <li>test generation ideas after you understand the main behavior yourself</li>
+          <li>refactor suggestions after baseline correctness is established</li>
+        </ul>
+        <p>A good prompt is narrow enough that the result can be reviewed quickly. "Implement the iterative merge using a sorted list and keep edge handling explicit" is good. "Solve this optimally" is not. The point is to keep the tool inside your operating model.</p>
+
+        <h3>Interrogate Every Generated Output</h3>
+        <p>Read generated code like a PR review. Challenge assumptions. Check complexity. Inspect edge behavior. Never move forward on code you cannot explain clearly.</p>
+        <p>The fastest way to lose trust in an AI-assisted round is to treat generated output as if it arrived pre-approved. Review it line by line with a few questions in mind:</p>
+        <ul>
+          <li>Did the code actually implement the approach I chose, or did it quietly switch strategies?</li>
+          <li>Are input assumptions explicit, or is the code relying on shape, ordering, or null behavior I did not state?</li>
+          <li>Is the complexity still what I intended, or did helper layers hide extra work?</li>
+          <li>Is there unnecessary abstraction that makes the answer harder to reason about?</li>
+          <li>Can I explain each branch and mutation if the interviewer points at it?</li>
+          <li>What edge case is most likely to break this version first?</li>
+        </ul>
+        <p><strong>Say it like this:</strong> "This is close, but it introduced recursion and I don&apos;t want that here. I&apos;m going to keep the iterative version because the control flow is easier to inspect and defend."</p>
+
+        <h3>Simplify Aggressively</h3>
+        <p>Generated code often includes unnecessary abstraction. Collapse it. Favor readability and bounded complexity. Simpler code is easier to verify and defend.</p>
+        <p>Simplification is one of the strongest behaviors in the room because it shows taste instead of dependence. That might mean inlining a helper that hides the main loop, replacing a custom object with a tuple, removing a second pass that is not buying anything, or rewriting a dense comprehension into a clearer explicit block.</p>
+        <p>In practice, simplification often looks like this: the AI gives you a class-based answer with extra helper methods and a pile of state. You keep the core idea, remove the ceremony, rename the variables so the intent is obvious, and end with code that an interviewer could review in one pass.</p>
+        <p><strong>Say it like this:</strong> "The generated version works, but it&apos;s carrying more structure than the problem needs. I&apos;m going to flatten this into a single pass so the merge condition stays obvious."</p>
+
+        <h3>Narrate Tradeoffs and Risks</h3>
+        <p>Explain what you optimized for and what you intentionally did not optimize. State residual risk and mitigation. This is where judgment becomes visible.</p>
+        <p>Do not wait for the interviewer to drag tradeoffs out of you. Name them yourself. If you chose readability over a trickier one-pass variant, say that. If you accepted O(n log n) because sorting gave the cleanest proof path, say that. If the current answer handles the required cases but you would harden it differently for production, say that too.</p>
+        <p><strong>Say it like this:</strong> "I chose the sort-and-scan version because it keeps the correctness argument simple and the code reviewable. If the input were already sorted or streaming, I&apos;d revisit the tradeoff, but for this round clarity is the better choice."</p>
+
+        <h3>Validate With Examples and Edge Cases</h3>
+        <p>Use representative examples, boundary cases, and adversarial input. Do not stop at "it runs." Running is not proof of correctness.</p>
+        <p>Pick tests that are informative. For interval merge, that means at least one non-overlap case, one true overlap case, one touching-endpoint case, one single-element or empty-input case, and one ordering case where sorting matters. For other problems, the same principle holds: choose cases that challenge the assumptions in the solution rather than cases that merely demonstrate the happy path.</p>
+        <p>When something fails, resist the urge to re-prompt immediately. State a debugging hypothesis first. That makes your reasoning visible and keeps the session under control.</p>
+        <p><strong>Say it like this:</strong> "The failure looks like a boundary condition in the merge check, not a full algorithm issue. I&apos;m going to inspect the overlap predicate before changing anything else."</p>
+
+        <h3>Close Strong: Summarize Ownership and Next-Step Hardening</h3>
+        <p>Recap your approach, constraints, and why the solution fits. Then state what you would harden for production: tests, observability, or failure handling.</p>
+        <p>A good close converts a working answer into an owned answer. It reminds the interviewer that the structure was deliberate, the tradeoffs were chosen, and the remaining risks are understood.</p>
+        <p><strong>Say it like this:</strong> "I framed this as a merge problem where readability and explicit boundary handling mattered, so I chose sort plus a single pass. I verified overlap, non-overlap, and boundary cases. For production, I&apos;d add stronger property-style tests around ordering and malformed inputs, but I&apos;m comfortable standing behind this version for the stated constraints."</p>
+
+        <h3>End-to-End Walkthrough: A 45-Minute AI-Assisted Coding Round</h3>
+        <p>Here is a concrete example of what this operating model looks like in practice. Suppose the problem is: given a list of intervals, merge the overlapping ones and return a sorted list of non-overlapping intervals.</p>
+        <p><strong>Minute 1 to 4: frame first.</strong> You restate the problem, clarify whether touching endpoints merge, and confirm that returning sorted output is acceptable. You note that empty input and already-sorted input should both behave cleanly.</p>
+        <p><strong>Minute 4 to 7: define constraints.</strong> You say you want an answer that is easy to verify and no worse than O(n log n). You mention that readability matters more than squeezing the logic into a compact trick.</p>
+        <p><strong>Minute 7 to 10: choose the approach.</strong> You decide to sort by interval start and then scan once, either extending the current merged interval or appending a new one. At this point, the architecture is yours.</p>
+        <p><strong>Minute 10 to 14: ask AI for bounded help.</strong> Your prompt is narrow: "Implement the sort-and-scan merge in Python. Keep it iterative, avoid extra classes, and make the overlap condition explicit." That prompt preserves the plan you already chose.</p>
+        <p><strong>Minute 14 to 20: review the generated answer critically.</strong> The tool returns code that works, but it introduces a helper function and a slightly dense branch structure. You keep the core logic, inline the helper, rename a couple of variables, and remove one extra layer so the merge condition is obvious in one read.</p>
+        <p><strong>Minute 20 to 27: verify and simplify further.</strong> You test empty input, one interval, non-overlap, overlap, and touching endpoints. One test exposes that the generated overlap predicate handled one boundary differently than you intended. You fix that branch directly instead of re-prompting.</p>
+        <p><strong>Minute 27 to 34: narrate tradeoffs.</strong> You explain why sorting plus a linear scan is the right answer here: simple proof path, reviewable control flow, acceptable complexity. You explicitly say you are rejecting a more abstract version because it adds ceremony without improving the outcome.</p>
+        <p><strong>Minute 34 to 40: respond to probing.</strong> The interviewer asks whether a heap-based variant would help. You explain that it is not needed for batch input and would make the answer harder to justify. They ask what would change for streaming input. You describe how the constraints would change the design rather than pretending the current answer covers a different problem.</p>
+        <p><strong>Minute 40 to 45: close with ownership.</strong> You summarize the contract, approach, edge cases checked, and what you would harden next. The interviewer leaves with a clear sense that AI accelerated implementation, but your thinking remained in control the entire time.</p>
+
+        <h3>Common Traps to Avoid</h3>
+        <ul>
+          <li>prompting before understanding the problem contract</li>
+          <li>letting the model define the architecture implicitly</li>
+          <li>accepting generated code without a real review pass</li>
+          <li>overcomplicating simple tasks because the output looks polished</li>
+          <li>confusing execution success with correctness proof</li>
+        </ul>
+
+        <h3>Final Checklist</h3>
+        <ul>
+          <li>frame first</li>
+          <li>declare the real constraints</li>
+          <li>choose the design before prompting</li>
+          <li>use AI only for bounded help</li>
+          <li>review every generated segment like a pull request</li>
+          <li>simplify until the important behavior is obvious</li>
+          <li>validate with informative edge cases</li>
+          <li>close by explicitly owning the final answer</li>
+        </ul>
+
+        <h3>Where This Fits in the Series</h3>
+        <p>Read this with <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a> for the signal model and <a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a> for strategic framing. Then reinforce with <a href="/blog/how-candidates-fail-ai-assisted-coding-interviews.html">How Candidates Fail AI-Assisted Coding Interviews</a>, <a href="/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html">What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews</a>, and <a href="/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html">You Still Own Every Line: Accountability in AI-Assisted Coding Interviews</a>. Full cluster: <a href="/blog/coding-interviews-in-the-ai-era.html">Coding Interviews in the AI Era</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

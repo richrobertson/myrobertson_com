@@ -7,6 +7,62 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>A Practical Playbook for AI-Assisted Coding Interviews</title>
+      <link>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</link>
+      <description>A tactical field manual for AI-assisted coding interviews: frame first, design first, generate selectively, verify deeply, simplify, and own the final answer.</description>
+      <guid>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Coding Interviews in the AI Era</title>
+      <link>https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html</link>
+      <description>A practical series on AI-assisted coding interviews focused on engineering judgment, ownership, verification, tradeoffs, and production accountability for experienced engineers.</description>
+      <guid>https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</title>
+      <link>https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html</link>
+      <description>AI-assisted coding interviews are changing the mechanics, but accountability remains with the engineer. Why experienced candidates are often held to a higher bar.</description>
+      <guid>https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>How Candidates Fail AI-Assisted Coding Interviews</title>
+      <link>https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html</link>
+      <description>AI creates new ways to fail visibly in coding interviews. A practical failure-mode breakdown and self-audit checklist for strong candidates.</description>
+      <guid>https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>How Companies Should Evaluate Candidates When AI Is Allowed</title>
+      <link>https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html</link>
+      <description>Interview design guidance for companies allowing AI: evaluate reasoning, direction, verification, communication, and ownership rather than output volume.</description>
+      <guid>https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</title>
+      <link>https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html</link>
+      <description>A deep dive on what interviewers evaluate when AI is allowed: framing, constraints, verification, simplification, tradeoff reasoning, communication, and ownership.</description>
+      <guid>https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews</title>
+      <link>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html</link>
+      <description>How strong senior engineers differentiate in AI-assisted coding interviews through framing speed, simplification, risk awareness, and ownership.</description>
+      <guid>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>You Still Own Every Line: Accountability in AI-Assisted Coding Interviews</title>
+      <link>https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html</link>
+      <description>AI assistance does not transfer responsibility. Why ownership, reviewability, and correctness remain the core signal in coding interviews and production engineering.</description>
+      <guid>https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html</guid>
+      <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Admission Control in Distributed Systems</title>
       <link>https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html</link>
       <description>How admission control protects distributed systems by deciding what work can safely enter under real capacity, priority, and overload constraints.</description>

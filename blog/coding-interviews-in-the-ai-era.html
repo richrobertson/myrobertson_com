@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coding Interviews in the AI Era | Engineering Judgment, Ownership, and Verification</title>
+    <meta
+      name="description"
+      content="A practical series on AI-assisted coding interviews focused on engineering judgment, ownership, verification, tradeoffs, and production accountability for experienced engineers."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Coding Interviews in the AI Era" />
+    <meta
+      property="og:description"
+      content="AI changes interview mechanics, not accountability. A series on what experienced engineers are measured on and how strong candidates operate with AI assistance."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Coding Interviews in the AI Era" />
+    <meta
+      name="twitter:description"
+      content="A practical, judgment-first series on AI-assisted coding interviews for experienced engineers, interviewers, and hiring teams."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Coding Interviews in the AI Era",
+        "description": "A practical series on AI-assisted coding interviews focused on engineering judgment, ownership, verification, tradeoffs, and production accountability for experienced engineers.",
+        "url": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html",
+        "datePublished": "2026-04-03",
+        "dateModified": "2026-04-03",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/"
+        },
+        "keywords": [
+          "AI-assisted coding interviews",
+          "engineering judgment",
+          "technical interviews",
+          "software engineering",
+          "ownership",
+          "verification"
+        ],
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Coding Interviews in the AI Era",
+            "item": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="coding-interviews-in-the-ai-era">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+      <div class="hero-content" data-article-meta data-article-slug="coding-interviews-in-the-ai-era">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Series</span></p>
+        <p class="eyebrow">April 2026 • Series Hub</p>
+        <h1>Coding Interviews in the AI Era</h1>
+        <p class="intro blog-dek">
+          AI changes coding interview mechanics. It does not transfer accountability.
+          If anything, it raises the premium on engineering judgment, verification discipline, and the ability to clearly own the code in front of you.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          Most of the current conversation around AI in interviews is framed as a speed story.
+          Candidates can generate faster. Interviewers can ask broader prompts. Teams can run more screens.
+          But experienced engineering hiring was never primarily a speed game.
+          It is a judgment game conducted under time pressure.
+        </p>
+        <p>
+          The same quality bar still exists after the interview: correctness under constraints, reviewability under pressure, controlled complexity, and clear ownership when something fails.
+          That is why this series exists.
+          It captures the real shift around AI-assisted coding interviews without drifting into generic career advice or prompt trivia.
+          The lens here is the same lens I use for distributed systems, migration safety, and reliability work: decisions are cheap, consequences are not.
+        </p>
+
+        <h3>What Changed, and What Did Not</h3>
+        <p>
+          The practical shift is real.
+          Candidates can now ask for scaffolding, syntax recall, alternate implementations, or debugging hints in seconds.
+          Basic coding friction is lower.
+          In some interview formats, that is now an explicit part of the exercise rather than an integrity violation or a hidden workaround.
+        </p>
+        <p>
+          What did not change is accountability.
+          The candidate still owns assumptions, constraints, edge-case behavior, and tradeoff choices.
+          "The model suggested it" does not answer "Why is this correct for these constraints?"
+          Interviewers still need evidence that your thinking is in charge.
+        </p>
+        <p>
+          In fact, AI can make weak reasoning easier to detect.
+          When code appears quickly, interviewers can spend less time watching keystrokes and more time probing decision quality.
+          They can ask why one path was chosen over another, where risk lives, what simplification move was available, and how correctness was validated beyond a passing happy-path test.
+        </p>
+
+        <h3>Why This Matters Now</h3>
+        <p>
+          This is not speculative anymore.
+          CodeSignal launched AI-assisted coding assessments and interviews in 2025 with configurable assistance modes plus transcripts and session replays for hiring teams.
+          HackerRank now documents AI-assisted tests with configurable AI modes, candidate-AI transcripts, and recruiter-facing AI interaction insights.
+        </p>
+        <p>
+          Company adoption is less uniform.
+          Some organizations are still anchored to pre-AI assumptions, while others are piloting AI-enabled interview loops.
+          Reporting from 404 Media in July 2025 said Meta planned to let some coding candidates use an AI assistant during the interview process.
+          That uneven mix of platform support and company experimentation is exactly why candidates and hiring teams need a better mental model now, not later.
+        </p>
+        <p>
+          For source context, see <a href="https://codesignal.com/blog/introducing-ai-assisted-coding-assessments-interviews/" target="_blank" rel="noopener noreferrer">CodeSignal&apos;s launch notes</a>, <a href="https://support.hackerrank.com/articles/1152916770-ai-assisted-tests" target="_blank" rel="noopener noreferrer">HackerRank&apos;s AI-Assisted Tests documentation</a>, and <a href="https://www.404media.co/meta-is-going-to-let-job-candidates-use-ai-during-coding-tests/" target="_blank" rel="noopener noreferrer">404 Media&apos;s reporting on Meta&apos;s pilot</a>.
+        </p>
+
+        <h3>What This Series Covers</h3>
+        <p>
+          The series is organized around two deep centerpieces and five supporting articles.
+          The centerpieces do the heaviest lifting:
+        </p>
+        <ol>
+          <li>the definitive signal model for what experienced engineers are actually being measured on when AI is allowed</li>
+          <li>the practical operating manual for how to perform well in that environment without surrendering ownership</li>
+        </ol>
+        <p>
+          The supporting pieces are deliberately narrower.
+          One sharpens the accountability thesis.
+          One shows failure in the room.
+          One compares strong senior behavior against average behavior.
+          One translates the candidate-side analysis into interviewer and rubric design.
+          Together, they form a cluster you can read end-to-end or navigate by immediate need.
+        </p>
+
+        <h3>Ordered Reading Path</h3>
+        <p>
+          Start with the flagship.
+          Then read the measured-on article and the playbook back to back.
+          That three-step progression gives you the thesis, the signal model, and the operating model in the right order.
+          After that, use the supporting pages to sharpen specific angles.
+        </p>
+        <ol>
+          <li><a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a> - Flagship framing article</li>
+          <li><a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a> - Definitive signal model</li>
+          <li><a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a> - Tactical field manual</li>
+          <li><a href="/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html">You Still Own Every Line: Accountability in AI-Assisted Coding Interviews</a> - Ownership thesis</li>
+          <li><a href="/blog/how-candidates-fail-ai-assisted-coding-interviews.html">How Candidates Fail AI-Assisted Coding Interviews</a> - Failure mode breakdown</li>
+          <li><a href="/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html">What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews</a> - Comparative behaviors</li>
+          <li><a href="/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html">How Companies Should Evaluate Candidates When AI Is Allowed</a> - Interview loop and rubric design</li>
+        </ol>
+
+        <h3>Series Snapshot</h3>
+        <p><strong>Flagship:</strong> The thesis piece. It explains why AI lowers coding friction but often raises the premium on judgment, verification, and ownership.</p>
+        <p><strong>Measured-on deep dive:</strong> The signal model. It breaks down what strong candidates do, what weak candidates do, and what interviewers are actually inferring from the difference.</p>
+        <p><strong>Practical playbook:</strong> The operating manual. It shows how to move through an AI-assisted coding round step by step without letting the tool take over the interview.</p>
+        <p><strong>Ownership article:</strong> The opinionated accountability piece. It focuses on why generated code feels safer than it is and why line-level responsibility remains the deepest seniority signal.</p>
+        <p><strong>Failure modes:</strong> The diagnostic piece. It shows what visible AI-assisted interview failure looks like in the room and why trust erodes quickly when reasoning disappears.</p>
+        <p><strong>Senior behaviors:</strong> The contrastive behavior piece. It highlights how strong senior engineers sound and behave differently from average candidates even when both can generate code quickly.</p>
+        <p><strong>Company-side evaluation:</strong> The interviewer-side design piece. It focuses on prompts, probes, scoring, and how to avoid accidentally rewarding shallow dependence.</p>
+
+        <h3>Why This Belongs on This Site</h3>
+        <p>
+          This site is primarily about distributed systems, control planes, migration safety, and reliability.
+          That identity is not changing.
+          This series belongs here because interview performance at experienced levels reflects the same engineering habits that matter in production: bounded complexity, explicit tradeoffs, verification rigor, reviewability, and responsibility for outcomes.
+        </p>
+        <p>
+          Production systems punish borrowed confidence.
+          So do good interview loops.
+          If your interview approach rewards generated volume over system thinking, you are selecting for the wrong failure mode.
+          If it rewards ownership and reviewability, you are much closer to how real systems are built, reviewed, and operated.
+        </p>
+
+        <h3>Related Reading</h3>
+        <ul>
+          <li><a href="/blog/distributed-systems-interview-guide.html">Distributed Systems Interview Guide</a></li>
+          <li><a href="/blog/reviewing-ai-generated-pull-requests-reliability-risk.html">Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck</a></li>
+          <li><a href="/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html">How I Built the AskRich Chatbot for Technical Screening</a></li>
+          <li><a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Why Systems Fail Under Load, Not Just Bugs</a></li>
+        </ul>
+
+        <h3>Start Here</h3>
+        <p>
+          Read the flagship first: <a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a>.
+          Then go directly to <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">the measured-on deep dive</a> and <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">the practical playbook</a>.
+          Those three pieces are the core reading path.
+        </p>
+
+        <h3>Choose Your Next Read</h3>
+        <ul>
+          <li><strong>I want the main thesis:</strong> start with <a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a>.</li>
+          <li><strong>I want interviewer signal:</strong> go to <a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a>.</li>
+          <li><strong>I want a practical operating model:</strong> read <a href="/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html">A Practical Playbook for AI-Assisted Coding Interviews</a>.</li>
+          <li><strong>I want failure modes:</strong> continue with <a href="/blog/how-candidates-fail-ai-assisted-coding-interviews.html">How Candidates Fail AI-Assisted Coding Interviews</a>.</li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
