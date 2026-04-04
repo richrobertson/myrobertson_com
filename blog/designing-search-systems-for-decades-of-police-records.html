@@ -101,16 +101,16 @@
 
         <div class="mermaid" aria-label="Records retrieval architecture">
 flowchart LR
-  A["Sources: RMS, CAD, XML feeds, JSON APIs, PDF scans, handwritten notes"] --> B["Parsing, OCR, handwriting recognition"]
-  B --> C["Normalization and canonicalization"]
-  C --> D["Enrichment and entity extraction"]
-  D --> E["Search index (Lucene)"]
-  D --> F["Object store for originals"]
-  E --> G["Retrieval: keyword, filters, semantic"]
-  G --> H["AI reranking, expansion, summarization"]
-  H --> I["Officer and analyst UI"]
-  I --> J["Audit trail and provenance"]
-  J --> C
+  A["Sources: RMS, CAD, XML feeds, JSON APIs, PDF scans, handwritten notes"] --&gt; B["Parsing, OCR, handwriting recognition"]
+  B --&gt; C["Normalization and canonicalization"]
+  C --&gt; D["Enrichment and entity extraction"]
+  D --&gt; E["Search index (Lucene)"]
+  D --&gt; F["Object store for originals"]
+  E --&gt; G["Retrieval: keyword, filters, semantic"]
+  G --&gt; H["AI reranking, expansion, summarization"]
+  H --&gt; I["Officer and analyst UI"]
+  I --&gt; J["Audit trail and provenance"]
+  J --&gt; C
         </div>
 
         <h3>Source ingestion</h3>
