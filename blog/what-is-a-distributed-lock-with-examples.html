@@ -41,7 +41,7 @@
         "url": "https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html",
         "mainEntityOfPage": "https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html",
         "datePublished": "2026-03-22",
-        "dateModified": "2026-03-22",
+        "dateModified": "2026-04-04",
         "author": {
           "@type": "Person",
           "name": "Rich Robertson",
@@ -130,7 +130,7 @@
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
           },
           "datePublished": "2026-03-22",
-          "dateModified": "2026-03-22",
+          "dateModified": "2026-04-04",
           "description": "A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd.",
           "keywords": [
             "what",
@@ -200,7 +200,7 @@
 
 <div class="hero-content" data-article-meta data-article-slug="what-is-a-distributed-lock-with-examples">
         <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
-        <p class="eyebrow">March 2026 • Rich Robertson</p>
+        <p class="eyebrow">March 2026 &middot; Rich Robertson</p>
         <h1>What Is a Distributed Lock? (With Examples)</h1>
         <p class="intro blog-dek">
           A distributed lock is a coordination mechanism, not safety by itself. Whether it improves correctness depends on ownership rules, lease behavior, stale-writer prevention, and the real guarantees of the backing lock system and storage boundary.
@@ -215,7 +215,7 @@
           A distributed lock decides which process may perform a critical action at a point in time across machines and services. This is the distributed analogue of a mutex, but with failure and timing uncertainty introduced by crashes, partitions, and lease expiry.
         </p>
         <p>
-          The biggest design mistake is treating “only one process acquired the lock” as equivalent to end-to-end correctness. Correctness depends on what happens after acquisition: whether writes are still validated, whether stale owners can be rejected, and whether downstream systems enforce ownership semantics instead of trusting client intent (Kleppmann, 2016).
+          The biggest design mistake is treating "only one process acquired the lock" as equivalent to end-to-end correctness. Correctness depends on what happens after acquisition: whether writes are still validated, whether stale owners can be rejected, and whether downstream systems enforce ownership semantics instead of trusting client intent (Kleppmann, 2016).
         </p>
 
         <h3>Efficiency vs. Correctness: the first design question</h3>
@@ -285,8 +285,14 @@
           <strong>etcd:</strong> consensus-backed key-value store with leases, transactions, and lock/mutex patterns built on linearizable operations. Strong fit when correctness-sensitive coordination and explicit ownership semantics are required, with predictable but non-trivial consensus costs (etcd, n.d.; etcd, 2024).
         </p>
         <p>
-          None of these is universally “best.” The right choice is the one whose guarantees are easy to reason about under your failure model and business impact.
+          None of these is universally "best." The right choice is the one whose guarantees are easy to reason about under your failure model and business impact.
         </p>
+        <p><strong>Choose this when:</strong></p>
+        <ul>
+          <li><strong>Redis:</strong> You need low-latency coordination and duplicate work is tolerable.</li>
+          <li><strong>ZooKeeper:</strong> You need coordination-first workflows with explicit leader/election semantics.</li>
+          <li><strong>etcd:</strong> You need consensus-backed ownership with linearizable coordination primitives.</li>
+        </ul>
 
         <h3>Examples: when a distributed lock helps, and when it is insufficient</h3>
         <p>
