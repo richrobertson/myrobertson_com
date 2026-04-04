@@ -84,6 +84,7 @@
         </ul>
         <p>In practice, no single system contains all relevant information. Retrieval often spans records systems, case systems, dispatch history, attachments, and external sources that differ in schema, latency, and trust level.</p>
         <p>Every result must be traceable back to its source. Investigators need to understand not just what was returned, but why it was returned, which system it came from, when it was ingested, and how it was transformed along the way. Query workflows also need reproducibility so teams can rerun and defend the same search path during review.</p>
+        <p>These systems are designed to be forensically sound. Every access, transformation, and retrieval must be auditable. Files remain immutable with integrity checks proving they have not changed, which means derived layers like search and AI cannot obscure or alter underlying evidence.</p>
         <p>In short: this is not just search across structured and unstructured data. It is forensic retrieval under institutional constraints (National Institute of Standards and Technology [NIST], 2024).</p>
 
         <h3>Recall vs Precision in Investigative Systems</h3>
@@ -92,6 +93,7 @@
 
         <h2>System Architecture: The Retrieval Pipeline</h2>
         <p>For this class of system, I recommend thinking in explicit layers, each with contracts and measurable outputs.</p>
+        <p>These platforms are typically API-first. Evidence, cases, and metadata are accessed through secured APIs with scoped permissions, allowing external systems to ingest, update, and query data in a controlled and auditable way.</p>
 
         <div class="mermaid" aria-label="Records retrieval architecture">
 flowchart LR
@@ -109,19 +111,22 @@ flowchart LR
 
         <h3>Source ingestion</h3>
         <p>Build source-specific adapters with immutable ingest logs. Every raw artifact needs a stable source ID, capture timestamp, source system identifier, and checksum. If your ingestion is not traceable, downstream evidence handling is weak before search begins.</p>
-        <p>While much of the corpus is historical, new records continue to arrive from reports, updates, and dispatch-adjacent systems. The platform has to support both large backfills and near-real-time ingestion so recent events become searchable within seconds to minutes, not days.</p>
+        <p>While much of the corpus is historical, new records continue to arrive from reports, updates, and dispatch-adjacent systems. In practice, ingestion runs in multiple modes: bulk migration from legacy repositories, plus continuous synchronization from devices and external platforms. The platform has to support near-real-time ingestion for fresh events and scheduled batch sync for cross-system consistency checks and repair.</p>
+        <p>Many integrations operate on event-driven update streams so new evidence and metadata can be indexed within seconds to minutes, while batch reconciliation protects completeness and correctness over longer windows.</p>
 
         <h3>OCR, handwriting recognition, and parsing</h3>
         <p>Separate extraction confidence from extracted value. Store confidence scores by field and by token region, not just document-level confidence. OCR errors are not random; they cluster around certain fonts, generations, and scan conditions. You want those error characteristics in your model inputs (NIST, 2025).</p>
 
         <h3>Normalization and canonicalization</h3>
         <p>Canonicalization is where retrieval quality is won. Normalize date formats, address patterns, incident code mappings, and jurisdiction-specific abbreviations into explicit canonical fields while preserving raw source values. Avoid “destructive cleanup” that loses original wording.</p>
+        <p>At the core is a simple but high-leverage model: unstructured evidence (video, audio, documents) enriched with structured metadata, linked to cases, and connected through relationships. Retrieval quality depends on how consistently those relationships are maintained and exposed.</p>
 
         <h3>Enrichment and entity extraction</h3>
         <p>Run deterministic extraction first (regex, dictionaries, policy-driven parsing), then use ML/LLM extraction for ambiguous fragments. Emit candidate entities with confidence and provenance, and resolve into canonical entities only when confidence and disambiguation thresholds are met.</p>
 
         <h3>Indexing and storage</h3>
-        <p>Keep two storage planes: (1) object store for immutable originals and (2) retrieval-optimized index for normalized fields, full text, and derived signals. Never rely on the index as the only copy of evidence-bearing content.</p>
+        <p>Keep two storage planes: (1) operational/object systems for immutable originals and (2) retrieval-optimized indexes for normalized fields, full text, and derived signals. Never rely on the index as the only copy of evidence-bearing content.</p>
+        <p>In systems like this, search is rarely the source of truth. It is a derived layer on top of operational systems that manage evidence, cases, and metadata through APIs. Retrieval quality is bounded by how well upstream systems capture, normalize, and relate data.</p>
 
         <h3>Retrieval and ranking</h3>
         <p>Use staged retrieval: deterministic filters and keyword first, semantic expansion second, reranking third. This prevents vector similarity from overpowering explicit constraints like date range, jurisdiction, and case status.</p>
@@ -307,7 +312,7 @@ flowchart LR
         </ul>
 
         <h2>If I were building this today</h2>
-        <p>I would start with ingestion contracts and provenance guarantees before touching model selection. I would run a Lucene-based engine for primary retrieval, likely Elasticsearch for initial velocity unless governance constraints argued for Solr. I would add semantic retrieval behind explicit filters, use reranking with versioned evaluation, and keep every generated summary linked to source citations. I would measure recall relentlessly on high-risk query sets and publish quality dashboards visible to both engineering and domain leads.</p>
+        <p>I would start with ingestion contracts and provenance guarantees before touching model selection. I would run a Lucene-based retrieval index, likely Elasticsearch for initial velocity unless governance constraints argued for Solr, while keeping operational case/evidence systems as the source of truth. I would add semantic retrieval behind explicit filters, use reranking with versioned evaluation, and keep every generated summary linked to source citations. I would measure recall relentlessly on high-risk query sets and publish quality dashboards visible to both engineering and domain leads.</p>
 
         <h2>Conclusion</h2>
         <p>The hardest part of enterprise records search is not picking a logo or trend. It is turning broken, inconsistent, decades-old records into a retrieval system investigators and analysts can trust. That takes data modeling judgment, pipeline discipline, explicit tradeoff decisions, and ongoing evaluation—not slogans about AI replacing search engines.</p>
