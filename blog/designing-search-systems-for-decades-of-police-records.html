@@ -69,6 +69,7 @@
         <p>Imagine a records discovery platform used by officers, analysts, and investigators. The data spans decades and arrives in every shape you would rather avoid: relational exports from retired systems, XML payloads from middleware, JSON event records from newer tools, scanned PDFs, faxed documents, and handwritten notes that went through low-quality OCR. Some of it was typed on green-screen era systems. Some of it came from modern mobile workflows. All of it is now expected to behave like one coherent retrieval surface.</p>
         <p>This is why “search” is a misleading label for the core engineering challenge. The hard part is not building a query parser. The hard part is making degraded, inconsistent records discoverable in a way that is reliable, explainable, and legally defensible. You need ingestion controls, normalization, enrichment, indexing policy, ranking policy, and post-retrieval safeguards working together as one system.</p>
         <p>The framing I use is simple: this is an <strong>ingestion-to-evidence pipeline under uncertainty</strong>. Query latency and index features matter, but without disciplined data shaping upstream, your search stack will only return wrong answers faster.</p>
+        <p>In this domain, search is not just a convenience feature. The results directly influence investigative decisions, officer safety, and legal outcomes. That raises the bar for recall, explainability, and trust in ways most enterprise search systems never encounter.</p>
 
         <h2 id="why-this-is-hard">Why this is hard: what makes this search problem different</h2>
         <p>The law-enforcement records discovery problem is structurally different from product search or document search in a homogeneous enterprise repository.</p>
@@ -79,9 +80,14 @@
           <li><strong>Entity ambiguity:</strong> the same person can appear under aliases, initials, misspellings, and stale addresses.</li>
           <li><strong>High false-negative cost:</strong> missing a relevant incident can have investigative, legal, and safety consequences.</li>
           <li><strong>Legal and privacy constraints:</strong> retention, redaction, and role-based access must be enforceable and auditable.</li>
-          <li><strong>Explainability requirement:</strong> users must understand why a record was returned and where each field came from.</li>
+          <li><strong>Explainability requirement:</strong> investigators must understand why a record was returned and where each field came from.</li>
         </ul>
+        <p>Every result must be traceable back to its source. Investigators need to understand not just what was returned, but why it was returned, which system it came from, when it was ingested, and how it was transformed along the way. Query workflows also need reproducibility so teams can rerun and defend the same search path during review.</p>
         <p>In short: this is not just search across structured and unstructured data. It is forensic retrieval under institutional constraints (National Institute of Standards and Technology [NIST], 2024).</p>
+
+        <h3>Recall vs Precision in Investigative Systems</h3>
+        <p>In investigative systems, missing the right record is often worse than returning too many. The system has to find the signal first, and then help investigators refine it.</p>
+        <p>That usually means biasing retrieval toward recall early, then controlling noise through ranking, faceting, filters, and better interaction design. Keyword search, semantic retrieval, and entity resolution together improve recall across aliases, spelling drift, and inconsistent narratives. Reranking, metadata constraints, and timeline-oriented views then recover precision so analysts can move quickly without drowning in irrelevant results.</p>
 
         <h2>System Architecture: The Retrieval Pipeline</h2>
         <p>For this class of system, I recommend thinking in explicit layers, each with contracts and measurable outputs.</p>
@@ -102,6 +108,7 @@ flowchart LR
 
         <h3>Source ingestion</h3>
         <p>Build source-specific adapters with immutable ingest logs. Every raw artifact needs a stable source ID, capture timestamp, source system identifier, and checksum. If your ingestion is not traceable, downstream evidence handling is weak before search begins.</p>
+        <p>While much of the corpus is historical, new records continue to arrive from reports, updates, and dispatch-adjacent systems. The platform has to support both large backfills and near-real-time ingestion so recent events become searchable within seconds to minutes, not days.</p>
 
         <h3>OCR, handwriting recognition, and parsing</h3>
         <p>Separate extraction confidence from extracted value. Store confidence scores by field and by token region, not just document-level confidence. OCR errors are not random; they cluster around certain fonts, generations, and scan conditions. You want those error characteristics in your model inputs (NIST, 2025).</p>
@@ -117,6 +124,7 @@ flowchart LR
 
         <h3>Retrieval and ranking</h3>
         <p>Use staged retrieval: deterministic filters and keyword first, semantic expansion second, reranking third. This prevents vector similarity from overpowering explicit constraints like date range, jurisdiction, and case status.</p>
+        <p>These systems are fundamentally human-in-the-loop. The goal is not to replace judgment, but to surface the right information quickly, with enough context and transparency for investigators and analysts to make informed decisions. Faceting, filtering, timeline views, and explainable ranking are part of the retrieval architecture, not just UI decoration.</p>
 
         <h3>User interface and audit trail</h3>
         <p>The UI should expose why results appear: matched fields, confidence, source system, extraction method, and ranking factors. Every interaction needs durable audit events: query text, filters, model version, reranker version, and result set hash.</p>
@@ -257,7 +265,7 @@ flowchart LR
             </tr>
           </tbody>
         </table>
-        <p>Hallucination risk, nondeterministic outputs, and explainability limits are not theoretical in this domain. You need deterministic retrieval paths, versioned model governance, and explicit provenance so users can verify claims against original documents (OWASP Foundation, 2025; U.S. Department of Justice, 2024).</p>
+        <p>Hallucination risk, nondeterministic outputs, and explainability limits are not theoretical in this domain. You need deterministic retrieval paths, versioned model governance, and explicit provenance so investigators and analysts can verify claims against original documents (OWASP Foundation, 2025; U.S. Department of Justice, 2024).</p>
 
         <h2>Agents and MCP: useful, but in the right layer</h2>
         <p>Agents are most useful as orchestration around tools, not as your data plane. Model Context Protocol (MCP) is useful for standardizing how the model layer accesses those tools and data sources, but it is not a substitute for indexing architecture (Anthropic, 2025).</p>
@@ -265,6 +273,7 @@ flowchart LR
         <p>Bad use case: treating an agent prompt loop as if it replaces deterministic retrieval, canonical schemas, and evidence controls. It does not.</p>
 
         <h2>Failure modes and non-obvious lessons</h2>
+        <p>These failures are not just technical gaps; they directly impact whether critical information is discoverable when it matters.</p>
         <ul>
           <li><strong>Trusting OCR too much:</strong> token-level OCR confidence is often ignored until false negatives pile up.</li>
           <li><strong>Flattening too aggressively:</strong> teams normalize away context and lose legal provenance.</li>
@@ -273,15 +282,16 @@ flowchart LR
           <li><strong>Treating ranking as “done”:</strong> ranking behavior drifts as corpus composition changes.</li>
           <li><strong>Ignoring recall measurement:</strong> precision-only metrics hide dangerous miss patterns.</li>
           <li><strong>Mixing evidence retrieval and AI narration:</strong> keep these layers separate and auditable.</li>
-          <li><strong>Forgetting user trust:</strong> investigators need explainable result paths, not opaque relevance magic.</li>
+          <li><strong>Forgetting investigator trust:</strong> explainable result paths are mandatory, not optional.</li>
         </ul>
 
         <h2>If I were building this today</h2>
         <p>I would start with ingestion contracts and provenance guarantees before touching model selection. I would run a Lucene-based engine for primary retrieval, likely Elasticsearch for initial velocity unless governance constraints argued for Solr. I would add semantic retrieval behind explicit filters, use reranking with versioned evaluation, and keep every generated summary linked to source citations. I would measure recall relentlessly on high-risk query sets and publish quality dashboards visible to both engineering and domain leads.</p>
 
         <h2>Conclusion</h2>
-        <p>The hardest part of enterprise records search is not picking a logo or trend. It is turning broken, inconsistent, decades-old records into a retrieval system users can trust. That takes data modeling judgment, pipeline discipline, explicit tradeoff decisions, and ongoing evaluation—not slogans about AI replacing search engines.</p>
+        <p>The hardest part of enterprise records search is not picking a logo or trend. It is turning broken, inconsistent, decades-old records into a retrieval system investigators and analysts can trust. That takes data modeling judgment, pipeline discipline, explicit tradeoff decisions, and ongoing evaluation—not slogans about AI replacing search engines.</p>
         <p>Engineering maturity here means separating what must be deterministic from what can be probabilistic, and proving the full system can be audited end to end. That is the difference between a demo and a production platform.</p>
+        <p>A system like this is only as valuable as the confidence investigators and analysts have in it—confidence that the right information can be found, understood, and trusted.</p>
 
         <h2>Glossary</h2>
         <ul>
