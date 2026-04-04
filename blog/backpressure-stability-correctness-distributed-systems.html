@@ -238,6 +238,13 @@
           Services, 2022).
         </p>
         <p>
+          The same discipline appears in coordination paths: lock and lease systems also fail when teams ignore bounded capacity and explicit failure contracts. If you are modeling owner handoff under pressure, use
+          <a href="./what-is-a-distributed-lock-with-examples.html">the distributed lock overview</a>
+          and
+          <a href="./distributed-lock-failure-modes.html">distributed lock failure deep dive</a>
+          alongside backpressure controls.
+        </p>
+        <p>
           This is why unbounded queues are hazardous. They often postpone visible failure while
           silently increasing tail latency and resource debt. AWS reliability guidance recommends
           failing fast and limiting queues specifically to avoid insurmountable backlog states
