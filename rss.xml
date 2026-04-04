@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Designing Search Systems for Decades of Police Records</title>
+      <link>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html</link>
+      <description>How to design a search system for decades of police records spanning structured data, XML, JSON, scanned documents, and handwritten notes. A practical engineering analysis of Solr vs Elasticsearch, hybrid retrieval, AI ranking, agents, and MCP.</description>
+      <guid>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html</guid>
+      <pubDate>Sat, 04 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>A Practical Playbook for AI-Assisted Coding Interviews</title>
       <link>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</link>
       <description>A tactical field manual for AI-assisted coding interviews: frame first, design first, generate selectively, verify deeply, simplify, and own the final answer.</description>

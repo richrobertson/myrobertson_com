@@ -2,6 +2,14 @@
   const articles = [
 
     {
+      slug: 'designing-search-systems-for-decades-of-police-records',
+      title: 'Designing Search Systems for Decades of Police Records',
+      url: '/blog/designing-search-systems-for-decades-of-police-records.html',
+      summary: 'A pragmatic system-design analysis of records discovery architecture: Solr vs Elasticsearch, hybrid retrieval, AI augmentation, and MCP orchestration boundaries.',
+      tags: ['Search', 'Distributed Systems', 'AI Systems', 'System Design', 'Interviews', 'Architecture']
+    },
+
+    {
       slug: 'reviewing-ai-generated-pull-requests-reliability-risk',
       title: 'Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck',
       url: '/blog/reviewing-ai-generated-pull-requests-reliability-risk.html',
