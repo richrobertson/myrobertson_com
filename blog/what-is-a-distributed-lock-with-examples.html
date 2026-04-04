@@ -6,7 +6,7 @@
     <title>What Is a Distributed Lock? (With Examples) | Rich Robertson</title>
     <meta
       name="description"
-      content="A practical guide to distributed locks with real examples: lock ownership, lease time, fencing tokens, and common failure modes in production systems."
+      content="A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd."
     />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html" />
@@ -15,7 +15,7 @@
     <meta property="og:title" content="What Is a Distributed Lock? (With Examples)" />
     <meta
       property="og:description"
-      content="A practical guide to distributed locks with real examples, including leases, fencing tokens, and failure handling."
+      content="A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd."
     />
     <meta property="og:url" content="https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html" />
     <meta property="og:site_name" content="Rich Robertson" />
@@ -23,7 +23,7 @@
     <meta name="twitter:title" content="What Is a Distributed Lock? (With Examples)" />
     <meta
       name="twitter:description"
-      content="A practical guide to distributed locks with real examples, including leases, fencing tokens, and failure handling."
+      content="A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -37,7 +37,7 @@
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": "What Is a Distributed Lock? (With Examples)",
-        "description": "A practical guide to distributed locks with real examples: lock ownership, lease time, fencing tokens, and common failure modes in production systems.",
+        "description": "A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd.",
         "url": "https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html",
         "mainEntityOfPage": "https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html",
         "datePublished": "2026-03-22",
@@ -84,7 +84,7 @@
         ]
       }
     </script>
-  
+
     <!-- AI-SCHEMA:START -->
     <script type="application/ld+json">
     {
@@ -131,7 +131,7 @@
           },
           "datePublished": "2026-03-22",
           "dateModified": "2026-03-22",
-          "description": "A practical guide to distributed locks with real examples: lock ownership, lease time, fencing tokens, and common failure modes in production systems.",
+          "description": "A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd.",
           "keywords": [
             "what",
             "is",
@@ -203,78 +203,167 @@
         <p class="eyebrow">March 2026 • Rich Robertson</p>
         <h1>What Is a Distributed Lock? (With Examples)</h1>
         <p class="intro blog-dek">
-          A distributed lock is a coordination tool for deciding which process is allowed to perform a critical action at a given moment. The details matter: lock ownership, lease duration, and stale-writer protection determine whether the lock helps or hurts correctness.
+          A distributed lock is a coordination mechanism, not safety by itself. Whether it improves correctness depends on ownership rules, lease behavior, stale-writer prevention, and the real guarantees of the backing lock system and storage boundary.
         </p>
       </div>
     </header>
 
     <main>
       <article class="card blog-post" data-related-writing>
-        <h3>Why Distributed Locks Exist</h3>
+        <h3>What Is a Distributed Lock, Exactly?</h3>
         <p>
-          In a single process, a mutex prevents two threads from editing the same resource at the same time. In distributed systems, the same risk appears across machines and services: two workers may both try to run a migration, process the same batch, or update shared state. A distributed lock provides a temporary ownership signal so one actor proceeds while others back off.
+          A distributed lock decides which process may perform a critical action at a point in time across machines and services. This is the distributed analogue of a mutex, but with failure and timing uncertainty introduced by crashes, partitions, and lease expiry.
         </p>
         <p>
-          The lock itself does not make your operation safe. It only helps if your write path respects lock ownership rules and you account for failure modes such as process pauses, network partitions, and retries.
+          The biggest design mistake is treating “only one process acquired the lock” as equivalent to end-to-end correctness. Correctness depends on what happens after acquisition: whether writes are still validated, whether stale owners can be rejected, and whether downstream systems enforce ownership semantics instead of trusting client intent (Kleppmann, 2016).
         </p>
 
-        <h3>Simple Example: Cron Job Ownership</h3>
+        <h3>Efficiency vs. Correctness: the first design question</h3>
         <p>
-          Assume three scheduler instances can run the same hourly billing job. Without coordination, all three may execute and produce duplicate invoices. With a lock, each instance attempts to acquire <code>billing-hourly-lock</code> before processing:
+          Before choosing Redis, ZooKeeper, etcd, or any lock API, classify the problem. Some locks are for <strong>efficiency</strong>: preventing duplicate cron execution, duplicate cache rebuilds, or repeated background work. If the lock fails, the result is mostly wasted compute and noisy logs.
         </p>
+        <p>
+          Other locks are for <strong>correctness</strong>: preventing conflicting writes, invalid state transitions, or unsafe external side effects. If this lock fails, system state or real-world behavior can become wrong. In that case, lock acquisition is only one part of a correctness design; the write path still needs ownership validation and stale-writer rejection (Kleppmann, 2016).
+        </p>
+        <p>
+          Practical rule: if failure only causes extra work, simpler coordination is often acceptable. If failure can produce incorrect state, the lock and storage boundary must be engineered as a correctness mechanism, not just a scheduling hint.
+        </p>
+
+        <h3>Distributed Lock vs. Lease: what changes operationally</h3>
+        <p>
+          In production, most distributed locks are implemented as leases: ownership is valid for a bounded interval unless renewed. This improves crash recovery because dead owners eventually lose ownership without manual cleanup.
+        </p>
+        <p>
+          But a lease is time-scoped permission, not an execution kill switch. A paused client can resume after expiry and continue issuing writes unless downstream systems can prove it is stale. That is why lease-only designs often appear safe in tests but fail under pauses and partitions.
+        </p>
+
+        <h3>Where Distributed Locks Fail in Production</h3>
+        <p>
+          <strong>Process crash after acquisition:</strong> lock remains held until expiry; work is delayed or retried late. Missing property: timely ownership cleanup. Mitigation: short leases, heartbeat renewal, and recovery logic that is safe to re-run.
+        </p>
+        <p>
+          <strong>Long GC pause or runtime stall:</strong> owner stops renewing but later resumes code execution. Missing property: stale-owner detection at write time. Mitigation: fencing tokens checked by storage, not just lock expiry timers.
+        </p>
+        <p>
+          <strong>Network partition:</strong> owner may believe it still holds the lock while quorum elected a new owner. Missing property: single authoritative ownership view at the write boundary. Mitigation: quorum-backed lock services plus token-validated writes.
+        </p>
+        <p>
+          <strong>Lease expiry during slow work:</strong> critical section exceeds lease and ownership transfers mid-operation. Missing property: bounded critical-section duration or renewal safety. Mitigation: conservative lease sizing, progress heartbeats, and chunking long work into idempotent units.
+        </p>
+        <p>
+          <strong>Client resumes after lease loss:</strong> old process writes late and overwrites current owner output. Missing property: monotonic write authorization. Mitigation: fencing token/version checks in storage or side-effect gateway.
+        </p>
+        <p>
+          <strong>Accidental unlock of another owner:</strong> client deletes a lock key it no longer owns. Missing property: owner-bound release semantics. Mitigation: compare ownership token on unlock (for Redis, use scripted compare-and-delete pattern).
+        </p>
+        <p>
+          <strong>Lock service outage or degraded quorum:</strong> no owner can be acquired, or guarantees degrade under partial failure. Missing property: explicit degraded-mode behavior. Mitigation: fail closed for correctness-sensitive paths; use controlled fallback only for efficiency-oriented jobs.
+        </p>
+        <p>
+          <strong>Assuming stronger guarantees than provided:</strong> teams infer linearizable ownership from an eventually consistent primitive. Missing property: precise guarantee model. Mitigation: document exactly what is guaranteed by the lock service and verify it matches failure impact (Redis, n.d.; etcd, n.d.; Apache ZooKeeper, n.d.-a).
+        </p>
+
+        <h3>Fencing Tokens: why lock ownership is not enough</h3>
+        <p>
+          Fencing tokens solve the stale-owner problem directly. On each successful acquisition, the lock service issues a monotonically increasing token. Every write carries that token, and the storage layer accepts only tokens newer than what it has already accepted.
+        </p>
+        <p>
+          Concrete case: worker A acquires token 41 and then stalls. Worker B later acquires token 42 and continues legitimately. Storage accepts writes tagged 42 and rejects any later writes from token 41. This preserves correctness even if A resumes after losing lease ownership (Kleppmann, 2016).
+        </p>
+        <p>
+          This is one of the most important design boundaries in distributed locking: lease expiry alone does not protect downstream state; monotonic ownership validation does.
+        </p>
+
+        <h3>Redis vs. ZooKeeper vs. etcd: different tools, different guarantees</h3>
+        <p>
+          <strong>Redis:</strong> operationally common and low latency. Typical primitive is <code>SET key value NX PX ttl</code> with owner-checked release logic. Often a strong fit for efficiency-oriented coordination, but correctness claims depend on exact topology and failure assumptions (Redis, n.d.).
+        </p>
+        <p>
+          <strong>ZooKeeper:</strong> coordination-first model with ephemeral and sequential znodes plus watch-based workflows. Usually easier to reason about for strict ownership and election patterns, with higher operational overhead than single-node cache-style locking (Apache ZooKeeper, n.d.-a, n.d.-b).
+        </p>
+        <p>
+          <strong>etcd:</strong> consensus-backed key-value store with leases, transactions, and lock/mutex patterns built on linearizable operations. Strong fit when correctness-sensitive coordination and explicit ownership semantics are required, with predictable but non-trivial consensus costs (etcd, n.d.; etcd, 2024).
+        </p>
+        <p>
+          None of these is universally “best.” The right choice is the one whose guarantees are easy to reason about under your failure model and business impact.
+        </p>
+
+        <h3>Examples: when a distributed lock helps, and when it is insufficient</h3>
+        <p>
+          <strong>Scheduled job ownership (efficiency-focused):</strong> three schedulers compete for an hourly cache rebuild lock. Duplicate execution is wasteful but harmless. A simple lease-based lock is usually good enough.
+        </p>
+        <p>
+          <strong>Migration or one-off admin task:</strong> only one operator instance should run a schema backfill. Locking reduces accidental concurrent execution; additionally record progress checkpoints so restarts are safe.
+        </p>
+        <p>
+          <strong>Single-writer metadata update (correctness-focused):</strong> only one writer may advance a control-plane version. Lock alone is insufficient; storage must reject stale token writes.
+        </p>
+        <p>
+          <strong>Workflow side-effect coordination:</strong> sending partner notifications or payment captures requires exactly-once effect semantics. Use locking only with idempotency keys and boundary dedupe.
+        </p>
+        <p>
+          <strong>Leader election / maintenance ownership:</strong> one node owns compaction or shard rebalancing at a time. Use lease renewal plus explicit leader loss handling so work stops safely on ownership loss.
+        </p>
+
+        <h3>When not to use a distributed lock</h3>
+        <p>
+          Many systems are better served by stronger or simpler alternatives: idempotency keys, compare-and-swap updates, partition ownership, queue-based serialization, single-writer assignment, or boundary dedupe.
+        </p>
+        <p>
+          Mature design judgment is recognizing that the best lock decision is often not introducing a lock at all. If correctness can be guaranteed directly in data models and write contracts, coordination becomes simpler and more robust.
+        </p>
+
+        <h3>A simple decision rule</h3>
         <ul>
-          <li>Instance A acquires the lock with a 60-second lease and starts work.</li>
-          <li>Instances B and C fail to acquire and skip this run.</li>
-          <li>When A finishes, it releases the lock or lets lease expiry clean it up.</li>
+          <li>If duplicate execution is acceptable but wasteful, optimize for simple coordination and fast recovery.</li>
+          <li>If corruption or invalid state transitions are possible, treat lock + write-path validation as one correctness design.</li>
+          <li>If you cannot validate ownership at the storage boundary, be conservative about correctness claims.</li>
         </ul>
-        <p>
-          This pattern is useful, but only if the work normally completes within lease bounds and you monitor lock contention/failure behavior.
-        </p>
 
-        <h3>Key Concepts You Should Always Define</h3>
-        <p><strong>Lock identity:</strong> What resource or operation does the lock protect?</p>
-        <p><strong>Lease duration:</strong> How long ownership is considered valid without renewal.</p>
-        <p><strong>Renewal policy:</strong> Whether long-running work can extend ownership.</p>
-        <p><strong>Release semantics:</strong> How you ensure one owner cannot accidentally release another owner’s lock.</p>
-        <p><strong>Stale-writer prevention:</strong> How you stop old owners from writing after losing the lock.</p>
+        <h3>FAQ</h3>
+        <p><strong>Is a distributed lock the same as a lease?</strong><br />Usually implemented as a lease, but conceptually a lock is ownership intent; lease adds expiration semantics.</p>
+        <p><strong>Can Redis be used for distributed locks?</strong><br />Yes, commonly for efficiency-oriented coordination. For correctness-critical paths, validate whether Redis deployment and release semantics match your failure model.</p>
+        <p><strong>Why are fencing tokens needed?</strong><br />They allow downstream systems to reject stale owners after lease loss, which expiry alone cannot guarantee.</p>
+        <p><strong>What happens if the lock holder pauses?</strong><br />Its lease may expire and another owner may proceed. If the paused holder resumes without token checks, it can corrupt state.</p>
+        <p><strong>When should I avoid distributed locks?</strong><br />When idempotency, CAS, partition ownership, queue serialization, or single-writer assignment can guarantee behavior more directly.</p>
 
-        <h3>Failure Mode: The Stale Owner Problem</h3>
-        <p>
-          The most common production mistake is assuming lock expiry alone prevents stale writes. Imagine worker A acquires a lock, pauses due to GC or network issues, and its lease expires. Worker B acquires a new lease and becomes the rightful owner. If A resumes and still writes, you have split ownership.
-        </p>
-        <p>
-          This is why lock implementations should pair leases with fencing tokens (monotonic ownership numbers). Storage or downstream services reject writes from lower tokens, ensuring old owners cannot overwrite current owners.
-        </p>
-
-        <h3>Where Distributed Locks Fit Best</h3>
+        <h3>References</h3>
         <ul>
-          <li>Leader election for periodic jobs</li>
-          <li>Single-writer operations over shared metadata</li>
-          <li>Coordinating one-off migrations or maintenance tasks</li>
-          <li>Guarding side-effecting operations in workflows</li>
-        </ul>
-        <p>
-          Locks are less suitable when workload coordination can be expressed through partition ownership, queue-based serialization, or idempotent operations with dedupe keys.
-        </p>
-
-        <h3>Practical Checklist Before Using a Lock</h3>
-        <ul>
-          <li>Can the operation be made idempotent first?</li>
-          <li>Do you have clear lease/renewal boundaries?</li>
-          <li>Do you prevent stale writes with fencing tokens?</li>
-          <li>Can you observe acquisition failures and lock hold times?</li>
-          <li>Do you have a recovery path if lock service is unavailable?</li>
+          <li>
+            Apache ZooKeeper. (n.d.-a). <em>Apache ZooKeeper documentation</em>. Apache Software Foundation.
+            <a href="https://zookeeper.apache.org/doc/current/" target="_blank" rel="noopener noreferrer">https://zookeeper.apache.org/doc/current/</a>
+          </li>
+          <li>
+            Apache ZooKeeper. (n.d.-b). <em>Recipes and solutions</em>. Apache Software Foundation.
+            <a href="https://zookeeper.apache.org/doc/current/recipes.html" target="_blank" rel="noopener noreferrer">https://zookeeper.apache.org/doc/current/recipes.html</a>
+          </li>
+          <li>
+            etcd. (n.d.). <em>How to create locks</em>. The Linux Foundation.
+            <a href="https://etcd.io/docs/v3.6/tasks/developer/how-to-create-locks/" target="_blank" rel="noopener noreferrer">https://etcd.io/docs/v3.6/tasks/developer/how-to-create-locks/</a>
+          </li>
+          <li>
+            etcd. (2024). <em>API reference: concurrency and leases</em>. The Linux Foundation.
+            <a href="https://etcd.io/docs/v3.6/dev-guide/api_concurrency_reference_v3/" target="_blank" rel="noopener noreferrer">https://etcd.io/docs/v3.6/dev-guide/api_concurrency_reference_v3/</a>
+          </li>
+          <li>
+            Kleppmann, M. (2016, February 8). <em>How to do distributed locking</em>.
+            <a href="https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="noopener noreferrer">https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html</a>
+          </li>
+          <li>
+            Redis. (n.d.). <em>Distributed locks with Redis</em>. Redis Ltd.
+            <a href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/" target="_blank" rel="noopener noreferrer">https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/</a>
+          </li>
         </ul>
 
         <h3>What to Read Next</h3>
         <p>
-          See a broader overview of my correctness-focused distributed systems work on
+          For the broader context around correctness-oriented coordination tradeoffs, see
           <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
         </p>
         <p>
-          If this overview is useful, the deeper lease-correctness treatment is in
+          If you want the deeper lease model and failure analysis, read
           <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a>.
-          For overload and admission control around the same class of systems, see
+          For how these same correctness choices interact with overload behavior, see
           <a href="./backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>.
         </p>
       </article>
