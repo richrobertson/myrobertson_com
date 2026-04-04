@@ -116,6 +116,7 @@ flowchart LR
         <h3>Source ingestion</h3>
         <p>Build source-specific adapters with immutable ingest logs. Every raw artifact needs a stable source ID, capture timestamp, source system identifier, and checksum. If your ingestion is not traceable, downstream evidence handling is weak before search begins.</p>
         <p>In practice, ingestion is continuous. Historical records are migrated in bulk, but new data arrives constantly from devices, external systems, and uploads. Systems must support both near real-time ingestion for fresh data and synchronization workflows to keep distributed systems consistent.</p>
+        <p>Continuous ingestion is not just a data pipeline concern—it is what forces the architecture to tolerate change. New data arrives with new structure, new quality, and new assumptions, and the system must absorb it without destabilizing existing behavior.</p>
         <p>Many integrations operate on event-driven update streams so new evidence and metadata can be indexed within seconds to minutes, while batch reconciliation protects completeness and correctness over longer windows.</p>
 
         <h3>OCR, handwriting recognition, and parsing</h3>
@@ -138,6 +139,7 @@ flowchart LR
         <h3>Indexing and storage</h3>
         <p>Keep two storage planes: (1) operational/object systems for immutable originals and (2) retrieval-optimized indexes for normalized fields, full text, and derived signals. Never rely on the index as the only copy of evidence-bearing content.</p>
         <p>In systems like this, search is not the source of truth. Operational systems manage evidence, cases, and metadata through APIs, and search is a derived layer built to make that data retrievable. The effectiveness of search is therefore bounded by the quality of ingestion, normalization, and relationship modeling upstream.</p>
+        <p>Search reflects the system—it does not define it. As the underlying data evolves, the retrieval layer adapts by re-indexing and reinterpreting data without altering the source of truth.</p>
         <p>Access to data is mediated through APIs with scoped permissions. Every read, write, and update flows through authenticated and authorized interfaces, ensuring that retrieval systems respect the same access controls as the underlying data.</p>
 
         <h3>Retrieval and ranking</h3>
@@ -159,11 +161,11 @@ flowchart LR
 
         <h3>Designing for evolving schemas and autonomous integrations</h3>
         <p>These systems cannot assume a fixed schema. Data arrives from legacy systems, external partners, devices, and new tools over time—each with different structures, quality levels, and formats.</p>
-        <p>“Bring your own schema” is a consequence of this environment. The system must accept data it does not fully understand and still make it retrievable, linkable, and auditable without forcing a global schema redesign.</p>
+        <p>“Bring your own schema” is not a feature—it is a consequence of operating in an environment where the system cannot control its inputs. The architecture must accept and index data it does not fully understand while preserving its ability to evolve interpretation over time.</p>
         <p>In practice, this leads to a hybrid model: a minimal canonical structure for linking and retrieval, combined with schema-on-read for interpretation. Raw evidence is preserved in its original form, while metadata and relationships are incrementally enriched over time.</p>
         <p>This aligns with real-world systems where data is ingested in original formats, metadata is layered on top, and retrieval systems operate on indexed views rather than transforming the underlying data.</p>
         <p>As integrations grow, new systems must be onboarded continuously. A well-designed platform allows new data sources and capabilities to be added through APIs without tightly coupling them to existing schemas or requiring reprocessing of historical data.</p>
-        <p>Stable API boundaries are what make this possible. They allow new systems and data sources to integrate without changing the core architecture or reprocessing existing data.</p>
+        <p>Stable API boundaries are what make this possible. They isolate change, allowing new systems and data sources to integrate without requiring changes to the core data model or reprocessing of existing data.</p>
         <p>As systems evolve, higher-level orchestration layers can take advantage of this structure. Agent-assisted workflows can discover and use available APIs and data sources dynamically, composing multi-step retrieval and analysis flows without requiring changes to the underlying data model.</p>
         <p>This flexibility does not remove constraints. Auditability, data integrity, and system-of-record boundaries remain fixed. Autonomous systems must operate within these constraints, ensuring that every result remains traceable, authorized, and defensible.</p>
         <p>The goal is not to design a perfect schema or a perfect pipeline. It is to design a system that continues to function as new schemas, new integrations, and new capabilities are introduced over time.</p>
@@ -320,7 +322,7 @@ flowchart LR
         <p>Hallucination risk, nondeterministic outputs, and explainability limits are not theoretical in this domain. You need deterministic retrieval paths, versioned model governance, and explicit provenance so investigators and analysts can verify claims against original documents (OWASP Foundation, 2025; U.S. Department of Justice, 2024).</p>
 
         <h2>Agents and MCP: useful, but in the right layer</h2>
-        <p>Agents are most useful as orchestration around tools, not as your data plane. Agent-assisted workflows operate on top of this stable foundation. They do not change how data is stored or indexed—they consume existing capabilities through APIs and retrieval systems. Their effectiveness depends on the stability of those underlying layers. Model Context Protocol (MCP) is useful for standardizing how the model layer accesses those tools and data sources, but it is not a substitute for indexing architecture (Anthropic, 2025).</p>
+        <p>Agents are most useful as orchestration around tools, not as your data plane. Agent-assisted workflows are a natural extension of this architecture. They operate on top of stable APIs and retrieval systems, composing capabilities dynamically. Their effectiveness depends on the system's ability to remain consistent as new data sources and tools are introduced. Model Context Protocol (MCP) is useful for standardizing how the model layer accesses those tools and data sources, but it is not a substitute for indexing architecture (Anthropic, 2025).</p>
         <p>Good use case: an agent decomposes a request into multiple steps—records search, geospatial lookup, policy document query, and case-note retrieval—then assembles a traceable response. MCP can expose those connectors consistently so model orchestration remains manageable across tools.</p>
         <p>Bad use case: treating an agent prompt loop as if it replaces deterministic retrieval, canonical schemas, and evidence controls. It does not.</p>
 
@@ -346,7 +348,7 @@ flowchart LR
         <p>Engineering maturity here means separating what must be deterministic from what can be probabilistic, and proving the full system can be audited end to end. That is the difference between a demo and a production platform.</p>
         <p>A system like this is only as valuable as the confidence investigators and analysts have in it—confidence that the right information can be found, understood, and trusted.</p>
         <p>The hardest part of these systems is not building a fast index—it is ensuring that every result is complete, authorized, explainable, and traceable back to its source.</p>
-        <p>The systems that succeed in this domain are not the ones with the most advanced search or AI. They are the ones that remain correct, auditable, and stable as schemas evolve, integrations expand, and workflows become more autonomous.</p>
+        <p>The systems that succeed in this domain are not the ones with the most advanced search or AI—they are the ones that remain correct, auditable, and stable as everything around them changes.</p>
 
         <h2>Glossary</h2>
         <ul>
