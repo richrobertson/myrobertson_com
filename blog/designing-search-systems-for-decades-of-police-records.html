@@ -179,6 +179,7 @@ flowchart LR
         <p>Elasticsearch tends to accelerate iteration. JSON-native ingestion, broad tooling, rich DSL ergonomics, and modern hybrid retrieval integrations make experimentation faster. For teams running active discovery and ranking iteration cycles, that speed can be materially valuable.</p>
 
         <h3>Tradeoff analysis (not a feature checklist)</h3>
+        <div class="table-scroll" role="region" aria-label="Solr versus Elasticsearch tradeoff table" tabindex="0">
         <table>
           <colgroup>
             <col style="width: 18%" />
@@ -233,6 +234,7 @@ flowchart LR
             </tr>
           </tbody>
         </table>
+        </div>
 
         <p>The practical takeaway: Solr vs Elasticsearch is a meaningful choice, but it is rarely the primary cause of poor results in records discovery. Most failures are upstream: bad OCR cleanup, weak canonicalization, missing metadata, low-quality entity resolution, and ranking assumptions that were never validated on real analyst tasks.</p>
 
@@ -279,6 +281,7 @@ flowchart LR
 
         <h2>Where AI does not eliminate the hard parts</h2>
         <p>AI introduces useful capabilities and new risks. It does not remove the requirements of legal-grade retrieval.</p>
+        <div class="table-scroll" role="region" aria-label="AI versus deterministic systems table" tabindex="0">
         <table>
           <colgroup>
             <col style="width: 42%" />
@@ -313,6 +316,7 @@ flowchart LR
             </tr>
           </tbody>
         </table>
+        </div>
         <p>Hallucination risk, nondeterministic outputs, and explainability limits are not theoretical in this domain. You need deterministic retrieval paths, versioned model governance, and explicit provenance so investigators and analysts can verify claims against original documents (OWASP Foundation, 2025; U.S. Department of Justice, 2024).</p>
 
         <h2>Agents and MCP: useful, but in the right layer</h2>
