@@ -85,6 +85,7 @@
         <p>In practice, no single system contains all relevant information. Retrieval often spans records systems, case systems, dispatch history, attachments, and external sources that differ in schema, latency, and trust level.</p>
         <p>Every result must be traceable back to its source. Investigators need to understand not just what was returned, but why it was returned, which system it came from, when it was ingested, and how it was transformed along the way. Query workflows also need reproducibility so teams can rerun and defend the same search path during review.</p>
         <p>These systems are designed to be forensically sound. Every access, transformation, and retrieval must be auditable. Files remain immutable with integrity checks proving they have not changed, which means derived layers like search and AI cannot obscure or alter underlying evidence.</p>
+        <p>Auditability is not an add-on. It fundamentally shapes the architecture. Because every access and transformation must be traceable, derived systems like search and AI must preserve clear links back to original evidence and cannot introduce ambiguity about source or provenance.</p>
         <p>In short: this is not just search across structured and unstructured data. It is forensic retrieval under institutional constraints (National Institute of Standards and Technology [NIST], 2024).</p>
 
         <h3>Recall vs Precision in Investigative Systems</h3>
@@ -94,6 +95,7 @@
         <h2>System Architecture: The Retrieval Pipeline</h2>
         <p>For this class of system, I recommend thinking in explicit layers, each with contracts and measurable outputs.</p>
         <p>These platforms are typically API-first. Evidence, metadata, and case relationships are accessed and manipulated through secured APIs with scoped permissions, allowing external systems to ingest, update, and query data in a controlled and auditable way.</p>
+        <p>These systems separate concerns explicitly. Operational systems manage evidence, cases, and metadata through APIs and act as the system of record. Search is a derived layer built from indexed views of that data, optimized for retrieval but not authoritative. This separation allows retrieval performance to evolve without compromising data integrity.</p>
 
         <div class="mermaid" aria-label="Records retrieval architecture">
 flowchart LR
@@ -119,7 +121,14 @@ flowchart LR
 
         <h3>Normalization and canonicalization</h3>
         <p>Canonicalization is where retrieval quality is won. Normalize date formats, address patterns, incident code mappings, and jurisdiction-specific abbreviations into explicit canonical fields while preserving raw source values. Avoid “destructive cleanup” that loses original wording.</p>
-        <p>At the core of these systems is a simple but powerful model: unstructured evidence (video, audio, documents) enriched with structured metadata, linked to cases, and connected through relationships. Retrieval quality depends on how well these relationships are captured and maintained.</p>
+        <p>The canonical model typically consists of:</p>
+        <ul>
+          <li><strong>Evidence</strong> (unstructured: video, audio, documents)</li>
+          <li><strong>Metadata</strong> (structured: timestamps, locations, identifiers)</li>
+          <li><strong>Cases</strong> (organizational context)</li>
+          <li><strong>Relationships</strong> (links between people, events, and artifacts)</li>
+        </ul>
+        <p>Retrieval quality depends on how consistently these relationships are captured, maintained, and indexed.</p>
 
         <h3>Enrichment and entity extraction</h3>
         <p>Run deterministic extraction first (regex, dictionaries, policy-driven parsing), then use ML/LLM extraction for ambiguous fragments. Emit candidate entities with confidence and provenance, and resolve into canonical entities only when confidence and disambiguation thresholds are met.</p>
@@ -127,6 +136,7 @@ flowchart LR
         <h3>Indexing and storage</h3>
         <p>Keep two storage planes: (1) operational/object systems for immutable originals and (2) retrieval-optimized indexes for normalized fields, full text, and derived signals. Never rely on the index as the only copy of evidence-bearing content.</p>
         <p>In systems like this, search is not the source of truth. Operational systems manage evidence, cases, and metadata through APIs, and search is a derived layer built to make that data retrievable. The effectiveness of search is therefore bounded by the quality of ingestion, normalization, and relationship modeling upstream.</p>
+        <p>Because access is mediated through APIs with scoped permissions, retrieval systems must respect those boundaries, ensuring that search results reflect the same authorization model as the underlying data.</p>
 
         <h3>Retrieval and ranking</h3>
         <p>Use staged retrieval: deterministic filters and keyword first, semantic expansion second, reranking third. This prevents vector similarity from overpowering explicit constraints like date range, jurisdiction, and case status.</p>
@@ -318,7 +328,7 @@ flowchart LR
         <p>The hardest part of enterprise records search is not picking a logo or trend. It is turning broken, inconsistent, decades-old records into a retrieval system investigators and analysts can trust. That takes data modeling judgment, pipeline discipline, explicit tradeoff decisions, and ongoing evaluation—not slogans about AI replacing search engines.</p>
         <p>Engineering maturity here means separating what must be deterministic from what can be probabilistic, and proving the full system can be audited end to end. That is the difference between a demo and a production platform.</p>
         <p>A system like this is only as valuable as the confidence investigators and analysts have in it—confidence that the right information can be found, understood, and trusted.</p>
-        <p>The hardest part of these systems is not indexing data—it is preserving trust, provenance, and correctness across every step from ingestion to retrieval.</p>
+        <p>The hardest part of these systems is not building a fast index. It is ensuring that every result is complete, explainable, authorized, and traceable back to its source.</p>
 
         <h2>Glossary</h2>
         <ul>
