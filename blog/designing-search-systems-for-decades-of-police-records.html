@@ -97,7 +97,7 @@
         <p>For this class of system, I recommend thinking in explicit layers, each with contracts and measurable outputs.</p>
         <p>These platforms are typically API-first. Evidence, metadata, and case relationships are accessed and manipulated through secured APIs with scoped permissions, allowing external systems to ingest, update, and query data in a controlled and auditable way.</p>
         <p>These systems deliberately separate concerns. Operational systems manage evidence, cases, and metadata through APIs and act as the system of record. Search is a derived layer built from indexed views of that data—optimized for retrieval, but not authoritative. This separation allows indexing and ranking strategies to evolve without compromising data integrity.</p>
-        <p>The defining challenge of these systems is not handling today's data—it is remaining stable as data sources, schemas, and workflows continuously evolve. The architecture must absorb change without requiring constant redefinition of the system itself.</p>
+        <p>The defining challenge of these systems is not handling current data—it is remaining stable as data sources, schemas, and workflows continuously evolve. The architecture must absorb change without requiring constant redefinition of the system itself.</p>
 
         <div class="mermaid" aria-label="Records retrieval architecture">
 flowchart LR
@@ -159,11 +159,11 @@ flowchart LR
 
         <h3>Designing for evolving schemas and autonomous integrations</h3>
         <p>These systems cannot assume a fixed schema. Data arrives from legacy systems, external partners, devices, and new tools over time—each with different structures, quality levels, and formats.</p>
-        <p>“Bring your own schema” is not a convenience—it is a constraint. The system must accept data it does not fully understand at ingestion time and still make it retrievable, linkable, and auditable.</p>
+        <p>“Bring your own schema” is a consequence of this environment. The system must accept data it does not fully understand and still make it retrievable, linkable, and auditable without forcing a global schema redesign.</p>
         <p>In practice, this leads to a hybrid model: a minimal canonical structure for linking and retrieval, combined with schema-on-read for interpretation. Raw evidence is preserved in its original form, while metadata and relationships are incrementally enriched over time.</p>
         <p>This aligns with real-world systems where data is ingested in original formats, metadata is layered on top, and retrieval systems operate on indexed views rather than transforming the underlying data.</p>
         <p>As integrations grow, new systems must be onboarded continuously. A well-designed platform allows new data sources and capabilities to be added through APIs without tightly coupling them to existing schemas or requiring reprocessing of historical data.</p>
-        <p>Stable API boundaries are what make this possible. They allow new systems, data sources, and tools to integrate without requiring changes to the core data model or reprocessing of existing data.</p>
+        <p>Stable API boundaries are what make this possible. They allow new systems and data sources to integrate without changing the core architecture or reprocessing existing data.</p>
         <p>As systems evolve, higher-level orchestration layers can take advantage of this structure. Agent-assisted workflows can discover and use available APIs and data sources dynamically, composing multi-step retrieval and analysis flows without requiring changes to the underlying data model.</p>
         <p>This flexibility does not remove constraints. Auditability, data integrity, and system-of-record boundaries remain fixed. Autonomous systems must operate within these constraints, ensuring that every result remains traceable, authorized, and defensible.</p>
         <p>The goal is not to design a perfect schema or a perfect pipeline. It is to design a system that continues to function as new schemas, new integrations, and new capabilities are introduced over time.</p>
@@ -320,7 +320,7 @@ flowchart LR
         <p>Hallucination risk, nondeterministic outputs, and explainability limits are not theoretical in this domain. You need deterministic retrieval paths, versioned model governance, and explicit provenance so investigators and analysts can verify claims against original documents (OWASP Foundation, 2025; U.S. Department of Justice, 2024).</p>
 
         <h2>Agents and MCP: useful, but in the right layer</h2>
-        <p>Agents are most useful as orchestration around tools, not as your data plane. Agent-assisted workflows operate on top of this foundation. They do not change how data is stored or indexed—they consume existing capabilities through APIs and retrieval systems. Their effectiveness depends entirely on the stability and correctness of the underlying layers. Model Context Protocol (MCP) is useful for standardizing how the model layer accesses those tools and data sources, but it is not a substitute for indexing architecture (Anthropic, 2025).</p>
+        <p>Agents are most useful as orchestration around tools, not as your data plane. Agent-assisted workflows operate on top of this stable foundation. They do not change how data is stored or indexed—they consume existing capabilities through APIs and retrieval systems. Their effectiveness depends on the stability of those underlying layers. Model Context Protocol (MCP) is useful for standardizing how the model layer accesses those tools and data sources, but it is not a substitute for indexing architecture (Anthropic, 2025).</p>
         <p>Good use case: an agent decomposes a request into multiple steps—records search, geospatial lookup, policy document query, and case-note retrieval—then assembles a traceable response. MCP can expose those connectors consistently so model orchestration remains manageable across tools.</p>
         <p>Bad use case: treating an agent prompt loop as if it replaces deterministic retrieval, canonical schemas, and evidence controls. It does not.</p>
 
@@ -346,7 +346,7 @@ flowchart LR
         <p>Engineering maturity here means separating what must be deterministic from what can be probabilistic, and proving the full system can be audited end to end. That is the difference between a demo and a production platform.</p>
         <p>A system like this is only as valuable as the confidence investigators and analysts have in it—confidence that the right information can be found, understood, and trusted.</p>
         <p>The hardest part of these systems is not building a fast index—it is ensuring that every result is complete, authorized, explainable, and traceable back to its source.</p>
-        <p>The systems that succeed in this domain are not the ones with the most advanced search—they are the ones that remain correct, auditable, and adaptable as everything around them changes.</p>
+        <p>The systems that succeed in this domain are not the ones with the most advanced search or AI. They are the ones that remain correct, auditable, and stable as schemas evolve, integrations expand, and workflows become more autonomous.</p>
 
         <h2>Glossary</h2>
         <ul>
