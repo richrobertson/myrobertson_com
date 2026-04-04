@@ -40,6 +40,10 @@
         <p><strong>Distributed lock:</strong> ownership claim for a scoped critical section.</p>
         <p><strong>Lease:</strong> time-bounded ownership with renewal/expiry behavior.</p>
         <p><strong>Leader election:</strong> current coordinator authority for a group/partition.</p>
+        <p>
+          In practice, teams conflate these because many platforms expose them through similar APIs. The semantics differ most under failure, not during
+          happy-path execution.
+        </p>
 
         <h3>What each gives you</h3>
         <ul>
@@ -47,6 +51,10 @@
           <li>Lease gives recoverability through timeout-based turnover.</li>
           <li>Leader election gives coordination authority for broader workflows.</li>
         </ul>
+        <p>
+          A useful framing: lock is a local permission, lease is permission with decay, and leader election is role assignment for a group lifecycle.
+          Mixing these concepts usually produces ambiguous ownership boundaries.
+        </p>
 
         <h3>What each does not give you</h3>
         <ul>
@@ -54,11 +62,20 @@
           <li>Lease does not terminate paused processes.</li>
           <li>Leader election does not guarantee write-path correctness by itself.</li>
         </ul>
+        <p><strong>Correctness must be enforced at the write boundary.</strong> None of these primitives removes that requirement.</p>
 
         <h3>Operational consequences</h3>
         <p>
           Cron ownership usually needs lease behavior. Maintenance leadership usually needs election semantics. Control-plane writes usually need election
           plus storage-level validation.
+        </p>
+        <p>
+          Real-world consequence: teams using leader election for control-plane authority often still need per-resource lock or version checks to avoid
+          concurrent mutation between long-running handlers.
+        </p>
+        <p>
+          Production story: one platform elected a new maintenance leader after timeout, but the old leader resumed after transient stall and continued
+          drain operations. Election was correct; side-effect authorization was not scoped tightly enough.
         </p>
 
         <h3>Choose by workload shape</h3>
@@ -67,6 +84,13 @@
           <li><strong>Maintenance leadership:</strong> leader election.</li>
           <li><strong>Control-plane mutation authority:</strong> election + write validation contracts.</li>
         </ul>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          GC pauses can exceed renewal windows, network delays skew heartbeat visibility, clock drift narrows safe lease margins, and stalled processes
+          resume late with stale authority. These timing effects are exactly where lock, lease, and election semantics diverge.
+        </p>
+        <p><strong>Two processes can believe they own the lock.</strong> The primitive alone does not resolve that at mutation time.</p>
 
         <h3>What to Read Next</h3>
         <p>→ Read next: <a href="./distributed-lock-failure-modes.html">Distributed Lock Failure Modes in Production</a>.</p>

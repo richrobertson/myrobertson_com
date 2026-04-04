@@ -339,6 +339,20 @@
           <li>If you cannot validate ownership at the storage boundary, be conservative about correctness claims.</li>
         </ul>
 
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          Production systems have GC pauses, scheduler stalls, delayed packets, and imperfect clocks. Those conditions stretch lease assumptions and can
+          create windows where two actors both believe they own work.
+        </p>
+        <p>
+          A process can pause longer than lease TTL, another owner can legitimately take over, and the paused process can resume and issue stale writes.
+          <strong>Lease expiry does not stop execution.</strong> Correctness requires write-boundary validation.
+        </p>
+        <p>
+          Production story: in a maintenance workflow, owner A stalled during deployment while owner B acquired and completed an updated plan. A later
+          resumed and wrote old state into the same row because token checks were absent. The lock service was healthy; the mutation boundary was not.
+        </p>
+
         <h3>FAQ</h3>
         <p><strong>Is a distributed lock the same as a lease?</strong><br />Usually implemented as a lease, but conceptually a lock is ownership intent; lease adds expiration semantics.</p>
         <p><strong>Can Redis be used for distributed locks?</strong><br />Yes, commonly for efficiency-oriented coordination. For correctness-critical paths, validate whether Redis deployment and release semantics match your failure model.</p>

@@ -36,6 +36,11 @@
 
         <h3>The stale-owner problem</h3>
         <p>A process can continue execution after losing lease ownership and still attempt writes from an old world view.</p>
+        <p>
+          This often happens during ordinary runtime behavior, not exotic failure: JVM stop-the-world pauses, CPU starvation, container rescheduling,
+          and overloaded event loops can all pause renewal long enough for ownership transfer.
+        </p>
+        <p><strong>Lock acquisition is not proof of safety.</strong> It is only a momentary ownership signal.</p>
 
         <!-- DIAGRAM: token progression (41 → 42) -->
 
@@ -44,11 +49,31 @@
           Expiry only tells the lock service who should own now. It does not stop delayed work already in flight. Without storage-side rejection,
           stale work can overwrite newer state.
         </p>
+        <p>
+          In production, the stale client frequently still has open DB connections, warmed caches, and queued async tasks. After pause recovery, those
+          operations can complete successfully from the client perspective, even though ownership is already obsolete.
+        </p>
+        <p><strong>Lease expiry does not stop execution.</strong> It only changes who is currently authorized.</p>
+
+        <h3>Why locks alone are insufficient</h3>
+        <p>
+          A lock service can correctly hand off ownership and still allow corruption if mutation boundaries trust client identity instead of authority
+          ordering. That is the gap between coordination and correctness.
+        </p>
+        <p>
+          Paused-client scenario: A acquires, pauses, and misses renewal. B acquires and writes new state. A resumes and writes stale state afterward.
+          If storage accepts both writes, the lock service did its job and the system still failed.
+        </p>
+        <p><strong>Correctness must be enforced at the write boundary.</strong></p>
 
         <h3>Token model</h3>
         <p>
           Every successful acquisition gets a monotonically increasing token. Storage accepts writes only if token is newer than the last accepted
           token for that resource.
+        </p>
+        <p>
+          Monotonicity is the key property. If token issuance is not linearizable for the coordination key, two actors can present incomparable claims
+          and storage cannot reliably reject stale operations.
         </p>
 
         <h3>Example 1: storage write rejection</h3>
@@ -62,6 +87,31 @@
           A side-effect gateway stores highest accepted token per workflow key. Late retries from stale workers are dropped before partner calls,
           preserving business ordering.
         </p>
+        <p>
+          This is important for non-transactional boundaries such as email, payment capture, and external webhook dispatch where rollback is impossible.
+          Fencing at the gateway prevents “late but validly signed” stale actions from escaping the system.
+        </p>
+
+        <h3>Where fencing must be enforced</h3>
+        <ul>
+          <li><strong>Storage layer:</strong> conditional writes that reject stale fencing tokens.</li>
+          <li><strong>Side-effect gateway:</strong> token check before irreversible outbound operations.</li>
+          <li><strong>Database write boundary:</strong> same constraint used by every write path, not only the happy path.</li>
+        </ul>
+
+        <h3>What happens without fencing</h3>
+        <p>Without fencing, stale owners can emit duplicate side effects, lose newer updates, and silently corrupt shared state.</p>
+        <p>
+          Production story: one scheduler paused for longer than lease TTL during a noisy-neighbor event. A new owner completed reconciliation.
+          When the paused scheduler resumed, it replayed old mutations and rolled resource metadata backward because no token gate existed.
+        </p>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          GC pauses exceed lease windows. Network delays reorder delivery of “still running” work. Clock drift biases renewal timing near expiry.
+          Process stalls create long tails where clients resume with stale authority.
+        </p>
+        <p><strong>Two processes can believe they own the lock.</strong> Fencing is how you make only one of them able to mutate state.</p>
 
         <h3>Common mistakes</h3>
         <ul>

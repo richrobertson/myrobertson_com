@@ -38,6 +38,10 @@
         <p><strong>Redis:</strong> very common and low latency; often chosen for efficiency-oriented coordination.</p>
         <p><strong>ZooKeeper:</strong> coordination-first workflows with ephemeral/sequential node semantics.</p>
         <p><strong>etcd:</strong> linearizable consensus-backed operations with lease and transaction primitives.</p>
+        <p>
+          All three can coordinate work. The deciding factor is the failure cost you can tolerate when ownership evidence is delayed, stale, or split
+          across subsystems.
+        </p>
 
         <h3>Choose this when:</h3>
         <ul>
@@ -45,10 +49,35 @@
           <li><strong>ZooKeeper:</strong> coordination-first workflows and explicit election/ordering patterns.</li>
           <li><strong>etcd:</strong> correctness-critical coordination where linearizability is a hard requirement.</li>
         </ul>
+        <p>
+          For interview-style shorthand: choose Redis when waste is acceptable, choose ZooKeeper/etcd when ownership ambiguity is unacceptable.
+          The decision is about failure impact, not preference.
+        </p>
+
+        <h3>Why Redis locks fail for correctness</h3>
+        <p>
+          Redis lock patterns generally rely on timing assumptions: TTL sizing, renewal cadence, and release ordering. Under long GC pauses, network
+          delay, or clock skew, stale holders can still run and attempt writes after ownership moved.
+        </p>
+        <p>
+          Without fencing token enforcement at the write boundary, Redis acquisition success does not prevent stale-writer corruption. This is why Redis
+          is often excellent for efficiency control but risky as a sole correctness mechanism.
+        </p>
+
+        <h3>Why consensus systems are preferred for correctness</h3>
+        <p>
+          Consensus-backed systems provide clearer authority semantics under partition and failover. Linearizable operations give a stronger basis for
+          “who owns now,” and transaction primitives reduce race windows during acquire/release transitions.
+        </p>
+        <p>
+          That does not eliminate stale execution in clients, but it narrows ambiguity in coordination state and makes fencing-based correctness designs
+          easier to reason about.
+        </p>
 
         <h3>What people often get wrong</h3>
         <ul>
           <li>Choosing by popularity instead of failure impact.</li>
+          <li>Choosing Redis for correctness workloads without storage-side stale-writer rejection.</li>
           <li>Treating lock acquisition as proof of downstream write safety.</li>
           <li>Ignoring owner-checked release semantics.</li>
         </ul>
@@ -57,6 +86,17 @@
         <p>
           Regardless of backend, stale-owner risk remains unless the mutation boundary rejects stale authority.
           See <a href="./fencing-tokens-explained.html">Fencing Tokens Explained</a>.
+        </p>
+        <p><strong>Common mistake:</strong> “Choosing Redis for correctness workloads” and assuming the lock API itself provides write safety.</p>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          GC pauses delay renewal, network delay causes duplicate ownership perception, clock drift narrows safe TTL assumptions, and process stalls let
+          old workers resume late. Coordination and mutation boundaries drift apart unless explicitly rejoined by token checks.
+        </p>
+        <p>
+          Production story: a cache-backed lock looked healthy at p50 latency, but p99 pauses during deploy caused stale owners to continue writes.
+          The incident was not lock unavailability; it was stale authority accepted downstream.
         </p>
 
         <h3>References</h3>

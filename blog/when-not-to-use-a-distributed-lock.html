@@ -39,6 +39,21 @@
           Prefer invariant-preserving data contracts over external locks. Locks are coordination machinery plus failure surface.
           Invariants in storage usually survive incidents better than client-side ownership assumptions.
         </p>
+        <p>
+          Many teams reach for locks because they look like a direct translation of “only one worker.” In production, that shortcut often creates hidden
+          dependencies on lease timing, renewal health, and client behavior under pause.
+        </p>
+
+        <h3>Distributed locks are often the wrong abstraction</h3>
+        <p>
+          Locks coordinate entry into work, but they do not by themselves validate state transitions. If correctness depends on transition validity,
+          state-model constraints are stronger than lock ownership.
+        </p>
+        <p>
+          They also expand failure surface: lock store health, TTL tuning, clock assumptions, unlock semantics, and stale resumption behavior become part
+          of your correctness story.
+        </p>
+        <p><strong>Lease expiry does not stop execution.</strong> A resumed process can still act unless mutation boundaries reject stale authority.</p>
 
         <h3>Alternatives that are often better</h3>
         <ul>
@@ -48,6 +63,14 @@
           <li><strong>Queue serialization:</strong> ordered per-key processing without lock churn.</li>
           <li><strong>Single-writer assignment:</strong> structural ownership instead of per-operation lock negotiation.</li>
         </ul>
+        <p>
+          Idempotency and CAS are usually safer because they bind correctness to data transitions, not scheduler timing. Partition ownership and
+          single-writer models reduce coordination frequency by construction, which improves both reliability and debuggability.
+        </p>
+        <p>
+          Queues outperform lock-heavy workflows when ordering scope is clear. You trade global lock contention for explicit per-key sequencing and
+          bounded backpressure behavior.
+        </p>
 
         <h3>Decision guide</h3>
         <ul>
@@ -57,6 +80,17 @@
           <li><strong>Global singleton maintenance task?</strong> Lease-backed lock can be fine.</li>
           <li><strong>Correctness-critical shared mutations?</strong> If lock is used, pair with write-path validation (for example fencing/version checks).</li>
         </ul>
+        <p>
+          Production story: a team replaced a global lock with partition ownership + CAS guards and removed repeated stale-owner incidents. Throughput
+          improved because workers no longer contended on one hot coordination key.
+        </p>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          GC pauses, network delay, clock drift, and process stalls all stress lock timing assumptions. Alternatives like CAS and idempotency remain
+          robust because they validate state directly instead of inferring safety from lease timing.
+        </p>
+        <p><strong>Correctness must be enforced at the write boundary.</strong> If you can do that directly, skip the lock.</p>
 
         <h3>What to Read Next</h3>
         <p>→ Read next: <a href="./backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a>.</p>
