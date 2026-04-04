@@ -367,7 +367,7 @@ const pages = [
     contentType: 'index',
     summary: 'Technical writing index for distributed systems, control planes, and reliability under load.',
     tags: ['writing', 'distributed systems', 'reliability'],
-    updatedDate: '2026-04-02',
+    updatedDate: '2026-04-04',
     importance: 3
   },
   {
