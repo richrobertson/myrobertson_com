@@ -91,12 +91,13 @@
 
         <h3>Recall vs Precision in Investigative Systems</h3>
         <p>In investigative systems, missing the right record is often worse than returning too many. The system has to find the signal first, and then help investigators refine it.</p>
-        <p>That usually means biasing retrieval toward recall early, then controlling noise through ranking, faceting, filters, and better interaction design. Keyword search, semantic retrieval, and entity resolution together improve recall across aliases, spelling drift, and inconsistent narratives. Reranking, metadata constraints, and timeline-oriented views then recover precision so analysts can move quickly without drowning in irrelevant results.</p>
+        <p>The system should bias retrieval toward recall early, then control noise through ranking, faceting, filters, and better interaction design. Keyword search, semantic retrieval, and entity resolution together improve recall across aliases, spelling drift, and inconsistent narratives. Reranking, metadata constraints, and timeline-oriented views then recover precision so analysts can move quickly without drowning in irrelevant results.</p>
 
         <h2>System Architecture: The Retrieval Pipeline</h2>
-        <p>For this class of system, I recommend thinking in explicit layers, each with contracts and measurable outputs.</p>
+        <p>For this class of system, design explicit layers with clear contracts and measurable outputs.</p>
         <p>These platforms are typically API-first. Evidence, metadata, and case relationships are accessed and manipulated through secured APIs with scoped permissions, allowing external systems to ingest, update, and query data in a controlled and auditable way.</p>
         <p>These systems deliberately separate concerns. Operational systems manage evidence, cases, and metadata through APIs and act as the system of record. Search is a derived layer built from indexed views of that data—optimized for retrieval, but not authoritative. This separation allows indexing and ranking strategies to evolve without compromising data integrity.</p>
+        <p>“Any system in this domain that does not explicitly separate system-of-record data from derived retrieval will eventually fail under schema drift and integration pressure.”</p>
         <p>The defining challenge of these systems is not handling current data—it is remaining stable as data sources, schemas, and workflows continuously evolve. These systems operate under a unique constraint: they are continuously evolving, but must remain forensically correct at all times. New integrations are introduced constantly, yet the system cannot compromise auditability, data integrity, or traceability. The architecture must absorb change without destabilizing the system of record.</p>
 
         <div class="mermaid" aria-label="Records retrieval architecture">
@@ -124,6 +125,7 @@ flowchart LR
 
         <h3>Normalization and canonicalization</h3>
         <p>Canonicalization is where retrieval quality is won. Normalize date formats, address patterns, incident code mappings, and jurisdiction-specific abbreviations into explicit canonical fields while preserving raw source values. Avoid “destructive cleanup” that loses original wording.</p>
+        <p>“In practice, search quality is not determined by the index alone. It is determined by the correctness, connectivity, and traceability of the underlying data model.”</p>
         <p>The canonical model typically consists of:</p>
         <ul>
           <li><strong>Evidence</strong> (unstructured: video, audio, documents)</li>
@@ -169,6 +171,7 @@ flowchart LR
         <p>As systems evolve, higher-level orchestration layers can take advantage of this structure. Agent-assisted workflows can discover and use available APIs and data sources dynamically, composing multi-step retrieval and analysis flows without requiring changes to the underlying data model.</p>
         <p>This flexibility does not remove constraints. Auditability, data integrity, and system-of-record boundaries remain fixed. Autonomous systems must operate within these constraints, ensuring that every result remains traceable, authorized, and defensible.</p>
         <p>The goal is not to design a perfect schema or a perfect pipeline. It is to design a system that continues to function as new schemas, new integrations, and new capabilities are introduced over time.</p>
+        <p>“Architecture in this space is fundamentally about constraining change so the system remains correct as it evolves.”</p>
 
         <h2>The Data Plane Decision: Solr vs Elasticsearch</h2>
         <p>Both Solr and Elasticsearch are Lucene-based and capable of serious enterprise search. This is why many teams overestimate engine differences and underestimate data quality architecture. If normalization is weak and entity linking is noisy, both platforms will fail in similar ways (Apache Solr, 2026; Elastic, 2025).</p>
