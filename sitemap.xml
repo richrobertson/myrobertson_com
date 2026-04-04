@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.myrobertson.com/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/ask-rich.html</loc>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-04</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</loc>
@@ -53,8 +53,12 @@
     <lastmod>2026-04-02</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html</loc>
+    <lastmod>2026-04-04</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-04</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html</loc>
@@ -74,7 +78,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</loc>
@@ -114,7 +118,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</loc>
@@ -126,7 +130,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-a-control-plane.html</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-04</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</loc>
@@ -218,14 +222,14 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/distributed-systems/</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-03</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/knowledge.json</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-04</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/llms.txt</loc>
-    <lastmod>2026-04-02</lastmod>
+    <lastmod>2026-04-03</lastmod>
   </url>
 </urlset>

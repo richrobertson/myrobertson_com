@@ -149,5 +149,5 @@ node scripts/generate-rss.mjs
 node scripts/generate-sitemap.mjs
 ```
 
-5. Commit generated `rss.xml` and `sitemap.xml` updates.
-6. Open a PR and confirm static-analysis and CodeQL checks pass.
+1. Commit generated `rss.xml` and `sitemap.xml` updates.
+2. Open a PR and confirm static-analysis and CodeQL checks pass.

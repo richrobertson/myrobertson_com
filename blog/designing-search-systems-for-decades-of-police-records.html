@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designing Search Systems for Decades of Police Records | Solr vs Elasticsearch, AI Retrieval, and MCP</title>
+    <meta name="description" content="How to design a search system for decades of police records spanning structured data, XML, JSON, scanned documents, and handwritten notes. A practical engineering analysis of Solr vs Elasticsearch, hybrid retrieval, AI ranking, agents, and MCP." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Designing Search Systems for Decades of Police Records" />
+    <meta property="og:description" content="A pragmatic system design analysis of records discovery architecture, Solr vs Elasticsearch tradeoffs, hybrid retrieval, and where AI and MCP agents fit." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Designing Search Systems for Decades of Police Records" />
+    <meta name="twitter:description" content="Search architecture for law-enforcement records discovery: ingestion, normalization, hybrid retrieval, AI reranking, and auditability." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Designing Search Systems for Decades of Police Records",
+        "description": "How to design a search system for decades of police records spanning structured data, XML, JSON, scanned documents, and handwritten notes. A practical engineering analysis of Solr vs Elasticsearch, hybrid retrieval, AI ranking, agents, and MCP.",
+        "url": "https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html",
+        "datePublished": "2026-04-04",
+        "dateModified": "2026-04-04",
+        "author": { "@type": "Person", "name": "Rich Robertson", "url": "https://www.myrobertson.com/" },
+        "keywords": ["police records search system", "Solr vs Elasticsearch", "hybrid retrieval architecture", "AI for enterprise search", "MCP agents search architecture"],
+        "articleSection": ["Search", "Distributed Systems", "AI Systems", "System Design", "Interviews", "Architecture"],
+        "isPartOf": { "@type": "Blog", "name": "Rich Robertson Writing", "url": "https://www.myrobertson.com/blog/" }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="designing-search-systems-for-decades-of-police-records">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="designing-search-systems-for-decades-of-police-records">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Designing Search Systems for Decades of Police Records</h1>
+        <p class="intro blog-dek">The hardest problem is not engine selection. It is building trustworthy retrieval from inconsistent, low-quality records spread across decades and formats.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h2>Executive Summary</h2>
+        <p>When teams ask “Solr or Elasticsearch?”, they are usually asking the wrong first question. For a police records search system, quality is mostly decided before query execution: ingestion reliability, OCR quality, canonical metadata, entity resolution, and ranking strategy. Engine choice still matters, but it matters after architecture discipline is in place (Apache Lucene, 2026; Elastic, 2025).</p>
+        <p>My practical recommendation is a layered hybrid retrieval architecture: preserve originals in object storage, build a normalized metadata pipeline, index in a Lucene-based platform, combine keyword plus filter plus semantic retrieval, and rerank with constrained AI. Add strong provenance, audit trails, and measurable evaluation at every stage.</p>
+
+        <section class="flagship-callout" aria-labelledby="key-design-principles">
+          <h3 id="key-design-principles">Key design principles</h3>
+          <ul>
+            <li>Model retrieval as a pipeline problem, not a single search-box problem.</li>
+            <li>Preserve provenance from source document to result snippet.</li>
+            <li>Optimize first for recall under constraints, then precision and analyst speed.</li>
+            <li>Keep deterministic retrieval in charge; use AI to improve, not replace, evidence retrieval.</li>
+            <li>Treat evaluation and auditability as first-class features, not afterthoughts.</li>
+          </ul>
+        </section>
+
+        <h2>Intro</h2>
+        <p>Imagine a records discovery platform used by officers, analysts, and investigators. The data spans decades and arrives in every shape you would rather avoid: relational exports from retired systems, XML payloads from middleware, JSON event records from newer tools, scanned PDFs, faxed documents, and handwritten notes that went through low-quality OCR. Some of it was typed on green-screen era systems. Some of it came from modern mobile workflows. All of it is now expected to behave like one coherent retrieval surface.</p>
+        <p>This is why “search” is a misleading label for the core engineering challenge. The hard part is not building a query parser. The hard part is making degraded, inconsistent records discoverable in a way that is reliable, explainable, and legally defensible. You need ingestion controls, normalization, enrichment, indexing policy, ranking policy, and post-retrieval safeguards working together as one system.</p>
+        <p>The framing I use is simple: this is an <strong>ingestion-to-evidence pipeline under uncertainty</strong>. Query latency and index features matter, but without disciplined data shaping upstream, your search stack will only return wrong answers faster.</p>
+        <p>In this domain, search is not just a convenience feature. The results directly influence investigative decisions, officer safety, and legal outcomes. That raises the bar for recall, explainability, and trust in ways most enterprise search systems never encounter.</p>
+
+        <h2 id="why-this-is-hard">Why this is hard: what makes this search problem different</h2>
+        <p>The law-enforcement records discovery problem is structurally different from product search or document search in a homogeneous enterprise repository.</p>
+        <ul>
+          <li><strong>Temporal depth:</strong> 20–40 years of schema drift, policy changes, and terminology shifts.</li>
+          <li><strong>Format heterogeneity:</strong> tables, nested XML, JSON, raster scans, handwritten notes, and OCR artifacts in one corpus.</li>
+          <li><strong>Variable trust:</strong> records have different quality levels and confidence depending on source, capture workflow, and age.</li>
+          <li><strong>Entity ambiguity:</strong> the same person can appear under aliases, initials, misspellings, and stale addresses.</li>
+          <li><strong>High false-negative cost:</strong> missing a relevant incident can have investigative, legal, and safety consequences.</li>
+          <li><strong>Legal and privacy constraints:</strong> retention, redaction, and role-based access must be enforceable and auditable.</li>
+          <li><strong>Explainability requirement:</strong> investigators must understand why a record was returned and where each field came from.</li>
+        </ul>
+        <p>In practice, no single system contains all relevant information. Retrieval often spans records systems, case systems, dispatch history, attachments, and external sources that differ in schema, latency, and trust level.</p>
+        <p>These systems rarely operate in isolation. Evidence, metadata, and case context often originate from multiple systems that must be integrated and kept in sync, each with different schemas, latency characteristics, and trust boundaries.</p>
+        <p>Every result must be traceable back to its source. Investigators need to understand not just what was returned, but why it was returned, which system it came from, when it was ingested, and how it was transformed along the way. Query workflows also need reproducibility so teams can rerun and defend the same search path during review.</p>
+        <p>These systems are designed to preserve chain-of-custody. Every action—upload, access, modification—is recorded in audit logs, and original evidence remains unchanged with integrity checks proving it has not changed. Derived layers like search and AI must preserve traceability and cannot obscure underlying data.</p>
+        <p>Auditability is not an add-on—it shapes the architecture. Because every action must be traceable and evidence must remain immutable, derived systems like search and AI must preserve clear links back to original data and cannot introduce ambiguity about source or provenance.</p>
+        <p>In short: this is not just search across structured and unstructured data. It is forensic retrieval under institutional constraints (National Institute of Standards and Technology [NIST], 2024).</p>
+
+        <h3>Recall vs Precision in Investigative Systems</h3>
+        <p>In investigative systems, missing the right record is often worse than returning too many. The system has to find the signal first, and then help investigators refine it.</p>
+        <p>The system should bias retrieval toward recall early, then control noise through ranking, faceting, filters, and better interaction design. Keyword search, semantic retrieval, and entity resolution together improve recall across aliases, spelling drift, and inconsistent narratives. Reranking, metadata constraints, and timeline-oriented views then recover precision so analysts can move quickly without drowning in irrelevant results.</p>
+
+        <h2>System Architecture: The Retrieval Pipeline</h2>
+        <p>For this class of system, design explicit layers with clear contracts and measurable outputs.</p>
+        <p>These platforms are typically API-first. Evidence, metadata, and case relationships are accessed and manipulated through secured APIs with scoped permissions, allowing external systems to ingest, update, and query data in a controlled and auditable way.</p>
+        <p>These systems deliberately separate concerns. Operational systems manage evidence, cases, and metadata through APIs and act as the system of record. Search is a derived layer built from indexed views of that data—optimized for retrieval, but not authoritative. This separation allows indexing and ranking strategies to evolve without compromising data integrity.</p>
+        <p>“Any system in this domain that does not explicitly separate system-of-record data from derived retrieval will eventually fail under schema drift and integration pressure.”</p>
+        <p>The defining challenge of these systems is not handling current data—it is remaining stable as data sources, schemas, and workflows continuously evolve. These systems operate under a unique constraint: they are continuously evolving, but must remain forensically correct at all times. New integrations are introduced constantly, yet the system cannot compromise auditability, data integrity, or traceability. The architecture must absorb change without destabilizing the system of record.</p>
+
+        <div class="mermaid" aria-label="Records retrieval architecture">
+flowchart LR
+  A["Sources: RMS, CAD, XML feeds, JSON APIs, PDF scans, handwritten notes"] --&gt; B["Parsing, OCR, handwriting recognition"]
+  B --&gt; C["Normalization and canonicalization"]
+  C --&gt; D["Enrichment and entity extraction"]
+  D --&gt; E["Search index (Lucene)"]
+  D --&gt; F["Object store for originals"]
+  E --&gt; G["Retrieval: keyword, filters, semantic"]
+  G --&gt; H["AI reranking, expansion, summarization"]
+  H --&gt; I["Officer and analyst UI"]
+  I --&gt; J["Audit trail and provenance"]
+  J --&gt; C
+        </div>
+
+        <h3>Source ingestion</h3>
+        <p>Build source-specific adapters with immutable ingest logs. Every raw artifact needs a stable source ID, capture timestamp, source system identifier, and checksum. If your ingestion is not traceable, downstream evidence handling is weak before search begins.</p>
+        <p>In practice, ingestion is continuous. Historical records are migrated in bulk, but new data arrives constantly from devices, external systems, and uploads. Systems must support both near real-time ingestion for fresh data and synchronization workflows to keep distributed systems consistent.</p>
+        <p>Continuous ingestion is not just a data pipeline concern—it is what forces the architecture to tolerate change. New data arrives with new structure, new quality, and new assumptions, and the system must absorb it without destabilizing existing behavior.</p>
+        <p>Many integrations operate on event-driven update streams so new evidence and metadata can be indexed within seconds to minutes, while batch reconciliation protects completeness and correctness over longer windows.</p>
+
+        <h3>OCR, handwriting recognition, and parsing</h3>
+        <p>Separate extraction confidence from extracted value. Store confidence scores by field and by token region, not just document-level confidence. OCR errors are not random; they cluster around certain fonts, generations, and scan conditions. You want those error characteristics in your model inputs (NIST, 2025).</p>
+
+        <h3>Normalization and canonicalization</h3>
+        <p>Canonicalization is where retrieval quality is won. Normalize date formats, address patterns, incident code mappings, and jurisdiction-specific abbreviations into explicit canonical fields while preserving raw source values. Avoid “destructive cleanup” that loses original wording.</p>
+        <p>“In practice, search quality is not determined by the index alone. It is determined by the correctness, connectivity, and traceability of the underlying data model.”</p>
+        <p>The canonical model typically consists of:</p>
+        <ul>
+          <li><strong>Evidence</strong> (unstructured: video, audio, documents)</li>
+          <li><strong>Metadata</strong> (structured: timestamps, locations, identifiers)</li>
+          <li><strong>Cases</strong> (organizational context)</li>
+          <li><strong>Relationships</strong> (links between people, events, and artifacts)</li>
+        </ul>
+        <p>Retrieval quality depends on how consistently these relationships are captured, maintained, and indexed.</p>
+
+        <h3>Enrichment and entity extraction</h3>
+        <p>Run deterministic extraction first (regex, dictionaries, policy-driven parsing), then use ML/LLM extraction for ambiguous fragments. Emit candidate entities with confidence and provenance, and resolve into canonical entities only when confidence and disambiguation thresholds are met.</p>
+
+        <h3>Indexing and storage</h3>
+        <p>Keep two storage planes: (1) operational/object systems for immutable originals and (2) retrieval-optimized indexes for normalized fields, full text, and derived signals. Never rely on the index as the only copy of evidence-bearing content.</p>
+        <p>In systems like this, search is not the source of truth. Operational systems manage evidence, cases, and metadata through APIs, and search is a derived layer built to make that data retrievable. The effectiveness of search is therefore bounded by the quality of ingestion, normalization, and relationship modeling upstream.</p>
+        <p>Search reflects the system—it does not define it. As the underlying data evolves, the retrieval layer adapts by re-indexing and reinterpreting data without altering the source of truth.</p>
+        <p>APIs are not just integration points—they define the system boundary. All data access, ingestion, and updates flow through authenticated and authorized interfaces, ensuring that change can occur without compromising integrity or access control.</p>
+
+        <h3>Retrieval and ranking</h3>
+        <p>Use staged retrieval: deterministic filters and keyword first, semantic expansion second, reranking third. This prevents vector similarity from overpowering explicit constraints like date range, jurisdiction, and case status.</p>
+        <p>These systems are fundamentally human-in-the-loop. The goal is not to replace judgment, but to surface the right information quickly, with enough context and transparency for investigators and analysts to make informed decisions. Faceting, filtering, timeline views, and explainable ranking are part of the retrieval architecture, not just UI decoration.</p>
+        <p>These systems are not optimized for casual search. They are optimized to help investigators, analysts, and officers move from scattered records toward a coherent picture of events.</p>
+
+        <h3>User interface and audit trail</h3>
+        <p>The UI should expose why results appear: matched fields, confidence, source system, extraction method, and ranking factors. Every interaction needs durable audit events: query text, filters, model version, reranker version, and result set hash.</p>
+
+        <h3>Observability and evaluation loops</h3>
+        <p>Track recall-focused datasets, precision-at-k, missed-entity rates, OCR drift, and “time to relevant document.” Build replay harnesses so you can compare ranking and extraction changes safely before deployment.</p>
+
+        <h3>A concrete retrieval example</h3>
+        <p>Consider a query where an investigator enters a person name, suspected offense type, city, and a rough year window. The person appears under two aliases, one known address is stale, and a relevant scanned report has OCR corruption in both the surname and street name.</p>
+        <p>The retrieval flow starts with deterministic constraints: jurisdiction, case status, and date range. Alias expansion then adds known alternate names. OCR-tolerant matching broadens term matching for likely scan errors, while entity resolution links the stale address and current address to one candidate person profile with confidence scores.</p>
+        <p>From there, semantic retrieval searches narrative reports where the event is described differently than in the structured incident record. The system may produce two conflicting high candidates: one newer document with weak metadata and noisy OCR, and one older document with stronger incident codes, cleaner provenance, and multiple aligned entity links.</p>
+        <p>Reranking should reward aligned signals across metadata, entity consistency, temporal fit, and provenance confidence, not just recency. The UI then shows why each result ranked where it did: source system, ingest time, extraction confidence, and matched fields. The goal is not to return documents. It is to support an evolving understanding of the case with traceable evidence.</p>
+
+        <h3>Designing for evolving schemas and autonomous integrations</h3>
+        <p>These systems cannot assume a fixed schema. Data arrives from legacy systems, external partners, devices, and new tools over time—each with different structures, quality levels, and formats.</p>
+        <p>“Bring your own schema” is not a feature—it is a constraint imposed by continuous ingestion from systems the platform does not control. The system must accept data it does not fully understand at ingestion time and still make it retrievable, linkable, and auditable.</p>
+        <p>In practice, this leads to a hybrid model: a minimal canonical structure for linking and retrieval, combined with schema-on-read for interpretation. Raw evidence is preserved in its original form, while metadata and relationships are incrementally enriched over time.</p>
+        <p>This aligns with real-world systems where data is ingested in original formats, metadata is layered on top, and retrieval systems operate on indexed views rather than transforming the underlying data.</p>
+        <p>As integrations grow, new systems must be onboarded continuously. A well-designed platform allows new data sources and capabilities to be added through APIs without tightly coupling them to existing schemas or requiring reprocessing of historical data.</p>
+        <p>Stable API boundaries are what make this possible. They isolate change, allowing new systems and data sources to integrate without requiring changes to the core data model or reprocessing of existing data.</p>
+        <p>As systems evolve, higher-level orchestration layers can take advantage of this structure. Agent-assisted workflows can discover and use available APIs and data sources dynamically, composing multi-step retrieval and analysis flows without requiring changes to the underlying data model.</p>
+        <p>This flexibility does not remove constraints. Auditability, data integrity, and system-of-record boundaries remain fixed. Autonomous systems must operate within these constraints, ensuring that every result remains traceable, authorized, and defensible.</p>
+        <p>The goal is not to design a perfect schema or a perfect pipeline. It is to design a system that continues to function as new schemas, new integrations, and new capabilities are introduced over time.</p>
+        <p>“Architecture in this space is fundamentally about constraining change so the system remains correct as it evolves.”</p>
+
+        <h2>The Data Plane Decision: Solr vs Elasticsearch</h2>
+        <p>Both Solr and Elasticsearch are Lucene-based and capable of serious enterprise search. This is why many teams overestimate engine differences and underestimate data quality architecture. If normalization is weak and entity linking is noisy, both platforms will fail in similar ways (Apache Solr, 2026; Elastic, 2025).</p>
+        <p>At the bottom of both systems is Lucene. That matters because the core retrieval model is often less different than teams assume. In practice, many of the meaningful differences are about schema discipline, operating style, ecosystem fit, and how quickly a team can iterate safely without degrading retrieval quality.</p>
+
+        <h3>How I think about Solr</h3>
+        <p>Solr rewards discipline. Schema control, explicit analyzers, and predictable relevance workflows fit organizations that prefer governed change management. In long-lived enterprise platforms, that explicitness can be a feature, not friction. Teams with strong search specialists often like Solr because it pushes decisions into clear configuration and review boundaries.</p>
+
+        <h3>How I think about Elasticsearch</h3>
+        <p>Elasticsearch tends to accelerate iteration. JSON-native ingestion, broad tooling, rich DSL ergonomics, and modern hybrid retrieval integrations make experimentation faster. For teams running active discovery and ranking iteration cycles, that speed can be materially valuable.</p>
+
+        <h3>Tradeoff analysis (not a feature checklist)</h3>
+        <div class="table-scroll" role="region" aria-label="Solr versus Elasticsearch tradeoff table" tabindex="0">
+        <table>
+          <colgroup>
+            <col style="width: 18%" />
+            <col style="width: 24%" />
+            <col style="width: 24%" />
+            <col style="width: 34%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Decision dimension</th>
+              <th>Solr tendency</th>
+              <th>Elasticsearch tendency</th>
+              <th>What matters more than either</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Relevance tuning</td>
+              <td>Highly explicit, configuration-driven tuning with strong governance</td>
+              <td>Fast iterative tuning via DSL and ecosystem tooling</td>
+              <td>Labeled relevance data, query taxonomy, and disciplined evaluation</td>
+            </tr>
+            <tr>
+              <td>Schema discipline</td>
+              <td>Strong fit for explicit schema management in governed environments</td>
+              <td>Flexible mapping workflows; can drift without guardrails</td>
+              <td>Canonical data contracts and schema versioning in ingestion pipeline</td>
+            </tr>
+            <tr>
+              <td>Ingestion ergonomics</td>
+              <td>Robust, but often more deliberate to evolve</td>
+              <td>Generally faster for JSON-heavy iterative ingestion</td>
+              <td>Normalization quality and source-by-source ingestion reliability</td>
+            </tr>
+            <tr>
+              <td>Operations at scale</td>
+              <td>Predictable with mature operational playbooks</td>
+              <td>Strong cloud-native operational ecosystem and managed options</td>
+              <td>Capacity planning, shard strategy, and reindex operational safety</td>
+            </tr>
+            <tr>
+              <td>Hybrid keyword + vector</td>
+              <td>Supported, often with more explicit composition</td>
+              <td>Strong momentum in hybrid/vector workflows</td>
+              <td>Controlled retrieval composition and reranking quality gates</td>
+            </tr>
+            <tr>
+              <td>Long-term maintainability</td>
+              <td>Excellent where schema/relevance governance is cultural norm</td>
+              <td>Excellent where product iteration speed and tooling breadth matter</td>
+              <td>Data stewardship, provenance preservation, and staffing model</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <p>The practical takeaway: Solr vs Elasticsearch is a meaningful choice, but it is rarely the primary cause of poor results in records discovery. Most failures are upstream: bad OCR cleanup, weak canonicalization, missing metadata, low-quality entity resolution, and ranking assumptions that were never validated on real analyst tasks.</p>
+
+        <h2>Other Technology Choices Worth Mentioning</h2>
+        <p>Adjacent tools matter, but they are complements to the architecture, not replacements for it.</p>
+        <ul>
+          <li><strong>OpenSearch:</strong> a viable Lucene-based option in many stacks, especially for teams already standardized on it operationally.</li>
+          <li><strong>Vector databases:</strong> useful for semantic recall experiments; usually best as supporting components, not sole retrieval plane.</li>
+          <li><strong>Object storage:</strong> mandatory for preserving originals and chain-of-custody artifacts.</li>
+          <li><strong>Warehouse/lakehouse:</strong> essential for offline evaluation, error analysis, and quality trend reporting.</li>
+          <li><strong>Graph layers:</strong> powerful for relationship exploration across people, addresses, vehicles, and incidents.</li>
+          <li><strong>OCR/document AI tooling:</strong> choose based on confidence telemetry, not brochure accuracy claims.</li>
+          <li><strong>Embedding models/rerankers:</strong> high leverage when constrained by deterministic retrieval and audited outputs.</li>
+        </ul>
+
+        <h2 id="my-recommendation">What actually works best in practice (my recommendation)</h2>
+        <section class="flagship-callout" aria-labelledby="recommended-architecture">
+          <h3 id="recommended-architecture">Recommended architecture</h3>
+          <ul>
+            <li>Immutable object store for originals and artifacts.</li>
+            <li>Normalized metadata pipeline with explicit canonical schemas.</li>
+            <li>Lucene-based primary search engine (Solr or Elasticsearch).</li>
+            <li>Hybrid retrieval: keyword + metadata filters + semantic recall.</li>
+            <li>AI for extraction, query expansion, classification, and reranking.</li>
+            <li>Evaluation harnesses, provenance controls, and audit trails around every stage.</li>
+          </ul>
+        </section>
+        <p>If I needed to stand this up quickly with strong ecosystem support for modern hybrid retrieval, I would usually lean Elasticsearch. If I were optimizing for tightly governed enterprise search with deep schema control and explicit operational discipline, Solr is still a serious contender. In either case, I would spend more design energy on ingestion quality, canonicalization, entity resolution, and evaluation than on logo selection.</p>
+        <p>If I were building this system today, I would bias toward Elasticsearch for initial implementation speed, ecosystem support, and hybrid retrieval tooling. I would still treat that as a secondary decision. The primary design work would go into ingestion quality, canonicalization, entity resolution, provenance, and evaluation loops, because those choices determine whether the system is trustworthy.</p>
+
+        <h2>Where AI helps</h2>
+        <p>AI can materially improve this system when used in narrow, supervised roles.</p>
+        <ul>
+          <li><strong>OCR post-processing:</strong> clean obvious OCR artifacts while preserving source text and confidence.</li>
+          <li><strong>Document classification:</strong> route records by type, workflow, and sensitivity tier.</li>
+          <li><strong>Field extraction:</strong> extract case numbers, locations, dates, and involved parties from semi-structured forms.</li>
+          <li><strong>Entity linking:</strong> connect alias-heavy person records across inconsistent spellings.</li>
+          <li><strong>Query rewriting:</strong> expand “Robertson, R.” with known aliases and historical address variants.</li>
+          <li><strong>Semantic retrieval:</strong> recover records where facts are expressed with different wording.</li>
+          <li><strong>Reranking:</strong> reorder candidates by task-specific relevance after deterministic prefiltering.</li>
+          <li><strong>Summarization:</strong> generate investigator-facing digests with citations to exact source spans.</li>
+        </ul>
+        <p>Example: an investigator searches for a person with two aliases and a frequently misspelled street name. Deterministic filters narrow the universe by jurisdiction and date range. Entity-linked expansion adds alias variants. Semantic retrieval finds narrative documents where the event is described differently. Reranking pushes results where multiple evidence signals align. That is where AI adds value: in constrained augmentation, not free-form replacement.</p>
+
+        <h2>Where AI does not eliminate the hard parts</h2>
+        <p>AI introduces useful capabilities and new risks. It does not remove the requirements of legal-grade retrieval.</p>
+        <div class="table-scroll" role="region" aria-label="AI versus deterministic systems table" tabindex="0">
+        <table>
+          <colgroup>
+            <col style="width: 42%" />
+            <col style="width: 58%" />
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Where AI helps</th>
+              <th>Where deterministic systems remain essential</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Extracting fields from noisy text</td>
+              <td>Exact filters for dates, jurisdictions, statutes, and case identifiers</td>
+            </tr>
+            <tr>
+              <td>Alias-aware query expansion</td>
+              <td>Auditable entity resolution policies and override workflows</td>
+            </tr>
+            <tr>
+              <td>Semantic recall across wording differences</td>
+              <td>Traceable provenance from result to original source artifact</td>
+            </tr>
+            <tr>
+              <td>Task-specific reranking</td>
+              <td>Deterministic baseline retrieval and regression-tested relevance</td>
+            </tr>
+            <tr>
+              <td>Result-set summarization</td>
+              <td>Chain-of-custody controls, citations, and legal defensibility</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        <p>Hallucination risk, nondeterministic outputs, and explainability limits are not theoretical in this domain. You need deterministic retrieval paths, versioned model governance, and explicit provenance so investigators and analysts can verify claims against original documents (OWASP Foundation, 2025; U.S. Department of Justice, 2024).</p>
+
+        <h2>Agents and MCP: useful, but in the right layer</h2>
+        <p>Agents are most useful as orchestration around tools, not as your data plane. Agent-assisted workflows operate on top of this stable foundation. They consume capabilities exposed through APIs and retrieval systems, composing multi-step workflows without altering how data is stored or governed. Their effectiveness depends on the stability of those underlying layers. Model Context Protocol (MCP) is useful for standardizing how the model layer accesses those tools and data sources, but it is not a substitute for indexing architecture (Anthropic, 2025).</p>
+        <p>Good use case: an agent decomposes a request into multiple steps—records search, geospatial lookup, policy document query, and case-note retrieval—then assembles a traceable response. MCP can expose those connectors consistently so model orchestration remains manageable across tools.</p>
+        <p>Bad use case: treating an agent prompt loop as if it replaces deterministic retrieval, canonical schemas, and evidence controls. It does not.</p>
+
+        <h2>Failure modes and non-obvious lessons</h2>
+        <p>These failures are not just technical gaps; they directly impact whether critical information is discoverable when it matters.</p>
+        <p>A relevant scanned report can exist in the corpus and still remain effectively invisible because OCR corruption broke a name match and the ingestion pipeline dropped confidence signals and alternate interpretations. That is not just a ranking issue. It is a failure to surface potentially critical information.</p>
+        <ul>
+          <li><strong>Trusting OCR too much:</strong> token-level OCR confidence is often ignored until false negatives pile up.</li>
+          <li><strong>Flattening too aggressively:</strong> teams normalize away context and lose legal provenance.</li>
+          <li><strong>Underinvesting in metadata:</strong> poor metadata cripples both deterministic and semantic retrieval.</li>
+          <li><strong>Overusing vector search:</strong> semantic recall without grounded evaluation can degrade trust.</li>
+          <li><strong>Treating ranking as “done”:</strong> ranking behavior drifts as corpus composition changes.</li>
+          <li><strong>Ignoring recall measurement:</strong> precision-only metrics hide dangerous miss patterns.</li>
+          <li><strong>Mixing evidence retrieval and AI narration:</strong> keep these layers separate and auditable.</li>
+          <li><strong>Forgetting investigator trust:</strong> explainable result paths are mandatory, not optional.</li>
+        </ul>
+
+        <h2>If I were building this today</h2>
+        <p>I would start with ingestion contracts and provenance guarantees before touching model selection. I would run a Lucene-based retrieval index, likely Elasticsearch for initial velocity unless governance constraints argued for Solr, while keeping operational case/evidence systems as the source of truth. I would add semantic retrieval behind explicit filters, use reranking with versioned evaluation, and keep every generated summary linked to source citations. I would measure recall relentlessly on high-risk query sets and publish quality dashboards visible to both engineering and domain leads.</p>
+
+        <h2>Conclusion</h2>
+        <p>The hardest part of enterprise records search is not picking a logo or trend. It is turning broken, inconsistent, decades-old records into a retrieval system investigators and analysts can trust. That takes data modeling judgment, pipeline discipline, explicit tradeoff decisions, and ongoing evaluation—not slogans about AI replacing search engines.</p>
+        <p>Engineering maturity here means separating what must be deterministic from what can be probabilistic, and proving the full system can be audited end to end. That is the difference between a demo and a production platform.</p>
+        <p>A system like this is only as valuable as the confidence investigators and analysts have in it—confidence that the right information can be found, understood, and trusted.</p>
+        <p>The hardest part of these systems is not building a fast index—it is ensuring that every result is complete, authorized, explainable, and traceable back to its source.</p>
+        <p>The systems that succeed in this domain are not the ones with the most advanced search or AI. They are the ones that remain correct, auditable, and stable as data sources expand, schemas evolve, and workflows become more autonomous.</p>
+
+        <h2>Glossary</h2>
+        <ul>
+          <li><strong>OCR:</strong> Optical character recognition; converts images of text into machine-readable text.</li>
+          <li><strong>Entity resolution:</strong> Determining when multiple records refer to the same real-world entity.</li>
+          <li><strong>Reranking:</strong> Reordering retrieved candidates using additional relevance signals.</li>
+          <li><strong>Hybrid retrieval:</strong> Combining keyword, metadata filter, and semantic retrieval methods.</li>
+          <li><strong>MCP:</strong> Model Context Protocol, a standard for model-to-tool/data connectivity.</li>
+        </ul>
+
+        <h2>FAQ</h2>
+        <h3>Is Solr or Elasticsearch better for enterprise records search?</h3>
+        <p>Both can work. The winning factor is usually pipeline quality and retrieval evaluation discipline, not engine branding.</p>
+        <h3>Can AI replace enterprise search engines?</h3>
+        <p>No. AI can improve extraction, expansion, and ranking, but deterministic indexing and auditable retrieval remain essential.</p>
+        <h3>What is hybrid retrieval?</h3>
+        <p>A retrieval strategy that combines keyword scoring, metadata filters, semantic matching, and often reranking.</p>
+        <h3>Where do agents and MCP fit in search architecture?</h3>
+        <p>They fit in orchestration and tool access layers, not in the core storage/indexing data plane.</p>
+
+        <h2>Related reading</h2>
+        <p>For architecture context, read <a href="/blog/what-is-a-control-plane.html">What Is a Control Plane?</a>, <a href="/blog/distributed-systems-interview-guide.html">Distributed Systems Interview Guide</a>, and <a href="/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html">How I Built the AskRich Chatbot for Technical Screening</a>. For reliability-first thinking on production quality under automation pressure, see <a href="/blog/reviewing-ai-generated-pull-requests-reliability-risk.html">Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck</a>.</p>
+
+        <h2>References</h2>
+        <ol>
+          <li>Anthropic. (2025). <em>Model Context Protocol specification</em>. <a href="https://modelcontextprotocol.io/">https://modelcontextprotocol.io/</a></li>
+          <li>Apache Lucene. (2026). <em>Apache Lucene documentation</em>. <a href="https://lucene.apache.org/core/">https://lucene.apache.org/core/</a></li>
+          <li>Apache Solr. (2026). <em>Solr reference guide</em>. <a href="https://solr.apache.org/guide/">https://solr.apache.org/guide/</a></li>
+          <li>Elastic. (2025). <em>Elasticsearch reference</em>. <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></li>
+          <li>National Institute of Standards and Technology. (2024). <em>NIST AI Risk Management Framework 1.0</em>. <a href="https://www.nist.gov/itl/ai-risk-management-framework">https://www.nist.gov/itl/ai-risk-management-framework</a></li>
+          <li>National Institute of Standards and Technology. (2025). <em>TREC 2024 deep learning track overview</em>. <a href="https://trec.nist.gov/pubs/">https://trec.nist.gov/pubs/</a></li>
+          <li>OpenSearch Software Foundation. (2025). <em>OpenSearch documentation</em>. <a href="https://opensearch.org/docs/latest/">https://opensearch.org/docs/latest/</a></li>
+          <li>OWASP Foundation. (2025). <em>OWASP Top 10 for LLM applications</em>. <a href="https://genai.owasp.org/">https://genai.owasp.org/</a></li>
+          <li>U.S. Department of Justice. (2024). <em>Justice manual and digital evidence guidance</em>. <a href="https://www.justice.gov/jm">https://www.justice.gov/jm</a></li>
+        </ol>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.13.0/dist/mermaid.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        mermaid.initialize({ startOnLoad: false, securityLevel: "loose", theme: "dark" });
+        await mermaid.run({ querySelector: ".mermaid" });
+      });
+    </script>
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

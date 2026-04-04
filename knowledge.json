@@ -401,6 +401,47 @@
         "label": "migration"
       },
       {
+        "id": "page:police-records-search-architecture",
+        "nodeType": "page",
+        "title": "Designing Search Systems for Decades of Police Records",
+        "url": "https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html",
+        "contentType": "article",
+        "summary": "System design analysis of police records discovery across structured and unstructured data with hybrid retrieval, Solr vs Elasticsearch tradeoffs, AI augmentation, and MCP orchestration.",
+        "publishedDate": "2026-04-04",
+        "updatedDate": "2026-04-04",
+        "importance": 2,
+        "canonicalTopic": "search architecture",
+        "related": [
+          "page:overload-control-pipeline",
+          "page:architecting-a-multitenant-control-plane",
+          "page:coding-interviews-ai-era-hub",
+          "page:coding-with-ai-bar-higher"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:search-architecture",
+        "nodeType": "tag",
+        "label": "search architecture"
+      },
+      {
+        "id": "tag:hybrid-retrieval",
+        "nodeType": "tag",
+        "label": "hybrid retrieval"
+      },
+      {
+        "id": "tag:enterprise-search",
+        "nodeType": "tag",
+        "label": "enterprise search"
+      },
+      {
+        "id": "tag:ai-systems",
+        "nodeType": "tag",
+        "label": "AI systems"
+      },
+      {
         "id": "page:coding-interviews-ai-era-hub",
         "nodeType": "page",
         "title": "Coding Interviews in the AI Era",
@@ -634,7 +675,7 @@
         "url": "https://www.myrobertson.com/blog/",
         "contentType": "index",
         "summary": "Technical writing index for distributed systems, control planes, and reliability under load.",
-        "updatedDate": "2026-04-02",
+        "updatedDate": "2026-04-04",
         "importance": 3
       },
       {
@@ -960,6 +1001,31 @@
         "type": "hasTag"
       },
       {
+        "source": "page:police-records-search-architecture",
+        "target": "tag:search-architecture",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:police-records-search-architecture",
+        "target": "tag:hybrid-retrieval",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:police-records-search-architecture",
+        "target": "tag:enterprise-search",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:police-records-search-architecture",
+        "target": "tag:ai-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:police-records-search-architecture",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
         "source": "page:coding-interviews-ai-era-hub",
         "target": "tag:ai-assisted-coding-interviews",
         "type": "hasTag"
@@ -1216,6 +1282,11 @@
       },
       {
         "source": "page:distributed-systems-writing",
+        "target": "page:police-records-search-architecture",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
         "target": "page:coding-interviews-ai-era-hub",
         "type": "indexes"
       },
@@ -1375,6 +1446,15 @@
       },
       {
         "source": "page:distributed-systems",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1488,6 +1568,15 @@
         "type": "relatedByTag",
         "sharedTags": [
           "tag:operability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
         ],
         "strength": 1
       },
@@ -1607,6 +1696,15 @@
       },
       {
         "source": "page:overload-control-pipeline",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1712,6 +1810,15 @@
       },
       {
         "source": "page:admission-control-in-distributed-systems",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1805,6 +1912,15 @@
       },
       {
         "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1883,6 +1999,15 @@
       },
       {
         "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1955,6 +2080,15 @@
       },
       {
         "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2016,6 +2150,15 @@
       },
       {
         "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2058,6 +2201,15 @@
       {
         "source": "page:why-systems-fail-under-load",
         "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:police-records-search-architecture",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems"
@@ -2114,6 +2266,15 @@
       },
       {
         "source": "page:retry-strategies-and-idempotency",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2142,6 +2303,15 @@
       },
       {
         "source": "page:queue-design-under-load",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2161,6 +2331,15 @@
       },
       {
         "source": "page:architecting-a-multitenant-control-plane",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:architecting-a-multitenant-control-plane",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2174,6 +2353,15 @@
         "type": "relatedByTag",
         "sharedTags": [
           "tag:migration"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:police-records-search-architecture",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
         ],
         "strength": 1
       },

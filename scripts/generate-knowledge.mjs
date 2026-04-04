@@ -216,6 +216,23 @@ const pages = [
     importance: 2
   },
   {
+    id: 'page:police-records-search-architecture',
+    title: 'Designing Search Systems for Decades of Police Records',
+    url: articleUrl(`${site}/blog/designing-search-systems-for-decades-of-police-records.html`),
+    contentType: 'article',
+    summary: 'System design analysis of police records discovery across structured and unstructured data with hybrid retrieval, Solr vs Elasticsearch tradeoffs, AI augmentation, and MCP orchestration.',
+    tags: ['search architecture', 'hybrid retrieval', 'enterprise search', 'AI systems', 'distributed systems'],
+    publishedDate: '2026-04-04',
+    updatedDate: '2026-04-04',
+    importance: 2,
+    canonicalTopic: 'search architecture',
+    related: ['page:overload-control-pipeline', 'page:architecting-a-multitenant-control-plane', 'page:coding-interviews-ai-era-hub', 'page:coding-with-ai-bar-higher'],
+    parent: 'page:distributed-systems-writing',
+    level: 'advanced',
+    status: 'published'
+  },
+
+  {
     id: 'page:coding-interviews-ai-era-hub',
     title: 'Coding Interviews in the AI Era',
     url: articleUrl(`${site}/blog/coding-interviews-in-the-ai-era.html`),
@@ -350,7 +367,7 @@ const pages = [
     contentType: 'index',
     summary: 'Technical writing index for distributed systems, control planes, and reliability under load.',
     tags: ['writing', 'distributed systems', 'reliability'],
-    updatedDate: '2026-04-02',
+    updatedDate: '2026-04-04',
     importance: 3
   },
   {

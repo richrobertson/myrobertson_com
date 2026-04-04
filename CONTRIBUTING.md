@@ -40,7 +40,7 @@ node scripts/generate-rss.mjs
 node scripts/generate-sitemap.mjs
 ```
 
-4. Confirm CI workflows pass.
+1. Confirm CI workflows pass.
 
 ## Commit and PR guidance
 
