@@ -1,1 +1,85 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Redis vs. ZooKeeper vs. etcd for Distributed Locking | Rich Robertson</title><meta name="description" content="A practical comparison of Redis, ZooKeeper, and etcd for distributed locking across guarantees, operational complexity, latency, and stale-owner risk." /><meta name="robots" content="index, follow" /><link rel="canonical" href="https://www.myrobertson.com/blog/redis-vs-zookeeper-vs-etcd-for-distributed-locking.html" /><meta property="og:type" content="article" /><meta property="og:title" content="Redis vs. ZooKeeper vs. etcd for Distributed Locking" /><meta property="og:description" content="How to choose lock infrastructure based on failure model and correctness requirements." /><meta property="og:url" content="https://www.myrobertson.com/blog/redis-vs-zookeeper-vs-etcd-for-distributed-locking.html" /><link rel="stylesheet" href="../styles.css" /></head><body data-page="writing" data-article-slug="redis-vs-zookeeper-vs-etcd-for-distributed-locking"><header class="hero" id="top"><div data-site-header></div><div class="hero-content" data-article-meta data-article-slug="redis-vs-zookeeper-vs-etcd-for-distributed-locking"><p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p><p class="eyebrow">April 2026 • Rich Robertson</p><h1>Redis vs. ZooKeeper vs. etcd for Distributed Locking</h1><p class="intro">There is no universal winner. The right tool depends on whether lock failure is an efficiency issue or a correctness incident.</p></div></header><main><article class="card blog-post" data-related-writing><p><strong>Start here:</strong> <a href="./what-is-a-distributed-lock-with-examples.html">Distributed lock overview and failure framing</a>.</p><h3>Coordination model differences</h3><p><strong>Redis:</strong> key-value primitive often used for lock/lease behavior with compare-and-delete unlock scripts. Very common operationally, low latency, strong for efficiency-focused coordination.</p><p><strong>ZooKeeper:</strong> coordination service with ephemeral and sequential znodes, watches, and recipe-driven lock/election workflows.</p><p><strong>etcd:</strong> consensus-backed KV with leases and transactional comparisons; explicit fit for linearizable coordination contracts.</p><!-- DIAGRAM: Redis vs ZooKeeper vs etcd comparison placeholder --><h3>Guarantees and risks</h3><ul><li><strong>Release semantics:</strong> always owner-checked release; never blind delete.</li><li><strong>Stale-owner risk:</strong> present in all systems unless write path validates ownership version/token.</li><li><strong>Latency:</strong> Redis often lowest median; etcd/ZooKeeper add consensus/session overhead for stronger semantics.</li><li><strong>Operational complexity:</strong> ZooKeeper and etcd demand tighter quorum and operational hygiene.</li></ul><h3>Good fit for efficiency</h3><p>Redis-backed lease/lock patterns are often enough when duplicate execution is acceptable and worst-case impact is wasted compute.</p><h3>Good fit for correctness</h3><p>etcd or ZooKeeper are usually easier to reason about for correctness-sensitive ownership, especially when paired with fencing-token enforcement at storage boundaries.</p><h3>What people often get wrong</h3><ul><li>Declaring "correctness" from lock acquisition alone.</li><li>Ignoring unlock ownership checks.</li><li>Assuming a low-latency primitive implies safe ownership under partition and pause behavior.</li><li>Using Redlock-style claims without matching them to business failure impact.</li></ul><h3>Distributed coordination cluster links</h3><ul><li><a href="./fencing-tokens-explained.html">Fencing tokens explained</a></li><li><a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Lease-service correctness model (Tenure on Raft)</a></li><li><a href="./distributed-lock-failure-modes.html">Failure modes in production</a></li><li><a href="./when-not-to-use-a-distributed-lock.html">When not to use a distributed lock</a></li></ul><h3>References</h3><ul><li>Redis. (n.d.). <em>Distributed locks with Redis</em>. <a href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/" target="_blank" rel="noopener noreferrer">https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/</a></li><li>Apache ZooKeeper. (n.d.). <em>Recipes and solutions</em>. <a href="https://zookeeper.apache.org/doc/current/recipes.html" target="_blank" rel="noopener noreferrer">https://zookeeper.apache.org/doc/current/recipes.html</a></li><li>etcd. (n.d.). <em>How to create locks</em>. <a href="https://etcd.io/docs/v3.6/tasks/developer/how-to-create-locks/" target="_blank" rel="noopener noreferrer">https://etcd.io/docs/v3.6/tasks/developer/how-to-create-locks/</a></li><li>Kleppmann, M. (2016). <em>How to do distributed locking</em>. <a href="https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="noopener noreferrer">https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html</a></li></ul><h3>What to Read Next</h3><p>After platform choice, read <a href="./distributed-lock-failure-modes.html">Distributed Lock Failure Modes in Production</a> and <a href="./fencing-tokens-explained.html">Fencing Tokens Explained</a>.</p></article></main><footer><p>© <span id="year"></span> Rich Robertson.</p><div data-site-footer></div></footer><script src="/nav.js"></script><script src="/content/content-model.js"></script><script src="/blog/taxonomy.js"></script><script src="/blog/blog.js"></script><script src="../script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redis vs. ZooKeeper vs. etcd for Distributed Locking | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Tool selection guide for Redis, ZooKeeper, and etcd under different guarantee requirements for distributed locking."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/redis-vs-zookeeper-vs-etcd-for-distributed-locking.html" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="redis-vs-zookeeper-vs-etcd-for-distributed-locking">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="redis-vs-zookeeper-vs-etcd-for-distributed-locking">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Redis vs. ZooKeeper vs. etcd for Distributed Locking</h1>
+        <p class="intro">
+          This page is about <strong>tool selection under different guarantees</strong>. It is <strong>not</strong> a full explanation of lock fundamentals.
+          Use this page when you already know your coordination problem and need platform tradeoffs.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p><strong>Part of the Distributed Coordination series.</strong></p>
+        <p>
+          <strong>Start here:</strong>
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a>
+        </p>
+
+        <h3>Guarantee profile summary</h3>
+        <p><strong>Redis:</strong> very common and low latency; often chosen for efficiency-oriented coordination.</p>
+        <p><strong>ZooKeeper:</strong> coordination-first workflows with ephemeral/sequential node semantics.</p>
+        <p><strong>etcd:</strong> linearizable consensus-backed operations with lease and transaction primitives.</p>
+
+        <h3>Choose this when:</h3>
+        <ul>
+          <li><strong>Redis:</strong> efficiency workload, low latency priority, duplicate work tolerable.</li>
+          <li><strong>ZooKeeper:</strong> coordination-first workflows and explicit election/ordering patterns.</li>
+          <li><strong>etcd:</strong> correctness-critical coordination where linearizability is a hard requirement.</li>
+        </ul>
+
+        <h3>What people often get wrong</h3>
+        <ul>
+          <li>Choosing by popularity instead of failure impact.</li>
+          <li>Treating lock acquisition as proof of downstream write safety.</li>
+          <li>Ignoring owner-checked release semantics.</li>
+        </ul>
+
+        <h3>Where fencing still matters</h3>
+        <p>
+          Regardless of backend, stale-owner risk remains unless the mutation boundary rejects stale authority.
+          See <a href="./fencing-tokens-explained.html">Fencing Tokens Explained</a>.
+        </p>
+
+        <h3>References</h3>
+        <ul>
+          <li>Redis. <em>Distributed locks with Redis</em>. <a href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/" target="_blank" rel="noopener noreferrer">redis.io</a></li>
+          <li>Apache ZooKeeper. <em>Recipes and solutions</em>. <a href="https://zookeeper.apache.org/doc/current/recipes.html" target="_blank" rel="noopener noreferrer">zookeeper.apache.org</a></li>
+          <li>etcd. <em>How to create locks</em>. <a href="https://etcd.io/docs/v3.6/tasks/developer/how-to-create-locks/" target="_blank" rel="noopener noreferrer">etcd.io</a></li>
+        </ul>
+
+        <h3>What to Read Next</h3>
+        <p>→ Read next: <a href="./when-not-to-use-a-distributed-lock.html">When Not to Use a Distributed Lock</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
