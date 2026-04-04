@@ -82,6 +82,7 @@
           <li><strong>Legal and privacy constraints:</strong> retention, redaction, and role-based access must be enforceable and auditable.</li>
           <li><strong>Explainability requirement:</strong> investigators must understand why a record was returned and where each field came from.</li>
         </ul>
+        <p>In practice, no single system contains all relevant information. Retrieval often spans records systems, case systems, dispatch history, attachments, and external sources that differ in schema, latency, and trust level.</p>
         <p>Every result must be traceable back to its source. Investigators need to understand not just what was returned, but why it was returned, which system it came from, when it was ingested, and how it was transformed along the way. Query workflows also need reproducibility so teams can rerun and defend the same search path during review.</p>
         <p>In short: this is not just search across structured and unstructured data. It is forensic retrieval under institutional constraints (National Institute of Standards and Technology [NIST], 2024).</p>
 
@@ -125,6 +126,7 @@ flowchart LR
         <h3>Retrieval and ranking</h3>
         <p>Use staged retrieval: deterministic filters and keyword first, semantic expansion second, reranking third. This prevents vector similarity from overpowering explicit constraints like date range, jurisdiction, and case status.</p>
         <p>These systems are fundamentally human-in-the-loop. The goal is not to replace judgment, but to surface the right information quickly, with enough context and transparency for investigators and analysts to make informed decisions. Faceting, filtering, timeline views, and explainable ranking are part of the retrieval architecture, not just UI decoration.</p>
+        <p>These systems are not optimized for casual search. They are optimized to help investigators, analysts, and officers move from scattered records toward a coherent picture of events.</p>
 
         <h3>User interface and audit trail</h3>
         <p>The UI should expose why results appear: matched fields, confidence, source system, extraction method, and ranking factors. Every interaction needs durable audit events: query text, filters, model version, reranker version, and result set hash.</p>
@@ -132,8 +134,15 @@ flowchart LR
         <h3>Observability and evaluation loops</h3>
         <p>Track recall-focused datasets, precision-at-k, missed-entity rates, OCR drift, and “time to relevant document.” Build replay harnesses so you can compare ranking and extraction changes safely before deployment.</p>
 
+        <h3>A concrete retrieval example</h3>
+        <p>Consider a query where an investigator enters a person name, suspected offense type, city, and a rough year window. The person appears under two aliases, one known address is stale, and a relevant scanned report has OCR corruption in both the surname and street name.</p>
+        <p>The retrieval flow starts with deterministic constraints: jurisdiction, case status, and date range. Alias expansion then adds known alternate names. OCR-tolerant matching broadens term matching for likely scan errors, while entity resolution links the stale address and current address to one candidate person profile with confidence scores.</p>
+        <p>From there, semantic retrieval searches narrative reports where the event is described differently than in the structured incident record. The system may produce two conflicting high candidates: one newer document with weak metadata and noisy OCR, and one older document with stronger incident codes, cleaner provenance, and multiple aligned entity links.</p>
+        <p>Reranking should reward aligned signals across metadata, entity consistency, temporal fit, and provenance confidence, not just recency. The UI then shows why each result ranked where it did: source system, ingest time, extraction confidence, and matched fields. The goal is not to return documents. It is to support an evolving understanding of the case with traceable evidence.</p>
+
         <h2>The Data Plane Decision: Solr vs Elasticsearch</h2>
         <p>Both Solr and Elasticsearch are Lucene-based and capable of serious enterprise search. This is why many teams overestimate engine differences and underestimate data quality architecture. If normalization is weak and entity linking is noisy, both platforms will fail in similar ways (Apache Solr, 2026; Elastic, 2025).</p>
+        <p>At the bottom of both systems is Lucene. That matters because the core retrieval model is often less different than teams assume. In practice, many of the meaningful differences are about schema discipline, operating style, ecosystem fit, and how quickly a team can iterate safely without degrading retrieval quality.</p>
 
         <h3>How I think about Solr</h3>
         <p>Solr rewards discipline. Schema control, explicit analyzers, and predictable relevance workflows fit organizations that prefer governed change management. In long-lived enterprise platforms, that explicitness can be a feature, not friction. Teams with strong search specialists often like Solr because it pushes decisions into clear configuration and review boundaries.</p>
@@ -143,6 +152,12 @@ flowchart LR
 
         <h3>Tradeoff analysis (not a feature checklist)</h3>
         <table>
+          <colgroup>
+            <col style="width: 18%" />
+            <col style="width: 24%" />
+            <col style="width: 24%" />
+            <col style="width: 34%" />
+          </colgroup>
           <thead>
             <tr>
               <th>Decision dimension</th>
@@ -218,6 +233,7 @@ flowchart LR
           </ul>
         </section>
         <p>If I needed to stand this up quickly with strong ecosystem support for modern hybrid retrieval, I would usually lean Elasticsearch. If I were optimizing for tightly governed enterprise search with deep schema control and explicit operational discipline, Solr is still a serious contender. In either case, I would spend more design energy on ingestion quality, canonicalization, entity resolution, and evaluation than on logo selection.</p>
+        <p>If I were building this system today, I would bias toward Elasticsearch for initial implementation speed, ecosystem support, and hybrid retrieval tooling. I would still treat that as a secondary decision. The primary design work would go into ingestion quality, canonicalization, entity resolution, provenance, and evaluation loops, because those choices determine whether the system is trustworthy.</p>
 
         <h2>Where AI helps</h2>
         <p>AI can materially improve this system when used in narrow, supervised roles.</p>
@@ -236,6 +252,10 @@ flowchart LR
         <h2>Where AI does not eliminate the hard parts</h2>
         <p>AI introduces useful capabilities and new risks. It does not remove the requirements of legal-grade retrieval.</p>
         <table>
+          <colgroup>
+            <col style="width: 42%" />
+            <col style="width: 58%" />
+          </colgroup>
           <thead>
             <tr>
               <th>Where AI helps</th>
@@ -274,6 +294,7 @@ flowchart LR
 
         <h2>Failure modes and non-obvious lessons</h2>
         <p>These failures are not just technical gaps; they directly impact whether critical information is discoverable when it matters.</p>
+        <p>A relevant scanned report can exist in the corpus and still remain effectively invisible because OCR corruption broke a name match and the ingestion pipeline dropped confidence signals and alternate interpretations. That is not just a ranking issue. It is a failure to surface potentially critical information.</p>
         <ul>
           <li><strong>Trusting OCR too much:</strong> token-level OCR confidence is often ignored until false negatives pile up.</li>
           <li><strong>Flattening too aggressively:</strong> teams normalize away context and lose legal provenance.</li>
