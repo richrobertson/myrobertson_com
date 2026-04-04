@@ -83,9 +83,10 @@
           <li><strong>Explainability requirement:</strong> investigators must understand why a record was returned and where each field came from.</li>
         </ul>
         <p>In practice, no single system contains all relevant information. Retrieval often spans records systems, case systems, dispatch history, attachments, and external sources that differ in schema, latency, and trust level.</p>
+        <p>These systems rarely operate in isolation. Evidence, metadata, and case context often originate from multiple systems that must be integrated and kept in sync, each with different schemas, latency characteristics, and trust boundaries.</p>
         <p>Every result must be traceable back to its source. Investigators need to understand not just what was returned, but why it was returned, which system it came from, when it was ingested, and how it was transformed along the way. Query workflows also need reproducibility so teams can rerun and defend the same search path during review.</p>
         <p>These systems are designed to be forensically sound. Every access, transformation, and retrieval must be auditable. Files remain immutable with integrity checks proving they have not changed, which means derived layers like search and AI cannot obscure or alter underlying evidence.</p>
-        <p>Auditability is not an add-on. It fundamentally shapes the architecture. Because every access and transformation must be traceable, derived systems like search and AI must preserve clear links back to original evidence and cannot introduce ambiguity about source or provenance.</p>
+        <p>Auditability is not an add-on—it shapes the architecture. Because every action must be traceable and evidence must remain immutable, derived systems like search and AI must preserve clear links back to original data and cannot introduce ambiguity about source or provenance.</p>
         <p>In short: this is not just search across structured and unstructured data. It is forensic retrieval under institutional constraints (National Institute of Standards and Technology [NIST], 2024).</p>
 
         <h3>Recall vs Precision in Investigative Systems</h3>
@@ -95,7 +96,7 @@
         <h2>System Architecture: The Retrieval Pipeline</h2>
         <p>For this class of system, I recommend thinking in explicit layers, each with contracts and measurable outputs.</p>
         <p>These platforms are typically API-first. Evidence, metadata, and case relationships are accessed and manipulated through secured APIs with scoped permissions, allowing external systems to ingest, update, and query data in a controlled and auditable way.</p>
-        <p>These systems separate concerns explicitly. Operational systems manage evidence, cases, and metadata through APIs and act as the system of record. Search is a derived layer built from indexed views of that data, optimized for retrieval but not authoritative. This separation allows retrieval performance to evolve without compromising data integrity.</p>
+        <p>These systems deliberately separate concerns. Operational systems manage evidence, cases, and metadata through APIs and act as the system of record. Search is a derived layer built from indexed views of that data—optimized for retrieval, but not authoritative. This separation allows indexing and ranking strategies to evolve without compromising data integrity.</p>
 
         <div class="mermaid" aria-label="Records retrieval architecture">
 flowchart LR
@@ -113,7 +114,7 @@ flowchart LR
 
         <h3>Source ingestion</h3>
         <p>Build source-specific adapters with immutable ingest logs. Every raw artifact needs a stable source ID, capture timestamp, source system identifier, and checksum. If your ingestion is not traceable, downstream evidence handling is weak before search begins.</p>
-        <p>While much of the corpus is historical, new records continue to arrive from reports, updates, and dispatch-adjacent systems. In practice, ingestion operates in multiple modes: historical records are migrated in bulk from legacy systems, while new data arrives continuously from devices and external platforms. The platform must support both near real-time ingestion for fresh data and periodic synchronization to keep distributed systems consistent.</p>
+        <p>In practice, ingestion is continuous. Historical records are migrated in bulk, but new data arrives constantly from devices, external systems, and uploads. Systems must support both near real-time ingestion for fresh data and synchronization workflows to keep distributed systems consistent.</p>
         <p>Many integrations operate on event-driven update streams so new evidence and metadata can be indexed within seconds to minutes, while batch reconciliation protects completeness and correctness over longer windows.</p>
 
         <h3>OCR, handwriting recognition, and parsing</h3>
@@ -136,7 +137,7 @@ flowchart LR
         <h3>Indexing and storage</h3>
         <p>Keep two storage planes: (1) operational/object systems for immutable originals and (2) retrieval-optimized indexes for normalized fields, full text, and derived signals. Never rely on the index as the only copy of evidence-bearing content.</p>
         <p>In systems like this, search is not the source of truth. Operational systems manage evidence, cases, and metadata through APIs, and search is a derived layer built to make that data retrievable. The effectiveness of search is therefore bounded by the quality of ingestion, normalization, and relationship modeling upstream.</p>
-        <p>Because access is mediated through APIs with scoped permissions, retrieval systems must respect those boundaries, ensuring that search results reflect the same authorization model as the underlying data.</p>
+        <p>Access to data is mediated through APIs with scoped permissions. Every read, write, and update flows through authenticated and authorized interfaces, ensuring that retrieval systems respect the same access controls as the underlying data.</p>
 
         <h3>Retrieval and ranking</h3>
         <p>Use staged retrieval: deterministic filters and keyword first, semantic expansion second, reranking third. This prevents vector similarity from overpowering explicit constraints like date range, jurisdiction, and case status.</p>
@@ -328,7 +329,7 @@ flowchart LR
         <p>The hardest part of enterprise records search is not picking a logo or trend. It is turning broken, inconsistent, decades-old records into a retrieval system investigators and analysts can trust. That takes data modeling judgment, pipeline discipline, explicit tradeoff decisions, and ongoing evaluation—not slogans about AI replacing search engines.</p>
         <p>Engineering maturity here means separating what must be deterministic from what can be probabilistic, and proving the full system can be audited end to end. That is the difference between a demo and a production platform.</p>
         <p>A system like this is only as valuable as the confidence investigators and analysts have in it—confidence that the right information can be found, understood, and trusted.</p>
-        <p>The hardest part of these systems is not building a fast index. It is ensuring that every result is complete, explainable, authorized, and traceable back to its source.</p>
+        <p>The hardest part of these systems is not building a fast index—it is ensuring that every result is complete, authorized, explainable, and traceable back to its source.</p>
 
         <h2>Glossary</h2>
         <ul>
