@@ -203,13 +203,26 @@
         <p class="eyebrow">March 2026 &middot; Rich Robertson</p>
         <h1>What Is a Distributed Lock? (With Examples)</h1>
         <p class="intro blog-dek">
-          A distributed lock is a coordination mechanism, not safety by itself. Whether it improves correctness depends on ownership rules, lease behavior, stale-writer prevention, and the real guarantees of the backing lock system and storage boundary.
+          A distributed lock is a coordination mechanism, not safety by itself. This page is the overview, decision model, and navigation hub for distributed locks. It introduces core concepts and links to deeper specialist topics.
         </p>
       </div>
     </header>
 
     <main>
       <article class="card blog-post" data-related-writing>
+        <p>
+          This article is part of a distributed coordination series covering locks, leases, leader election, and correctness tradeoffs in distributed systems.
+        </p>
+
+        <h3>Distributed Coordination Deep Dives</h3>
+        <ul>
+          <li><a href="./distributed-lock-failure-modes.html">Distributed Lock Failure Modes in Production</a> — what breaks and why.</li>
+          <li><a href="./fencing-tokens-explained.html">Fencing Tokens Explained</a> — preventing stale writers with monotonic authorization.</li>
+          <li><a href="./redis-vs-zookeeper-vs-etcd-for-distributed-locking.html">Redis vs. ZooKeeper vs. etcd for Distributed Locking</a> — tool choice by guarantees.</li>
+          <li><a href="./distributed-locks-vs-leases-vs-leader-election.html">Distributed Locks vs. Leases vs. Leader Election</a> — concept clarification and tradeoffs.</li>
+          <li><a href="./when-not-to-use-a-distributed-lock.html">When Not to Use a Distributed Lock</a> — alternatives and decision heuristics.</li>
+        </ul>
+
         <h3>What Is a Distributed Lock, Exactly?</h3>
         <p>
           A distributed lock decides which process may perform a critical action at a point in time across machines and services. This is the distributed analogue of a mutex, but with failure and timing uncertainty introduced by crashes, partitions, and lease expiry.
@@ -325,6 +338,20 @@
           <li>If corruption or invalid state transitions are possible, treat lock + write-path validation as one correctness design.</li>
           <li>If you cannot validate ownership at the storage boundary, be conservative about correctness claims.</li>
         </ul>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          Production systems have GC pauses, scheduler stalls, delayed packets, and imperfect clocks. Those conditions stretch lease assumptions and can
+          create windows where two actors both believe they own work.
+        </p>
+        <p>
+          A process can pause longer than lease TTL, another owner can legitimately take over, and the paused process can resume and issue stale writes.
+          <strong>Lease expiry does not stop execution.</strong> Correctness requires write-boundary validation.
+        </p>
+        <p>
+          Production story: in a maintenance workflow, owner A stalled during deployment while owner B acquired and completed an updated plan. A later
+          resumed and wrote old state into the same row because token checks were absent. The lock service was healthy; the mutation boundary was not.
+        </p>
 
         <h3>FAQ</h3>
         <p><strong>Is a distributed lock the same as a lease?</strong><br />Usually implemented as a lease, but conceptually a lock is ownership intent; lease adds expiration semantics.</p>

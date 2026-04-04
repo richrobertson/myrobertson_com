@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distributed Lock Failure Modes in Production | Rich Robertson</title>
+    <meta
+      name="description"
+      content="What breaks in distributed locking in production: crashes, lease expiry, GC pauses, partitions, mistaken unlock, and degraded quorum assumptions."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/distributed-lock-failure-modes.html" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="distributed-lock-failure-modes">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="distributed-lock-failure-modes">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Distributed Lock Failure Modes in Production</h1>
+        <p class="intro">
+          This page is about <strong>what breaks and why</strong> in distributed locking. It is <strong>not</strong> a full mitigation guide.
+          This page focuses on failure modes; see <a href="./fencing-tokens-explained.html">fencing tokens</a> for mitigation.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p><strong>Part of the Distributed Coordination series.</strong></p>
+        <p>
+          <strong>Start here:</strong>
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a>
+        </p>
+
+        <!-- DIAGRAM: stale owner timeline -->
+
+        <h3>1) Process crash after acquisition</h3>
+        <p><strong>What goes wrong:</strong> ownership lingers until lease expiry, delaying takeover.</p>
+        <p><strong>Missing property:</strong> immediate owner cleanup.</p>
+        <p>
+          Concrete example: nightly compaction owner crashes after grabbing lease and before persisting progress marker. New owner is blocked until TTL,
+          then must recompute safety checks before continuing.
+        </p>
+        <p>
+          Technically, this is expected in lease systems: ownership cleanup is time-based, not crash-interrupt based. If TTL is long, recovery latency is
+          long even when the system is otherwise healthy.
+        </p>
+        <p><strong>Mitigation summary:</strong> tune TTL to recovery goals and make work re-entry idempotent.</p>
+        <p><strong>Severity:</strong> efficiency workloads: medium. correctness workloads: medium/high.</p>
+
+        <h3>2) Lease expiry during long work</h3>
+        <p><strong>What goes wrong:</strong> ownership transfers while old owner is still active.</p>
+        <p><strong>Missing property:</strong> bounded critical section duration.</p>
+        <p>
+          Concrete example: schema migration step takes 40s but lease is 20s under load. A second worker acquires and starts same step while first worker
+          is still committing chunked updates.
+        </p>
+        <p>
+          This happens when teams size TTL from median latency instead of tail latency plus jitter. Long-tail network and IO stalls turn “usually safe”
+          leases into overlapping execution windows.
+        </p>
+        <p><strong>Mitigation summary:</strong> split long work and revalidate ownership at each mutation boundary.</p>
+        <p><strong>Severity:</strong> efficiency: medium. correctness: high.</p>
+
+        <h3>3) GC pause or runtime stall</h3>
+        <p><strong>What goes wrong:</strong> paused owner resumes with stale authority.</p>
+        <p><strong>Missing property:</strong> stale-writer rejection at the write boundary.</p>
+        <p>
+          Concrete example: stop-the-world GC freezes worker for 12 seconds while lease TTL is 8 seconds. Another worker acquires and advances state.
+          Original worker resumes and flushes buffered writes from stale context.
+        </p>
+        <p>
+          Stop-the-world pauses, runtime safepoints, and scheduler starvation are common in real clusters. The lock service cannot distinguish “slow”
+          from “dead”; it only sees missed renewals and proceeds.
+        </p>
+        <p><strong>Mitigation summary:</strong> enforce fencing/version checks in storage for every write path.</p>
+        <p><strong>Severity:</strong> efficiency: low/medium. correctness: critical.</p>
+
+        <h3>4) Network partition</h3>
+        <p><strong>What goes wrong:</strong> node believes it still owns while quorum moved on.</p>
+        <p><strong>Missing property:</strong> single authoritative ownership view at mutation time.</p>
+        <p>
+          Concrete example: holder loses quorum connectivity but retains DB connectivity. It continues mutating state locally while quorum elects a new
+          owner in the coordination system.
+        </p>
+        <p>
+          This is a split-visibility problem, not a rare edge case. Different dependencies fail independently, so “lost lock visibility” does not imply
+          “lost write capability.”
+        </p>
+        <p><strong>Mitigation summary:</strong> ensure writes require monotonic authority evidence, not local lock belief.</p>
+        <p><strong>Severity:</strong> efficiency: medium. correctness: critical.</p>
+
+        <h3>5) Mistaken unlock</h3>
+        <p><strong>What goes wrong:</strong> actor releases a lock it no longer owns.</p>
+        <p><strong>Missing property:</strong> owner-bound release semantics.</p>
+        <p>
+          Concrete example: client times out, retries acquire, then later executes stale unlock call against the same key and clears current owner.
+          Another actor now enters critical section concurrently.
+        </p>
+        <p>
+          This usually comes from release operations that are not compare-and-delete on owner token. Blind delete patterns are fragile under retries and
+          reordered async callbacks.
+        </p>
+        <p><strong>Mitigation summary:</strong> make unlock atomic with owner-token comparison.</p>
+        <p><strong>Severity:</strong> efficiency: medium. correctness: high.</p>
+
+        <h3>6) Degraded quorum and assumption drift</h3>
+        <p><strong>What goes wrong:</strong> either no ownership can be acquired, or teams assume stronger guarantees than the system actually provides.</p>
+        <p><strong>Missing property:</strong> explicit degraded-mode policy and precise guarantees.</p>
+        <p>
+          Concrete example: during quorum degradation, operators force fallback path that keeps jobs running without strong ownership checks. Incidents
+          then shift from availability to correctness corruption.
+        </p>
+        <p>
+          The technical root cause is contract drift: system guarantees changed under failure, but application behavior did not. Undefined degraded mode is
+          where many lock designs fail operationally.
+        </p>
+        <p><strong>Mitigation summary:</strong> define fail-closed behavior for correctness workloads before incidents happen.</p>
+        <p><strong>Severity:</strong> efficiency: high operational impact. correctness: catastrophic if fail-open assumptions leak in.</p>
+
+        <h3>Common pattern: “I still think I own the lock”</h3>
+        <p>
+          Most incidents reduce to this sentence. The process belief is stale, but execution continues. The coordination plane already moved on, while
+          the worker continues acting on old authority.
+        </p>
+        <p><strong>Lease expiry does not stop execution.</strong> It only invalidates authority from the system’s perspective.</p>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          GC pauses, network delay, clock drift, and process stalls are normal conditions at scale. If your design assumes those are rare enough to
+          ignore, stale-owner behavior will eventually become a production incident.
+        </p>
+
+        <h3>What to Read Next</h3>
+        <p>→ Read next: <a href="./fencing-tokens-explained.html">Fencing Tokens Explained</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

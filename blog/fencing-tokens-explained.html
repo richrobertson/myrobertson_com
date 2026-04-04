@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fencing Tokens Explained: Preventing Stale Writers in Distributed Systems | Rich Robertson</title>
+    <meta
+      name="description"
+      content="How fencing tokens prevent stale writers in lease-based coordination systems, and where write-path token checks must be enforced."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/fencing-tokens-explained.html" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="fencing-tokens-explained">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="fencing-tokens-explained">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Fencing Tokens Explained: Preventing Stale Writers in Distributed Systems</h1>
+        <p class="intro">
+          This page is about <strong>how to prevent stale writers</strong> with monotonic write authorization. It is <strong>not</strong> a general distributed-lock primer.
+          This page assumes you understand distributed lock basics.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p><strong>Part of the Distributed Coordination series.</strong></p>
+        <p>
+          <strong>Start here:</strong>
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a>
+        </p>
+
+        <h3>The stale-owner problem</h3>
+        <p>A process can continue execution after losing lease ownership and still attempt writes from an old world view.</p>
+        <p>
+          This often happens during ordinary runtime behavior, not exotic failure: JVM stop-the-world pauses, CPU starvation, container rescheduling,
+          and overloaded event loops can all pause renewal long enough for ownership transfer.
+        </p>
+        <p><strong>Lock acquisition is not proof of safety.</strong> It is only a momentary ownership signal.</p>
+
+        <!-- DIAGRAM: token progression (41 → 42) -->
+
+        <h3>Why lease expiry alone fails</h3>
+        <p>
+          Expiry only tells the lock service who should own now. It does not stop delayed work already in flight. Without storage-side rejection,
+          stale work can overwrite newer state.
+        </p>
+        <p>
+          In production, the stale client frequently still has open DB connections, warmed caches, and queued async tasks. After pause recovery, those
+          operations can complete successfully from the client perspective, even though ownership is already obsolete.
+        </p>
+        <p><strong>Lease expiry does not stop execution.</strong> It only changes who is currently authorized.</p>
+
+        <h3>Why locks alone are insufficient</h3>
+        <p>
+          A lock service can correctly hand off ownership and still allow corruption if mutation boundaries trust client identity instead of authority
+          ordering. That is the gap between coordination and correctness.
+        </p>
+        <p>
+          Paused-client scenario: A acquires, pauses, and misses renewal. B acquires and writes new state. A resumes and writes stale state afterward.
+          If storage accepts both writes, the lock service did its job and the system still failed.
+        </p>
+        <p><strong>Correctness must be enforced at the write boundary.</strong></p>
+
+        <h3>Token model</h3>
+        <p>
+          Every successful acquisition gets a monotonically increasing token. Storage accepts writes only if token is newer than the last accepted
+          token for that resource.
+        </p>
+        <p>
+          Monotonicity is the key property. If token issuance is not linearizable for the coordination key, two actors can present incomparable claims
+          and storage cannot reliably reject stale operations.
+        </p>
+
+        <h3>Example 1: storage write rejection</h3>
+        <p>
+          Worker A writes with token 41, pauses, then lease expires. Worker B acquires token 42 and writes. A resumes with token 41; storage rejects
+          the write because 41 &lt; 42.
+        </p>
+
+        <h3>Example 2: workflow side effects</h3>
+        <p>
+          A side-effect gateway stores highest accepted token per workflow key. Late retries from stale workers are dropped before partner calls,
+          preserving business ordering.
+        </p>
+        <p>
+          This is important for non-transactional boundaries such as email, payment capture, and external webhook dispatch where rollback is impossible.
+          Fencing at the gateway prevents “late but validly signed” stale actions from escaping the system.
+        </p>
+
+        <h3>Where fencing must be enforced</h3>
+        <ul>
+          <li><strong>Storage layer:</strong> conditional writes that reject stale fencing tokens.</li>
+          <li><strong>Side-effect gateway:</strong> token check before irreversible outbound operations.</li>
+          <li><strong>Database write boundary:</strong> same constraint used by every write path, not only the happy path.</li>
+        </ul>
+
+        <h3>What happens without fencing</h3>
+        <p>Without fencing, stale owners can emit duplicate side effects, lose newer updates, and silently corrupt shared state.</p>
+        <p>
+          Production story: one scheduler paused for longer than lease TTL during a noisy-neighbor event. A new owner completed reconciliation.
+          When the paused scheduler resumed, it replayed old mutations and rolled resource metadata backward because no token gate existed.
+        </p>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          GC pauses exceed lease windows. Network delays reorder delivery of “still running” work. Clock drift biases renewal timing near expiry.
+          Process stalls create long tails where clients resume with stale authority.
+        </p>
+        <p><strong>Two processes can believe they own the lock.</strong> Fencing is how you make only one of them able to mutate state.</p>
+
+        <h3>Common mistakes</h3>
+        <ul>
+          <li>Issuing tokens but not checking them at the mutation boundary.</li>
+          <li>Checking tokens in only one write path and forgetting secondary paths.</li>
+          <li>Using wall-clock timestamps instead of monotonic authority-issued tokens.</li>
+        </ul>
+
+        <h3>When fencing tokens are unnecessary</h3>
+        <p>
+          If duplicate work is only an efficiency cost and shared correctness-critical state is not mutated, fencing usually adds complexity without
+          material safety gain.
+        </p>
+
+        <h3>What to Read Next</h3>
+        <p>→ Read next: <a href="./redis-vs-zookeeper-vs-etcd-for-distributed-locking.html">Redis vs. ZooKeeper vs. etcd for Distributed Locking</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redis vs. ZooKeeper vs. etcd for Distributed Locking | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Tool selection guide for Redis, ZooKeeper, and etcd under different guarantee requirements for distributed locking."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/redis-vs-zookeeper-vs-etcd-for-distributed-locking.html" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="redis-vs-zookeeper-vs-etcd-for-distributed-locking">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="redis-vs-zookeeper-vs-etcd-for-distributed-locking">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Redis vs. ZooKeeper vs. etcd for Distributed Locking</h1>
+        <p class="intro">
+          This page is about <strong>tool selection under different guarantees</strong>. It is <strong>not</strong> a full explanation of lock fundamentals.
+          Use this page when you already know your coordination problem and need platform tradeoffs.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p><strong>Part of the Distributed Coordination series.</strong></p>
+        <p>
+          <strong>Start here:</strong>
+          <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a>
+        </p>
+
+        <h3>Guarantee profile summary</h3>
+        <p><strong>Redis:</strong> very common and low latency; often chosen for efficiency-oriented coordination.</p>
+        <p><strong>ZooKeeper:</strong> coordination-first workflows with ephemeral/sequential node semantics.</p>
+        <p><strong>etcd:</strong> linearizable consensus-backed operations with lease and transaction primitives.</p>
+        <p>
+          All three can coordinate work. The deciding factor is the failure cost you can tolerate when ownership evidence is delayed, stale, or split
+          across subsystems.
+        </p>
+
+        <h3>Choose this when:</h3>
+        <ul>
+          <li><strong>Redis:</strong> efficiency workload, low latency priority, duplicate work tolerable.</li>
+          <li><strong>ZooKeeper:</strong> coordination-first workflows and explicit election/ordering patterns.</li>
+          <li><strong>etcd:</strong> correctness-critical coordination where linearizability is a hard requirement.</li>
+        </ul>
+        <p>
+          For interview-style shorthand: choose Redis when waste is acceptable, choose ZooKeeper/etcd when ownership ambiguity is unacceptable.
+          The decision is about failure impact, not preference.
+        </p>
+
+        <h3>Why Redis locks fail for correctness</h3>
+        <p>
+          Redis lock patterns generally rely on timing assumptions: TTL sizing, renewal cadence, and release ordering. Under long GC pauses, network
+          delay, or clock skew, stale holders can still run and attempt writes after ownership moved.
+        </p>
+        <p>
+          Without fencing token enforcement at the write boundary, Redis acquisition success does not prevent stale-writer corruption. This is why Redis
+          is often excellent for efficiency control but risky as a sole correctness mechanism.
+        </p>
+
+        <h3>Why consensus systems are preferred for correctness</h3>
+        <p>
+          Consensus-backed systems provide clearer authority semantics under partition and failover. Linearizable operations give a stronger basis for
+          “who owns now,” and transaction primitives reduce race windows during acquire/release transitions.
+        </p>
+        <p>
+          That does not eliminate stale execution in clients, but it narrows ambiguity in coordination state and makes fencing-based correctness designs
+          easier to reason about.
+        </p>
+
+        <h3>What people often get wrong</h3>
+        <ul>
+          <li>Choosing by popularity instead of failure impact.</li>
+          <li>Choosing Redis for correctness workloads without storage-side stale-writer rejection.</li>
+          <li>Treating lock acquisition as proof of downstream write safety.</li>
+          <li>Ignoring owner-checked release semantics.</li>
+        </ul>
+
+        <h3>Where fencing still matters</h3>
+        <p>
+          Regardless of backend, stale-owner risk remains unless the mutation boundary rejects stale authority.
+          See <a href="./fencing-tokens-explained.html">Fencing Tokens Explained</a>.
+        </p>
+        <p><strong>Common mistake:</strong> “Choosing Redis for correctness workloads” and assuming the lock API itself provides write safety.</p>
+
+        <h3>Why this breaks in real systems</h3>
+        <p>
+          GC pauses delay renewal, network delay causes duplicate ownership perception, clock drift narrows safe TTL assumptions, and process stalls let
+          old workers resume late. Coordination and mutation boundaries drift apart unless explicitly rejoined by token checks.
+        </p>
+        <p>
+          Production story: a cache-backed lock looked healthy at p50 latency, but p99 pauses during deploy caused stale owners to continue writes.
+          The incident was not lock unavailability; it was stale authority accepted downstream.
+        </p>
+
+        <h3>References</h3>
+        <ul>
+          <li>Redis. <em>Distributed locks with Redis</em>. <a href="https://redis.io/docs/latest/develop/clients/patterns/distributed-locks/" target="_blank" rel="noopener noreferrer">redis.io</a></li>
+          <li>Apache ZooKeeper. <em>Recipes and solutions</em>. <a href="https://zookeeper.apache.org/doc/current/recipes.html" target="_blank" rel="noopener noreferrer">zookeeper.apache.org</a></li>
+          <li>etcd. <em>How to create locks</em>. <a href="https://etcd.io/docs/v3.6/tasks/developer/how-to-create-locks/" target="_blank" rel="noopener noreferrer">etcd.io</a></li>
+        </ul>
+
+        <h3>What to Read Next</h3>
+        <p>→ Read next: <a href="./when-not-to-use-a-distributed-lock.html">When Not to Use a Distributed Lock</a>.</p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

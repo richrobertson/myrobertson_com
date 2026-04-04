@@ -359,6 +359,12 @@
             <p>Use the distributed systems overview, interview guide, lock primer, and lease deep dive as a progression from fundamentals to correctness detail.</p>
             <span>Landing Page • Interview Prep • Correctness</span>
           </article>
+
+          <article class="project">
+            <h3><a href="./what-is-a-distributed-lock-with-examples.html">Distributed Coordination and Locking</a></h3>
+            <p>Anchor on distributed locks, then go deeper into fencing tokens, lock failure modes, lock-vs-lease-vs-election semantics, and platform trade-offs.</p>
+            <span>Cluster Anchor • Correctness • Coordination</span>
+          </article>
           <article class="project" data-article-slug="api-backpressure-explained-simply">
             <h3><a href="./api-backpressure-explained-simply.html">Backpressure and API Stability</a></h3>
             <p>Begin with the simple API backpressure explainer, then branch into the broader systems article and the AI-generated PR reliability essay for change-management risk control.</p>
@@ -520,6 +526,51 @@
           <p>
             A practical guide to lock semantics, lease duration, fencing tokens,
             and common stale-writer failure modes in distributed systems.
+          </p>
+        </article>
+        <article class="card blog-post" data-article-slug="fencing-tokens-explained">
+          <p class="date">April 2026 • 7 min read</p>
+          <h3>
+            <a href="./fencing-tokens-explained.html">Fencing Tokens Explained: Preventing Stale Writers in Distributed Systems</a>
+          </h3>
+          <p>
+            Why lease expiry is insufficient, how monotonic tokens work, and where storage-side rejection enforces correctness.
+          </p>
+        </article>
+        <article class="card blog-post" data-article-slug="distributed-lock-failure-modes">
+          <p class="date">April 2026 • 8 min read</p>
+          <h3>
+            <a href="./distributed-lock-failure-modes.html">Distributed Lock Failure Modes in Production</a>
+          </h3>
+          <p>
+            A production-focused map of crashes, partitions, GC pauses, stale resumes, and degraded quorum behaviors.
+          </p>
+        </article>
+        <article class="card blog-post" data-article-slug="distributed-locks-vs-leases-vs-leader-election">
+          <p class="date">April 2026 • 8 min read</p>
+          <h3>
+            <a href="./distributed-locks-vs-leases-vs-leader-election.html">Distributed Locks vs. Leases vs. Leader Election</a>
+          </h3>
+          <p>
+            A practical comparison of ownership semantics, expiry behavior, and operational consequences for each pattern.
+          </p>
+        </article>
+        <article class="card blog-post" data-article-slug="when-not-to-use-a-distributed-lock">
+          <p class="date">April 2026 • 6 min read</p>
+          <h3>
+            <a href="./when-not-to-use-a-distributed-lock.html">When Not to Use a Distributed Lock</a>
+          </h3>
+          <p>
+            Alternatives-first design guide covering idempotency, CAS, partition ownership, queue serialization, and single-writer assignment.
+          </p>
+        </article>
+        <article class="card blog-post" data-article-slug="redis-vs-zookeeper-vs-etcd-for-distributed-locking">
+          <p class="date">April 2026 • 9 min read</p>
+          <h3>
+            <a href="./redis-vs-zookeeper-vs-etcd-for-distributed-locking.html">Redis vs. ZooKeeper vs. etcd for Distributed Locking</a>
+          </h3>
+          <p>
+            Coordination-model comparison for high-intent platform selection, including stale-owner risk and release semantics.
           </p>
         </article>
         <article class="card blog-post" data-article-slug="raft-vs-paxos-vs-epaxos-practical-guide">
