@@ -109,6 +109,7 @@ Correct converged result should be 2.</code></pre>
           <li><strong>Idempotent</strong> (duplicates are safe)</li>
         </ul>
         <p><strong>You are not designing writes. You are designing merge behavior.</strong></p>
+        <p>CRDTs are one approach to eventual consistency, but unlike retry-based or queue-driven reconciliation, they encode conflict resolution directly into the data model.</p>
 
         <h2 id="step-3-choose-model">Step 3: Choose the Model</h2>
         <h3>State-based (CvRDT)</h3>
@@ -136,7 +137,7 @@ merge(other):
     N[r] = max(N[r], other.N[r])
 
 value = sum(P[*]) - sum(N[*])</code></pre>
-        <p>Merge takes the per-replica maximum for each component, making the system resilient to reordering, duplication, and delayed delivery.</p>
+        <p>Merge takes the per-replica maximum for each component, making the system resilient to duplication, reordering, and delayed delivery.</p>
 
         <h2 id="step-5-handle-deletes-explicitly">Step 5: Handle Deletes Explicitly</h2>
         <p>Deletes are where many first CRDT designs break. Another replica may not even have seen the add you are trying to remove.</p>
@@ -164,6 +165,7 @@ After merge, tB9 can remain until it is explicitly observed and removed.</code><
         <h2 id="step-7-ordered-data-is-hard">Step 7: Ordered Data Is Hard</h2>
         <p>Counters and sets are comparatively easy. Lists are not.</p>
         <p>Index-based reasoning fails under concurrency. Two replicas can both insert at index 3, but "index 3" is not a stable distributed identity.</p>
+        <p>The problem is that indexes break under concurrency. Ordered CRDTs solve identity under concurrency, not fixed position.</p>
         <p>Ordered CRDTs like <strong>RGA</strong>, <strong>Logoot</strong>, and <strong>LSEQ</strong> solve identity under concurrency, not fixed position in a mutable array.</p>
         <pre><code>Replica A inserts "X" after node id=7
 Replica B inserts "Y" after node id=7 concurrently
