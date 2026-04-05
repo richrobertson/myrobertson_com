@@ -336,6 +336,10 @@
           <li>search index updates</li>
         </ul>
 
+        <p>
+          Those workload examples sound straightforward, but production systems get harder once concurrent writers, retries, and regional failover are involved.
+        </p>
+
         <h2 id="where-it-gets-complicated">Where Eventual Consistency Gets Hard</h2>
 
         <p>Eventual consistency introduces subtle failure modes that do not exist in strongly consistent systems.</p>
@@ -350,11 +354,10 @@
         <p>A user may perform an action and not see it reflected immediately, leading to poor UX.</p>
 
         <h3>Conflict Resolution Complexity</h3>
-        <ul>
-          <li>Last-write-wins (simple, but lossy)</li>
-          <li>Vector clocks (detect conflicts)</li>
-          <li>CRDTs (merge without conflict)</li>
-        </ul>
+        <p>
+          Teams usually choose between last-write-wins, vector clocks/version vectors, or CRDTs. The database can help enforce the merge rule, but the
+          product-level correctness decision still sits in application code.
+        </p>
 
         <p>These trade-offs push complexity into the application layer rather than the database.</p>
 
@@ -432,13 +435,17 @@
           For a broader view of my distributed systems work, see
           <a href="../distributed-systems-engineer.html">Distributed Systems Engineering: Correctness, Coordination, Reliability</a>.
         </p>
-        <p>
-          Eventual consistency is one side of the CAP trade-off. For the full framework, see
-          <a href="./what-is-the-cap-theorem.html">CAP theorem trade-offs between consistency and availability</a>.
-          For coordination mechanisms that require strong consistency — such as distributed locks and leases — see
-          <a href="./what-is-a-distributed-lock-with-examples.html">distributed lock patterns for correctness-critical coordination</a> and
-          <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Tenure lease service design on Raft for fault-tolerant leadership</a>.
-        </p>
+        <ul>
+          <li>
+            <a href="./what-is-the-cap-theorem.html">CAP theorem consistency-vs-availability trade-offs under partition tolerance</a>
+          </li>
+          <li>
+            <a href="./what-is-a-distributed-lock-with-examples.html">Distributed lock design patterns for correctness-critical coordination</a>
+          </li>
+          <li>
+            <a href="./designing-a-correct-distributed-lease-service-tenure-on-raft.html">Tenure: building a correct distributed lease service on Raft</a>
+          </li>
+        </ul>
       </article>
     </main>
 
