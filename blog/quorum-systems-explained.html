@@ -45,6 +45,31 @@
           <li>Quorum tuning is workload and failure-domain dependent.</li>
         </ul>
 
+        <h2 id="quorum-example">Concrete Example (N=3)</h2>
+
+        <p>
+          Consider a system with 3 replicas:
+        </p>
+
+        <ul>
+          <li>N = 3 (total replicas)</li>
+          <li>W = 2 (write quorum)</li>
+          <li>R = 2 (read quorum)</li>
+        </ul>
+
+        <p>
+          A write goes to replicas <strong>A and B</strong>.
+          A read queries replicas <strong>B and C</strong>.
+        </p>
+
+        <p>
+          The overlap is <strong>B</strong>, which guarantees the read sees the latest write.
+        </p>
+
+        <p>
+          This overlap is why <strong>R + W &gt; N</strong> ensures consistency — every read quorum intersects with every write quorum.
+        </p>
+
         <h2 id="how-it-works">How It Works</h2>
         <p>Clients or coordinators send requests to replicas and return once quorum is met; lagging replicas are repaired later via read repair and anti-entropy.</p>
 
@@ -60,8 +85,116 @@
           </tbody>
         </table>
 
+        <h2 id="tunable-consistency">Tunable Consistency Tradeoffs</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Configuration</th>
+              <th>Behavior</th>
+              <th>Tradeoff</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>W=1, R=1</td>
+              <td>Fast reads and writes</td>
+              <td>Eventual consistency, stale reads possible</td>
+            </tr>
+            <tr>
+              <td>W=2, R=2</td>
+              <td>Balanced</td>
+              <td>Stronger consistency, moderate latency</td>
+            </tr>
+            <tr>
+              <td>W=N, R=1</td>
+              <td>Write-heavy consistency</td>
+              <td>Writes slow, reads fast</td>
+            </tr>
+            <tr>
+              <td>W=1, R=N</td>
+              <td>Read-heavy consistency</td>
+              <td>Reads slow, writes fast</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p>
+          Quorum systems allow you to dial consistency, latency, and availability by choosing R and W.
+        </p>
+
         <h2 id="production-implications">Production Implications</h2>
         <p>Amazon Dynamo popularized tunable quorum behavior, and Apache Cassandra operationalized it at scale. Teams tune quorum per endpoint (critical paths vs best-effort paths) to balance SLOs and correctness.</p>
+
+        <h2 id="real-systems">How Real Systems Use Quorum</h2>
+
+        <ul>
+          <li>
+            <strong>Apache Cassandra</strong> — exposes tunable consistency levels (ONE, QUORUM, ALL) per query, mapping directly to R and W values.
+          </li>
+          <li>
+            <strong>Amazon Dynamo</strong> — uses quorum replication with vector clocks to detect conflicting writes.
+          </li>
+        </ul>
+
+        <p>
+          These systems do not enforce a single consistency model — they allow applications to choose tradeoffs dynamically.
+        </p>
+
+        <h2 id="cap-connection">Quorum and the CAP Theorem</h2>
+
+        <p>
+          Quorum systems are a mechanism for navigating CAP theorem tradeoffs.
+        </p>
+
+        <ul>
+          <li>Increasing W → stronger consistency, lower availability</li>
+          <li>Decreasing W → higher availability, weaker consistency</li>
+        </ul>
+
+        <p>
+          This is why quorum systems are commonly used in eventually consistent databases — they allow systems to shift along the consistency-availability spectrum.
+        </p>
+
+        <p>
+          Quorum systems are a core mechanism behind <a href="./what-is-eventual-consistency.html">eventual consistency</a>, enabling systems to balance availability and correctness.
+        </p>
+
+        <h2 id="failure-modes">Where Quorum Systems Break Down</h2>
+
+        <h3>Partial Writes</h3>
+        <p>
+          A write may succeed on W replicas but fail on others, leaving the system temporarily inconsistent.
+        </p>
+
+        <h3>Stale Reads</h3>
+        <p>
+          If R is too low, reads may miss the latest write and return outdated data.
+        </p>
+
+        <h3>Concurrent Writes</h3>
+        <p>
+          Different replicas may accept conflicting writes during partitions, requiring reconciliation.
+        </p>
+
+        <h3>Network Partitions</h3>
+        <p>
+          Nodes may form separate quorums, leading to divergence that must later be resolved.
+        </p>
+
+        <p>
+          Quorum systems do not eliminate inconsistency — they control and bound it.
+        </p>
+
+        <h2 id="mental-model">Mental Model</h2>
+
+        <p>
+          A quorum is not about agreement across all nodes — it is about ensuring enough overlap between operations so the system can recover a consistent view.
+        </p>
+
+        <p>
+          Think of quorum as a probabilistic guarantee of correctness under failure, not absolute correctness.
+        </p>
 
         <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
         <h3>Use It When</h3>
@@ -80,6 +213,11 @@
           <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
           <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
           <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+          <li>Quorum systems use R, W, and N to balance consistency and availability.</li>
+          <li>The rule R + W &gt; N ensures overlap between reads and writes.</li>
+          <li>Quorum enables tunable consistency in systems like Cassandra and Dynamo.</li>
+          <li>Lower quorums increase availability but risk stale reads.</li>
+          <li>Quorum systems bound inconsistency — they do not eliminate it.</li>
         </ul>
 
         <h2 id="related-reading">Related Reading</h2>
