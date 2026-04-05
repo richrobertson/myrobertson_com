@@ -57,7 +57,14 @@
         padding: 0.8rem;
         border-radius: 10px;
         border: 1px solid rgba(148, 163, 184, 0.4);
-        background: #ffffff;
+        background: rgba(15, 23, 42, 0.35);
+        overflow-x: auto;
+      }
+
+      .diagram .mermaid svg {
+        display: block;
+        min-width: 720px;
+        height: auto;
       }
 
       .diagram-grid {
@@ -232,7 +239,7 @@
         <figure class="diagram">
           <figcaption><strong>Diagram 1 — Variance injection points</strong></figcaption>
           <div class="mermaid">
-            flowchart LR
+            flowchart TB
               U[User Query] --> P[Prompt Builder<br/>Template/version drift]
               P --> R[Retriever<br/>Rank/index variance]
               R --> L[LLM Inference<br/>Sampling/model drift]
@@ -391,7 +398,7 @@
         <figure class="diagram">
           <figcaption><strong>Diagram 5 — CI/CD evaluation architecture</strong></figcaption>
           <div class="mermaid">
-            flowchart LR
+            flowchart TB
               G[Git Push] --> C[CI Pipeline<br/>contract + semantic + behavioral]
               C --> Q{Score Gate}
               Q -->|pass| D[Deploy Candidate]
@@ -472,7 +479,19 @@
     </footer>
     <script type="module">
       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
-      mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', theme: 'neutral' });
+      mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        theme: 'dark',
+        flowchart: {
+          useMaxWidth: false,
+          nodeSpacing: 40,
+          rankSpacing: 55
+        },
+        themeVariables: {
+          fontSize: '18px'
+        }
+      });
     </script>
     <script src="/nav.js"></script>
     <script src="/script.js"></script>
