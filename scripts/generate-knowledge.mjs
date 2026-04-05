@@ -233,6 +233,23 @@ const pages = [
   },
 
   {
+    id: 'page:designing-a-crdt-from-scratch',
+    title: 'Designing a CRDT from Scratch',
+    url: articleUrl(`${site}/blog/designing-a-crdt-from-scratch`),
+    contentType: 'article',
+    summary: 'Practical CRDT design from invariants to merge semantics, delete handling, and production replication architecture.',
+    tags: ['CRDT', 'distributed systems', 'eventual consistency', 'merge semantics', 'correctness'],
+    publishedDate: '2026-04-05',
+    updatedDate: '2026-04-05',
+    importance: 2,
+    canonicalTopic: 'distributed systems',
+    related: ['page:backpressure-in-distributed-systems', 'page:retry-strategies-and-idempotency', 'page:overload-control-pipeline'],
+    parent: 'page:distributed-systems-writing',
+    level: 'advanced',
+    status: 'published'
+  },
+
+  {
     id: 'page:coding-interviews-ai-era-hub',
     title: 'Coding Interviews in the AI Era',
     url: articleUrl(`${site}/blog/coding-interviews-in-the-ai-era.html`),

@@ -442,6 +442,41 @@
         "label": "AI systems"
       },
       {
+        "id": "page:designing-a-crdt-from-scratch",
+        "nodeType": "page",
+        "title": "Designing a CRDT from Scratch",
+        "url": "https://www.myrobertson.com/blog/designing-a-crdt-from-scratch",
+        "contentType": "article",
+        "summary": "Practical CRDT design from invariants to merge semantics, delete handling, and production replication architecture.",
+        "publishedDate": "2026-04-05",
+        "updatedDate": "2026-04-05",
+        "importance": 2,
+        "canonicalTopic": "distributed systems",
+        "related": [
+          "page:backpressure-in-distributed-systems",
+          "page:retry-strategies-and-idempotency",
+          "page:overload-control-pipeline"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:crdt",
+        "nodeType": "tag",
+        "label": "CRDT"
+      },
+      {
+        "id": "tag:eventual-consistency",
+        "nodeType": "tag",
+        "label": "eventual consistency"
+      },
+      {
+        "id": "tag:merge-semantics",
+        "nodeType": "tag",
+        "label": "merge semantics"
+      },
+      {
         "id": "page:coding-interviews-ai-era-hub",
         "nodeType": "page",
         "title": "Coding Interviews in the AI Era",
@@ -1026,6 +1061,31 @@
         "type": "hasTag"
       },
       {
+        "source": "page:designing-a-crdt-from-scratch",
+        "target": "tag:crdt",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:designing-a-crdt-from-scratch",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:designing-a-crdt-from-scratch",
+        "target": "tag:eventual-consistency",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:designing-a-crdt-from-scratch",
+        "target": "tag:merge-semantics",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:designing-a-crdt-from-scratch",
+        "target": "tag:correctness",
+        "type": "hasTag"
+      },
+      {
         "source": "page:coding-interviews-ai-era-hub",
         "target": "tag:ai-assisted-coding-interviews",
         "type": "hasTag"
@@ -1287,6 +1347,11 @@
       },
       {
         "source": "page:distributed-systems-writing",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
         "target": "page:coding-interviews-ai-era-hub",
         "type": "indexes"
       },
@@ -1455,6 +1520,15 @@
       },
       {
         "source": "page:distributed-systems",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1574,6 +1648,15 @@
       {
         "source": "page:oracle-cns-oci-migration",
         "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
+        "target": "page:designing-a-crdt-from-scratch",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems"
@@ -1705,6 +1788,15 @@
       },
       {
         "source": "page:overload-control-pipeline",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1819,6 +1911,15 @@
       },
       {
         "source": "page:admission-control-in-distributed-systems",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1921,6 +2022,15 @@
       },
       {
         "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2008,6 +2118,15 @@
       },
       {
         "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2089,6 +2208,15 @@
       },
       {
         "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2159,6 +2287,15 @@
       },
       {
         "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2210,6 +2347,15 @@
       {
         "source": "page:why-systems-fail-under-load",
         "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:designing-a-crdt-from-scratch",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems"
@@ -2275,6 +2421,15 @@
       },
       {
         "source": "page:retry-strategies-and-idempotency",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2312,6 +2467,15 @@
       },
       {
         "source": "page:queue-design-under-load",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
         "target": "page:ownership-ai-interviews",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2340,10 +2504,28 @@
       },
       {
         "source": "page:architecting-a-multitenant-control-plane",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:architecting-a-multitenant-control-plane",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-lease-service",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:correctness"
         ],
         "strength": 1
       },
@@ -2358,6 +2540,24 @@
       },
       {
         "source": "page:police-records-search-architecture",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:police-records-search-architecture",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:designing-a-crdt-from-scratch",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [

@@ -26,3 +26,9 @@ AI-assisted coding interview series:
 - https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html
 - https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html
 - https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html
+
+CRDT cluster:
+- https://www.myrobertson.com/blog/crdts-explained
+- https://www.myrobertson.com/blog/designing-a-crdt-from-scratch
+- https://www.myrobertson.com/blog/vector-clocks-vs-timestamps
+- https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair

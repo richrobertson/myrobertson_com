@@ -102,6 +102,13 @@
       tags: ['Backpressure', 'APIs', 'Reliability']
     },
     {
+      slug: 'designing-a-crdt-from-scratch',
+      title: 'Designing a CRDT from Scratch',
+      url: '/blog/designing-a-crdt-from-scratch',
+      summary: 'A first-principles CRDT design guide: invariants, monotonic state, merge semantics, delete handling, and architecture integration.',
+      tags: ['Distributed Systems', 'Correctness', 'Architecture']
+    },
+    {
       slug: 'what-is-eventual-consistency',
       title: 'What Is Eventual Consistency? (Explained Simply)',
       url: '/blog/what-is-eventual-consistency.html',
