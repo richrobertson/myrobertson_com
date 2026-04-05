@@ -164,9 +164,7 @@ After merge, tB9 can remain until it is explicitly observed and removed.</code><
 
         <h2 id="step-7-ordered-data-is-hard">Step 7: Ordered Data Is Hard</h2>
         <p>Counters and sets are comparatively easy. Lists are not.</p>
-        <p>Index-based reasoning fails under concurrency. Two replicas can both insert at index 3, but "index 3" is not a stable distributed identity.</p>
-        <p>The problem is that indexes break under concurrency. Ordered CRDTs solve identity under concurrency, not fixed position.</p>
-        <p>Ordered CRDTs like <strong>RGA</strong>, <strong>Logoot</strong>, and <strong>LSEQ</strong> solve identity under concurrency, not fixed position in a mutable array.</p>
+        <p>Index-based reasoning fails under concurrency: two replicas can both insert at index 3, but "index 3" is not a stable distributed identity. Ordered CRDTs like <strong>RGA</strong>, <strong>Logoot</strong>, and <strong>LSEQ</strong> therefore solve identity under concurrency, not fixed position in a mutable array.</p>
         <pre><code>Replica A inserts "X" after node id=7
 Replica B inserts "Y" after node id=7 concurrently
 
