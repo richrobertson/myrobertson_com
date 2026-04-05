@@ -307,6 +307,91 @@
           </tbody>
         </table>
 
+        <h2 id="eventual-vs-strong">Eventual vs Strong Consistency</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>Strong Consistency</th>
+              <th>Eventual Consistency</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Read Guarantee</td>
+              <td>Always latest write</td>
+              <td>May return stale data</td>
+            </tr>
+            <tr>
+              <td>Latency</td>
+              <td>Higher (coordination required)</td>
+              <td>Lower (replicas respond independently)</td>
+            </tr>
+            <tr>
+              <td>Failure Behavior</td>
+              <td>May reject requests</td>
+              <td>Always responds (possibly stale)</td>
+            </tr>
+            <tr>
+              <td>Use Cases</td>
+              <td>Payments, inventory</td>
+              <td>Feeds, analytics, DNS</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 id="how-it-works">How Eventual Consistency Works in Real Systems</h2>
+
+        <h3>Dynamo-Style Replication</h3>
+        <p>
+          Systems like Amazon Dynamo and Apache Cassandra replicate data across multiple nodes using partitioning and multi-master writes. Each replica can
+          accept writes independently, which enables high availability but introduces divergence.
+        </p>
+
+        <h3>Quorum Reads and Writes</h3>
+        <p>
+          Many systems use quorum-based consistency:
+        </p>
+        <ul>
+          <li>N = number of replicas</li>
+          <li>W = write acknowledgments required</li>
+          <li>R = read responses required</li>
+        </ul>
+
+        <p>
+          If <strong>R + W &gt; N</strong>, reads are guaranteed to see the latest write. Otherwise, the system behaves as eventually consistent.
+        </p>
+
+        <h3>Conflict Resolution</h3>
+        <p>
+          Concurrent writes must be reconciled to ensure convergence. Common approaches include:
+        </p>
+        <ul>
+          <li><strong>Last-write-wins</strong> (timestamp-based, simple but lossy)</li>
+          <li><strong>Vector clocks</strong> (track causality across replicas)</li>
+          <li><strong>CRDTs</strong> (merge without conflicts)</li>
+        </ul>
+
+        <p>
+          Amazon Dynamo used vector clocks to detect concurrent updates, while Apache Cassandra uses timestamp-based last-write-wins for operational
+          simplicity. Both rely on anti-entropy and read repair to reconcile drift over time.
+        </p>
+
+        <h2 id="cap-connection">Why Eventual Consistency Exists (CAP Theorem)</h2>
+
+        <p>
+          Eventual consistency is a direct consequence of the CAP theorem. In the presence of network partitions, a system must choose between consistency
+          and availability.
+        </p>
+
+        <p>
+          Eventually consistent systems choose <strong>availability</strong>: they continue serving requests even if replicas cannot synchronize immediately.
+        </p>
+
+        <p>
+          This design is what enables globally distributed systems to remain responsive under failure.
+        </p>
+
         <h3>What "Eventually" Actually Means</h3>
         <p>
           In practice, most eventually consistent systems converge quickly — often within milliseconds for in-region replication. The "eventual" label captures the theoretical worst case, not the typical case.
@@ -336,6 +421,14 @@
           <li>search index updates</li>
         </ul>
 
+        <h2 id="when-to-use">When to Use Eventual Consistency</h2>
+        <ul>
+          <li>High-scale systems requiring low latency</li>
+          <li>Read-heavy workloads (feeds, analytics)</li>
+          <li>Systems tolerant of temporary inconsistency</li>
+          <li>Globally distributed applications</li>
+        </ul>
+
         <p>
           Those workload examples are intuitive, but production systems get harder quickly once concurrent writers, retries, failover, and cross-region replication are involved.
         </p>
@@ -361,6 +454,32 @@
 
         <p>These trade-offs push complexity into the application layer rather than the database.</p>
 
+        <h2 id="production-failures">How Eventual Consistency Breaks in Production</h2>
+
+        <h3>Retry Amplification</h3>
+        <p>
+          Clients retry writes when they do not immediately observe results, creating duplicate updates and inconsistent state.
+        </p>
+
+        <h3>Cache + Replica Staleness</h3>
+        <p>
+          Caching layers compound staleness by serving outdated values even after replicas have converged.
+        </p>
+
+        <h3>Read-Your-Writes Violations</h3>
+        <p>
+          Users often do not see their own updates, requiring workarounds like session stickiness or quorum reads.
+        </p>
+
+        <h3>Polling Loops and UX Degradation</h3>
+        <p>
+          Applications compensate with polling or refresh loops, increasing load and degrading user experience.
+        </p>
+
+        <p>
+          These issues shift complexity from infrastructure into application design.
+        </p>
+
         <h2 id="real-world-systems">Real Systems That Use Eventual Consistency</h2>
         <ul>
           <li><strong>Amazon Dynamo</strong> – quorum + vector clocks</li>
@@ -375,6 +494,15 @@
           <li>Versioning + conflict resolution</li>
           <li>Write-through caching</li>
           <li>Background reconciliation (anti-entropy)</li>
+        </ul>
+
+        <h2 id="design-checklist">Design Checklist</h2>
+        <ul>
+          <li>Can your system tolerate stale reads?</li>
+          <li>Do you need read-your-writes guarantees?</li>
+          <li>How will conflicts be resolved?</li>
+          <li>Will users notice inconsistency?</li>
+          <li>Do you need quorum reads/writes?</li>
         </ul>
 
         <h2 id="when-not-to-use">When NOT to Use Eventual Consistency</h2>
@@ -395,6 +523,15 @@
 
         <h2 id="interview-answer">30-Second Interview Answer</h2>
         <p>Eventual consistency is a distributed systems model where replicas may temporarily diverge but will converge over time. It trades strict correctness guarantees for higher availability and lower latency, especially under network partitions.</p>
+
+        <h2 id="key-takeaways">Key Takeaways</h2>
+        <ul>
+          <li>Eventual consistency prioritizes availability and latency over immediate correctness</li>
+          <li>Systems converge over time, not instantly</li>
+          <li>Conflict resolution is unavoidable in distributed systems</li>
+          <li>Real-world systems rely on quorum and replication strategies</li>
+          <li>Application-level design must handle inconsistency explicitly</li>
+        </ul>
 
         <figure>
           <svg viewBox="0 0 940 130" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="eventualConsistencyDiagramTitle eventualConsistencyDiagramDesc">
