@@ -148,6 +148,14 @@
                   "@type": "Answer",
                   "text": "Semantic assertions validate correctness properties such as factual support, policy compliance, and completeness, instead of brittle string identity."
                 }
+              },
+              {
+                "@type": "Question",
+                "name": "What metrics should teams track for AI TDD?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Track contract pass rate, semantic score trends, hallucination/support-defect rates, and regression-suite stability so drift is visible before release risk accumulates."
+                }
               }
             ]
           }
@@ -195,7 +203,8 @@
 
         <h2>The Problem: AI Breaks Determinism</h2>
         <p>
-          In classic backend TDD, same input should produce same output for a fixed version. AI paths violate this assumption by design.
+          In classic backend TDD, behavior is usually far more controllable because sources of nondeterminism are bounded and intentionally managed.
+          AI paths violate this assumption by design, so identical requests can still produce valid but different outputs.
         </p>
         <ul>
           <li><strong>Same input ≠ same output:</strong> generation sampling and latent ambiguity produce output sets, not a single output.</li>
@@ -273,6 +282,11 @@ assert(no_policy_violations(output))
           <a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure, Stability, and Correctness in Distributed Systems</a>:
           enforce invariants at boundaries.
         </p>
+        <p>
+          <strong>Compact eval example:</strong> Input prompt: "Explain retry storms in APIs and how to mitigate them." Required concepts:
+          retry amplification, bounded retries, and backpressure. Prohibited behavior: claiming retries are always safe or omitting overload risk.
+          Contract expectation: JSON response with <code>summary</code>, <code>risks</code>, and at least one <code>mitigation</code> item.
+        </p>
 
         <h3>Behavioral tests</h3>
         <p>
@@ -344,6 +358,11 @@ assert(no_policy_violations(output))
           If you built or operated RAG systems before, this is a direct extension of disciplined pipeline design patterns like those used in
           <a href="/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html">How I Built the AskRich Chatbot for Technical Screening</a>.
         </p>
+        <p>
+          Concretely in AskRich-style systems: prompt templates should be versioned artifacts; retrieval/index updates should run against locked eval sets;
+          citation checks should verify claims are grounded in retrieved sources; and candidate prompt/retrieval changes should pass canary or shadow-style
+          evaluation before broad rollout.
+        </p>
 
         <figure class="diagram">
           <figcaption><strong>Diagram 5 — CI/CD evaluation architecture</strong></figcaption>
@@ -367,9 +386,9 @@ Prod Canary + Shadow -------------> Drift Monitor -> Incident-to-Regression Feed
 
         <h2>Failure Modes Without TDD</h2>
         <ul>
-          <li><strong>Silent regressions:</strong> release succeeds, answer quality drops, incidents appear days later.</li>
-          <li><strong>Hallucination reintroduction:</strong> previously mitigated patterns return after model or prompt updates.</li>
-          <li><strong>Retrieval drift:</strong> index or ranking changes quietly degrade grounding and citation quality.</li>
+          <li><strong>Silent regressions:</strong> release succeeds, answer quality drops, incidents appear days later. Deploy pipelines stay green because surface-level checks pass, while user trust falls as answers become less useful or less precise.</li>
+          <li><strong>Hallucination reintroduction:</strong> previously mitigated patterns return after model or prompt updates. Teams can unknowingly re-ship resolved failure classes, which undermines correctness and creates recurring support/debug load.</li>
+          <li><strong>Retrieval drift:</strong> index or ranking changes quietly degrade grounding and citation quality. Outputs may remain fluent, so regressions evade basic QA while factual support quality decays in production.</li>
         </ul>
 
         <h2>Practical Playbook</h2>
@@ -414,6 +433,11 @@ Prod Canary + Shadow -------------> Drift Monitor -> Incident-to-Regression Feed
           <dt>Where do deterministic tests still matter most?</dt>
           <dd>
             At system boundaries: output schema validation, policy compliance checks, latency SLO gates, and contract-level API guarantees.
+          </dd>
+
+          <dt>What metrics should teams track for AI TDD?</dt>
+          <dd>
+            Track contract pass rate, semantic score trends, hallucination/support-defect rates, and regression-suite stability over time so quality drift is visible before release risk accumulates.
           </dd>
         </dl>
 
