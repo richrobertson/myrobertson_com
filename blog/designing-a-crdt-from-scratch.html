@@ -115,7 +115,7 @@ Correct converged result should be 2.</code></pre>
         <p>Replicas exchange state and merge with join semantics. Operationally simple. Payloads can get large.</p>
 
         <h3>Operation-based (CmRDT)</h3>
-        <p>Replicas exchange operations. Smaller payloads, but the sync layer must preserve assumptions such as causal delivery.</p>
+        <p>Replicas exchange operations instead of full state. Payloads stay smaller, but correctness now depends more heavily on the sync layer preserving the assumptions of the data type, typically causal delivery. The tradeoff is efficiency in exchange for tighter network and protocol requirements.</p>
 
         <h3>Delta CRDT</h3>
         <p>Replicas exchange compact state deltas while preserving join-based convergence. Good balance when full-state sync is too expensive.</p>
@@ -136,7 +136,7 @@ merge(other):
     N[r] = max(N[r], other.N[r])
 
 value = sum(P[*]) - sum(N[*])</code></pre>
-        <p>This is safe because each component only grows. Max-merge preserves monotonic progress and absorbs duplicates.</p>
+        <p>This is safe because each component only grows. Max-merge preserves monotonic progress, absorbs duplicates, and remains correct even when delivery is delayed or reordered.</p>
 
         <h2 id="step-5-handle-deletes-explicitly">Step 5: Handle Deletes Explicitly</h2>
         <p>Deletes are where many first CRDT designs break. Another replica may not even have seen the add you are trying to remove.</p>
@@ -190,6 +190,14 @@ Order is resolved by deterministic identifier ordering, not wall-clock timing.</
           <li>Cross-object invariants that require atomic multi-entity checks</li>
         </ul>
         <p>Inventory oversell example: two partitions both see stock=1 and both sell. Later convergence may agree on state, but the business rule "never sell below zero" is already violated.</p>
+        <pre><code>Stock = 1
+
+Replica A sells the item -> local stock = 0
+Replica B sells the item -> local stock = 0
+
+Merge result -> stock = -1</code></pre>
+        <p>Converged. Still wrong.</p>
+        <p>This is the core limit: convergence does not guarantee that business invariants survive concurrent writes.</p>
 
         <h2 id="step-10-map-to-real-system">Step 10: Map It to a Real System</h2>
         <p>A practical deployment model looks like this:</p>
