@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/</loc>
-    <lastmod>2026-04-04</lastmod>
+    <lastmod>2026-04-05</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</loc>
@@ -179,6 +179,10 @@
   <url>
     <loc>https://www.myrobertson.com/blog/strong-consistency-vs-eventual-consistency.html</loc>
     <lastmod>2026-04-04</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/test-driven-ai-development.html</loc>
+    <lastmod>2026-04-05</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</loc>
