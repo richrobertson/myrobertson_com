@@ -282,11 +282,12 @@ assert(no_policy_violations(output))
           <a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure, Stability, and Correctness in Distributed Systems</a>:
           enforce invariants at boundaries.
         </p>
-        <p>
-          <strong>Compact eval example:</strong> Input prompt: "Explain retry storms in APIs and how to mitigate them." Required concepts:
-          retry amplification, bounded retries, and backpressure. Prohibited behavior: claiming retries are always safe or omitting overload risk.
-          Contract expectation: JSON response with <code>summary</code>, <code>risks</code>, and at least one <code>mitigation</code> item.
-        </p>
+        <p><strong>Compact eval example:</strong></p>
+        <pre>{
+  "input": "Explain retry storms in APIs and how to mitigate them.",
+  "must_include": ["retry amplification", "bounded retries", "backpressure"],
+  "must_not_include": ["retries are always safe", "omit overload risk"]
+}</pre>
 
         <h3>Behavioral tests</h3>
         <p>
