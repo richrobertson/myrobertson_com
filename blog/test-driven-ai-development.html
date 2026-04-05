@@ -57,13 +57,14 @@
         padding: 0.8rem;
         border-radius: 10px;
         border: 1px solid rgba(148, 163, 184, 0.4);
-        background: rgba(15, 23, 42, 0.35);
-        overflow-x: auto;
+        background: rgba(15, 23, 42, 0.18);
+        overflow: hidden;
       }
 
       .diagram .mermaid svg {
         display: block;
-        min-width: 720px;
+        width: 100% !important;
+        max-width: 100% !important;
         height: auto;
       }
 
@@ -240,10 +241,10 @@
           <figcaption><strong>Diagram 1 — Variance injection points</strong></figcaption>
           <div class="mermaid">
             flowchart TB
-              U[User Query] --> P[Prompt Builder<br/>Template/version drift]
-              P --> R[Retriever<br/>Rank/index variance]
-              R --> L[LLM Inference<br/>Sampling/model drift]
-              L --> X[Policy/Parser<br/>Rule/parser fragility]
+              U[User Query] --> P[Prompt Builder<br/>template drift]
+              P --> R[Retriever<br/>rank/index drift]
+              R --> L[LLM Inference<br/>sampling/model drift]
+              L --> X[Policy/Parser<br/>rule/parser drift]
               X --> F[Final Response]
           </div>
         </figure>
@@ -274,9 +275,9 @@
           <figcaption><strong>Diagram 2 — Assertion evolution</strong></figcaption>
           <div class="mermaid">
             flowchart LR
-              A[Exact Match<br/>assert output == expected] --> B[Contract Checks<br/>schema + required fields]
-              B --> C[Semantic Scoring<br/>intent + support quality]
-              C --> D[Policy Verification<br/>safety/compliance]
+              A[Exact Match<br/>output == expected] --> B[Contract Checks<br/>schema + required fields]
+              B --> C[Semantic Scoring<br/>intent + support]
+              C --> D[Policy Checks<br/>safety/compliance]
           </div>
         </figure>
 
@@ -338,8 +339,8 @@
           <figcaption><strong>Diagram 3 — Layered AI test pyramid</strong></figcaption>
           <div class="mermaid">
             flowchart TB
-              R[Regression Dataset Foundation<br/>incidents + edge cases]
-              C[Deterministic Contracts<br/>schema/policy/latency]
+              R[Regression Foundation<br/>incidents + edge cases]
+              C[Deterministic Contracts<br/>schema + policy + latency]
               S[Semantic Assertions + Scoring]
               B[Behavioral / End-to-End]
               R --> C --> S --> B
@@ -399,7 +400,7 @@
           <figcaption><strong>Diagram 5 — CI/CD evaluation architecture</strong></figcaption>
           <div class="mermaid">
             flowchart TB
-              G[Git Push] --> C[CI Pipeline<br/>contract + semantic + behavioral]
+              G[Git Push] --> C[CI Pipeline<br/>contract + semantic + behavioral evals]
               C --> Q{Score Gate}
               Q -->|pass| D[Deploy Candidate]
               Q -->|fail| B[Block Deploy]
@@ -482,14 +483,14 @@
       mermaid.initialize({
         startOnLoad: true,
         securityLevel: 'loose',
-        theme: 'dark',
+        theme: 'neutral',
         flowchart: {
-          useMaxWidth: false,
-          nodeSpacing: 40,
-          rankSpacing: 55
+          useMaxWidth: true,
+          htmlLabels: true,
+          curve: 'basis'
         },
         themeVariables: {
-          fontSize: '18px'
+          fontSize: '14px'
         }
       });
     </script>
