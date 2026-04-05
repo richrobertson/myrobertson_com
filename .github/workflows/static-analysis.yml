@@ -22,10 +22,7 @@ jobs:
         uses: super-linter/super-linter@v8.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # On pull_request events, use the PR base branch explicitly.
-          # On push events, fall back to repository default branch.
-          DEFAULT_BRANCH: ${{ github.base_ref || github.event.repository.default_branch }}  # yamllint disable-line rule:line-length
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           FILTER_REGEX_EXCLUDE: (rss\.xml|sitemap\.xml)
           VALIDATE_HTML: true
           VALIDATE_CSS: true
