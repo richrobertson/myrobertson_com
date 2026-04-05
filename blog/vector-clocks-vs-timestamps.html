@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vector Clocks vs Timestamps | Rich Robertson</title>
+    <meta name="description" content="Vector clocks vs timestamps for conflict resolution in eventually consistent databases." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/vector-clocks-vs-timestamps.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Vector Clocks vs Timestamps" />
+    <meta property="og:description" content="Vector clocks vs timestamps for conflict resolution in eventually consistent databases." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/vector-clocks-vs-timestamps.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Vector Clocks vs Timestamps" />
+    <meta name="twitter:description" content="Vector clocks vs timestamps for conflict resolution in eventually consistent databases." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="vector-clocks-vs-timestamps">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="vector-clocks-vs-timestamps">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Vector Clocks vs Timestamps</h1>
+        <p class="intro blog-dek"><strong>Vector clocks</strong> encode causality between writes, while <strong>timestamps</strong> impose an ordering that may lose concurrent updates.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h2 id="definition">Definition</h2>
+        <p><strong>Vector clocks</strong> encode causality between writes, while <strong>timestamps</strong> impose an ordering that may lose concurrent updates.</p>
+
+        <h2 id="key-concepts">Key Concepts</h2>
+        <ul>
+          <li>Vector clocks detect true concurrency.</li>
+          <li>Timestamps are simple but clock-skew sensitive.</li>
+          <li>Last-write-wins favors operational simplicity over correctness depth.</li>
+          <li>Conflict strategy determines data-loss profile.</li>
+        </ul>
+
+        <h2 id="how-it-works">How It Works</h2>
+        <p>Each write carries either a vector version map or a scalar timestamp; reconciliation uses causality checks or max-timestamp selection.</p>
+
+        <h2 id="comparison">Comparison Table</h2>
+        <table>
+          <thead>
+            <tr><th>Approach</th><th>Pros</th><th>Cons</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vector clocks</td><td>Causal accuracy</td><td>Higher metadata/complexity</td></tr>
+            <tr><td>Timestamps</td><td>Simple and fast</td><td>Can drop concurrent intent</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="production-implications">Production Implications</h2>
+        <p>Amazon Dynamo used vector clocks to surface sibling versions, while Apache Cassandra typically resolves by timestamp. Teams often add idempotency keys and domain merges above storage to avoid silent data loss.</p>
+
+        <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
+        <h3>Use It When</h3>
+        <ul>
+            <li>Vector clocks for correctness-sensitive merges.</li>
+            <li>Timestamps for operationally simple, high-volume workloads.</li>
+        </ul>
+        <h3>Avoid It When</h3>
+        <ul>
+            <li>Timestamp-only merges for user-authored collaborative content.</li>
+            <li>Vector clocks where metadata overhead is unacceptable.</li>
+        </ul>
+
+        <h2 id="key-takeaways">Key Takeaways</h2>
+        <ul>
+          <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
+          <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
+          <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+        </ul>
+
+        <h2 id="related-reading">Related Reading</h2>
+        <ul>
+          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
+          <li><a href="./crdts-explained.html">CRDTs Explained</a></li>
+          <li><a href="./quorum-systems-explained.html">Quorum Systems Explained</a></li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
