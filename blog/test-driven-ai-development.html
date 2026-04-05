@@ -213,7 +213,7 @@
           factual support, or answer consistency quietly decays over time. Once that happens, “works in staging” turns into user trust erosion.
         </p>
         <p>
-          AI systems don’t fail loudly—they degrade silently. Many teams only notice regressions weeks after deploy, when support tickets and
+          AI systems rarely fail loudly—they degrade silently. Many teams only notice regressions weeks after deploy, when support tickets and
           operator audits reveal answers that still read well but are factually wrong.
         </p>
 
@@ -254,7 +254,13 @@
           does the system stay grounded, safe, and useful across realistic response variation?
         </p>
         <p>
+          The goal shifts from exact outputs to bounded, acceptable behavior.
+        </p>
+        <p>
           This is exactly why traditional TDD semantics break first when AI components enter the request path.
+        </p>
+        <p>
+          From here, the test model itself has to change.
         </p>
 
         <figure class="diagram">
@@ -399,7 +405,7 @@
         <h2>Failure Modes Without TDD</h2>
         <ul>
           <li><strong>Silent regressions:</strong> a prompt or retrieval change ships cleanly, but behavior degrades for one slice of queries (for example, multi-constraint questions). It passes validation because contracts and latency still look healthy. Users experience lower answer usefulness and trust decay long before dashboards signal an obvious outage.</li>
-          <li><strong>Hallucination reintroduction:</strong> outputs that were previously grounded lose support after template or retrieval adjustments. It passes superficial checks because responses remain fluent, structured, and policy-shaped. Users receive confident but unsupported claims, and operators end up re-fighting incidents that were already closed.</li>
+          <li><strong>Hallucination reintroduction:</strong> outputs that were previously grounded lose citations/support after prompt template or retrieval adjustments. It passes superficial checks because responses remain fluent, structured, and policy-shaped. Users receive confident but unsupported claims, and operators end up re-fighting incidents that were already closed.</li>
           <li><strong>Retrieval drift:</strong> the same query starts producing different answers over time as ranking/index behavior shifts. It passes basic validation because responses still look coherent and citations may still exist. Users see instability in factual support, while teams absorb increasing audit and correction load.</li>
         </ul>
         <p>
@@ -408,7 +414,7 @@
 
         <h2>Practical Playbook</h2>
         <ol>
-          <li>Start with production traffic slices, then stratify test cases by risk class and user-critical workflows.</li>
+          <li>Start with real production traffic slices, not synthetic examples; then stratify test cases by risk class and user-critical workflows.</li>
           <li>Define hard contracts early: schema validity, required citations, and non-negotiable policy boundaries.</li>
           <li>Track semantic metrics tied to user value, including support quality, factual consistency, and omission rate.</li>
           <li>Treat prompt and retrieval changes as deployable artifacts with versioning, diff review, owners, and rollback plans.</li>
@@ -424,8 +430,9 @@
           failure budgets, and release safety.
         </p>
         <p>
-          Trust does not come from model intelligence; it comes from engineering constraints. AI systems don’t become reliable when models get
-          smarter. <strong>They become reliable when regressions become visible, measurable, and hard to ship.</strong>
+          Trust does not come from model intelligence; it comes from engineering constraints.
+          AI systems don’t become reliable when models get smarter.
+          <strong>They become reliable when regressions become visible, measurable, and hard to ship.</strong>
         </p>
 
         <h2>FAQ</h2>
