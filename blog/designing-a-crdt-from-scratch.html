@@ -136,7 +136,7 @@ merge(other):
     N[r] = max(N[r], other.N[r])
 
 value = sum(P[*]) - sum(N[*])</code></pre>
-        <p>This is safe because each component only grows. Max-merge preserves monotonic progress, absorbs duplicates, and remains correct even when delivery is delayed or reordered.</p>
+        <p>Merge takes the per-replica maximum for each component, making the system resilient to reordering, duplication, and delayed delivery.</p>
 
         <h2 id="step-5-handle-deletes-explicitly">Step 5: Handle Deletes Explicitly</h2>
         <p>Deletes are where many first CRDT designs break. Another replica may not even have seen the add you are trying to remove.</p>
@@ -149,6 +149,7 @@ state for x = {tA1, tB9}
 Remove(x) at A removes identities A has observed.
 If A has only seen tA1, remove records {tA1}.
 After merge, tB9 can remain until it is explicitly observed and removed.</code></pre>
+        <p>Remove operations only affect identities that are causally observed, which prevents deleting concurrent additions that have not yet been seen.</p>
         <p><strong>You do not delete values. You delete observed history.</strong></p>
 
         <h2 id="step-6-define-concurrency-semantics">Step 6: Define Concurrency Semantics</h2>
@@ -177,7 +178,7 @@ Order is resolved by deterministic identifier ordering, not wall-clock timing.</
           <li>Merge is commutative, associative, idempotent.</li>
           <li>State transitions are monotonic in the chosen partial order.</li>
           <li>All replicas eventually converge under repeated anti-entropy.</li>
-          <li>The business invariant is preserved after convergence.</li>
+          <li>Validate whether the business invariant is preserved after convergence.</li>
         </ul>
         <p><strong>CRDTs guarantee convergence—not correctness.</strong></p>
 
@@ -192,12 +193,12 @@ Order is resolved by deterministic identifier ordering, not wall-clock timing.</
         <p>Inventory oversell example: two partitions both see stock=1 and both sell. Later convergence may agree on state, but the business rule "never sell below zero" is already violated.</p>
         <pre><code>Stock = 1
 
-Replica A sells the item -&gt; local stock = 0
-Replica B sells the item -&gt; local stock = 0
+Replica A sells → 0
+Replica B sells → 0
 
-Merge result -&gt; stock = -1</code></pre>
+Merge → -1</code></pre>
         <p>Converged. Still wrong.</p>
-        <p>This is the core limit: convergence does not guarantee that business invariants survive concurrent writes.</p>
+        <p>This is the core limitation: convergence does not guarantee that business invariants survive concurrent writes.</p>
 
         <h2 id="step-10-map-to-real-system">Step 10: Map It to a Real System</h2>
         <p>A practical deployment model looks like this:</p>
