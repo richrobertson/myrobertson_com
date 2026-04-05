@@ -22,7 +22,11 @@ jobs:
         uses: super-linter/super-linter@v8.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          # On pull_request events, use the PR base branch explicitly.
+          # On push events, fall back to repository default branch.
+          DEFAULT_BRANCH: >-
+            ${{ github.event.pull_request.base.ref ||
+            github.event.repository.default_branch }}
           VALIDATE_ALL_CODEBASE: false
           FILTER_REGEX_EXCLUDE: (rss\.xml|sitemap\.xml)
           VALIDATE_HTML: true
