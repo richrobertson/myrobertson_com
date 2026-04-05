@@ -200,6 +200,10 @@
           <a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Why Systems Fail Under Load, Not Just Bugs</a>:
           local correctness does not guarantee system correctness.
         </p>
+        <p>
+          In production, teams often mistake fluent answers for correct answers. Systems can pass superficial checks while grounding quality,
+          factual support, or answer consistency quietly decays over time. Once that happens, “works in staging” turns into user trust erosion.
+        </p>
 
         <h2>The Problem: AI Breaks Determinism</h2>
         <p>
@@ -236,12 +240,15 @@ User Query
 
         <h2>Why Traditional TDD Fails</h2>
         <p>
-          Exact-match assertions fail for valid alternative outputs. The test breaks even when user value is unchanged.
-          The inverse is worse: exact text can pass while truthfulness, citation quality, or safety constraints regress.
+          Exact-match assertions are the wrong control surface for probabilistic systems. They fail on valid variation, then pass on outputs
+          that are fluent but wrong, unsupported, or unsafe.
         </p>
         <p>
-          This is where semantic evaluation becomes mandatory. You still run deterministic checks, but semantic checks carry
-          intent-level correctness: does the output satisfy required behavior under acceptable variance?
+          The target is behavioral correctness under bounded variance. That means deterministic boundary checks plus semantic evaluation that
+          verifies whether the system still meets user-value and policy expectations across realistic response variation.
+        </p>
+        <p>
+          That mismatch is why AI testing has to be redefined instead of lightly adapting classical unit-test patterns.
         </p>
 
         <figure class="diagram">
@@ -291,14 +298,29 @@ assert(no_policy_violations(output))
 
         <h3>Behavioral tests</h3>
         <p>
-          Validate end-to-end behavior across realistic traffic classes: happy path, ambiguous inputs, adversarial prompts, stale retrieval,
-          and policy-sensitive queries.
+          Behavioral tests validate system behavior across query classes, not one canonical string output. They answer a harder question:
+          does the system respond correctly when context quality, user intent clarity, and risk level vary the way they do in production?
         </p>
+        <ul>
+          <li><strong>Straightforward factual requests:</strong> verify grounded, concise answers with correct support.</li>
+          <li><strong>Ambiguous prompts:</strong> require clarification or explicit bounded assumptions before committing to specifics.</li>
+          <li><strong>Stale or partially relevant retrieval:</strong> verify uncertainty handling and avoidance of fabricated synthesis.</li>
+          <li><strong>Adversarial/prompt-injection-style inputs:</strong> verify instruction hierarchy and policy hard stops hold.</li>
+          <li><strong>Policy-sensitive asks:</strong> verify safe handling, escalation patterns, and refusal quality where required.</li>
+        </ul>
 
         <h3>Regression datasets (non-negotiable)</h3>
         <p>
           Regression datasets are your safety memory. Every production incident, hallucination, and unacceptable output becomes a locked test case.
           Without this, teams repeatedly reintroduce old failure modes.
+        </p>
+        <p>
+          Treat these datasets as living incident memory, not benchmark trophies. They should evolve with real traffic slices, recurring failure
+          clusters, and newly observed edge cases from production. If the dataset is shallow or stale, pipeline pass rates become false confidence.
+          A strong regression set is what makes improvements durable instead of anecdotal.
+        </p>
+        <p>
+          With that baseline locked, the TDD loop becomes enforceable rather than aspirational.
         </p>
 
         <figure class="diagram">
@@ -364,6 +386,9 @@ assert(no_policy_violations(output))
           citation checks should verify claims are grounded in retrieved sources; and candidate prompt/retrieval changes should pass canary or shadow-style
           evaluation before broad rollout.
         </p>
+        <p>
+          Without this architecture, teams can observe failure modes only after users do.
+        </p>
 
         <figure class="diagram">
           <figcaption><strong>Diagram 5 — CI/CD evaluation architecture</strong></figcaption>
@@ -387,21 +412,24 @@ Prod Canary + Shadow -------------> Drift Monitor -> Incident-to-Regression Feed
 
         <h2>Failure Modes Without TDD</h2>
         <ul>
-          <li><strong>Silent regressions:</strong> release succeeds, answer quality drops, incidents appear days later. Deploy pipelines stay green because surface-level checks pass, while user trust falls as answers become less useful or less precise.</li>
-          <li><strong>Hallucination reintroduction:</strong> previously mitigated patterns return after model or prompt updates. Teams can unknowingly re-ship resolved failure classes, which undermines correctness and creates recurring support/debug load.</li>
-          <li><strong>Retrieval drift:</strong> index or ranking changes quietly degrade grounding and citation quality. Outputs may remain fluent, so regressions evade basic QA while factual support quality decays in production.</li>
+          <li><strong>Silent regressions:</strong> prompt or retrieval changes reduce answer quality while schema and latency checks stay green. This escapes superficial validation because responses are still well-formed and fluent. Users experience weaker usefulness and inconsistent depth, while operators see a slow rise in “looks fine but not helpful” feedback.</li>
+          <li><strong>Hallucination reintroduction:</strong> previously fixed unsupported claims return after model/prompt updates. It evades basic checks because syntax and tone remain plausible, so failures look like normal completions until manually audited. Users get confident but incorrect guidance, and support teams re-open incidents that were already closed once.</li>
+          <li><strong>Retrieval drift:</strong> ranking/index shifts degrade source relevance and grounding coverage. It slips through simple tests because outputs remain coherent and citations may still be present, just weaker or mismatched. Users see subtle factual wobble, and operators see rising correction load as grounding quality erodes release over release.</li>
         </ul>
+        <p>
+          These patterns are exactly why teams need a concrete operating playbook, not just principles.
+        </p>
 
         <h2>Practical Playbook</h2>
         <ol>
-          <li>Define output contracts first (schema, required citations, policy boundaries).</li>
-          <li>Create a baseline regression dataset from current production traffic slices.</li>
-          <li>Add semantic metrics aligned to user value (coverage, support quality, factual consistency).</li>
-          <li>Treat prompt changes like code changes: version, review, diff, rollback.</li>
-          <li>Gate deployment in CI on minimum threshold scores and zero critical policy failures.</li>
-          <li>Run shadow traffic on every significant model/prompt/retrieval update.</li>
-          <li>Convert incidents into permanent regression tests within 24 hours.</li>
-          <li>Track weekly trend dashboards for drift; do not rely on one-time benchmark passes.</li>
+          <li>Define hard output contracts first: schema validity, required citations, and non-negotiable policy boundaries.</li>
+          <li>Build a baseline regression set from production traffic slices, then stratify by risk and failure class.</li>
+          <li>Track semantic metrics tied to user value: support quality, factual consistency, and critical omission rate.</li>
+          <li>Treat prompt/template changes as deployable artifacts: version, review, diff, and rollback with ownership.</li>
+          <li>Gate CI/CD on contract pass thresholds, semantic floors, and zero critical policy violations.</li>
+          <li>Run shadow traffic for major model, prompt, or retrieval changes before expanding exposure.</li>
+          <li>Convert every material incident into a locked regression case within 24 hours.</li>
+          <li>Review drift trends weekly and tune gates continuously; one-time benchmark wins are not stability.</li>
         </ol>
 
         <h2>Conclusion</h2>
@@ -410,8 +438,9 @@ Prod Canary + Shadow -------------> Drift Monitor -> Incident-to-Regression Feed
           failure budgets, and release safety.
         </p>
         <p>
-          Probabilistic components can still run inside a deterministic engineering system. That system is built from layered tests,
-          locked regression datasets, and deployment gates that treat AI as production infrastructure.
+          Probabilistic components can run safely only inside an engineering system that exposes and bounds failure. AI systems do not become
+          trustworthy because the model is smarter; they become trustworthy when regressions are visible, bounded, and hard to ship.
+          <strong>Reliability is the product of controls, not model fluency.</strong>
         </p>
 
         <h2>FAQ</h2>
