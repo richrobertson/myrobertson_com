@@ -93,8 +93,8 @@
         <p>Naive mutable counter failure:</p>
         <pre><code>Initial value = 0
 
-Replica A: value = value + 1  => 1
-Replica B: value = value + 1  => 1
+Replica A: value = value + 1  =&gt; 1
+Replica B: value = value + 1  =&gt; 1
 
 If last-writer-wins merge picks one value, final = 1 (lost update).
 Correct converged result should be 2.</code></pre>
@@ -141,8 +141,8 @@ value = sum(P[*]) - sum(N[*])</code></pre>
         <h2 id="step-5-handle-deletes-explicitly">Step 5: Handle Deletes Explicitly</h2>
         <p>Deletes are where many first CRDT designs break. Another replica may not even have seen the add you are trying to remove.</p>
         <p>Use identity-tracked adds (OR-Set style), then remove observed identities.</p>
-        <pre><code>Add(x) on replica A -> tag tA1
-Add(x) on replica B -> tag tB9
+        <pre><code>Add(x) on replica A -&gt; tag tA1
+Add(x) on replica B -&gt; tag tB9
 
 state for x = {tA1, tB9}
 
@@ -192,10 +192,10 @@ Order is resolved by deterministic identifier ordering, not wall-clock timing.</
         <p>Inventory oversell example: two partitions both see stock=1 and both sell. Later convergence may agree on state, but the business rule "never sell below zero" is already violated.</p>
         <pre><code>Stock = 1
 
-Replica A sells the item -> local stock = 0
-Replica B sells the item -> local stock = 0
+Replica A sells the item -&gt; local stock = 0
+Replica B sells the item -&gt; local stock = 0
 
-Merge result -> stock = -1</code></pre>
+Merge result -&gt; stock = -1</code></pre>
         <p>Converged. Still wrong.</p>
         <p>This is the core limit: convergence does not guarantee that business invariants survive concurrent writes.</p>
 
