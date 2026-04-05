@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test-Driven AI Development: Bringing Determinism to Probabilistic Systems | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Test-driven AI development for senior backend engineers: deterministic contracts, semantic evals, regression datasets, and CI canaries that stop silent LLM regressions."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/test-driven-ai-development.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Test-Driven AI Development: Bringing Determinism to Probabilistic Systems" />
+    <meta
+      property="og:description"
+      content="How to implement TDD for AI systems using deterministic contracts, semantic assertions, behavioral evaluations, and locked regression datasets."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/test-driven-ai-development.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Test-Driven AI Development: Bringing Determinism to Probabilistic Systems" />
+    <meta
+      name="twitter:description"
+      content="A precise engineering playbook for making AI systems testable in CI/CD without relying on exact string matching."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .diagram {
+        margin: 1.25rem 0;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 12px;
+        padding: 1rem;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.015));
+      }
+
+      .diagram pre {
+        margin: 0;
+        padding: 0.75rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        background: rgba(15, 23, 42, 0.78);
+        color: #e2e8f0;
+        font-size: 0.78rem;
+        line-height: 1.45;
+      }
+
+      .diagram-grid {
+        display: grid;
+        gap: 0.6rem;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        margin-top: 0.85rem;
+      }
+
+      .diagram-node {
+        border: 1px solid rgba(37, 99, 235, 0.28);
+        border-radius: 10px;
+        padding: 0.7rem;
+        background: rgba(37, 99, 235, 0.07);
+        font-size: 0.85rem;
+      }
+
+      .diagram-flow {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin-top: 0.85rem;
+      }
+
+      .diagram-step {
+        border: 1px solid rgba(30, 64, 175, 0.25);
+        border-radius: 999px;
+        padding: 0.38rem 0.78rem;
+        background: rgba(59, 130, 246, 0.12);
+        font-size: 0.83rem;
+        font-weight: 600;
+      }
+
+      .faq-list dt {
+        margin-top: 1rem;
+        font-weight: 700;
+      }
+
+      .faq-list dd {
+        margin: 0.35rem 0 0;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "BlogPosting",
+            "headline": "Test-Driven AI Development: Bringing Determinism to Probabilistic Systems",
+            "description": "How to implement TDD for AI systems using deterministic contracts, semantic assertions, behavioral evaluations, and locked regression datasets.",
+            "url": "https://www.myrobertson.com/blog/test-driven-ai-development.html",
+            "mainEntityOfPage": "https://www.myrobertson.com/blog/test-driven-ai-development.html",
+            "datePublished": "2026-04-05",
+            "dateModified": "2026-04-05",
+            "author": {
+              "@type": "Person",
+              "name": "Rich Robertson",
+              "url": "https://www.myrobertson.com/"
+            },
+            "keywords": [
+              "test-driven development",
+              "ai systems",
+              "llm evaluation",
+              "regression testing",
+              "distributed systems"
+            ],
+            "isPartOf": {
+              "@type": "Blog",
+              "name": "Rich Robertson Writing",
+              "url": "https://www.myrobertson.com/blog/"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Can AI systems ever be fully deterministic?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Not fully at the generation layer. The practical goal is deterministic control at the system boundary: contracts, score thresholds, and regression gates."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What should be in an AI regression dataset?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Production-like prompts, expected behaviors, failure labels, and edge cases that previously broke reliability. Keep it versioned and immutable per release."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why are semantic assertions better than exact match?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Semantic assertions validate correctness properties such as factual support, policy compliance, and completeness, instead of brittle string identity."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="test-driven-ai-development">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+      <div class="hero-content" data-article-meta data-article-slug="test-driven-ai-development">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Test-Driven AI Development: Bringing Determinism to Probabilistic Systems</h1>
+        <p class="intro blog-dek">
+          AI pipelines behave like non-deterministic distributed systems. You cannot remove probability from generation,
+          but you can impose deterministic control loops around it.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h2>Key Takeaways</h2>
+        <ul>
+          <li>Treat LLM-backed features as distributed services with stochastic failure modes, not as deterministic pure functions.</li>
+          <li>Split tests into deterministic contracts, semantic assertions, and behavioral evaluations.</li>
+          <li>Regression datasets are the control surface. If they are weak, your release gates are weak.</li>
+          <li>Adopt an AI TDD loop: write eval → run → adjust → re-run → lock regression.</li>
+          <li>Ship with canary and shadow evaluations so post-deploy drift is observable before users absorb risk.</li>
+        </ul>
+
+        <h2>Introduction</h2>
+        <p>
+          Modern AI features are closer to distributed workflows than library calls. A single user request can traverse prompt assembly,
+          retrieval, model inference, policy filters, and downstream structured parsing.
+        </p>
+        <p>
+          Each stage introduces variance. That is the core reason familiar test strategies degrade quickly once LLMs enter the path.
+          This mirrors the same reliability lesson in
+          <a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Why Systems Fail Under Load, Not Just Bugs</a>:
+          local correctness does not guarantee system correctness.
+        </p>
+
+        <h2>The Problem: AI Breaks Determinism</h2>
+        <p>
+          In classic backend TDD, same input should produce same output for a fixed version. AI paths violate this assumption by design.
+        </p>
+        <ul>
+          <li><strong>Same input ≠ same output:</strong> generation sampling and latent ambiguity produce output sets, not a single output.</li>
+          <li><strong>Model drift:</strong> provider updates or model switchovers alter behavior without code changes.</li>
+          <li><strong>Prompt sensitivity:</strong> minor phrasing changes can shift completion structure and factual grounding.</li>
+          <li><strong>Retrieval variance:</strong> ranking changes, index freshness, and chunk boundaries alter context seen by the model.</li>
+        </ul>
+
+        <figure class="diagram">
+          <figcaption><strong>Diagram 1 — Variance injection points (ASCII, then structured blocks)</strong></figcaption>
+          <pre>
+User Query
+   |
+   +--> Prompt Builder --(template/version drift)--> Prompt
+   |
+   +--> Retriever -----(rank/index variance)-------> Context
+   |
+   +--> LLM Inference --(sampling/model drift)-----> Candidate Output
+   |
+   +--> Policy/Parser --(rule/parser fragility)----> Final Response
+          </pre>
+          <div class="diagram-grid">
+            <div class="diagram-node">Prompt Builder<br />Template drift</div>
+            <div class="diagram-node">Retriever<br />Ranking variance</div>
+            <div class="diagram-node">LLM Inference<br />Sampling + model drift</div>
+            <div class="diagram-node">Policy/Parser<br />Contract fragility</div>
+          </div>
+        </figure>
+
+        <h2>Why Traditional TDD Fails</h2>
+        <p>
+          Exact-match assertions fail for valid alternative outputs. The test breaks even when user value is unchanged.
+          The inverse is worse: exact text can pass while truthfulness, citation quality, or safety constraints regress.
+        </p>
+        <p>
+          This is where semantic evaluation becomes mandatory. You still run deterministic checks, but semantic checks carry
+          intent-level correctness: does the output satisfy required behavior under acceptable variance?
+        </p>
+
+        <figure class="diagram">
+          <figcaption><strong>Diagram 2 — Assertion evolution</strong></figcaption>
+          <pre>
+Traditional Unit Test: assert(output == "expected string")
+
+AI-Safe Test:
+assert(valid_json_schema(output))
+assert(contains_required_entities(output))
+assert(semantic_similarity(output, reference) >= threshold)
+assert(no_policy_violations(output))
+          </pre>
+          <div class="diagram-flow">
+            <span class="diagram-step">Exact Match</span>
+            <span class="diagram-step">→ Contract Checks</span>
+            <span class="diagram-step">→ Semantic Scoring</span>
+            <span class="diagram-step">→ Policy Verification</span>
+          </div>
+        </figure>
+
+        <h2>Redefining Tests for AI Systems</h2>
+        <p>
+          A practical AI test suite needs layered guarantees. Start with deterministic checks, then add semantic and behavioral coverage.
+          Keep all layers tied to a versioned regression corpus.
+        </p>
+
+        <h3>Deterministic tests (schema and contracts)</h3>
+        <p>
+          Validate shape before meaning. Enforce JSON schema, required fields, enum constraints, citation URL format, and latency budgets.
+          These tests are stable and should block merges immediately.
+        </p>
+
+        <h3>Semantic assertions</h3>
+        <p>
+          Assert properties, not strings. For example: mandatory concepts present, critical omissions absent, and factual support attached.
+          This is the same systems mindset described in
+          <a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure, Stability, and Correctness in Distributed Systems</a>:
+          enforce invariants at boundaries.
+        </p>
+
+        <h3>Behavioral tests</h3>
+        <p>
+          Validate end-to-end behavior across realistic traffic classes: happy path, ambiguous inputs, adversarial prompts, stale retrieval,
+          and policy-sensitive queries.
+        </p>
+
+        <h3>Regression datasets (non-negotiable)</h3>
+        <p>
+          Regression datasets are your safety memory. Every production incident, hallucination, and unacceptable output becomes a locked test case.
+          Without this, teams repeatedly reintroduce old failure modes.
+        </p>
+
+        <figure class="diagram">
+          <figcaption><strong>Diagram 3 — Layered AI test pyramid</strong></figcaption>
+          <pre>
+             [Behavioral / End-to-End]
+          [Semantic Assertions + Scoring]
+      [Deterministic Contracts: schema, policy, latency]
+   [Regression Dataset Foundation: incidents + edge cases]
+          </pre>
+          <div class="diagram-grid">
+            <div class="diagram-node">Behavioral<br />Scenario confidence</div>
+            <div class="diagram-node">Semantic<br />Intent correctness</div>
+            <div class="diagram-node">Contracts<br />Hard constraints</div>
+            <div class="diagram-node">Regression Base<br />Incident memory</div>
+          </div>
+        </figure>
+
+        <h2>The TDD Loop for AI Systems</h2>
+        <p>
+          Replace "write test → write code → refactor" with an evaluation-first loop that captures AI variance explicitly.
+        </p>
+        <ol>
+          <li><strong>Write eval:</strong> specify deterministic and semantic criteria for the user behavior you need.</li>
+          <li><strong>Run:</strong> execute against the current prompt/model/retrieval versions.</li>
+          <li><strong>Adjust:</strong> modify prompt templates, retrieval strategy, ranking, or guardrails.</li>
+          <li><strong>Re-run:</strong> verify improvements are real, not anecdotal.</li>
+          <li><strong>Lock regression:</strong> add the scenario to a versioned dataset and enforce in CI.</li>
+        </ol>
+
+        <figure class="diagram">
+          <figcaption><strong>Diagram 4 — AI TDD loop</strong></figcaption>
+          <pre>
+[Write Eval] -> [Run Evals] -> [Adjust System] -> [Re-run] -> [Lock Regression]
+       ^                                                           |
+       +--------------------- repeat for every failure ------------+
+          </pre>
+          <div class="diagram-flow">
+            <span class="diagram-step">Write Eval</span>
+            <span class="diagram-step">Run</span>
+            <span class="diagram-step">Adjust</span>
+            <span class="diagram-step">Re-run</span>
+            <span class="diagram-step">Lock Regression</span>
+          </div>
+        </figure>
+
+        <h2>System Architecture for AI Testing</h2>
+        <p>
+          Reliable AI delivery needs platform support, not ad hoc scripts. At minimum, implement the following:
+        </p>
+        <ul>
+          <li><strong>Eval runners:</strong> deterministic and semantic scoring engines that can run locally and in CI.</li>
+          <li><strong>Prompt versioning:</strong> prompts treated as deployable artifacts with changelogs and rollback IDs.</li>
+          <li><strong>CI/CD integration:</strong> gate merges on score thresholds and hard-fail policy violations.</li>
+          <li><strong>Canary + shadow testing:</strong> compare candidate configurations against baseline on mirrored production traffic.</li>
+        </ul>
+        <p>
+          If you built or operated RAG systems before, this is a direct extension of disciplined pipeline design patterns like those used in
+          <a href="/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html">How I Built the AskRich Chatbot for Technical Screening</a>.
+        </p>
+
+        <figure class="diagram">
+          <figcaption><strong>Diagram 5 — CI/CD evaluation architecture</strong></figcaption>
+          <pre>
+Git Push
+  |
+CI Pipeline
+  +--> Contract Tests ----------+        +--> Block Deploy (on fail)
+  +--> Semantic Evals ----------|------->|
+  +--> Behavioral Regression ---+        +--> Promote Candidate (on pass)
+                                        |
+Prod Canary + Shadow -------------> Drift Monitor -> Incident-to-Regression Feed
+          </pre>
+          <div class="diagram-grid">
+            <div class="diagram-node">CI Eval Runner</div>
+            <div class="diagram-node">Score Gate</div>
+            <div class="diagram-node">Canary + Shadow</div>
+            <div class="diagram-node">Regression Feedback</div>
+          </div>
+        </figure>
+
+        <h2>Failure Modes Without TDD</h2>
+        <ul>
+          <li><strong>Silent regressions:</strong> release succeeds, answer quality drops, incidents appear days later.</li>
+          <li><strong>Hallucination reintroduction:</strong> previously mitigated patterns return after model or prompt updates.</li>
+          <li><strong>Retrieval drift:</strong> index or ranking changes quietly degrade grounding and citation quality.</li>
+        </ul>
+
+        <h2>Practical Playbook</h2>
+        <ol>
+          <li>Define output contracts first (schema, required citations, policy boundaries).</li>
+          <li>Create a baseline regression dataset from current production traffic slices.</li>
+          <li>Add semantic metrics aligned to user value (coverage, support quality, factual consistency).</li>
+          <li>Treat prompt changes like code changes: version, review, diff, rollback.</li>
+          <li>Gate deployment in CI on minimum threshold scores and zero critical policy failures.</li>
+          <li>Run shadow traffic on every significant model/prompt/retrieval update.</li>
+          <li>Convert incidents into permanent regression tests within 24 hours.</li>
+          <li>Track weekly trend dashboards for drift; do not rely on one-time benchmark passes.</li>
+        </ol>
+
+        <h2>Conclusion</h2>
+        <p>
+          TDD for AI is not about forcing deterministic text output. It is about deterministic control over quality boundaries,
+          failure budgets, and release safety.
+        </p>
+        <p>
+          Probabilistic components can still run inside a deterministic engineering system. That system is built from layered tests,
+          locked regression datasets, and deployment gates that treat AI as production infrastructure.
+        </p>
+
+        <h2>FAQ</h2>
+        <dl class="faq-list">
+          <dt>Can AI systems ever be fully deterministic?</dt>
+          <dd>
+            Not at generation time. The correct goal is deterministic governance around generation: contracts, thresholds, and controlled release gates.
+          </dd>
+
+          <dt>What should be in an AI regression dataset?</dt>
+          <dd>
+            Real production prompts, high-risk edge cases, previously observed failures, and policy-sensitive queries. Each case should store expected behaviors and score criteria.
+          </dd>
+
+          <dt>How often should regression datasets be updated?</dt>
+          <dd>
+            Continuously. Every meaningful incident should become a permanent regression item before the next release cycle.
+          </dd>
+
+          <dt>Where do deterministic tests still matter most?</dt>
+          <dd>
+            At system boundaries: output schema validation, policy compliance checks, latency SLO gates, and contract-level API guarantees.
+          </dd>
+        </dl>
+
+        <p><a href="/blog/">← Back to all writing</a></p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson. All rights reserved.</p>
+    </footer>
+    <script src="/nav.js"></script>
+    <script src="/script.js"></script>
+  </body>
+</html>

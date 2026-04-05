@@ -1,6 +1,14 @@
 (function () {
   const articles = [
 
+
+    {
+      slug: 'test-driven-ai-development',
+      title: 'Test-Driven AI Development: Bringing Determinism to Probabilistic Systems',
+      url: '/blog/test-driven-ai-development.html',
+      summary: 'How to apply deterministic contracts, semantic evaluation, and regression datasets to LLM-backed systems.',
+      tags: ['AI Systems', 'Reliability', 'Distributed Systems', 'Testing']
+    },
     {
       slug: 'designing-search-systems-for-decades-of-police-records',
       title: 'Designing Search Systems for Decades of Police Records',
