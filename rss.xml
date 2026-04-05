@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Designing a CRDT from Scratch</title>
+      <link>https://www.myrobertson.com/blog/designing-a-crdt-from-scratch</link>
+      <description>A practical guide to designing conflict-free replicated data types from first principles, including invariants, monotonic state, merge semantics, delete handling, and architecture integration.</description>
+      <guid>https://www.myrobertson.com/blog/designing-a-crdt-from-scratch</guid>
+      <pubDate>Sun, 05 Apr 2026 12:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Designing Search Systems for Decades of Police Records</title>
       <link>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html</link>
       <description>How to design a search system for decades of police records spanning structured data, XML, JSON, scanned documents, and handwritten notes. A practical engineering analysis of Solr vs Elasticsearch, hybrid retrieval, AI ranking, agents, and MCP.</description>
@@ -212,7 +219,7 @@
     <item>
       <title>What Is a Distributed Lock? (With Examples)</title>
       <link>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</link>
-      <description>A practical guide to distributed locks with real examples: lock ownership, lease time, fencing tokens, and common failure modes in production systems.</description>
+      <description>A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd.</description>
       <guid>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>

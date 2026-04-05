@@ -168,9 +168,11 @@ Eventually consistent global state</code></pre>
         </ul>
 
         <p>CRDTs are one of the few approaches in distributed systems that completely eliminate coordination from the write path. Instead of asking "who wins," they redefine the problem so that all writes can win simultaneously—and still converge.</p>
+        <p>If you want the implementation mindset behind these ideas, read <a href="/blog/designing-a-crdt-from-scratch">Designing a CRDT from Scratch</a>.</p>
 
         <h2 id="related-reading">Related Reading</h2>
         <ul>
+          <li><a href="/blog/designing-a-crdt-from-scratch">Designing a CRDT from Scratch</a></li>
           <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
           <li><a href="./vector-clocks-vs-timestamps.html">Vector Clocks vs Timestamps</a></li>
           <li><a href="./anti-entropy-gossip-read-repair.html">Anti-Entropy, Gossip, and Read Repair</a></li>

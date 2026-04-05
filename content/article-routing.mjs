@@ -2,6 +2,12 @@ const SITE_ORIGIN = 'https://www.myrobertson.com';
 
 export const ARTICLE_ROUTE_MAP = [
   {
+    slug: 'designing-a-crdt-from-scratch',
+    publicPath: '/blog/designing-a-crdt-from-scratch',
+    assetPath: '/blog/designing-a-crdt-from-scratch.html',
+    legacyPath: '/blog/designing-a-crdt-from-scratch.html'
+  },
+  {
     slug: 'backpressure-in-distributed-systems',
     publicPath: '/blog/backpressure-stability-correctness-distributed-systems.html',
     assetPath: '/blog/backpressure-stability-correctness-distributed-systems.html',

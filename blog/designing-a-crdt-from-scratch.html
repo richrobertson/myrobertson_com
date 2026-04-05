@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Designing a CRDT from Scratch | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A practical, architecture-first guide to designing CRDTs from first principles: invariants, monotonic state, merge semantics, deletes, and production integration."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/designing-a-crdt-from-scratch" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Designing a CRDT from Scratch" />
+    <meta
+      property="og:description"
+      content="How to design a CRDT from first principles: define invariants, model monotonic state, design merge semantics, and map it into real replication architecture."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/designing-a-crdt-from-scratch" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Designing a CRDT from Scratch" />
+    <meta
+      name="twitter:description"
+      content="A staff-level CRDT design walkthrough for engineers building merge-safe distributed state without write-path coordination."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Designing a CRDT from Scratch",
+        "description": "A practical guide to designing conflict-free replicated data types from first principles, including invariants, monotonic state, merge semantics, delete handling, and architecture integration.",
+        "url": "https://www.myrobertson.com/blog/designing-a-crdt-from-scratch",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/designing-a-crdt-from-scratch",
+        "datePublished": "2026-04-05T12:00:00Z",
+        "dateModified": "2026-04-05T12:00:00Z",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="designing-a-crdt-from-scratch">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="designing-a-crdt-from-scratch">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Designing a CRDT from Scratch</h1>
+        <p class="intro blog-dek">Most distributed systems start by asking how to prevent conflicts. CRDTs start by asking how to make conflicts harmless.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>Designing a CRDT is not a syntax problem. It is a correctness-modeling problem. You move correctness from coordination into the data type itself.</p>
+        <p>If <a href="/blog/crdts-explained">CRDTs Explained</a> is the conceptual foundation, this is the implementation mindset.</p>
+
+        <h2 id="the-real-shift">The Real Shift</h2>
+        <p>Traditional distributed systems try to prevent write conflicts through ordering, locking, or quorum rules.</p>
+        <p>CRDTs assume concurrency is normal. Replicas diverge, messages reorder, retries duplicate, partitions happen. The data type still converges.</p>
+        <p>That changes where you put rigor. Correctness no longer lives in "did these writes coordinate." Correctness lives in the state model and merge semantics.</p>
+        <p>Design starts with invariants, not syntax.</p>
+
+        <h2 id="step-0-define-the-invariant">Step 0: Define the Invariant</h2>
+        <p>You do not start with a struct or class. You start with what must be true after replicas converge.</p>
+        <ul>
+          <li><strong>Counter:</strong> total should equal all increments minus all decrements.</li>
+          <li><strong>Set membership:</strong> an element should be present or absent according to explicit add/remove semantics.</li>
+          <li><strong>Document ordering:</strong> all replicas should agree on the same relative order of inserted elements.</li>
+        </ul>
+        <p><strong>If you cannot state the invariant clearly, you are not ready to design the CRDT.</strong></p>
+
+        <h2 id="step-1-make-state-monotonic">Step 1: Make State Monotonic</h2>
+        <p>CRDT state must move forward in a partial order. Overwrite-in-place is the wrong mental model.</p>
+        <p>State should represent accumulated evidence, not one mutable slot.</p>
+        <p>Naive mutable counter failure:</p>
+        <pre><code>Initial value = 0
+
+Replica A: value = value + 1  =&gt; 1
+Replica B: value = value + 1  =&gt; 1
+
+If last-writer-wins merge picks one value, final = 1 (lost update).
+Correct converged result should be 2.</code></pre>
+        <p>Monotonic decomposition avoids this by storing per-replica progress that can only advance.</p>
+
+        <h2 id="step-2-design-merge-first">Step 2: Design the Merge Function First</h2>
+        <p>In real networks, delivery order is unstable, retries happen, and duplicate delivery is expected.</p>
+        <p>So merge must be:</p>
+        <ul>
+          <li><strong>Commutative</strong> (order does not matter)</li>
+          <li><strong>Associative</strong> (merge tree shape does not matter)</li>
+          <li><strong>Idempotent</strong> (duplicates are safe)</li>
+        </ul>
+        <p><strong>You are not designing writes. You are designing merge behavior.</strong></p>
+
+        <h2 id="step-3-choose-model">Step 3: Choose the Model</h2>
+        <h3>State-based (CvRDT)</h3>
+        <p>Replicas exchange state and merge with join semantics. Operationally simple. Payloads can get large.</p>
+
+        <h3>Operation-based (CmRDT)</h3>
+        <p>Replicas exchange operations instead of full state. Payloads stay smaller, but correctness now depends more heavily on the sync layer preserving the assumptions of the data type, typically causal delivery. The tradeoff is efficiency in exchange for tighter network and protocol requirements.</p>
+
+        <h3>Delta CRDT</h3>
+        <p>Replicas exchange compact state deltas while preserving join-based convergence. Good balance when full-state sync is too expensive.</p>
+
+        <h2 id="step-4-encode-intent-not-value">Step 4: Encode Intent, Not Just Value</h2>
+        <p>The <strong>PN-counter</strong> is a clean example. You do not store one integer. You store two grow-only maps indexed by replica: increments and decrements.</p>
+        <pre><code>state:
+  P[replica_id] = increments seen from that replica
+  N[replica_id] = decrements seen from that replica
+
+operations:
+  increment(k): P[self] += k
+  decrement(k): N[self] += k
+
+merge(other):
+  for each replica r:
+    P[r] = max(P[r], other.P[r])
+    N[r] = max(N[r], other.N[r])
+
+value = sum(P[*]) - sum(N[*])</code></pre>
+        <p>Merge takes the per-replica maximum for each component, making the system resilient to reordering, duplication, and delayed delivery.</p>
+
+        <h2 id="step-5-handle-deletes-explicitly">Step 5: Handle Deletes Explicitly</h2>
+        <p>Deletes are where many first CRDT designs break. Another replica may not even have seen the add you are trying to remove.</p>
+        <p>Use identity-tracked adds (OR-Set style), then remove observed identities.</p>
+        <pre><code>Add(x) on replica A -&gt; tag tA1
+Add(x) on replica B -&gt; tag tB9
+
+state for x = {tA1, tB9}
+
+Remove(x) at A removes identities A has observed.
+If A has only seen tA1, remove records {tA1}.
+After merge, tB9 can remain until it is explicitly observed and removed.</code></pre>
+        <p>Remove operations only affect identities that are causally observed, which prevents deleting concurrent additions that have not yet been seen.</p>
+        <p><strong>You do not delete values. You delete observed history.</strong></p>
+
+        <h2 id="step-6-define-concurrency-semantics">Step 6: Define Concurrency Semantics</h2>
+        <p>CRDT design always encodes meaning for concurrent actions. You must choose that meaning explicitly.</p>
+        <p>For registers, a common choice is:</p>
+        <ul>
+          <li><strong>LWW register:</strong> simple, compact, but can discard legitimate concurrent intent.</li>
+          <li><strong>Multi-value register:</strong> preserves concurrent values and pushes final resolution to the application layer.</li>
+        </ul>
+        <p>This is a product decision as much as a data-structure decision.</p>
+
+        <h2 id="step-7-ordered-data-is-hard">Step 7: Ordered Data Is Hard</h2>
+        <p>Counters and sets are comparatively easy. Lists are not.</p>
+        <p>Index-based reasoning fails under concurrency. Two replicas can both insert at index 3, but "index 3" is not a stable distributed identity.</p>
+        <p>Ordered CRDTs like <strong>RGA</strong>, <strong>Logoot</strong>, and <strong>LSEQ</strong> solve identity under concurrency, not fixed position in a mutable array.</p>
+        <pre><code>Replica A inserts "X" after node id=7
+Replica B inserts "Y" after node id=7 concurrently
+
+Both operations are valid.
+Order is resolved by deterministic identifier ordering, not wall-clock timing.</code></pre>
+        <p>Memorable rule: lists are not "arrays with retries." They are identity graphs with ordering semantics.</p>
+
+        <h2 id="step-8-validate-design">Step 8: Validate the Design</h2>
+        <p>Before implementation, run a strict checklist:</p>
+        <ul>
+          <li>Merge is commutative, associative, idempotent.</li>
+          <li>State transitions are monotonic in the chosen partial order.</li>
+          <li>All replicas eventually converge under repeated anti-entropy.</li>
+          <li>Validate whether the business invariant is preserved after convergence.</li>
+        </ul>
+        <p><strong>CRDTs guarantee convergence—not correctness.</strong></p>
+
+        <h2 id="step-9-know-when-not-to-use">Step 9: Know When Not to Use One</h2>
+        <p>Do not force CRDTs into domains that require hard global invariants:</p>
+        <ul>
+          <li>Financial ledgers requiring strict serial ordering</li>
+          <li>Inventory with hard global limits</li>
+          <li>Uniqueness constraints across replicas</li>
+          <li>Cross-object invariants that require atomic multi-entity checks</li>
+        </ul>
+        <p>Inventory oversell example: two partitions both see stock=1 and both sell. Later convergence may agree on state, but the business rule "never sell below zero" is already violated.</p>
+        <pre><code>Stock = 1
+
+Replica A sells → 0
+Replica B sells → 0
+
+Merge → -1</code></pre>
+        <p>Converged. Still wrong.</p>
+        <p>This is the core limitation: convergence does not guarantee that business invariants survive concurrent writes.</p>
+
+        <h2 id="step-10-map-to-real-system">Step 10: Map It to a Real System</h2>
+        <p>A practical deployment model looks like this:</p>
+        <pre><code>Client (local replica)
+        ↓
+Sync layer (anti-entropy / gossip / pubsub)
+        ↓
+Merge function (deterministic)
+        ↓
+Eventually consistent shared state</code></pre>
+        <p>This is where <a href="/blog/anti-entropy-gossip-read-repair">anti-entropy, gossip, and read repair</a> choices meet data-model guarantees.</p>
+        <p>Your causality model still matters. If you need a refresher on ordering metadata, review <a href="/blog/vector-clocks-vs-timestamps">vector clocks vs timestamps</a>.</p>
+        <p>And if your sync path can amplify retries under stress, apply reliability controls from <a href="/blog/backpressure-stability-correctness-distributed-systems.html">backpressure and stability patterns</a> to avoid turning replication into a self-inflicted incident.</p>
+
+        <h2 id="mental-models">Mental Models</h2>
+        <ul>
+          <li>Append-only history disguised as state.</li>
+          <li>Every write must be replayable in any order.</li>
+          <li>State is a monotonic lattice, not a mutable slot.</li>
+        </ul>
+
+        <h2 id="conclusion">Conclusion</h2>
+        <p>CRDTs remove coordination from the write path. They do not remove complexity.</p>
+        <p>The complexity moves into data modeling, merge semantics, and explicit concurrency meaning. Designing one well means defining what must stay true, then proving your merge rules preserve that truth under the worst network behavior you can expect.</p>
+
+        <h2 id="related-reading">Related Reading</h2>
+        <ul>
+          <li><a href="/blog/crdts-explained">CRDTs Explained</a></li>
+          <li><a href="/blog/what-is-eventual-consistency.html">What Is Eventual Consistency?</a></li>
+          <li><a href="/blog/vector-clocks-vs-timestamps">Vector Clocks vs Timestamps</a></li>
+          <li><a href="/blog/anti-entropy-gossip-read-repair">Anti-Entropy, Gossip, and Read Repair</a></li>
+          <li><a href="/distributed-systems/">Distributed Systems Hub</a></li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
