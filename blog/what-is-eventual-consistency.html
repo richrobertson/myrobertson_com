@@ -337,7 +337,7 @@
         </ul>
 
         <p>
-          Those workload examples sound straightforward, but production systems get harder once concurrent writers, retries, and regional failover are involved.
+          Those workload examples are intuitive, but production systems get harder quickly once concurrent writers, retries, failover, and cross-region replication are involved.
         </p>
 
         <h2 id="where-it-gets-complicated">Where Eventual Consistency Gets Hard</h2>
@@ -397,7 +397,7 @@
         <p>Eventual consistency is a distributed systems model where replicas may temporarily diverge but will converge over time. It trades strict correctness guarantees for higher availability and lower latency, especially under network partitions.</p>
 
         <figure>
-          <svg viewBox="0 0 940 130" role="img" aria-labelledby="eventualConsistencyDiagramTitle eventualConsistencyDiagramDesc">
+          <svg viewBox="0 0 940 130" width="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="eventualConsistencyDiagramTitle eventualConsistencyDiagramDesc">
             <title id="eventualConsistencyDiagramTitle">Replication lag and eventual convergence across replicas</title>
             <desc id="eventualConsistencyDiagramDesc">A write reaches replica A first, replica B lags, then background synchronization converges both replicas to the same value.</desc>
             <defs>
