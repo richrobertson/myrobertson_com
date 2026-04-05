@@ -1,6 +1,7 @@
+---
 name: Static Analysis
 
-on:
+"on":
   pull_request:
   push:
 
