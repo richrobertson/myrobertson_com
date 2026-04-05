@@ -37,6 +37,17 @@
         <h2 id="definition">Definition</h2>
         <p><strong>CRDTs</strong> are data structures designed so concurrent updates merge deterministically without coordination.</p>
 
+        <h2 id="why-crdts-work">Why CRDTs Work (The Real Reason)</h2>
+        <p>CRDTs work because they enforce algebraic guarantees. There is no distributed systems magic hiding in the merge path.</p>
+        <p>CRDTs are not a replication strategy. They are a mathematical constraint system on state transitions.</p>
+        <p>Three properties do the heavy lifting: <strong>commutativity</strong>, <strong>associativity</strong>, and <strong>idempotence</strong>.</p>
+        <ul>
+          <li><strong>Commutativity</strong> handles network reordering. If updates arrive in a different order, the merged result is still the same.</li>
+          <li><strong>Associativity</strong> handles concurrent updates from many replicas. You can group and merge partial states in any merge tree and still converge.</li>
+          <li><strong>Idempotence</strong> handles duplication and retries. Applying the same update twice does not change the final value.</li>
+        </ul>
+        <p>Most state-based CRDTs are modeled as semilattices. State is only allowed to move "forward," never backward, and merge computes the least upper bound of two states.</p>
+
         <h2 id="key-concepts">Key Concepts</h2>
         <ul>
           <li>Commutative/associative/idempotent merge rules.</li>
@@ -45,8 +56,48 @@
           <li>Trades storage/metadata for merge safety.</li>
         </ul>
 
+        <h2 id="three-models">The Three Models of CRDTs</h2>
+        <h3>State-Based CRDTs (CvRDT)</h3>
+        <p>State-based CRDTs replicate full state between nodes and merge by join. They are simple and robust in unreliable networks because duplicate deliveries are safe by design. The tradeoff is bandwidth, especially for large objects with high write rates.</p>
+
+        <h3>Operation-Based CRDTs (CmRDT)</h3>
+        <p>Operation-based CRDTs ship operations instead of full state. This reduces payload size but requires causal or otherwise reliable delivery semantics so operations are applied with the assumptions the data type needs. The tradeoff is protocol complexity in your sync layer.</p>
+
+        <h3>Delta CRDTs (Modern Approach)</h3>
+        <p>Delta CRDTs send only changes, not full snapshots, while preserving join-based convergence behavior. Delta-CRDTs are to CRDTs what write-ahead logs are to databases.</p>
+
         <h2 id="how-it-works">How It Works</h2>
         <p>Replicas apply local updates and exchange either full state or operations; merge logic guarantees convergence regardless of message order.</p>
+        <p>In production, this usually sits inside broader <a href="/blog/what-is-eventual-consistency.html">eventual consistency tradeoffs</a>, and it depends on careful transport design for retries, redelivery, and batching.</p>
+
+        <h2 id="design-patterns">CRDT Design Patterns</h2>
+        <h3>Monotonic Structures</h3>
+        <p><strong>G-Counter</strong> and <strong>G-Set</strong> only grow. Because state moves in one direction, convergence is straightforward and operationally predictable.</p>
+
+        <h3>Reversible Structures</h3>
+        <p><strong>PN-Counter</strong> and <strong>OR-Set</strong> use decomposition patterns to represent "undo" behavior without violating monotonic merge rules. A PN-Counter splits increments and decrements into separate grow-only components. OR-Set tracks add/remove intent with identity metadata.</p>
+
+        <h3>Conflict-Resolving Registers</h3>
+        <p><strong>LWW Register</strong> resolves by timestamp wins, which is compact but can drop concurrent intent. <strong>Multi-Value Register</strong> preserves concurrency by retaining multiple values until later application-level resolution.</p>
+
+        <h3>Ordered Structures (Hard Mode)</h3>
+        <p><strong>RGA</strong>, <strong>Logoot</strong>, and <strong>LSEQ</strong> handle ordered insertion under concurrency with position identifiers and tombstone-like bookkeeping.</p>
+        <p>Sets are easy. Lists are hard. Ordered CRDTs are where theory meets pain.</p>
+
+        <h2 id="crdt-vs-consensus">CRDTs vs Consensus Systems</h2>
+        <p>CRDTs embrace conflicts and resolve them. Consensus systems prevent conflicts entirely.</p>
+        <table>
+          <thead>
+            <tr><th>Dimension</th><th>CRDT</th><th>Consensus (Raft/Paxos)</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Writes</td><td>Local</td><td>Coordinated</td></tr>
+            <tr><td>Latency</td><td>Low</td><td>Higher</td></tr>
+            <tr><td>Availability</td><td>High</td><td>Lower under partition</td></tr>
+            <tr><td>Conflict handling</td><td>Resolve</td><td>Avoid</td></tr>
+            <tr><td>Consistency</td><td>Eventual</td><td>Strong</td></tr>
+          </tbody>
+        </table>
 
         <h2 id="comparison">Comparison Table</h2>
         <table>
@@ -60,8 +111,35 @@
           </tbody>
         </table>
 
+        <h2 id="where-used">Where CRDTs Are Used</h2>
+        <p>CRDTs show up where multi-region writes and disconnected clients are normal. This includes systems inspired by Riak, Redis CRDT replication patterns, collaborative editors, and offline-first mobile apps.</p>
+        <p>The common requirement is safe merge under weak connectivity: edge sync, intermittent mobile networks, and active/active region topologies.</p>
+
+        <h2 id="architecture-pattern">CRDT Architecture Pattern</h2>
+        <pre><code>Client (offline capable)
+        ↓
+Local CRDT replica
+        ↓
+Sync layer (gossip / pubsub)
+        ↓
+Merge function (deterministic)
+        ↓
+Eventually consistent global state</code></pre>
+        <p>CRDTs shift complexity from coordination to data modeling.</p>
+
         <h2 id="production-implications">Production Implications</h2>
         <p>CRDTs reduce human conflict resolution burden in distributed collaboration systems. Even teams on Dynamo/Cassandra stacks sometimes adopt CRDT-like app-level structures for counters, sets, and presence state.</p>
+        <p>Your transport and recovery design still matters: <a href="/blog/retry-strategies-and-idempotency.html">retry and idempotency</a> discipline prevents accidental semantics drift, and <a href="/blog/backpressure-stability-correctness-distributed-systems.html">backpressure and system stability</a> controls keep sync floods from becoming outages.</p>
+        <p>For write-heavy pipelines, pair CRDT merge behavior with queueing discipline and admission control from <a href="/blog/queue-design-under-load.html">queue design under load</a>.</p>
+
+        <h2 id="when-crdts-wrong">When CRDTs Are the Wrong Tool</h2>
+        <p>CRDTs guarantee convergence—not correctness.</p>
+        <h3>Financial systems</h3>
+        <p>Ledgers and payment workflows usually require strict ordering and transactional guarantees that CRDT merge semantics do not provide on their own.</p>
+        <h3>Global constraints</h3>
+        <p>Hard uniqueness requirements and inventory limits require coordination or escrow-like mechanisms across replicas.</p>
+        <h3>Cross-object invariants</h3>
+        <p>CRDTs cannot guarantee correctness for invariants that span multiple objects or bounded resources without additional coordination protocols.</p>
 
         <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
         <h3>Use It When</h3>
@@ -75,18 +153,28 @@
             <li>Extremely constrained payload footprints where metadata is too costly.</li>
         </ul>
 
-        <h2 id="key-takeaways">Key Takeaways</h2>
+        <h2 id="mental-models">Mental Models for CRDTs</h2>
         <ul>
-          <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
-          <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
-          <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+          <li>"Append-only history disguised as state"</li>
+          <li>"Every write must be replayable in any order"</li>
+          <li>"State is a monotonic lattice, not a mutable value"</li>
         </ul>
+
+        <p>CRDTs are one of the few approaches in distributed systems that completely eliminate coordination from the write path. Instead of asking "who wins," they redefine the problem so that all writes can win simultaneously—and still converge.</p>
 
         <h2 id="related-reading">Related Reading</h2>
         <ul>
           <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
           <li><a href="./vector-clocks-vs-timestamps.html">Vector Clocks vs Timestamps</a></li>
           <li><a href="./anti-entropy-gossip-read-repair.html">Anti-Entropy, Gossip, and Read Repair</a></li>
+        </ul>
+
+        <h3 id="key-takeaways">Key Takeaways</h3>
+        <ul>
+          <li>CRDTs eliminate coordination in the write path.</li>
+          <li>They rely on algebraic guarantees.</li>
+          <li>They trade correctness constraints for availability.</li>
+          <li>They are ideal for offline-first and geo-distributed systems.</li>
         </ul>
       </article>
     </main>
