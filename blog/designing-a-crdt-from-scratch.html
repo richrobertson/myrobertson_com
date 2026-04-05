@@ -109,6 +109,7 @@ Correct converged result should be 2.</code></pre>
           <li><strong>Idempotent</strong> (duplicates are safe)</li>
         </ul>
         <p><strong>You are not designing writes. You are designing merge behavior.</strong></p>
+        <p>This guarantees that replicas converge to the same state regardless of message ordering, batching, or duplicate delivery.</p>
         <p>CRDTs are one approach to eventual consistency, but unlike retry-based or queue-driven reconciliation, they encode conflict resolution directly into the data model.</p>
 
         <h2 id="step-3-choose-model">Step 3: Choose the Model</h2>
@@ -211,7 +212,7 @@ Merge function (deterministic)
 Eventually consistent shared state</code></pre>
         <p>This is where <a href="/blog/anti-entropy-gossip-read-repair">anti-entropy, gossip, and read repair</a> choices meet data-model guarantees.</p>
         <p>Your causality model still matters. If you need a refresher on ordering metadata, review <a href="/blog/vector-clocks-vs-timestamps">vector clocks vs timestamps</a>.</p>
-        <p>And if your sync path can amplify retries under stress, apply reliability controls from <a href="/blog/backpressure-stability-correctness-distributed-systems.html">backpressure and stability patterns</a> to avoid turning replication into a self-inflicted incident.</p>
+        <p>Anti-entropy and causality metadata keep synchronization correct. And if your sync path can amplify retries under stress, apply reliability controls from <a href="/blog/backpressure-stability-correctness-distributed-systems.html">backpressure and stability patterns</a> to avoid turning replication into a self-inflicted incident.</p>
 
         <h2 id="mental-models">Mental Models</h2>
         <ul>
