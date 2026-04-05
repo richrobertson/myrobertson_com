@@ -1,6 +1,7 @@
+---
 name: Static Analysis
 
-on:
+"on":
   pull_request:
   push:
 
@@ -21,8 +22,7 @@ jobs:
         uses: super-linter/super-linter@v8.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           FILTER_REGEX_EXCLUDE: (rss\.xml|sitemap\.xml)
           VALIDATE_HTML: true
           VALIDATE_CSS: true

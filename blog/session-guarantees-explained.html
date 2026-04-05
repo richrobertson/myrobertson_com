@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Session Guarantees Explained | Rich Robertson</title>
+    <meta name="description" content="Session guarantees explained: read-your-writes, monotonic reads, and practical consistency contracts for users." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/session-guarantees-explained.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Session Guarantees Explained" />
+    <meta property="og:description" content="Session guarantees explained: read-your-writes, monotonic reads, and practical consistency contracts for users." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/session-guarantees-explained.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Session Guarantees Explained" />
+    <meta name="twitter:description" content="Session guarantees explained: read-your-writes, monotonic reads, and practical consistency contracts for users." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="session-guarantees-explained">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="session-guarantees-explained">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Session Guarantees Explained</h1>
+        <p class="intro blog-dek"><strong>Session guarantees</strong> are client-scoped consistency promises such as read-your-writes and monotonic reads that improve UX on eventually consistent systems.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h2 id="definition">Definition</h2>
+        <p><strong>Session guarantees</strong> are client-scoped consistency promises such as read-your-writes and monotonic reads that improve UX on eventually consistent systems.</p>
+
+        <h2 id="key-concepts">Key Concepts</h2>
+        <ul>
+          <li>Read-your-writes ensures clients see their own updates.</li>
+          <li>Monotonic reads prevent time-travel regressions.</li>
+          <li>Monotonic writes preserve write order per client.</li>
+          <li>Writes-follow-reads keeps dependent writes coherent.</li>
+        </ul>
+
+        <h2 id="how-it-works">How It Works</h2>
+        <p>Systems implement session guarantees via sticky routing, version tokens, dependency metadata, or selective quorum reads for session-critical requests.</p>
+
+        <h2 id="comparison">Comparison Table</h2>
+        <table>
+          <thead>
+            <tr><th>Guarantee</th><th>What it prevents</th><th>Typical mechanism</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Read-your-writes</td><td>Post-write staleness</td><td>Sticky session/quorum read</td></tr>
+            <tr><td>Monotonic reads</td><td>Older snapshot regressions</td><td>Session version token</td></tr>
+            <tr><td>Monotonic writes</td><td>Out-of-order client writes</td><td>Per-session sequencing</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="production-implications">Production Implications</h2>
+        <p>Session guarantees are often the practical bridge between strict correctness and high availability. Teams using Dynamo-like patterns and Cassandra frequently enforce these guarantees at API gateways rather than globally across storage.</p>
+
+        <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
+        <h3>Use It When</h3>
+        <ul>
+            <li>User profile edits, carts, and preference updates.</li>
+            <li>Workflow UIs where immediate confirmation matters.</li>
+        </ul>
+        <h3>Avoid It When</h3>
+        <ul>
+            <li>Anonymous high-volume read endpoints where stickiness harms scale.</li>
+            <li>Strict serializable workflows requiring stronger global invariants.</li>
+        </ul>
+
+        <h2 id="key-takeaways">Key Takeaways</h2>
+        <ul>
+          <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
+          <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
+          <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+        </ul>
+
+        <h2 id="related-reading">Related Reading</h2>
+        <ul>
+          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
+          <li><a href="./designing-read-your-writes.html">Designing Read-Your-Writes Guarantees</a></li>
+          <li><a href="./causal-consistency-explained.html">Causal Consistency Explained</a></li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

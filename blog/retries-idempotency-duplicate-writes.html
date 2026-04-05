@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retries, Idempotency, and Duplicate Writes | Rich Robertson</title>
+    <meta name="description" content="Retries and idempotency patterns to prevent duplicate writes in eventually consistent systems." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/retries-idempotency-duplicate-writes.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Retries, Idempotency, and Duplicate Writes" />
+    <meta property="og:description" content="Retries and idempotency patterns to prevent duplicate writes in eventually consistent systems." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/retries-idempotency-duplicate-writes.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Retries, Idempotency, and Duplicate Writes" />
+    <meta name="twitter:description" content="Retries and idempotency patterns to prevent duplicate writes in eventually consistent systems." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="retries-idempotency-duplicate-writes">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="retries-idempotency-duplicate-writes">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Retries, Idempotency, and Duplicate Writes</h1>
+        <p class="intro blog-dek"><strong>Retries and idempotency</strong> determine whether transient failures recover safely or create duplicate writes and state divergence.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h2 id="definition">Definition</h2>
+        <p><strong>Retries and idempotency</strong> determine whether transient failures recover safely or create duplicate writes and state divergence.</p>
+
+        <h2 id="key-concepts">Key Concepts</h2>
+        <ul>
+          <li>Retries are required for resilience but can amplify load.</li>
+          <li>Idempotency keys turn at-least-once delivery into safe behavior.</li>
+          <li>Exactly-once semantics are usually simulated, not native.</li>
+          <li>Write de-duplication must be domain aware.</li>
+        </ul>
+
+        <h2 id="how-it-works">How It Works</h2>
+        <p>Clients include idempotency keys; servers store request fingerprints and return prior outcomes when duplicate retries arrive.</p>
+
+        <h2 id="comparison">Comparison Table</h2>
+        <table>
+          <thead>
+            <tr><th>Mode</th><th>Failure behavior</th><th>Recommended control</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Retry without key</td><td>Duplicate side effects</td><td>Reject/introduce idempotency</td></tr>
+            <tr><td>Retry with key</td><td>Safe replay</td><td>Durable key store</td></tr>
+            <tr><td>Aggressive backoff omitted</td><td>Retry storms</td><td>Exponential backoff + jitter</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="production-implications">Production Implications</h2>
+        <p>On Dynamo and Cassandra data paths, retries without idempotency frequently cause duplicate side effects. Durable idempotency stores and bounded retry policies are essential for payment-like workflows.</p>
+
+        <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
+        <h3>Use It When</h3>
+        <ul>
+            <li>Payment intents, order creation, provisioning APIs.</li>
+            <li>Any endpoint exposed to flaky networks and client retries.</li>
+        </ul>
+        <h3>Avoid It When</h3>
+        <ul>
+            <li>As justification for infinite retries.</li>
+            <li>Without an expiration and eviction policy for dedupe records.</li>
+        </ul>
+
+        <h2 id="key-takeaways">Key Takeaways</h2>
+        <ul>
+          <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
+          <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
+          <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+        </ul>
+
+        <h2 id="related-reading">Related Reading</h2>
+        <ul>
+          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
+          <li><a href="./why-eventual-consistency-breaks-systems.html">Why Eventual Consistency Breaks Systems</a></li>
+          <li><a href="./designing-read-your-writes.html">Designing Read-Your-Writes Guarantees</a></li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

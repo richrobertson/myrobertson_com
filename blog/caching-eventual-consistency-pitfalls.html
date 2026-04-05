@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caching + Eventual Consistency Pitfalls | Rich Robertson</title>
+    <meta name="description" content="Caching pitfalls in eventually consistent systems and how stale data compounds across layers." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/caching-eventual-consistency-pitfalls.html" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Caching + Eventual Consistency Pitfalls" />
+    <meta property="og:description" content="Caching pitfalls in eventually consistent systems and how stale data compounds across layers." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/caching-eventual-consistency-pitfalls.html" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Caching + Eventual Consistency Pitfalls" />
+    <meta name="twitter:description" content="Caching pitfalls in eventually consistent systems and how stale data compounds across layers." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="writing" data-article-slug="caching-eventual-consistency-pitfalls">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="caching-eventual-consistency-pitfalls">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>Caching + Eventual Consistency Pitfalls</h1>
+        <p class="intro blog-dek"><strong>Caching plus eventual consistency</strong> can multiply staleness windows when cache TTLs and replica lag interact without coordinated invalidation.</p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <h2 id="definition">Definition</h2>
+        <p><strong>Caching plus eventual consistency</strong> can multiply staleness windows when cache TTLs and replica lag interact without coordinated invalidation.</p>
+
+        <h2 id="key-concepts">Key Concepts</h2>
+        <ul>
+          <li>Cache TTL may outlast replica convergence.</li>
+          <li>Write-through vs cache-aside affects freshness behavior.</li>
+          <li>Global CDNs add another replication layer.</li>
+          <li>Staleness budgets should include cache and storage paths.</li>
+        </ul>
+
+        <h2 id="how-it-works">How It Works</h2>
+        <p>A write lands in one replica, but read paths may still hit stale cache entries, stale replicas, or both unless invalidation and refresh logic are coordinated.</p>
+
+        <h2 id="comparison">Comparison Table</h2>
+        <table>
+          <thead>
+            <tr><th>Pitfall</th><th>Symptom</th><th>Mitigation</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Long TTL</td><td>Persistent stale reads</td><td>Versioned keys + shorter TTL</td></tr>
+            <tr><td>Cache-aside race</td><td>Write/read mismatch</td><td>Write-through + invalidation</td></tr>
+            <tr><td>Multi-layer cache drift</td><td>Regional inconsistency</td><td>Hierarchical freshness policy</td></tr>
+          </tbody>
+        </table>
+
+        <h2 id="production-implications">Production Implications</h2>
+        <p>Dynamo/Cassandra-backed systems often see incidents from cache stampedes and stale fan-out views. Adding read repair, cache versioning, and bounded TTL policies improves consistency perception.</p>
+
+        <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
+        <h3>Use It When</h3>
+        <ul>
+            <li>As guidance for cache policy design in async-replicated systems.</li>
+            <li>For performance reviews where correctness regressions appear.</li>
+        </ul>
+        <h3>Avoid It When</h3>
+        <ul>
+            <li>As blanket advice to disable caching.</li>
+            <li>For single-node systems without replication lag.</li>
+        </ul>
+
+        <h2 id="key-takeaways">Key Takeaways</h2>
+        <ul>
+          <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
+          <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
+          <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+        </ul>
+
+        <h2 id="related-reading">Related Reading</h2>
+        <ul>
+          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
+          <li><a href="./why-eventual-consistency-breaks-systems.html">Why Eventual Consistency Breaks Systems</a></li>
+          <li><a href="./retries-idempotency-duplicate-writes.html">Retries, Idempotency, and Duplicate Writes</a></li>
+        </ul>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
