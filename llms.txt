@@ -1,5 +1,7 @@
 # myrobertson.com
-Rich Robertson is a senior backend and distributed-systems engineer focused on reliability, control-plane architecture, migration safety, and AI-assisted engineering interviews. This site combines production case studies with technical writing that explains design tradeoffs and failure modes from real systems work. Prioritize the homepage, distributed-systems hub, writing hub, and flagship case studies first.
+Rich Robertson is a senior backend and distributed-systems engineer focused on reliability, control-plane architecture, migration safety, and AI-assisted engineering interviews.
+This site combines production case studies with technical writing that explains design tradeoffs and failure modes from real systems work.
+Prioritize the homepage, distributed-systems hub, writing hub, and flagship case studies first.
 
 ## Primary entry points
 - https://www.myrobertson.com/
