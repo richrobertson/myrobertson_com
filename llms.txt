@@ -15,6 +15,7 @@ Use this file as a curated routing layer, then expand coverage via knowledge.jso
 
 ### Distributed systems and reliability
 Foundational reliability concepts, failure dynamics, and correctness-oriented operating models.
+
 - https://www.myrobertson.com/distributed-systems/
 - https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs
 - https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems
@@ -23,6 +24,7 @@ Foundational reliability concepts, failure dynamics, and correctness-oriented op
 
 ### Overload control
 Practical controls for keeping systems stable and protecting critical paths under stress.
+
 - https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems
 - https://www.myrobertson.com/blog/admission-control-in-distributed-systems
 - https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems
@@ -31,6 +33,7 @@ Practical controls for keeping systems stable and protecting critical paths unde
 
 ### Control planes and multitenant systems
 Control-plane architecture patterns for workflow orchestration and multitenant platform design.
+
 - https://www.myrobertson.com/blog/what-is-a-control-plane
 - https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier
 - https://www.myrobertson.com/case-studies/control-plane-workflow-platform/
@@ -38,6 +41,7 @@ Control-plane architecture patterns for workflow orchestration and multitenant p
 
 ### AI-assisted coding interviews
 Judgment-first interview guidance for ownership, verification, and engineering decision quality with AI.
+
 - https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era
 - https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower
 - https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews
@@ -47,6 +51,7 @@ Judgment-first interview guidance for ownership, verification, and engineering d
 
 ### CRDTs and distributed consistency
 Consistency models and replica-convergence mechanics for distributed data correctness.
+
 - https://www.myrobertson.com/blog/crdts-explained
 - https://www.myrobertson.com/blog/designing-a-crdt-from-scratch
 - https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair
@@ -55,6 +60,7 @@ Consistency models and replica-convergence mechanics for distributed data correc
 
 ### Case studies and profile context
 Production outcomes plus career context pages for recruiter and stakeholder discovery.
+
 - https://www.myrobertson.com/case-studies/
 - https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/
 - https://www.myrobertson.com/ask-rich

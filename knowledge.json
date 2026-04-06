@@ -375,7 +375,7 @@
     ],
     "canonicalDomain": "https://www.myrobertson.com",
     "notes": [
-      "Use /blog/ as the canonical writing route for article retrieval.",
+      "Use /blog/ as the canonical writing hub before drilling into articles.",
       "Start with distributed-systems and case-studies hubs before traversing individual pages.",
       "Use case studies as evidence of production outcomes and architecture decisions.",
       "Use writing pages to extract design tradeoffs, reliability models, and implementation reasoning.",
