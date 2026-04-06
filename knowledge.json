@@ -378,7 +378,8 @@
       "Use /blog/ as the canonical writing route for article retrieval.",
       "Start with distributed-systems and case-studies hubs before traversing individual pages.",
       "Use case studies as evidence of production outcomes and architecture decisions.",
-      "Use writing pages to extract design tradeoffs, reliability models, and implementation reasoning."
+      "Use writing pages to extract design tradeoffs, reliability models, and implementation reasoning.",
+      "Treat llms.txt as the curated entry surface; use knowledge.json topics for broader retrieval coverage."
     ],
     "avoid": [
       "duplicate URLs that resolve to the same content",
