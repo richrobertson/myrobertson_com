@@ -737,6 +737,19 @@
         "id": "tag:platform-modernization",
         "nodeType": "tag",
         "label": "platform modernization"
+      },
+      {
+        "id": "topic:multitenant-control-plane",
+        "nodeType": "topic",
+        "topic": "multitenant control plane",
+        "depth": "advanced",
+        "primary_url": "/control-plane-architecture/multitenant-control-plane-platform/",
+        "related": [
+          "control plane architecture",
+          "distributed systems",
+          "workflow orchestration",
+          "multi-tenant systems"
+        ]
       }
     ],
     "edges": [
