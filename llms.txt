@@ -20,14 +20,13 @@ Distributed systems and reliability: foundation for failure handling, correctnes
 - https://www.myrobertson.com/blog/retry-strategies-and-idempotency
 - https://www.myrobertson.com/blog/queue-design-under-load
 - https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft
-- https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems
-- https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair
 
 Overload control: practical controls for keeping systems stable under stress.
 - https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems
 - https://www.myrobertson.com/blog/admission-control-in-distributed-systems
 - https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems
 - https://www.myrobertson.com/blog/load-shedding-in-distributed-systems
+- https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems
 - https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems
 
 Control planes and multitenant systems: architecture patterns for workflow orchestration and platform control.
@@ -49,6 +48,7 @@ AI-assisted coding interviews: standards for engineering judgment, verification,
 CRDTs and distributed consistency: consistency models, replica merge behavior, and coordination tradeoffs.
 - https://www.myrobertson.com/blog/crdts-explained
 - https://www.myrobertson.com/blog/designing-a-crdt-from-scratch
+- https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair
 - https://www.myrobertson.com/blog/vector-clocks-vs-timestamps
 - https://www.myrobertson.com/blog/causal-consistency-explained
 - https://www.myrobertson.com/blog/strong-consistency-vs-eventual-consistency

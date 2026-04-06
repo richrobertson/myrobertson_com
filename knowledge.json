@@ -150,12 +150,6 @@
           "url": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems",
           "type": "article",
           "summary": "Failure-isolation pattern for dependency instability and controlled recovery windows."
-        },
-        {
-          "title": "Anti-Entropy, Gossip, and Read Repair",
-          "url": "https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair",
-          "type": "article",
-          "summary": "Replica convergence mechanisms and repair tradeoffs in eventually consistent systems."
         }
       ]
     },
@@ -304,6 +298,18 @@
           "url": "https://www.myrobertson.com/blog/causal-consistency-explained",
           "type": "article",
           "summary": "Explains causal ordering guarantees and where they fit in distributed consistency models."
+        },
+        {
+          "title": "Anti-Entropy, Gossip, and Read Repair",
+          "url": "https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair",
+          "type": "article",
+          "summary": "Explains replica repair and convergence mechanisms used in eventually consistent distributed systems."
+        },
+        {
+          "title": "Strong Consistency vs Eventual Consistency",
+          "url": "https://www.myrobertson.com/blog/strong-consistency-vs-eventual-consistency",
+          "type": "article",
+          "summary": "Compares consistency guarantees and tradeoffs for latency, availability, and correctness expectations."
         }
       ]
     },
