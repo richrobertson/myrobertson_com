@@ -1,2862 +1,348 @@
 {
-  "version": 2,
-  "canonical": "https://www.myrobertson.com/knowledge.json",
-  "graph": {
-    "nodes": [
-      {
-        "id": "page:distributed-systems",
-        "nodeType": "page",
-        "title": "Distributed Systems",
-        "url": "https://www.myrobertson.com/distributed-systems/",
-        "contentType": "topic",
-        "summary": "Topic hub for distributed systems work: control planes, migration safety, coordination, and reliability under load.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 1
-      },
-      {
-        "id": "tag:distributed-systems",
-        "nodeType": "tag",
-        "label": "distributed systems"
-      },
-      {
-        "id": "tag:control-planes",
-        "nodeType": "tag",
-        "label": "control planes"
-      },
-      {
-        "id": "tag:reliability",
-        "nodeType": "tag",
-        "label": "reliability"
-      },
-      {
-        "id": "tag:migration-safety",
-        "nodeType": "tag",
-        "label": "migration safety"
-      },
-      {
-        "id": "page:oracle-cns-oci-migration",
-        "nodeType": "page",
-        "title": "Oracle Customer Notification Service OCI Migration Case Study",
-        "url": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/",
-        "contentType": "case-study",
-        "summary": "Flagship migration artifact covering OCI rollout safety across 32 global data centers.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 1
-      },
-      {
-        "id": "tag:oci-migration",
-        "nodeType": "tag",
-        "label": "OCI migration"
-      },
-      {
-        "id": "tag:rollout-safety",
-        "nodeType": "tag",
-        "label": "rollout safety"
-      },
-      {
-        "id": "tag:operability",
-        "nodeType": "tag",
-        "label": "operability"
-      },
-      {
-        "id": "page:backpressure-in-distributed-systems",
-        "nodeType": "page",
-        "title": "Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation",
-        "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html",
-        "contentType": "article",
-        "summary": "Backpressure, bounded queues, and admission control patterns for overload resilience.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:backpressure",
-        "nodeType": "tag",
-        "label": "backpressure"
-      },
-      {
-        "id": "tag:graceful-degradation",
-        "nodeType": "tag",
-        "label": "graceful degradation"
-      },
-      {
-        "id": "tag:backend-reliability",
-        "nodeType": "tag",
-        "label": "backend reliability"
-      },
-      {
-        "id": "page:overload-control-pipeline",
-        "nodeType": "page",
-        "title": "End-to-End Overload Control in Distributed Systems",
-        "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html",
-        "contentType": "article",
-        "summary": "System-level synthesis of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "distributed systems",
-        "related": [
-          "page:admission-control-in-distributed-systems",
-          "page:rate-limiting-in-distributed-systems",
-          "page:backpressure-in-distributed-systems",
-          "page:circuit-breakers-in-distributed-systems",
-          "page:load-shedding-in-distributed-systems",
-          "page:graceful-degradation-in-distributed-systems",
-          "page:oracle-cns-oci-migration",
-          "page:why-systems-fail-under-load",
-          "page:retry-strategies-and-idempotency",
-          "page:queue-design-under-load"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "tag:overload-control",
-        "nodeType": "tag",
-        "label": "overload control"
-      },
-      {
-        "id": "page:admission-control-in-distributed-systems",
-        "nodeType": "page",
-        "title": "Admission Control in Distributed Systems",
-        "url": "https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html",
-        "contentType": "article",
-        "summary": "Front-door intake boundary for accept/reject/defer decisions driven by live capacity, fairness, and priority protection.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "overload control",
-        "related": [
-          "page:backpressure-in-distributed-systems",
-          "page:rate-limiting-in-distributed-systems",
-          "page:load-shedding-in-distributed-systems",
-          "page:graceful-degradation-in-distributed-systems",
-          "page:architecting-a-multitenant-control-plane"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "foundational",
-        "status": "published"
-      },
-      {
-        "id": "tag:admission-control",
-        "nodeType": "tag",
-        "label": "admission control"
-      },
-      {
-        "id": "page:rate-limiting-in-distributed-systems",
-        "nodeType": "page",
-        "title": "Rate Limiting in Distributed Systems",
-        "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html",
-        "contentType": "article",
-        "summary": "Fairness and capacity protection with explicit intake boundaries before overload becomes systemic.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "overload control",
-        "related": [
-          "page:backpressure-in-distributed-systems",
-          "page:load-shedding-in-distributed-systems"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "intermediate",
-        "status": "published"
-      },
-      {
-        "id": "tag:rate-limiting",
-        "nodeType": "tag",
-        "label": "rate limiting"
-      },
-      {
-        "id": "page:circuit-breakers-in-distributed-systems",
-        "nodeType": "page",
-        "title": "Circuit Breakers in Distributed Systems",
-        "url": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html",
-        "contentType": "article",
-        "summary": "Failure containment for unhealthy dependencies using open, closed, and half-open transitions.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "reliability",
-        "related": [
-          "page:graceful-degradation-in-distributed-systems",
-          "page:architecting-a-multitenant-control-plane"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "intermediate",
-        "status": "published"
-      },
-      {
-        "id": "tag:circuit-breakers",
-        "nodeType": "tag",
-        "label": "circuit breakers"
-      },
-      {
-        "id": "tag:failure-isolation",
-        "nodeType": "tag",
-        "label": "failure isolation"
-      },
-      {
-        "id": "page:graceful-degradation-in-distributed-systems",
-        "nodeType": "page",
-        "title": "Graceful Degradation in Distributed Systems",
-        "url": "https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html",
-        "contentType": "article",
-        "summary": "Service-mode strategy to preserve essential behavior by reducing non-critical scope under stress.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "distributed systems",
-        "related": [
-          "page:load-shedding-in-distributed-systems",
-          "page:oracle-cns-oci-migration"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "intermediate",
-        "status": "published"
-      },
-      {
-        "id": "page:load-shedding-in-distributed-systems",
-        "nodeType": "page",
-        "title": "Load Shedding in Distributed Systems",
-        "url": "https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html",
-        "contentType": "article",
-        "summary": "Intentional rejection, drop, defer, or downgrade policy to protect core paths during overload.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "overload control",
-        "related": [
-          "page:rate-limiting-in-distributed-systems",
-          "page:backpressure-in-distributed-systems"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "tag:load-shedding",
-        "nodeType": "tag",
-        "label": "load shedding"
-      },
-      {
-        "id": "page:why-systems-fail-under-load",
-        "nodeType": "page",
-        "title": "Why Systems Fail Under Load, Not Just Bugs",
-        "url": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html",
-        "contentType": "article",
-        "summary": "Conceptual anchor explaining overload dynamics, amplification loops, and cascading failure modes in distributed systems.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "reliability",
-        "related": [
-          "page:retry-strategies-and-idempotency",
-          "page:queue-design-under-load",
-          "page:admission-control-in-distributed-systems",
-          "page:backpressure-in-distributed-systems",
-          "page:load-shedding-in-distributed-systems",
-          "page:graceful-degradation-in-distributed-systems"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "foundational",
-        "status": "published"
-      },
-      {
-        "id": "tag:failure-modes",
-        "nodeType": "tag",
-        "label": "failure modes"
-      },
-      {
-        "id": "page:retry-strategies-and-idempotency",
-        "nodeType": "page",
-        "title": "Retry Strategies and Idempotency",
-        "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html",
-        "contentType": "article",
-        "summary": "Safe retry semantics, duplicate suppression, idempotent API design, and retry budgets under load.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "overload control",
-        "related": [
-          "page:why-systems-fail-under-load",
-          "page:queue-design-under-load",
-          "page:admission-control-in-distributed-systems",
-          "page:backpressure-in-distributed-systems"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "foundational",
-        "status": "published"
-      },
-      {
-        "id": "tag:idempotency",
-        "nodeType": "tag",
-        "label": "idempotency"
-      },
-      {
-        "id": "tag:retry-semantics",
-        "nodeType": "tag",
-        "label": "retry semantics"
-      },
-      {
-        "id": "page:queue-design-under-load",
-        "nodeType": "page",
-        "title": "Queue Design Under Load",
-        "url": "https://www.myrobertson.com/blog/queue-design-under-load.html",
-        "contentType": "article",
-        "summary": "Bounded queues, fairness, queue latency as an amplification vector, and rejection policies under overload.",
-        "publishedDate": "2026-04-02",
-        "updatedDate": "2026-04-02",
-        "importance": 2,
-        "canonicalTopic": "overload control",
-        "related": [
-          "page:why-systems-fail-under-load",
-          "page:retry-strategies-and-idempotency",
-          "page:admission-control-in-distributed-systems",
-          "page:backpressure-in-distributed-systems",
-          "page:load-shedding-in-distributed-systems"
-        ],
-        "parent": "page:distributed-systems",
-        "level": "intermediate",
-        "status": "published"
-      },
-      {
-        "id": "tag:queue-design",
-        "nodeType": "tag",
-        "label": "queue design"
-      },
-      {
-        "id": "tag:queue-depth",
-        "nodeType": "tag",
-        "label": "queue depth"
-      },
-      {
-        "id": "page:architecting-a-multitenant-control-plane",
-        "nodeType": "page",
-        "title": "Architecting a Multitenant Control Plane",
-        "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html",
-        "contentType": "article",
-        "summary": "Control-plane architecture patterns for durable workflows and multitenant execution.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:workflow-orchestration",
-        "nodeType": "tag",
-        "label": "workflow orchestration"
-      },
-      {
-        "id": "page:distributed-lease-service",
-        "nodeType": "page",
-        "title": "Designing a Correct Distributed Lease Service: Tenure on Raft",
-        "url": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html",
-        "contentType": "article",
-        "summary": "Correctness-oriented lease semantics, fencing tokens, and coordination under failure.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:distributed-coordination",
-        "nodeType": "tag",
-        "label": "distributed coordination"
-      },
-      {
-        "id": "tag:leases",
-        "nodeType": "tag",
-        "label": "leases"
-      },
-      {
-        "id": "tag:fencing-tokens",
-        "nodeType": "tag",
-        "label": "fencing tokens"
-      },
-      {
-        "id": "tag:correctness",
-        "nodeType": "tag",
-        "label": "correctness"
-      },
-      {
-        "id": "page:starbucks-loyalty-platform-integration",
-        "nodeType": "page",
-        "title": "Starbucks Loyalty Platform Integration Case Study",
-        "url": "https://www.myrobertson.com/case-studies/starbucks-loyalty-platform-integration/",
-        "contentType": "case-study",
-        "summary": "Integration and migration work supporting loyalty systems at scale with continuity constraints.",
-        "publishedDate": "2026-03-28",
-        "updatedDate": "2026-04-02",
-        "importance": 2
-      },
-      {
-        "id": "tag:integration",
-        "nodeType": "tag",
-        "label": "integration"
-      },
-      {
-        "id": "tag:migration",
-        "nodeType": "tag",
-        "label": "migration"
-      },
-      {
-        "id": "page:police-records-search-architecture",
-        "nodeType": "page",
-        "title": "Designing Search Systems for Decades of Police Records",
-        "url": "https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html",
-        "contentType": "article",
-        "summary": "System design analysis of police records discovery across structured and unstructured data with hybrid retrieval, Solr vs Elasticsearch tradeoffs, AI augmentation, and MCP orchestration.",
-        "publishedDate": "2026-04-04",
-        "updatedDate": "2026-04-04",
-        "importance": 2,
-        "canonicalTopic": "search architecture",
-        "related": [
-          "page:overload-control-pipeline",
-          "page:architecting-a-multitenant-control-plane",
-          "page:coding-interviews-ai-era-hub",
-          "page:coding-with-ai-bar-higher"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "tag:search-architecture",
-        "nodeType": "tag",
-        "label": "search architecture"
-      },
-      {
-        "id": "tag:hybrid-retrieval",
-        "nodeType": "tag",
-        "label": "hybrid retrieval"
-      },
-      {
-        "id": "tag:enterprise-search",
-        "nodeType": "tag",
-        "label": "enterprise search"
-      },
-      {
-        "id": "tag:ai-systems",
-        "nodeType": "tag",
-        "label": "AI systems"
-      },
-      {
-        "id": "page:designing-a-crdt-from-scratch",
-        "nodeType": "page",
-        "title": "Designing a CRDT from Scratch",
-        "url": "https://www.myrobertson.com/blog/designing-a-crdt-from-scratch",
-        "contentType": "article",
-        "summary": "Practical CRDT design from invariants to merge semantics, delete handling, and production replication architecture.",
-        "publishedDate": "2026-04-05",
-        "updatedDate": "2026-04-05",
-        "importance": 2,
-        "canonicalTopic": "distributed systems",
-        "related": [
-          "page:backpressure-in-distributed-systems",
-          "page:retry-strategies-and-idempotency",
-          "page:overload-control-pipeline"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "tag:crdt",
-        "nodeType": "tag",
-        "label": "CRDT"
-      },
-      {
-        "id": "tag:eventual-consistency",
-        "nodeType": "tag",
-        "label": "eventual consistency"
-      },
-      {
-        "id": "tag:merge-semantics",
-        "nodeType": "tag",
-        "label": "merge semantics"
-      },
-      {
-        "id": "page:coding-interviews-ai-era-hub",
-        "nodeType": "page",
-        "title": "Coding Interviews in the AI Era",
-        "url": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html",
-        "contentType": "article",
-        "summary": "Series hub and reading path for the AI-assisted interview cluster, with clearer routes into thesis, signal model, playbook, and failure analysis.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "technical interviews",
-        "related": [
-          "page:coding-with-ai-bar-higher",
-          "page:measured-on-ai-interviews",
-          "page:practical-playbook-ai-interviews",
-          "page:ownership-ai-interviews",
-          "page:failures-ai-interviews"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "foundational",
-        "status": "published"
-      },
-      {
-        "id": "tag:ai-assisted-coding-interviews",
-        "nodeType": "tag",
-        "label": "AI-assisted coding interviews"
-      },
-      {
-        "id": "tag:engineering-judgment",
-        "nodeType": "tag",
-        "label": "engineering judgment"
-      },
-      {
-        "id": "tag:technical-interviews",
-        "nodeType": "tag",
-        "label": "technical interviews"
-      },
-      {
-        "id": "tag:ownership",
-        "nodeType": "tag",
-        "label": "ownership"
-      },
-      {
-        "id": "page:coding-with-ai-bar-higher",
-        "nodeType": "page",
-        "title": "Coding With AI in Interviews: Why the Bar Is Higher, Not Lower",
-        "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
-        "contentType": "article",
-        "summary": "Flagship thesis on why AI lowers implementation friction while raising the premium on judgment, verification, and ownership.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "technical interviews",
-        "related": [
-          "page:measured-on-ai-interviews",
-          "page:practical-playbook-ai-interviews",
-          "page:ownership-ai-interviews"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "foundational",
-        "status": "published"
-      },
-      {
-        "id": "tag:senior-engineers",
-        "nodeType": "tag",
-        "label": "senior engineers"
-      },
-      {
-        "id": "page:measured-on-ai-interviews",
-        "nodeType": "page",
-        "title": "What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews",
-        "url": "https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html",
-        "contentType": "article",
-        "summary": "Definitive signal model for framing, constraints, tool direction, simplification, verification, communication, and line-level ownership.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "technical interviews",
-        "related": [
-          "page:practical-playbook-ai-interviews",
-          "page:failures-ai-interviews",
-          "page:ownership-ai-interviews",
-          "page:coding-with-ai-bar-higher",
-          "page:senior-behaviors-ai-interviews",
-          "page:coding-interviews-ai-era-hub"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "tag:experienced-engineers",
-        "nodeType": "tag",
-        "label": "experienced engineers"
-      },
-      {
-        "id": "tag:verification",
-        "nodeType": "tag",
-        "label": "verification"
-      },
-      {
-        "id": "page:practical-playbook-ai-interviews",
-        "nodeType": "page",
-        "title": "A Practical Playbook for AI-Assisted Coding Interviews",
-        "url": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html",
-        "contentType": "article",
-        "summary": "Field manual for running an AI-assisted coding round well: frame first, prompt narrowly, verify hard, simplify, and close with ownership.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "technical interviews",
-        "related": [
-          "page:measured-on-ai-interviews",
-          "page:failures-ai-interviews",
-          "page:senior-behaviors-ai-interviews",
-          "page:ownership-ai-interviews"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "tag:practical-playbook",
-        "nodeType": "tag",
-        "label": "practical playbook"
-      },
-      {
-        "id": "page:ownership-ai-interviews",
-        "nodeType": "page",
-        "title": "You Still Own Every Line: Accountability in AI-Assisted Coding Interviews",
-        "url": "https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html",
-        "contentType": "article",
-        "summary": "Sharp accountability thesis connecting interview ownership, reviewability, hidden assumptions, and production responsibility.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "software engineering",
-        "related": [
-          "page:practical-playbook-ai-interviews",
-          "page:measured-on-ai-interviews",
-          "page:coding-with-ai-bar-higher"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "intermediate",
-        "status": "published"
-      },
-      {
-        "id": "tag:accountability",
-        "nodeType": "tag",
-        "label": "accountability"
-      },
-      {
-        "id": "tag:reviewability",
-        "nodeType": "tag",
-        "label": "reviewability"
-      },
-      {
-        "id": "page:failures-ai-interviews",
-        "nodeType": "page",
-        "title": "How Candidates Fail AI-Assisted Coding Interviews",
-        "url": "https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html",
-        "contentType": "article",
-        "summary": "Diagnostic failure-mode guide showing what weak AI-assisted interview behavior looks like in the room and why trust erodes.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "technical interviews",
-        "related": [
-          "page:practical-playbook-ai-interviews",
-          "page:measured-on-ai-interviews",
-          "page:senior-behaviors-ai-interviews"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "intermediate",
-        "status": "published"
-      },
-      {
-        "id": "page:senior-behaviors-ai-interviews",
-        "nodeType": "page",
-        "title": "What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews",
-        "url": "https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html",
-        "contentType": "article",
-        "summary": "Contrastive behavioral guide showing how strong senior engineers frame, simplify, verify, and close differently from average candidates.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "technical interviews",
-        "related": [
-          "page:measured-on-ai-interviews",
-          "page:practical-playbook-ai-interviews",
-          "page:ownership-ai-interviews",
-          "page:failures-ai-interviews"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "page:evaluating-candidates-ai-allowed",
-        "nodeType": "page",
-        "title": "How Companies Should Evaluate Candidates When AI Is Allowed",
-        "url": "https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html",
-        "contentType": "article",
-        "summary": "Operational interviewer guide for AI-assisted evaluation: better prompts, better probes, better scoring, and less noise.",
-        "publishedDate": "2026-04-03",
-        "updatedDate": "2026-04-03",
-        "importance": 2,
-        "canonicalTopic": "technical interviews",
-        "related": [
-          "page:coding-with-ai-bar-higher",
-          "page:measured-on-ai-interviews",
-          "page:practical-playbook-ai-interviews"
-        ],
-        "parent": "page:distributed-systems-writing",
-        "level": "advanced",
-        "status": "published"
-      },
-      {
-        "id": "tag:hiring",
-        "nodeType": "tag",
-        "label": "hiring"
-      },
-      {
-        "id": "tag:interviewer-rubric",
-        "nodeType": "tag",
-        "label": "interviewer rubric"
-      },
-      {
-        "id": "page:distributed-systems-writing",
-        "nodeType": "page",
-        "title": "Distributed Systems Writing",
-        "url": "https://www.myrobertson.com/blog/",
-        "contentType": "index",
-        "summary": "Technical writing index for distributed systems, control planes, and reliability under load.",
-        "updatedDate": "2026-04-04",
-        "importance": 3
-      },
-      {
-        "id": "tag:writing",
-        "nodeType": "tag",
-        "label": "writing"
-      },
-      {
-        "id": "page:case-studies",
-        "nodeType": "page",
-        "title": "Case Studies",
-        "url": "https://www.myrobertson.com/case-studies/",
-        "contentType": "index",
-        "summary": "Case study index spanning OCI migration, control-plane platforms, and modernization delivery.",
-        "updatedDate": "2026-04-02",
-        "importance": 3
-      },
-      {
-        "id": "tag:case-studies",
-        "nodeType": "tag",
-        "label": "case studies"
-      },
-      {
-        "id": "tag:platform-modernization",
-        "nodeType": "tag",
-        "label": "platform modernization"
-      }
+  "site": {
+    "name": "Rich Robertson",
+    "url": "https://www.myrobertson.com",
+    "description": "Technical portfolio and writing focused on distributed systems reliability, control-plane architecture, migration modernization, and AI-assisted engineering interview practice.",
+    "author": {
+      "name": "Rich Robertson",
+      "role": "Senior backend and distributed systems engineer",
+      "focus": [
+        "distributed systems reliability",
+        "overload control and graceful degradation",
+        "control planes and workflow orchestration",
+        "migration and modernization delivery",
+        "AI-assisted coding interview standards"
+      ]
+    }
+  },
+  "entryPoints": [
+    {
+      "title": "Homepage",
+      "url": "https://www.myrobertson.com/",
+      "type": "hub",
+      "summary": "Primary positioning page linking flagship case studies, core writing, and professional profile pages."
+    },
+    {
+      "title": "Distributed Systems Hub",
+      "url": "https://www.myrobertson.com/distributed-systems/",
+      "type": "hub",
+      "summary": "Topic map for reliability, coordination, control planes, migration safety, and interview preparation."
+    },
+    {
+      "title": "Writing Hub",
+      "url": "https://www.myrobertson.com/blog/",
+      "type": "index",
+      "summary": "Index of technical essays and clustered reading paths for distributed systems and AI-assisted interviews."
+    },
+    {
+      "title": "Case Studies Hub",
+      "url": "https://www.myrobertson.com/case-studies/",
+      "type": "index",
+      "summary": "Portfolio of production outcomes across OCI migration, control-plane delivery, modernization, and consulting work."
+    },
+    {
+      "title": "Ask Rich",
+      "url": "https://www.myrobertson.com/ask-rich.html",
+      "type": "profile",
+      "summary": "Recruiter-oriented Q&A entry point connecting outcomes, architecture decisions, and career context."
+    },
+    {
+      "title": "Career Arc",
+      "url": "https://www.myrobertson.com/career-arc.html",
+      "type": "profile",
+      "summary": "Chronological experience narrative linking legacy consulting foundations to current distributed systems work."
+    }
+  ],
+  "flagshipPages": [
+    {
+      "title": "Oracle Customer Notification Service Migration to OCI",
+      "url": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/",
+      "whyItMatters": "Flagship production case study showing global rollout safety, reliability controls, and migration execution across 32 data centers.",
+      "topics": [
+        "migration safety",
+        "distributed systems operations",
+        "platform modernization"
+      ]
+    },
+    {
+      "title": "End-to-End Overload Control in Distributed Systems",
+      "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html",
+      "whyItMatters": "System-level map of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.",
+      "topics": [
+        "overload control",
+        "reliability",
+        "service stability"
+      ]
+    },
+    {
+      "title": "Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation",
+      "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html",
+      "whyItMatters": "Deep technical anchor on keeping distributed systems stable under bursty demand and partial failure.",
+      "topics": [
+        "backpressure",
+        "graceful degradation",
+        "distributed systems"
+      ]
+    },
+    {
+      "title": "Architecting a Multitenant Control Plane for a Next-Generation Data Tier",
+      "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html",
+      "whyItMatters": "Detailed control-plane architecture reference for multitenant workflow execution and platform design tradeoffs.",
+      "topics": [
+        "control planes",
+        "multitenancy",
+        "workflow orchestration"
+      ]
+    },
+    {
+      "title": "Coding With AI in Interviews: Why the Bar Is Higher, Not Lower",
+      "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
+      "whyItMatters": "Flagship framing for AI-assisted interviews focused on ownership, reasoning quality, and verification.",
+      "topics": [
+        "AI-assisted coding interviews",
+        "engineering judgment",
+        "candidate evaluation"
+      ]
+    },
+    {
+      "title": "Distributed Systems Hub",
+      "url": "https://www.myrobertson.com/distributed-systems/",
+      "whyItMatters": "Curated navigation graph that ties major architecture themes to case studies and core technical writing.",
+      "topics": [
+        "distributed systems",
+        "reliability",
+        "learning path"
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "name": "Distributed systems and reliability",
+      "summary": "Core reliability and correctness writing for designing and operating resilient backend systems.",
+      "priority": 1,
+      "pages": [
+        {
+          "title": "Distributed Systems Hub",
+          "url": "https://www.myrobertson.com/distributed-systems/",
+          "type": "hub",
+          "summary": "Top-level map connecting reliability, migration, control-plane, and coordination content."
+        },
+        {
+          "title": "Why Systems Fail Under Load, Not Just Bugs",
+          "url": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html",
+          "type": "article",
+          "summary": "Explains failure amplification loops and cascading behavior under load."
+        },
+        {
+          "title": "Retry Strategies and Idempotency",
+          "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html",
+          "type": "article",
+          "summary": "Practical retry semantics, duplicate suppression, and reliability tradeoffs."
+        },
+        {
+          "title": "Queue Design Under Load",
+          "url": "https://www.myrobertson.com/blog/queue-design-under-load.html",
+          "type": "article",
+          "summary": "Queueing strategy for bounded latency, rejection policy, and protection under stress."
+        }
+      ]
+    },
+    {
+      "name": "Overload control",
+      "summary": "Integrated overload-control patterns for maintaining system stability and protecting critical paths.",
+      "priority": 1,
+      "pages": [
+        {
+          "title": "End-to-End Overload Control in Distributed Systems",
+          "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html",
+          "type": "article",
+          "summary": "Connects all primary overload controls into one operational model."
+        },
+        {
+          "title": "Admission Control in Distributed Systems",
+          "url": "https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html",
+          "type": "article",
+          "summary": "Front-door capacity boundary decisions for accept, defer, and reject behavior."
+        },
+        {
+          "title": "Rate Limiting in Distributed Systems",
+          "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html",
+          "type": "article",
+          "summary": "Capacity and fairness controls to prevent uncontrolled throughput spikes."
+        },
+        {
+          "title": "Load Shedding in Distributed Systems",
+          "url": "https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html",
+          "type": "article",
+          "summary": "Selective dropping and degradation strategies to preserve core service behavior."
+        }
+      ]
+    },
+    {
+      "name": "Control planes and multitenant systems",
+      "summary": "Architecture patterns for command orchestration, tenant isolation, and operational workflow control.",
+      "priority": 2,
+      "pages": [
+        {
+          "title": "What Is a Control Plane?",
+          "url": "https://www.myrobertson.com/blog/what-is-a-control-plane.html",
+          "type": "article",
+          "summary": "Primer defining control-plane responsibilities and boundaries."
+        },
+        {
+          "title": "Architecting a Multitenant Control Plane for a Next-Generation Data Tier",
+          "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html",
+          "type": "article",
+          "summary": "Deep dive on control-plane workflow architecture and multitenancy decisions."
+        },
+        {
+          "title": "Control Plane Workflow Platform",
+          "url": "https://www.myrobertson.com/case-studies/control-plane-workflow-platform/",
+          "type": "case-study",
+          "summary": "Case study showing practical platform implementation and delivery impact."
+        },
+        {
+          "title": "Distributed Systems Migration and Modernization",
+          "url": "https://www.myrobertson.com/case-studies/distributed-systems-migration/",
+          "type": "case-study",
+          "summary": "Hub for migration and modernization outcomes tied to distributed platform constraints."
+        }
+      ]
+    },
+    {
+      "name": "AI-assisted coding interviews",
+      "summary": "Interview guidance for evaluating and demonstrating engineering judgment when AI is allowed.",
+      "priority": 2,
+      "pages": [
+        {
+          "title": "Coding Interviews in the AI Era",
+          "url": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html",
+          "type": "article",
+          "summary": "Series entry point and reading map for AI-assisted interview conditions."
+        },
+        {
+          "title": "Coding With AI in Interviews: Why the Bar Is Higher, Not Lower",
+          "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
+          "type": "article",
+          "summary": "Thesis article on accountability and higher expectations in AI-assisted coding."
+        },
+        {
+          "title": "What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews",
+          "url": "https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html",
+          "type": "article",
+          "summary": "Detailed evaluation model for senior-level interview signal."
+        },
+        {
+          "title": "A Practical Playbook for AI-Assisted Coding Interviews",
+          "url": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html",
+          "type": "article",
+          "summary": "Operational interview approach for structure, verification, and communication."
+        }
+      ]
+    },
+    {
+      "name": "CRDTs and distributed consistency",
+      "summary": "Consistency and merge semantics for replicated systems under partial connectivity and concurrency.",
+      "priority": 3,
+      "pages": [
+        {
+          "title": "CRDTs Explained",
+          "url": "https://www.myrobertson.com/blog/crdts-explained.html",
+          "type": "article",
+          "summary": "Foundational overview of conflict-free replicated data types and deterministic merges."
+        },
+        {
+          "title": "Designing a CRDT from Scratch",
+          "url": "https://www.myrobertson.com/blog/designing-a-crdt-from-scratch",
+          "type": "article",
+          "summary": "Step-by-step CRDT design process from invariants to merge strategy."
+        },
+        {
+          "title": "Vector Clocks vs Timestamps",
+          "url": "https://www.myrobertson.com/blog/vector-clocks-vs-timestamps.html",
+          "type": "article",
+          "summary": "Compares causal tracking approaches and ordering implications."
+        },
+        {
+          "title": "Causal Consistency Explained",
+          "url": "https://www.myrobertson.com/blog/causal-consistency-explained.html",
+          "type": "article",
+          "summary": "Explains causal ordering guarantees and where they fit in distributed consistency models."
+        }
+      ]
+    },
+    {
+      "name": "Case studies and career context",
+      "summary": "Concrete delivery evidence and profile pages that provide scope, context, and outcomes.",
+      "priority": 2,
+      "pages": [
+        {
+          "title": "Case Studies Hub",
+          "url": "https://www.myrobertson.com/case-studies/",
+          "type": "hub",
+          "summary": "Index of project outcomes across migration, modernization, and platform implementation."
+        },
+        {
+          "title": "Oracle Customer Notification Service Migration to OCI",
+          "url": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/",
+          "type": "case-study",
+          "summary": "Flagship large-scale migration and operability case study."
+        },
+        {
+          "title": "Ask Rich",
+          "url": "https://www.myrobertson.com/ask-rich.html",
+          "type": "project",
+          "summary": "Interactive recruiter Q&A for quickly retrieving experience and architecture context."
+        },
+        {
+          "title": "Career Arc",
+          "url": "https://www.myrobertson.com/career-arc.html",
+          "type": "project",
+          "summary": "Career narrative linking earlier consulting work to current distributed-systems practice."
+        }
+      ]
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "Sitemap",
+      "url": "https://www.myrobertson.com/sitemap.xml",
+      "purpose": "Canonical crawl inventory and recency signals for published URLs."
+    },
+    {
+      "name": "LLMs Discovery File",
+      "url": "https://www.myrobertson.com/llms.txt",
+      "purpose": "Curated high-signal map of entry points, clusters, and retrieval priorities."
+    },
+    {
+      "name": "Knowledge Index",
+      "url": "https://www.myrobertson.com/knowledge.json",
+      "purpose": "Structured retrieval index for hubs, flagship pages, and topic clusters."
+    },
+    {
+      "name": "RSS Feed",
+      "url": "https://www.myrobertson.com/rss.xml",
+      "purpose": "Chronological feed of technical writing updates for incremental ingestion."
+    }
+  ],
+  "retrievalHints": {
+    "preferredOrder": [
+      "hub pages",
+      "flagship case studies",
+      "deep technical articles"
     ],
-    "edges": [
-      {
-        "source": "page:distributed-systems",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "tag:control-planes",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "tag:migration-safety",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "tag:oci-migration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "tag:rollout-safety",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "tag:operability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:backpressure-in-distributed-systems",
-        "target": "tag:backpressure",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:backpressure-in-distributed-systems",
-        "target": "tag:graceful-degradation",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:backpressure-in-distributed-systems",
-        "target": "tag:backend-reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "tag:admission-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "tag:rate-limiting",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "tag:circuit-breakers",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "tag:failure-isolation",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "tag:graceful-degradation",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "tag:load-shedding",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "tag:admission-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "tag:failure-modes",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "tag:idempotency",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "tag:retry-semantics",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "tag:queue-design",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "tag:queue-depth",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "tag:overload-control",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "tag:control-planes",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "tag:workflow-orchestration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:distributed-coordination",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:leases",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:fencing-tokens",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "tag:correctness",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "tag:integration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "tag:migration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "tag:operability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:police-records-search-architecture",
-        "target": "tag:search-architecture",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:police-records-search-architecture",
-        "target": "tag:hybrid-retrieval",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:police-records-search-architecture",
-        "target": "tag:enterprise-search",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:police-records-search-architecture",
-        "target": "tag:ai-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:police-records-search-architecture",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:designing-a-crdt-from-scratch",
-        "target": "tag:crdt",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:designing-a-crdt-from-scratch",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:designing-a-crdt-from-scratch",
-        "target": "tag:eventual-consistency",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:designing-a-crdt-from-scratch",
-        "target": "tag:merge-semantics",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:designing-a-crdt-from-scratch",
-        "target": "tag:correctness",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "tag:engineering-judgment",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "tag:technical-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "tag:ownership",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "tag:engineering-judgment",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "tag:senior-engineers",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "tag:ownership",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "tag:experienced-engineers",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "tag:engineering-judgment",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "tag:verification",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "tag:practical-playbook",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "tag:engineering-judgment",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "tag:technical-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "tag:ownership",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "tag:accountability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "tag:reviewability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:failures-ai-interviews",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:failures-ai-interviews",
-        "target": "tag:failure-modes",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:failures-ai-interviews",
-        "target": "tag:engineering-judgment",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:failures-ai-interviews",
-        "target": "tag:technical-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:senior-behaviors-ai-interviews",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:senior-behaviors-ai-interviews",
-        "target": "tag:senior-engineers",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:senior-behaviors-ai-interviews",
-        "target": "tag:engineering-judgment",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:senior-behaviors-ai-interviews",
-        "target": "tag:technical-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:evaluating-candidates-ai-allowed",
-        "target": "tag:ai-assisted-coding-interviews",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:evaluating-candidates-ai-allowed",
-        "target": "tag:hiring",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:evaluating-candidates-ai-allowed",
-        "target": "tag:interviewer-rubric",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:evaluating-candidates-ai-allowed",
-        "target": "tag:engineering-judgment",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "tag:writing",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "tag:distributed-systems",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "tag:reliability",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "tag:case-studies",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "tag:migration",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "tag:platform-modernization",
-        "type": "hasTag"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:backpressure-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:overload-control-pipeline",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:admission-control-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:why-systems-fail-under-load",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:queue-design-under-load",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:distributed-lease-service",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:police-records-search-architecture",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:coding-interviews-ai-era-hub",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:coding-with-ai-bar-higher",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:measured-on-ai-interviews",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:practical-playbook-ai-interviews",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:ownership-ai-interviews",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:failures-ai-interviews",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:senior-behaviors-ai-interviews",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems-writing",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "indexes"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "page:oracle-cns-oci-migration",
-        "type": "indexes"
-      },
-      {
-        "source": "page:case-studies",
-        "target": "page:starbucks-loyalty-platform-integration",
-        "type": "indexes"
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:oracle-cns-oci-migration",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:overload-control-pipeline",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:admission-control-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:control-planes",
-          "tag:distributed-systems"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:overload-control-pipeline",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:admission-control-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:starbucks-loyalty-platform-integration",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:operability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:oracle-cns-oci-migration",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:backpressure-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:graceful-degradation"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:admission-control-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:overload-control-pipeline",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:rate-limiting-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:admission-control",
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 4
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:admission-control-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:circuit-breakers-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:rate-limiting-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:graceful-degradation-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:circuit-breakers-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:load-shedding-in-distributed-systems",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:graceful-degradation-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:why-systems-fail-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:load-shedding-in-distributed-systems",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:retry-strategies-and-idempotency",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:failures-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:failure-modes"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:why-systems-fail-under-load",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "page:queue-design-under-load",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:overload-control",
-          "tag:reliability"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:retry-strategies-and-idempotency",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "page:architecting-a-multitenant-control-plane",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:queue-design-under-load",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems",
-          "tag:reliability"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "page:police-records-search-architecture",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:architecting-a-multitenant-control-plane",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:distributed-lease-service",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:correctness"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:starbucks-loyalty-platform-integration",
-        "target": "page:case-studies",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:migration"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:police-records-search-architecture",
-        "target": "page:designing-a-crdt-from-scratch",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:police-records-search-architecture",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:designing-a-crdt-from-scratch",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:distributed-systems"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "page:coding-with-ai-bar-higher",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:ownership"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "page:measured-on-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "page:practical-playbook-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:technical-interviews"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:ownership"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "page:failures-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:technical-interviews"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "page:senior-behaviors-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:technical-interviews"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:coding-interviews-ai-era-hub",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "page:measured-on-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "page:practical-playbook-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:ownership"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "page:failures-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "page:senior-behaviors-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:senior-engineers"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:coding-with-ai-bar-higher",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "page:practical-playbook-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "page:failures-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "page:senior-behaviors-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:measured-on-ai-interviews",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "page:ownership-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "page:failures-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:technical-interviews"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "page:senior-behaviors-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:technical-interviews"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:practical-playbook-ai-interviews",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "page:failures-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "page:senior-behaviors-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:ownership-ai-interviews",
-        "target": "page:distributed-systems-writing",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:reliability"
-        ],
-        "strength": 1
-      },
-      {
-        "source": "page:failures-ai-interviews",
-        "target": "page:senior-behaviors-ai-interviews",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment",
-          "tag:technical-interviews"
-        ],
-        "strength": 3
-      },
-      {
-        "source": "page:failures-ai-interviews",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      },
-      {
-        "source": "page:senior-behaviors-ai-interviews",
-        "target": "page:evaluating-candidates-ai-allowed",
-        "type": "relatedByTag",
-        "sharedTags": [
-          "tag:ai-assisted-coding-interviews",
-          "tag:engineering-judgment"
-        ],
-        "strength": 2
-      }
+    "canonicalDomain": "https://www.myrobertson.com",
+    "notes": [
+      "Use /blog/ as the canonical writing route for article retrieval.",
+      "Start with distributed-systems and case-studies hubs before traversing individual pages.",
+      "Use case studies as evidence of production outcomes and architecture decisions.",
+      "Use writing pages to extract design tradeoffs, reliability models, and implementation reasoning."
+    ],
+    "avoid": [
+      "duplicate URLs that resolve to the same content",
+      "legacy or thin pages not linked from current hubs",
+      "non-canonical hostnames or non-HTTPS variants"
     ]
-  }
+  },
+  "lastUpdated": "2026-04-06"
 }
