@@ -27,6 +27,8 @@ const CANONICAL_TO_ASSET = new Map([
   ['/blog/why-systems-fail-under-load-not-just-bugs', '/writing/why-systems-fail-under-load-not-just-bugs/index.html']
 ]);
 
+const RETIRED_WRITING_ARCHIVE_PATHS = new Set(['/writing']);
+
 function stripTrailingSlash(path) {
   if (!path || path === '/') return '/';
   return path.endsWith('/') ? path.slice(0, -1) : path;
@@ -53,12 +55,25 @@ function canonicalizeBlogPath(path) {
   return stripHtmlExtension(path);
 }
 
+function withLegacyPathVariants(path) {
+  const normalized = normalizePath(path);
+  return new Set([
+    normalized,
+    `${normalized}/`,
+    `${normalized}/index.html`
+  ]);
+}
+
+const LEGACY_TO_PUBLIC = new Map(
+  [...WRITING_LEGACY_TO_CANONICAL.entries()].flatMap(([legacyPath, canonicalPath]) =>
+    [...withLegacyPathVariants(legacyPath)].map((path) => [path, canonicalPath])
+  )
+);
+
 export function canonicalArticlePath(pathOrUrl) {
   const normalized = normalizePath(pathOrUrl);
 
-  if (WRITING_LEGACY_TO_CANONICAL.has(normalized)) {
-    return WRITING_LEGACY_TO_CANONICAL.get(normalized);
-  }
+  if (WRITING_LEGACY_TO_CANONICAL.has(normalized)) return WRITING_LEGACY_TO_CANONICAL.get(normalized);
 
   const blogCanonical = canonicalizeBlogPath(normalized);
   if (blogCanonical) return blogCanonical;
@@ -76,6 +91,10 @@ export function isCanonicalArticlePath(pathOrUrl) {
   return Boolean(canonicalizeBlogPath(normalized)) && !normalized.endsWith('.html');
 }
 
+export function getLegacyRedirectTarget(pathOrUrl) {
+  return LEGACY_TO_PUBLIC.get(normalizePath(pathOrUrl)) ?? null;
+}
+
 export function getAssetPathForCanonicalPath(pathOrUrl) {
   const normalized = normalizePath(pathOrUrl);
   if (CANONICAL_TO_ASSET.has(normalized)) return CANONICAL_TO_ASSET.get(normalized);
@@ -83,12 +102,15 @@ export function getAssetPathForCanonicalPath(pathOrUrl) {
   return null;
 }
 
-export const LEGACY_TO_PUBLIC = new Map(
-  [...WRITING_LEGACY_TO_CANONICAL.entries()].flatMap(([legacy, canonical]) => [
-    [legacy, canonical],
-    [`${legacy}/index.html`, canonical],
-    [`${legacy}/`, canonical]
-  ])
-);
+export function isRetiredWritingArchivePath(pathOrUrl) {
+  return RETIRED_WRITING_ARCHIVE_PATHS.has(normalizePath(pathOrUrl));
+}
+
+export function getKnownCanonicalPaths() {
+  return new Set([
+    ...WRITING_LEGACY_TO_CANONICAL.values(),
+    ...CANONICAL_TO_ASSET.keys()
+  ]);
+}
 
 export const WRITING_CANONICAL_ASSET_ROUTES = [...CANONICAL_TO_ASSET.entries()].map(([publicPath, assetPath]) => ({ publicPath, assetPath }));
