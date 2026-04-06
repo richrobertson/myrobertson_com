@@ -2,7 +2,7 @@
 
 This section is the canonical entry point for control plane architecture on this site. Use it to anchor terms, boundaries, and failure expectations before diving into subsystem-specific pages.
 
-## What Is a Control Plane (Precise Definition)
+## What Is a Control Plane?
 
 A control plane is a **decision system**: it computes intent, policy outcomes, and target state changes for distributed services. A data plane is an **execution system**: it performs request handling and state mutation according to those decisions.
 
@@ -15,7 +15,7 @@ The architectural boundary is explicit: the control plane decides *what should h
 - config propagation
 - state coordination
 
-## Failure Model (Short Section)
+## Common Failure Patterns
 
 Control planes fail in predictable ways: stale config snapshots, propagation lag between intent commit and data-plane apply, and split behavior when subsets of nodes converge at different times.
 
@@ -25,9 +25,9 @@ The Multitenant Control Plane Workflow Platform is the reference implementation 
 
 Read the reference implementation: [Designing a Multitenant Control Plane Workflow Platform](/control-plane-architecture/multitenant-control-plane-platform/).
 
-## How to Use This Section
+## How to Read This Section
 
-Start here for the canonical model and vocabulary. Then use the deeper subpages to analyze specific concerns in that same system context:
+Treat [/control-plane-architecture/](/control-plane-architecture/) as the canonical entry point for this topic cluster. Use the platform page as the reference implementation, then go deeper into the focused subpages for consistency models, failure modes, and scalability:
 
 - [Failure Modes](/control-plane-architecture/failure-modes/)
 - [Consistency Models](/control-plane-architecture/consistency-models/)
