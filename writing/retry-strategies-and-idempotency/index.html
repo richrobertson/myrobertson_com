@@ -6,11 +6,11 @@
     <title>Retry Strategies, Retry Storms, and Idempotency | Distributed Systems</title>
     <meta name="description" content="How retries and idempotency interact under load: retry budgets, jittered backoff, deadlines, dedupe windows, and safe duplicate handling." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/retry-strategies-and-idempotency" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Retry Strategies, Retry Storms, and Idempotency" />
     <meta property="og:description" content="Retries are required in distributed systems, but unbounded retries amplify incidents. Practical guidance for retry policy and idempotent behavior." />
-    <meta property="og:url" content="https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html" />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/retry-strategies-and-idempotency" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Retry Strategies, Retry Storms, and Idempotency" />
@@ -43,7 +43,7 @@
         },
         {
           "@type": "TechArticle",
-          "@id": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html#main",
+          "@id": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency#main",
           "headline": "Retry Strategies, Retry Storms, and Idempotency",
           "author": {
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
@@ -61,9 +61,9 @@
             "dedupe window"
           ],
           "mainEntityOfPage": {
-            "@id": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html"
+            "@id": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency"
           },
-          "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html",
+          "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency",
           "inLanguage": "en",
           "isPartOf": {
             "@id": "https://www.myrobertson.com/#website"
@@ -88,7 +88,7 @@
               "@type": "ListItem",
               "position": 3,
               "name": "Retry Strategies, Retry Storms, and Idempotency",
-              "item": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html"
+              "item": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency"
             }
           ]
         }
@@ -128,7 +128,7 @@
         <h2>Why distributed systems need retries</h2>
         <p>Timeouts are ambiguous. A caller cannot reliably tell whether a timed-out request never reached the service, reached it and failed, or succeeded but lost its response on the way back. In that ambiguity window, retrying is rational.</p>
         <p>That is why retries exist in every serious production stack: clients, SDKs, message consumers, schedulers, and workflow engines. The question is never whether retries exist. The question is whether they are designed to recover from transient faults without amplifying overload.</p>
-        <p>If you need a conceptual primer first, start with <a href="/blog/what-is-idempotency.html">What Is Idempotency? (And Why It Matters in Distributed Systems)</a>. This page focuses on production retry behavior under pressure.</p>
+        <p>If you need a conceptual primer first, start with <a href="/blog/what-is-idempotency">What Is Idempotency? (And Why It Matters in Distributed Systems)</a>. This page focuses on production retry behavior under pressure.</p>
       </section>
 
       <section class="section">
@@ -136,7 +136,7 @@
         <p>Retries help when failure is brief and capacity exists. They hurt when failure is overload-induced.</p>
         <p>Suppose service A calls service B, and each request fans out to three downstream calls. If each layer retries three times under timeout, total attempted work grows multiplicatively. The dependency was already slow; retries now increase queue growth, tail latency, and connection-pool pressure across the full chain.</p>
         <p>That loop is classic incident amplification: timeout leads to retry, retry increases load, load causes more timeout. Without controls, this becomes cascading failure across shared dependencies.</p>
-        <p>This behavior is tightly coupled with <a href="/blog/backpressure-stability-correctness-distributed-systems.html">backpressure and graceful degradation</a> and with queue policy choices discussed in <a href="/blog/queue-design-under-load.html">Queue Design Under Load</a>. Retries are not an isolated feature; they are part of overload control.</p>
+        <p>This behavior is tightly coupled with <a href="/blog/backpressure-stability-correctness-distributed-systems">backpressure and graceful degradation</a> and with queue policy choices discussed in <a href="/blog/queue-design-under-load">Queue Design Under Load</a>. Retries are not an isolated feature; they are part of overload control.</p>
       </section>
 
       <section class="section">
@@ -202,17 +202,17 @@
       <section class="section related-concepts">
         <h2>Related concepts</h2>
         <ul>
-          <li><a href="/blog/end-to-end-overload-control-in-distributed-systems.html">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline.</li>
+          <li><a href="/blog/end-to-end-overload-control-in-distributed-systems">End-to-End Overload Control in Distributed Systems</a> — system-level synthesis of the full reliability pipeline.</li>
           <li><a href="/distributed-systems/">Distributed Systems hub</a> — conceptual overview of reliability patterns.</li>
-          <li><a href="/blog/what-is-idempotency.html">What Is Idempotency? (And Why It Matters in Distributed Systems)</a> — foundational idempotency concepts.</li>
-          <li><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a> — bounded intake and saturation signals.</li>
-          <li><a href="/blog/queue-design-under-load.html">Queue Design Under Load</a> — queue-level dynamics under pressure.</li>
-          <li><a href="/blog/circuit-breakers-in-distributed-systems.html">Circuit Breakers in Distributed Systems</a> — dependency failure containment and fast failure.</li>
-          <li><a href="/blog/admission-control-in-distributed-systems.html">Admission Control in Distributed Systems</a> — front-door protective boundaries.</li>
-          <li><a href="/blog/load-shedding-in-distributed-systems.html">Load Shedding in Distributed Systems</a> — intentional work rejection during overload.</li>
-          <li><a href="/blog/graceful-degradation-in-distributed-systems.html">Graceful Degradation in Distributed Systems</a> — preserving essential outcomes under pressure.</li>
-          <li><a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Why Systems Fail Under Load, Not Just Bugs</a> — overload dynamics and amplification.</li>
-          <li><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane</a> — practical production context for retry and overload control.</li>
+          <li><a href="/blog/what-is-idempotency">What Is Idempotency? (And Why It Matters in Distributed Systems)</a> — foundational idempotency concepts.</li>
+          <li><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a> — bounded intake and saturation signals.</li>
+          <li><a href="/blog/queue-design-under-load">Queue Design Under Load</a> — queue-level dynamics under pressure.</li>
+          <li><a href="/blog/circuit-breakers-in-distributed-systems">Circuit Breakers in Distributed Systems</a> — dependency failure containment and fast failure.</li>
+          <li><a href="/blog/admission-control-in-distributed-systems">Admission Control in Distributed Systems</a> — front-door protective boundaries.</li>
+          <li><a href="/blog/load-shedding-in-distributed-systems">Load Shedding in Distributed Systems</a> — intentional work rejection during overload.</li>
+          <li><a href="/blog/graceful-degradation-in-distributed-systems">Graceful Degradation in Distributed Systems</a> — preserving essential outcomes under pressure.</li>
+          <li><a href="/blog/why-systems-fail-under-load-not-just-bugs">Why Systems Fail Under Load, Not Just Bugs</a> — overload dynamics and amplification.</li>
+          <li><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Architecting a Multitenant Control Plane</a> — practical production context for retry and overload control.</li>
           <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI Migration</a> — production case study involving retry and failover strategies.</li>
         </ul>
       </section>

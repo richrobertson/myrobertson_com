@@ -6,12 +6,12 @@
     <title>CRDTs Explained | Rich Robertson</title>
     <meta name="description" content="CRDTs explained: conflict-free replicated data types for safe mergeable eventual consistency." />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://www.myrobertson.com/blog/crdts-explained.html" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/crdts-explained" />
     <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="CRDTs Explained" />
     <meta property="og:description" content="CRDTs explained: conflict-free replicated data types for safe mergeable eventual consistency." />
-    <meta property="og:url" content="https://www.myrobertson.com/blog/crdts-explained.html" />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/crdts-explained" />
     <meta property="og:site_name" content="Rich Robertson" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="CRDTs Explained" />
@@ -68,7 +68,7 @@
 
         <h2 id="how-it-works">How It Works</h2>
         <p>Replicas apply local updates and exchange either full state or operations; merge logic guarantees convergence regardless of message order.</p>
-        <p>In production, this usually sits inside broader <a href="/blog/what-is-eventual-consistency.html">eventual consistency tradeoffs</a>, and it depends on careful transport design for retries, redelivery, and batching.</p>
+        <p>In production, this usually sits inside broader <a href="/blog/what-is-eventual-consistency">eventual consistency tradeoffs</a>, and it depends on careful transport design for retries, redelivery, and batching.</p>
         <p>CRDTs are one approach to eventual consistency, but unlike retry-driven reconciliation or queue-driven coordination, they push more of the correctness burden into the data model itself.</p>
 
         <h2 id="worked-example">Worked Example: PN-Counter</h2>
@@ -135,8 +135,8 @@ Eventually consistent global state</code></pre>
 
         <h2 id="production-implications">Production Implications</h2>
         <p>CRDTs reduce human conflict resolution burden in distributed collaboration systems. In practice, some teams on Dynamo-style or Cassandra-style architectures also adopt CRDT-like application-level structures for counters, sets, and presence state where deterministic merge behavior matters.</p>
-        <p>Your transport and recovery design still matters: <a href="/blog/retry-strategies-and-idempotency.html">retry and idempotency</a> discipline prevents accidental semantics drift, and <a href="/blog/backpressure-stability-correctness-distributed-systems.html">backpressure and system stability</a> controls keep sync floods from becoming outages.</p>
-        <p>For write-heavy pipelines, pair CRDT merge behavior with queueing discipline and admission control from <a href="/blog/queue-design-under-load.html">queue design under load</a>.</p>
+        <p>Your transport and recovery design still matters: <a href="/blog/retry-strategies-and-idempotency">retry and idempotency</a> discipline prevents accidental semantics drift, and <a href="/blog/backpressure-stability-correctness-distributed-systems">backpressure and system stability</a> controls keep sync floods from becoming outages.</p>
+        <p>For write-heavy pipelines, pair CRDT merge behavior with queueing discipline and admission control from <a href="/blog/queue-design-under-load">queue design under load</a>.</p>
 
         <h2 id="when-crdts-wrong">When CRDTs Are the Wrong Tool</h2>
         <p>CRDTs guarantee convergence—not correctness.</p>

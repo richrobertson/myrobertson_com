@@ -30,7 +30,7 @@ const pages = [
   {
     id: 'page:backpressure-in-distributed-systems',
     title: 'Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation',
-    url: articleUrl(`${site}/blog/backpressure-stability-correctness-distributed-systems.html`),
+    url: articleUrl(`${site}/blog/backpressure-stability-correctness-distributed-systems`),
     contentType: 'article',
     summary: 'Backpressure, bounded queues, and admission control patterns for overload resilience.',
     tags: ['backpressure', 'graceful degradation', 'backend reliability'],
@@ -41,7 +41,7 @@ const pages = [
   {
     id: 'page:overload-control-pipeline',
     title: 'End-to-End Overload Control in Distributed Systems',
-    url: articleUrl(`${site}/blog/end-to-end-overload-control-in-distributed-systems.html`),
+    url: articleUrl(`${site}/blog/end-to-end-overload-control-in-distributed-systems`),
     contentType: 'article',
     summary: 'System-level synthesis of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.',
     tags: ['distributed systems', 'reliability', 'overload control'],
@@ -57,7 +57,7 @@ const pages = [
   {
     id: 'page:admission-control-in-distributed-systems',
     title: 'Admission Control in Distributed Systems',
-    url: articleUrl(`${site}/blog/admission-control-in-distributed-systems.html`),
+    url: articleUrl(`${site}/blog/admission-control-in-distributed-systems`),
     contentType: 'article',
     summary: 'Front-door intake boundary for accept/reject/defer decisions driven by live capacity, fairness, and priority protection.',
     tags: ['admission control', 'distributed systems', 'reliability', 'overload control'],
@@ -73,7 +73,7 @@ const pages = [
   {
     id: 'page:rate-limiting-in-distributed-systems',
     title: 'Rate Limiting in Distributed Systems',
-    url: articleUrl(`${site}/blog/rate-limiting-in-distributed-systems.html`),
+    url: articleUrl(`${site}/blog/rate-limiting-in-distributed-systems`),
     contentType: 'article',
     summary: 'Fairness and capacity protection with explicit intake boundaries before overload becomes systemic.',
     tags: ['rate limiting', 'distributed systems', 'reliability', 'overload control'],
@@ -89,7 +89,7 @@ const pages = [
   {
     id: 'page:circuit-breakers-in-distributed-systems',
     title: 'Circuit Breakers in Distributed Systems',
-    url: articleUrl(`${site}/blog/circuit-breakers-in-distributed-systems.html`),
+    url: articleUrl(`${site}/blog/circuit-breakers-in-distributed-systems`),
     contentType: 'article',
     summary: 'Failure containment for unhealthy dependencies using open, closed, and half-open transitions.',
     tags: ['circuit breakers', 'distributed systems', 'reliability', 'failure isolation'],
@@ -105,7 +105,7 @@ const pages = [
   {
     id: 'page:graceful-degradation-in-distributed-systems',
     title: 'Graceful Degradation in Distributed Systems',
-    url: articleUrl(`${site}/blog/graceful-degradation-in-distributed-systems.html`),
+    url: articleUrl(`${site}/blog/graceful-degradation-in-distributed-systems`),
     contentType: 'article',
     summary: 'Service-mode strategy to preserve essential behavior by reducing non-critical scope under stress.',
     tags: ['graceful degradation', 'distributed systems', 'reliability', 'overload control'],
@@ -121,7 +121,7 @@ const pages = [
   {
     id: 'page:load-shedding-in-distributed-systems',
     title: 'Load Shedding in Distributed Systems',
-    url: articleUrl(`${site}/blog/load-shedding-in-distributed-systems.html`),
+    url: articleUrl(`${site}/blog/load-shedding-in-distributed-systems`),
     contentType: 'article',
     summary: 'Intentional rejection, drop, defer, or downgrade policy to protect core paths during overload.',
     tags: ['load shedding', 'distributed systems', 'reliability', 'admission control', 'overload control'],
@@ -137,7 +137,7 @@ const pages = [
   {
     id: 'page:why-systems-fail-under-load',
     title: 'Why Systems Fail Under Load, Not Just Bugs',
-    url: articleUrl(`${site}/blog/why-systems-fail-under-load-not-just-bugs.html`),
+    url: articleUrl(`${site}/blog/why-systems-fail-under-load-not-just-bugs`),
     contentType: 'article',
     summary: 'Conceptual anchor explaining overload dynamics, amplification loops, and cascading failure modes in distributed systems.',
     tags: ['failure modes', 'reliability', 'distributed systems', 'overload control'],
@@ -153,7 +153,7 @@ const pages = [
   {
     id: 'page:retry-strategies-and-idempotency',
     title: 'Retry Strategies and Idempotency',
-    url: articleUrl(`${site}/blog/retry-strategies-and-idempotency.html`),
+    url: articleUrl(`${site}/blog/retry-strategies-and-idempotency`),
     contentType: 'article',
     summary: 'Safe retry semantics, duplicate suppression, idempotent API design, and retry budgets under load.',
     tags: ['idempotency', 'retry semantics', 'reliability', 'distributed systems', 'overload control'],
@@ -169,7 +169,7 @@ const pages = [
   {
     id: 'page:queue-design-under-load',
     title: 'Queue Design Under Load',
-    url: articleUrl(`${site}/blog/queue-design-under-load.html`),
+    url: articleUrl(`${site}/blog/queue-design-under-load`),
     contentType: 'article',
     summary: 'Bounded queues, fairness, queue latency as an amplification vector, and rejection policies under overload.',
     tags: ['queue design', 'queue depth', 'reliability', 'distributed systems', 'overload control'],
@@ -185,7 +185,7 @@ const pages = [
   {
     id: 'page:architecting-a-multitenant-control-plane',
     title: 'Architecting a Multitenant Control Plane',
-    url: articleUrl(`${site}/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html`),
+    url: articleUrl(`${site}/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier`),
     contentType: 'article',
     summary: 'Control-plane architecture patterns for durable workflows and multitenant execution.',
     tags: ['control planes', 'workflow orchestration', 'distributed systems'],
@@ -196,7 +196,7 @@ const pages = [
   {
     id: 'page:distributed-lease-service',
     title: 'Designing a Correct Distributed Lease Service: Tenure on Raft',
-    url: articleUrl(`${site}/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html`),
+    url: articleUrl(`${site}/blog/designing-a-correct-distributed-lease-service-tenure-on-raft`),
     contentType: 'article',
     summary: 'Correctness-oriented lease semantics, fencing tokens, and coordination under failure.',
     tags: ['distributed coordination', 'leases', 'fencing tokens', 'correctness'],
@@ -218,7 +218,7 @@ const pages = [
   {
     id: 'page:police-records-search-architecture',
     title: 'Designing Search Systems for Decades of Police Records',
-    url: articleUrl(`${site}/blog/designing-search-systems-for-decades-of-police-records.html`),
+    url: articleUrl(`${site}/blog/designing-search-systems-for-decades-of-police-records`),
     contentType: 'article',
     summary: 'System design analysis of police records discovery across structured and unstructured data with hybrid retrieval, Solr vs Elasticsearch tradeoffs, AI augmentation, and MCP orchestration.',
     tags: ['search architecture', 'hybrid retrieval', 'enterprise search', 'AI systems', 'distributed systems'],
@@ -252,7 +252,7 @@ const pages = [
   {
     id: 'page:coding-interviews-ai-era-hub',
     title: 'Coding Interviews in the AI Era',
-    url: articleUrl(`${site}/blog/coding-interviews-in-the-ai-era.html`),
+    url: articleUrl(`${site}/blog/coding-interviews-in-the-ai-era`),
     contentType: 'article',
     summary: 'Series hub and reading path for the AI-assisted interview cluster, with clearer routes into thesis, signal model, playbook, and failure analysis.',
     tags: ['AI-assisted coding interviews', 'engineering judgment', 'technical interviews', 'ownership'],
@@ -268,7 +268,7 @@ const pages = [
   {
     id: 'page:coding-with-ai-bar-higher',
     title: 'Coding With AI in Interviews: Why the Bar Is Higher, Not Lower',
-    url: articleUrl(`${site}/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html`),
+    url: articleUrl(`${site}/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower`),
     contentType: 'article',
     summary: 'Flagship thesis on why AI lowers implementation friction while raising the premium on judgment, verification, and ownership.',
     tags: ['AI-assisted coding interviews', 'engineering judgment', 'senior engineers', 'ownership'],
@@ -284,7 +284,7 @@ const pages = [
   {
     id: 'page:measured-on-ai-interviews',
     title: 'What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews',
-    url: articleUrl(`${site}/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html`),
+    url: articleUrl(`${site}/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews`),
     contentType: 'article',
     summary: 'Definitive signal model for framing, constraints, tool direction, simplification, verification, communication, and line-level ownership.',
     tags: ['AI-assisted coding interviews', 'experienced engineers', 'engineering judgment', 'verification'],
@@ -300,7 +300,7 @@ const pages = [
   {
     id: 'page:practical-playbook-ai-interviews',
     title: 'A Practical Playbook for AI-Assisted Coding Interviews',
-    url: articleUrl(`${site}/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html`),
+    url: articleUrl(`${site}/blog/a-practical-playbook-for-ai-assisted-coding-interviews`),
     contentType: 'article',
     summary: 'Field manual for running an AI-assisted coding round well: frame first, prompt narrowly, verify hard, simplify, and close with ownership.',
     tags: ['AI-assisted coding interviews', 'practical playbook', 'engineering judgment', 'technical interviews'],
@@ -316,7 +316,7 @@ const pages = [
   {
     id: 'page:ownership-ai-interviews',
     title: 'You Still Own Every Line: Accountability in AI-Assisted Coding Interviews',
-    url: articleUrl(`${site}/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html`),
+    url: articleUrl(`${site}/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews`),
     contentType: 'article',
     summary: 'Sharp accountability thesis connecting interview ownership, reviewability, hidden assumptions, and production responsibility.',
     tags: ['AI-assisted coding interviews', 'ownership', 'accountability', 'reviewability', 'reliability'],
@@ -332,7 +332,7 @@ const pages = [
   {
     id: 'page:failures-ai-interviews',
     title: 'How Candidates Fail AI-Assisted Coding Interviews',
-    url: articleUrl(`${site}/blog/how-candidates-fail-ai-assisted-coding-interviews.html`),
+    url: articleUrl(`${site}/blog/how-candidates-fail-ai-assisted-coding-interviews`),
     contentType: 'article',
     summary: 'Diagnostic failure-mode guide showing what weak AI-assisted interview behavior looks like in the room and why trust erodes.',
     tags: ['AI-assisted coding interviews', 'failure modes', 'engineering judgment', 'technical interviews'],
@@ -348,7 +348,7 @@ const pages = [
   {
     id: 'page:senior-behaviors-ai-interviews',
     title: 'What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews',
-    url: articleUrl(`${site}/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html`),
+    url: articleUrl(`${site}/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews`),
     contentType: 'article',
     summary: 'Contrastive behavioral guide showing how strong senior engineers frame, simplify, verify, and close differently from average candidates.',
     tags: ['AI-assisted coding interviews', 'senior engineers', 'engineering judgment', 'technical interviews'],
@@ -364,7 +364,7 @@ const pages = [
   {
     id: 'page:evaluating-candidates-ai-allowed',
     title: 'How Companies Should Evaluate Candidates When AI Is Allowed',
-    url: articleUrl(`${site}/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html`),
+    url: articleUrl(`${site}/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed`),
     contentType: 'article',
     summary: 'Operational interviewer guide for AI-assisted evaluation: better prompts, better probes, better scoring, and less noise.',
     tags: ['AI-assisted coding interviews', 'hiring', 'interviewer rubric', 'engineering judgment'],

@@ -1,6 +1,6 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { ARTICLE_ROUTE_MAP } from '../content/article-routing.mjs';
+import { WRITING_CANONICAL_ASSET_ROUTES } from '../content/article-routing.mjs';
 
 const SITE_URL = 'https://www.myrobertson.com';
 const FEED_URL = `${SITE_URL}/rss.xml`;
@@ -141,8 +141,7 @@ function assetRouteToFilePath(assetPath) {
 async function loadWritingBackedCanonicalPosts() {
   const posts = [];
 
-  for (const route of ARTICLE_ROUTE_MAP) {
-    if (!route.assetPath.startsWith('/writing/')) continue;
+  for (const route of WRITING_CANONICAL_ASSET_ROUTES) {
 
     const filePath = assetRouteToFilePath(route.assetPath);
     const html = await readFile(filePath, 'utf8');
@@ -160,7 +159,7 @@ async function loadWritingBackedCanonicalPosts() {
 
     const publishedDate = new Date(published);
     if (!Number.isFinite(publishedDate.getTime())) {
-      throw new Error(`Invalid datePublished for ${route.slug}: ${published}`);
+      throw new Error(`Invalid datePublished for ${route.publicPath.split('/').pop()}: ${published}`);
     }
 
     posts.push({
