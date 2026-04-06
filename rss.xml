@@ -14,269 +14,276 @@
       <pubDate>Sun, 05 Apr 2026 12:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>Test-Driven AI Development: Bringing Determinism to Probabilistic Systems</title>
+      <link>https://www.myrobertson.com/blog/test-driven-ai-development</link>
+      <description>How to implement TDD for AI systems using deterministic contracts, semantic assertions, behavioral evaluations, and locked regression datasets.</description>
+      <guid>https://www.myrobertson.com/blog/test-driven-ai-development</guid>
+      <pubDate>Sun, 05 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Designing Search Systems for Decades of Police Records</title>
-      <link>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html</link>
+      <link>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records</link>
       <description>How to design a search system for decades of police records spanning structured data, XML, JSON, scanned documents, and handwritten notes. A practical engineering analysis of Solr vs Elasticsearch, hybrid retrieval, AI ranking, agents, and MCP.</description>
-      <guid>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records.html</guid>
+      <guid>https://www.myrobertson.com/blog/designing-search-systems-for-decades-of-police-records</guid>
       <pubDate>Sat, 04 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>A Practical Playbook for AI-Assisted Coding Interviews</title>
-      <link>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</link>
+      <link>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews</link>
       <description>A tactical field manual for AI-assisted coding interviews: frame first, design first, generate selectively, verify deeply, simplify, and own the final answer.</description>
-      <guid>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html</guid>
+      <guid>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Coding Interviews in the AI Era</title>
-      <link>https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html</link>
+      <link>https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era</link>
       <description>A practical series on AI-assisted coding interviews focused on engineering judgment, ownership, verification, tradeoffs, and production accountability for experienced engineers.</description>
-      <guid>https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html</guid>
+      <guid>https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</title>
-      <link>https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html</link>
+      <link>https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower</link>
       <description>AI-assisted coding interviews are changing the mechanics, but accountability remains with the engineer. Why experienced candidates are often held to a higher bar.</description>
-      <guid>https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html</guid>
+      <guid>https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>How Candidates Fail AI-Assisted Coding Interviews</title>
-      <link>https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html</link>
+      <link>https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews</link>
       <description>AI creates new ways to fail visibly in coding interviews. A practical failure-mode breakdown and self-audit checklist for strong candidates.</description>
-      <guid>https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews.html</guid>
+      <guid>https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>How Companies Should Evaluate Candidates When AI Is Allowed</title>
-      <link>https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html</link>
+      <link>https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed</link>
       <description>Interview design guidance for companies allowing AI: evaluate reasoning, direction, verification, communication, and ownership rather than output volume.</description>
-      <guid>https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html</guid>
+      <guid>https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</title>
-      <link>https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html</link>
+      <link>https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews</link>
       <description>A deep dive on what interviewers evaluate when AI is allowed: framing, constraints, verification, simplification, tradeoff reasoning, communication, and ownership.</description>
-      <guid>https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews</title>
-      <link>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html</link>
+      <link>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews</link>
       <description>How strong senior engineers differentiate in AI-assisted coding interviews through framing speed, simplification, risk awareness, and ownership.</description>
-      <guid>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>You Still Own Every Line: Accountability in AI-Assisted Coding Interviews</title>
-      <link>https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html</link>
+      <link>https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews</link>
       <description>AI assistance does not transfer responsibility. Why ownership, reviewability, and correctness remain the core signal in coding interviews and production engineering.</description>
-      <guid>https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews.html</guid>
+      <guid>https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews</guid>
       <pubDate>Fri, 03 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Admission Control in Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/admission-control-in-distributed-systems</link>
       <description>How admission control protects distributed systems by deciding what work can safely enter under real capacity, priority, and overload constraints.</description>
-      <guid>https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/admission-control-in-distributed-systems</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Circuit Breakers in Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems</link>
       <description>How circuit breakers contain dependency failure, fail fast, and protect retries, thread pools, and connection budgets in distributed systems.</description>
-      <guid>https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>End-to-End Overload Control in Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems</link>
       <description>How admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation work together to keep distributed systems stable under real-world load.</description>
-      <guid>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Graceful Degradation in Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems</link>
       <description>How graceful degradation preserves essential service behavior by reducing non-critical quality or scope during overload and dependency failure.</description>
-      <guid>https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Load Shedding in Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/load-shedding-in-distributed-systems</link>
       <description>How load shedding intentionally rejects, drops, defers, or downgrades work to preserve core paths when distributed systems exceed capacity.</description>
-      <guid>https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/load-shedding-in-distributed-systems</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Queue Design Under Load</title>
-      <link>https://www.myrobertson.com/blog/queue-design-under-load.html</link>
+      <link>https://www.myrobertson.com/blog/queue-design-under-load</link>
       <description>How to design queues for overload: bounded queues, worker limits, fairness, queue observability, and explicit backpressure behavior.</description>
-      <guid>https://www.myrobertson.com/blog/queue-design-under-load.html</guid>
+      <guid>https://www.myrobertson.com/blog/queue-design-under-load</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Rate Limiting in Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems</link>
       <description>How rate limiting protects shared capacity, tenant fairness, and overload boundaries in distributed systems before queue growth becomes systemic.</description>
-      <guid>https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Retry Strategies, Retry Storms, and Idempotency</title>
-      <link>https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html</link>
+      <link>https://www.myrobertson.com/blog/retry-strategies-and-idempotency</link>
       <description>How retries and idempotency interact under load: retry budgets, jittered backoff, deadlines, dedupe windows, and safe duplicate handling.</description>
-      <guid>https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html</guid>
+      <guid>https://www.myrobertson.com/blog/retry-strategies-and-idempotency</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Why Systems Fail Under Load, Not Just Bugs</title>
-      <link>https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html</link>
+      <link>https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs</link>
       <description>Why distributed systems fail under load: backlog growth, retry amplification, dependency saturation, and the controls that preserve stability.</description>
-      <guid>https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html</guid>
+      <guid>https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs</guid>
       <pubDate>Thu, 02 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Reviewing AI-Generated Pull Requests: Reliability, Risk, and the Human Bottleneck</title>
-      <link>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html</link>
+      <link>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk</link>
       <description>AI can generate code faster than teams can safely review it. This creates a new reliability problem in software delivery, one that staff+ engineers must actively design for.</description>
-      <guid>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk.html</guid>
+      <guid>https://www.myrobertson.com/blog/reviewing-ai-generated-pull-requests-reliability-risk</guid>
       <pubDate>Wed, 01 Apr 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>How I Built the AskRich Chatbot for Technical Screening</title>
-      <link>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</link>
+      <link>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening</link>
       <description>A practical breakdown of how AskRich works: recruiter-focused prompts, citation-backed answers, API integration, and deployment decisions.</description>
-      <guid>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening.html</guid>
+      <guid>https://www.myrobertson.com/blog/how-i-built-the-askrich-chatbot-for-technical-screening</guid>
       <pubDate>Sun, 29 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What It Took to Modernize a Legacy Service Across 32 Global Regions</title>
-      <link>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html</link>
+      <link>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions</link>
       <description>A practical engineering breakdown of modernizing a legacy backend service across 32 global regions with reliability, rollout safety, and operational continuity.</description>
-      <guid>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions</guid>
       <pubDate>Sat, 28 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Is Eventual Consistency? (Explained Simply)</title>
-      <link>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</link>
+      <link>https://www.myrobertson.com/blog/what-is-eventual-consistency</link>
       <description>A simple explanation of eventual consistency: what it means, why distributed systems use it, and how it differs from strong consistency.</description>
-      <guid>https://www.myrobertson.com/blog/what-is-eventual-consistency.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-is-eventual-consistency</guid>
       <pubDate>Sun, 22 Mar 2026 18:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Is the CAP Theorem? (Explained Simply)</title>
-      <link>https://www.myrobertson.com/blog/what-is-the-cap-theorem.html</link>
+      <link>https://www.myrobertson.com/blog/what-is-the-cap-theorem</link>
       <description>A simple explanation of the CAP theorem: consistency, availability, partition tolerance, and how distributed systems navigate the trade-offs between them.</description>
-      <guid>https://www.myrobertson.com/blog/what-is-the-cap-theorem.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-is-the-cap-theorem</guid>
       <pubDate>Sun, 22 Mar 2026 17:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Is Idempotency? (And Why It Matters in Distributed Systems)</title>
-      <link>https://www.myrobertson.com/blog/what-is-idempotency.html</link>
+      <link>https://www.myrobertson.com/blog/what-is-idempotency</link>
       <description>A simple explanation of idempotency: what it means, why retries require it, and how to design idempotent APIs and distributed operations.</description>
-      <guid>https://www.myrobertson.com/blog/what-is-idempotency.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-is-idempotency</guid>
       <pubDate>Sun, 22 Mar 2026 16:00:00 GMT</pubDate>
     </item>
     <item>
       <title>API Backpressure Explained Simply</title>
-      <link>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</link>
+      <link>https://www.myrobertson.com/blog/api-backpressure-explained-simply</link>
       <description>A simple guide to API backpressure: what it is, why rate limiting is not enough, and how systems stay stable under load.</description>
-      <guid>https://www.myrobertson.com/blog/api-backpressure-explained-simply.html</guid>
+      <guid>https://www.myrobertson.com/blog/api-backpressure-explained-simply</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Designing a Correct Distributed Lease Service: Tenure on Raft</title>
-      <link>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</link>
+      <link>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft</link>
       <description>A distributed systems deep dive on building a correct lease service with Raft, leader-based time authority, fencing tokens, and failure handling.</description>
-      <guid>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html</guid>
+      <guid>https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Distributed Systems Interview Guide</title>
-      <link>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</link>
+      <link>https://www.myrobertson.com/blog/distributed-systems-interview-guide</link>
       <description>A practical distributed systems interview guide covering the concepts, trade-offs, and examples worth studying before senior backend and platform engineering interviews.</description>
-      <guid>https://www.myrobertson.com/blog/distributed-systems-interview-guide.html</guid>
+      <guid>https://www.myrobertson.com/blog/distributed-systems-interview-guide</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Raft vs Paxos vs EPaxos: A Practical Guide</title>
-      <link>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</link>
+      <link>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide</link>
       <description>A practical comparison of Raft, Paxos, and EPaxos: where each fits, trade-offs in complexity and latency, and how to choose for production systems.</description>
-      <guid>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide.html</guid>
+      <guid>https://www.myrobertson.com/blog/raft-vs-paxos-vs-epaxos-practical-guide</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Is a Control Plane?</title>
-      <link>https://www.myrobertson.com/blog/what-is-a-control-plane.html</link>
+      <link>https://www.myrobertson.com/blog/what-is-a-control-plane</link>
       <description>A simple explanation of what a control plane is, how it differs from a data plane, and why cloud platforms rely on control-plane systems.</description>
-      <guid>https://www.myrobertson.com/blog/what-is-a-control-plane.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-is-a-control-plane</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>What Is a Distributed Lock? (With Examples)</title>
-      <link>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</link>
+      <link>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples</link>
       <description>A correctness-first explanation of distributed locks, leases, stale-writer problems, fencing tokens, and when to use Redis, ZooKeeper, or etcd.</description>
-      <guid>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples.html</guid>
+      <guid>https://www.myrobertson.com/blog/what-is-a-distributed-lock-with-examples</guid>
       <pubDate>Sun, 22 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Polyglot Architectures: A Case for Functional Languages in Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems</link>
       <description>A distributed systems architecture analysis of where functional languages fit alongside object-oriented platforms in backend and cloud systems.</description>
-      <guid>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/polyglot-functional-languages-distributed-systems</guid>
       <pubDate>Thu, 19 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Programming Language Selection in Distributed Systems: A Strategic, Long-Term Perspective</title>
-      <link>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html</link>
+      <link>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective</link>
       <description>A comparative analysis of Go, Rust, Java, and Python for distributed systems through the lens of concurrency, memory safety, tail-latency behavior, workload fit, and architectural cost placement.</description>
-      <guid>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective.html</guid>
+      <guid>https://www.myrobertson.com/blog/programming-language-selection-in-distributed-systems-a-strategic-long-term-perspective</guid>
       <pubDate>Thu, 19 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Designing Backpressure in GraphQL Using CDN Latency Signals</title>
-      <link>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</link>
+      <link>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency</link>
       <description>Using CDN latency signals to implement adaptive backpressure in GraphQL systems and maintain stability under adversarial load.</description>
-      <guid>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency.html</guid>
+      <guid>https://www.myrobertson.com/blog/designing-backpressure-graphql-cdn-latency</guid>
       <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Latency-Aware Backpressure with Server-Timing in CDN-Fronted Distributed Systems</title>
-      <link>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems</link>
       <description>An analysis of how Server-Timing and CDN edge timing can improve backpressure decisions through latency attribution, even when full distributed tracing is unavailable.</description>
-      <guid>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/latency-aware-backpressure-with-server-timing-in-cdn-fronted-distributed-systems</guid>
       <pubDate>Wed, 18 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</title>
-      <link>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</link>
+      <link>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems</link>
       <description>A distributed systems deep dive on backpressure, admission control, bounded queues, adaptive concurrency, and graceful degradation in backend services.</description>
-      <guid>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html</guid>
+      <guid>https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems</guid>
       <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Why a Three-Node Kafka Cluster Is Often Preferable to a Five-Node Cluster</title>
-      <link>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</link>
+      <link>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters</link>
       <description>A distributed-systems analysis of why three-node Kafka clusters are often preferable to five-node deployments under common replication and acknowledgment configurations.</description>
-      <guid>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters.html</guid>
+      <guid>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters</guid>
       <pubDate>Tue, 17 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Architecting a Multitenant Control Plane for a Next-Generation Data Tier</title>
-      <link>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</link>
+      <link>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier</link>
       <description>A cloud architecture deep dive on multitenant control planes, durable command queues, workflow orchestration, distributed workers, and tenant isolation.</description>
-      <guid>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html</guid>
+      <guid>https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier</guid>
       <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
       <title>Kafka at Hyperscale</title>
-      <link>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</link>
+      <link>https://www.myrobertson.com/blog/kafka-at-hyperscale</link>
       <description>An analysis of why partition-centric streaming systems encounter coordination, rebalancing, storage-compute coupling, and workflow-orchestration limits at hyperscale.</description>
-      <guid>https://www.myrobertson.com/blog/kafka-at-hyperscale.html</guid>
+      <guid>https://www.myrobertson.com/blog/kafka-at-hyperscale</guid>
       <pubDate>Sun, 01 Mar 2026 00:00:00 GMT</pubDate>
     </item>
   </channel>

@@ -6,11 +6,11 @@
     <title>End-to-End Overload Control in Distributed Systems | Rich Robertson</title>
     <meta name="description" content="How admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation work together to keep distributed systems stable under real-world load." />
     <meta name="robots" content="index,follow" />
-    <link rel="canonical" href="https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="End-to-End Overload Control in Distributed Systems | Rich Robertson" />
     <meta property="og:description" content="A system-level model for overload control across admission, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation." />
-    <meta property="og:url" content="https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html" />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="End-to-End Overload Control in Distributed Systems" />
@@ -38,14 +38,14 @@
           },
           {
             "@type": "Article",
-            "@id": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html#main",
+            "@id": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems#main",
             "headline": "End-to-End Overload Control in Distributed Systems",
             "author": { "@id": "https://www.myrobertson.com/#person-rich-robertson" },
             "datePublished": "2026-04-02",
             "dateModified": "2026-04-02",
             "description": "How admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation work together to keep distributed systems stable under real-world load.",
-            "mainEntityOfPage": { "@id": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html" },
-            "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html",
+            "mainEntityOfPage": { "@id": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems" },
+            "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems",
             "inLanguage": "en",
             "keywords": ["distributed systems", "overload control", "admission control", "rate limiting", "backpressure", "circuit breakers", "load shedding", "graceful degradation"],
             "isPartOf": { "@id": "https://www.myrobertson.com/#website" }
@@ -56,7 +56,7 @@
               { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
               { "@type": "ListItem", "position": 2, "name": "Blog",
               "item": "https://www.myrobertson.com/blog/" },
-              { "@type": "ListItem", "position": 3, "name": "End-to-End Overload Control in Distributed Systems", "item": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html" }
+              { "@type": "ListItem", "position": 3, "name": "End-to-End Overload Control in Distributed Systems", "item": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems" }
             ]
           }
         ]
@@ -106,12 +106,12 @@
         <h2>The Control Points (Deep Dive Overview)</h2>
         <p><strong>Summary:</strong> Each mechanism protects a different failure boundary; together they form one reliability control surface.</p>
         <ul>
-          <li><strong><a href="/blog/admission-control-in-distributed-systems.html">Admission Control</a>:</strong> Protects intake boundaries; operates at system entry and queue edges; prevents unsafe work from entering.</li>
-          <li><strong><a href="/blog/rate-limiting-in-distributed-systems.html">Rate Limiting</a>:</strong> Protects fairness and burst behavior; operates at ingress identity scopes (tenant/client/route); stabilizes arrival patterns.</li>
-          <li><strong><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure</a>:</strong> Protects downstream drain capacity; operates between producers and consumers; prevents unbounded in-flight growth.</li>
-          <li><strong><a href="/blog/circuit-breakers-in-distributed-systems.html">Circuit Breakers</a>:</strong> Protects dependency-facing concurrency budgets; operates on remote call edges; fails fast when dependencies are unhealthy.</li>
-          <li><strong><a href="/blog/load-shedding-in-distributed-systems.html">Load Shedding</a>:</strong> Protects critical-path resources during active overload; operates in workers, queues, and fan-out branches; drops lower-value work intentionally.</li>
-          <li><strong><a href="/blog/graceful-degradation-in-distributed-systems.html">Graceful Degradation</a>:</strong> Protects user-visible continuity; operates at product/service mode boundaries; preserves core outcomes while reducing optional behavior.</li>
+          <li><strong><a href="/blog/admission-control-in-distributed-systems">Admission Control</a>:</strong> Protects intake boundaries; operates at system entry and queue edges; prevents unsafe work from entering.</li>
+          <li><strong><a href="/blog/rate-limiting-in-distributed-systems">Rate Limiting</a>:</strong> Protects fairness and burst behavior; operates at ingress identity scopes (tenant/client/route); stabilizes arrival patterns.</li>
+          <li><strong><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure</a>:</strong> Protects downstream drain capacity; operates between producers and consumers; prevents unbounded in-flight growth.</li>
+          <li><strong><a href="/blog/circuit-breakers-in-distributed-systems">Circuit Breakers</a>:</strong> Protects dependency-facing concurrency budgets; operates on remote call edges; fails fast when dependencies are unhealthy.</li>
+          <li><strong><a href="/blog/load-shedding-in-distributed-systems">Load Shedding</a>:</strong> Protects critical-path resources during active overload; operates in workers, queues, and fan-out branches; drops lower-value work intentionally.</li>
+          <li><strong><a href="/blog/graceful-degradation-in-distributed-systems">Graceful Degradation</a>:</strong> Protects user-visible continuity; operates at product/service mode boundaries; preserves core outcomes while reducing optional behavior.</li>
         </ul>
       </section>
 
@@ -182,12 +182,12 @@
       <section class="section related-concepts">
         <h2>Related Concepts</h2>
         <ul>
-          <li><a href="/blog/admission-control-in-distributed-systems.html">Admission Control in Distributed Systems</a></li>
-          <li><a href="/blog/rate-limiting-in-distributed-systems.html">Rate Limiting in Distributed Systems</a></li>
-          <li><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a></li>
-          <li><a href="/blog/circuit-breakers-in-distributed-systems.html">Circuit Breakers in Distributed Systems</a></li>
-          <li><a href="/blog/load-shedding-in-distributed-systems.html">Load Shedding in Distributed Systems</a></li>
-          <li><a href="/blog/graceful-degradation-in-distributed-systems.html">Graceful Degradation in Distributed Systems</a></li>
+          <li><a href="/blog/admission-control-in-distributed-systems">Admission Control in Distributed Systems</a></li>
+          <li><a href="/blog/rate-limiting-in-distributed-systems">Rate Limiting in Distributed Systems</a></li>
+          <li><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems</a></li>
+          <li><a href="/blog/circuit-breakers-in-distributed-systems">Circuit Breakers in Distributed Systems</a></li>
+          <li><a href="/blog/load-shedding-in-distributed-systems">Load Shedding in Distributed Systems</a></li>
+          <li><a href="/blog/graceful-degradation-in-distributed-systems">Graceful Degradation in Distributed Systems</a></li>
           <li><a href="/blog/">Distributed Systems Writing</a></li>
           <li><a href="/distributed-systems/">Distributed systems hub</a></li>
           <li><a href="/case-studies/oracle-cns-oci-migration/">OCI migration case study</a></li>

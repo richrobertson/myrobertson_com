@@ -1,8 +1,8 @@
 (function () {
   const navItems = [
     { label: "Home", href: "/", key: "home" },
-    { label: "Ask Rich", href: "/ask-rich.html", key: "ask-rich" },
-    { label: "Career Arc", href: "/career-arc.html", key: "career-arc" },
+    { label: "Ask Rich", href: "/ask-rich", key: "ask-rich" },
+    { label: "Career Arc", href: "/career-arc", key: "career-arc" },
     { label: "Case Studies", href: "/case-studies/", key: "case-studies" },
     { label: "Writing", href: "/blog/", key: "writing" },
     { label: "Experience", href: "/#experience", key: "experience" },
@@ -13,8 +13,8 @@
   function getPageKey() {
     // Keep nav highlighting consistent across landing pages and nested content routes.
     const path = window.location.pathname;
-    if (path === '/ask-rich.html') return 'ask-rich';
-    if (path === '/career-arc.html') return 'career-arc';
+    if (path === '/ask-rich') return 'ask-rich';
+    if (path === '/career-arc') return 'career-arc';
     if (path.startsWith('/case-studies/')) return 'case-studies';
     if (path.startsWith('/writing/') || path.startsWith('/blog/')) return 'writing';
     return document.body.dataset.page || 'home';
@@ -75,10 +75,10 @@
           <a href="/">Home</a> ·
           <a href="/blog/">Blog</a> ·
           <a href="/case-studies/">Case Studies</a> ·
-          <a href="/career-arc.html">Career Arc</a> ·
-          <a href="/ask-rich.html">Ask Rich</a> ·
-          <a href="/distributed-systems-engineer.html">Distributed Systems Engineer</a> ·
-          <a href="/cloud-platform-engineer.html">Cloud Platform Engineer</a>
+          <a href="/career-arc">Career Arc</a> ·
+          <a href="/ask-rich">Ask Rich</a> ·
+          <a href="/distributed-systems-engineer">Distributed Systems Engineer</a> ·
+          <a href="/cloud-platform-engineer">Cloud Platform Engineer</a>
         </p>
         <p>
           <a href="https://www.linkedin.com/in/royrobertson/" target="_blank" rel="noopener noreferrer">LinkedIn</a> ·

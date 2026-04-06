@@ -143,7 +143,7 @@
         <p class="intro">
           I design and ship production backend systems where migration risk, reliability, and operability determine business outcomes, drawing on a longer career that started in .NET delivery, ALM, and application modernization.
         </p>
-        <p class="section-intro">The site is weighted toward current distributed-systems and platform work, with a separate <a href="/career-arc.html">career arc page</a> for the earlier foundation.</p>
+        <p class="section-intro">The site is weighted toward current distributed-systems and platform work, with a separate <a href="/career-arc">career arc page</a> for the earlier foundation.</p>
         <p class="section-intro">Flagship delivery artifact: <a href="/case-studies/oracle-cns-oci-migration/">Oracle Customer Notification Service migration to OCI across 32 global data centers</a>.</p>
         <p class="memorable-line">I design backend systems that stay reliable under real-world constraints.</p>
 
@@ -160,8 +160,8 @@
         <div class="hero-actions">
           <a class="btn primary" href="#contact">Work With Me</a>
           <a class="btn secondary" href="#case-oci">View Flagship System</a>
-          <a class="btn secondary" href="/ask-rich.html">Ask Rich</a>
-          <a class="btn tertiary" href="/career-arc.html">View Career Arc</a>
+          <a class="btn secondary" href="/ask-rich">Ask Rich</a>
+          <a class="btn tertiary" href="/career-arc">View Career Arc</a>
           <a class="btn tertiary" href="/distributed-systems/">Distributed Systems Map</a>
           <a class="btn tertiary" href="/blog/">Read Technical Writing</a>
         </div>
@@ -172,7 +172,7 @@
       <nav class="scan-nav" aria-label="Quick portfolio navigation">
         <a href="#signature-impact">Systems at Scale</a>
         <a href="#case-studies">Case Studies</a>
-        <a href="/career-arc.html">Career Arc</a>
+        <a href="/career-arc">Career Arc</a>
         <a href="#delivery-artifacts">How I Think</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -203,9 +203,9 @@
         <h2 class="section-subhead">Reliability Cluster Reading</h2>
         <p class="section-intro">Three essays that anchor failure dynamics and overload control:</p>
         <ul>
-          <li><a href="/blog/why-systems-fail-under-load-not-just-bugs.html">Why Systems Fail Under Load, Not Just Bugs</a> — Conceptual foundation for understanding amplification loops and cascading failures.</li>
-          <li><a href="/blog/retry-strategies-and-idempotency.html">Retry Strategies and Idempotency</a> — How retries amplify load and what idempotency semantics actually buy you.</li>
-          <li><a href="/blog/queue-design-under-load.html">Queue Design Under Load</a> — Why bounded queues and rejection policy matter more than queue depth.</li>
+          <li><a href="/blog/why-systems-fail-under-load-not-just-bugs">Why Systems Fail Under Load, Not Just Bugs</a> — Conceptual foundation for understanding amplification loops and cascading failures.</li>
+          <li><a href="/blog/retry-strategies-and-idempotency">Retry Strategies and Idempotency</a> — How retries amplify load and what idempotency semantics actually buy you.</li>
+          <li><a href="/blog/queue-design-under-load">Queue Design Under Load</a> — Why bounded queues and rejection policy matter more than queue depth.</li>
         </ul>
       </section>
 
@@ -270,12 +270,12 @@
               <div><h4>Why this mattered</h4><p>Migration quality directly influenced customer confidence and enterprise delivery readiness.</p></div>
               <div><h4>Core problem</h4><p>Legacy pathways constrained elasticity, supportability, and controlled rollout operations.</p></div>
               <div><h4>My role</h4><p>Led migration execution and backend implementation planning across the service transition.</p></div>
-              <div><h4>Key engineering decisions</h4><ul><li>Controlled traffic shifts instead of all-at-once cutover</li><li>Queueing and worker isolation to reduce overload amplification</li><li>Observability-first rollout with explicit metrics checkpoints</li><li>See: <a href="/blog/backpressure-stability-correctness-distributed-systems.html" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
+              <div><h4>Key engineering decisions</h4><ul><li>Controlled traffic shifts instead of all-at-once cutover</li><li>Queueing and worker isolation to reduce overload amplification</li><li>Observability-first rollout with explicit metrics checkpoints</li><li>See: <a href="/blog/backpressure-stability-correctness-distributed-systems" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li></ul></div>
               <div><h4>Tradeoffs</h4><p>Balanced migration speed against operational safety and support continuity.</p></div>
               <div><h4>How I think about failure</h4><p>Traffic shifting and migration can expose hidden failure paths; bounded transitions and observability reduce cascading risk.</p></div>
               <div><h4>Outcome</h4><p>Improved supportability and delivery stability while supporting a <strong>$2M enterprise deal</strong>.</p></div>
             </div>
-            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="/blog/backpressure-stability-correctness-distributed-systems.html" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</span></p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="/blog/backpressure-stability-correctness-distributed-systems" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Explores admission control, bounded queues, and graceful degradation patterns that help keep distributed systems stable under load.</span></p>
           </article>
 
           <article id="case-control-plane" class="project case-study">
@@ -299,7 +299,7 @@
             </figure>
             <div class="proof-strip"><span class="chip">Shared Java framework</span><span class="chip">Durable command execution</span><span class="chip">Partition-aware workers</span></div>
             <p class="why-line"><strong>Why this matters:</strong> teams shipped faster without duplicating orchestration infrastructure.</p>
-            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="/blog/backpressure-stability-correctness-distributed-systems.html" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
+            <p class="related-thinking"><strong>Related Thinking:</strong> <a href="/blog/backpressure-stability-correctness-distributed-systems" target="_blank" rel="noopener noreferrer">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a><br /><span>Shows the failure-control model used to keep distributed execution stable during overload and partial failure.</span></p>
             <div class="case-study-grid">
               <div><h4>Context</h4><p>Multitenant control-plane environment with multiple services needing durable orchestration.</p></div><div><h4>Problem</h4><p>Teams needed safe distributed workflow execution without rebuilding infrastructure repeatedly.</p></div><div><h4>My role</h4><p>Architected and built the shared framework.</p></div>
               <div><h4>Operational / business result</h4><p>Standardized control-plane execution and reduced duplicated effort.</p></div>
@@ -355,9 +355,9 @@
         <h2>How I Think (Writing) vs What I’ve Built (Case Studies)</h2>
         <p class="section-intro">These essays reflect how I design systems. The case studies show what I’ve shipped.</p>
         <div class="grid">
-          <article class="project"><h3><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html">Designing a Correct Distributed Lease Service: Tenure on Raft</a></h3><p>Correctness model for lease semantics, fencing tokens, and failure handling in distributed coordination.</p><span>Reasoning Artifact • Correctness Engineering</span></article>
-          <article class="project"><h3><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane</a></h3><p>Architecture framework behind durable command execution and control-plane workflow systems.</p><span>Reasoning Artifact • Platform Architecture</span></article>
-          <article class="project"><h3><a href="/blog/backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a></h3><p>Operational stability approach for admission control, bounded queues, and graceful degradation.</p><span>Reasoning Artifact • Reliability Strategy</span></article>
+          <article class="project"><h3><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Designing a Correct Distributed Lease Service: Tenure on Raft</a></h3><p>Correctness model for lease semantics, fencing tokens, and failure handling in distributed coordination.</p><span>Reasoning Artifact • Correctness Engineering</span></article>
+          <article class="project"><h3><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Architecting a Multitenant Control Plane</a></h3><p>Architecture framework behind durable command execution and control-plane workflow systems.</p><span>Reasoning Artifact • Platform Architecture</span></article>
+          <article class="project"><h3><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems</a></h3><p>Operational stability approach for admission control, bounded queues, and graceful degradation.</p><span>Reasoning Artifact • Reliability Strategy</span></article>
         </div>
       </section>
 
@@ -367,9 +367,9 @@
           AI-assisted coding interviews are changing format, but not accountability. This series stays focused on engineering judgment, verification discipline, ownership, and the higher-signal behaviors experienced engineers are actually being measured on.
         </p>
         <div class="grid">
-          <article class="project"><h3><a href="/blog/coding-interviews-in-the-ai-era.html">Coding Interviews in the AI Era</a></h3><p>Series hub and reading path connecting thesis, signal model, practical operating guidance, and interviewer-side evaluation.</p><span>Series Hub • Interviews • Engineering Judgment</span></article>
-          <article class="project"><h3><a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a></h3><p>Flagship thesis: AI changes mechanics, not responsibility, and often raises the premium on reasoning quality.</p><span>Flagship • AI-Assisted Interviews</span></article>
-          <article class="project"><h3><a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a></h3><p>Definitive deep dive on framing, constraints, verification, simplification, tradeoff clarity, and ownership under AI-assisted conditions.</p><span>Deep Dive • Experienced Engineers</span></article>
+          <article class="project"><h3><a href="/blog/coding-interviews-in-the-ai-era">Coding Interviews in the AI Era</a></h3><p>Series hub and reading path connecting thesis, signal model, practical operating guidance, and interviewer-side evaluation.</p><span>Series Hub • Interviews • Engineering Judgment</span></article>
+          <article class="project"><h3><a href="/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower">Coding With AI in Interviews: Why the Bar Is Higher, Not Lower</a></h3><p>Flagship thesis: AI changes mechanics, not responsibility, and often raises the premium on reasoning quality.</p><span>Flagship • AI-Assisted Interviews</span></article>
+          <article class="project"><h3><a href="/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews">What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews</a></h3><p>Definitive deep dive on framing, constraints, verification, simplification, tradeoff clarity, and ownership under AI-assisted conditions.</p><span>Deep Dive • Experienced Engineers</span></article>
         </div>
       </section>
 

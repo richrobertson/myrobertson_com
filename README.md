@@ -45,7 +45,7 @@ Then open <http://localhost:4173>.
 
 ## Ask Rich integration
 
-- Dedicated route: `/ask-rich.html`
+- Dedicated route: `/ask-rich`
 - Default API base: `https://api.myrobertson.com`
 - API base override is available through Ask Rich settings for staging validation
 - Production host hides advanced API settings in the UI automatically
@@ -72,6 +72,20 @@ Regenerate RSS after publishing or changing blog posts:
 
 ```bash
 node scripts/generate-rss.mjs
+```
+
+
+### Canonical URL and discovery policy
+
+- Canonical origin is `https://www.myrobertson.com`.
+- Canonical blog/article URLs are extensionless (`/blog/<slug>`).
+- Legacy `.html` article URLs and `/writing/*` aliases are permanently redirected.
+- Maintainer policy and validation flow live in `docs/seo-canonicalization.md`.
+
+Run canonicalization validation:
+
+```bash
+node scripts/validate-canonicalization.mjs
 ```
 
 ### Sitemap and robots

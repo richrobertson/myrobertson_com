@@ -1,3 +1,4 @@
+# Public crawl policy for canonical discovery surfaces.
 User-agent: *
 Allow: /
 Allow: /llms.txt
