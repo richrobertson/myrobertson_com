@@ -6,7 +6,7 @@ Static-first personal site for <https://www.myrobertson.com> with long-form writ
 
 - Primary static routes are top-level HTML pages plus directory index routes.
 - Blog posts are standalone HTML files under `blog/`.
-- Writing and case studies are grouped under `writing/` and `case-studies/`.
+- Case studies are grouped under `case-studies/`; historical writing assets remain under `writing/` as backing files for canonical `/blog/*` routes and legacy redirects.
 - Shared UI behavior and nav logic live in small vanilla JS files (`nav.js`, `script.js`, `blog/blog.js`, `ask-rich.js`).
 - Global styling lives in `styles.css`.
 - Runtime widget script for Ask Rich lives in `static/askrich-widget.js`.
@@ -53,7 +53,7 @@ Then open <http://localhost:4173>.
 ## Content and publishing model
 
 - Blog entry pages: `blog/*.html`.
-- Writing hubs and article pages: `writing/**/index.html`.
+- Legacy writing assets: `writing/**/index.html` (redirect inputs + canonical blog backing assets, not public archive destinations).
 - Case-study pages: `case-studies/**/index.html`.
 - Indexability and publication intent are centrally tracked in `content/content-model.js` and reinforced by page-level canonical and robots tags.
 
@@ -79,7 +79,7 @@ node scripts/generate-rss.mjs
 
 - Canonical origin is `https://www.myrobertson.com`.
 - Canonical blog/article URLs are extensionless (`/blog/<slug>`).
-- Legacy `.html` article URLs and `/writing/*` aliases are permanently redirected.
+- Legacy `.html` article URLs and `/writing/*` aliases are permanently redirected, with `/writing` archive routes retired to `/blog/`.
 - Maintainer policy and validation flow live in `docs/seo-canonicalization.md`.
 
 Run canonicalization validation:

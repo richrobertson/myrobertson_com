@@ -5,7 +5,10 @@
 - Canonical origin is `https://www.myrobertson.com`.
 - Public article URLs are extensionless (`/blog/<slug>`).
 - Legacy `.html` article URLs and legacy `/writing/*` aliases are permanent redirects to canonical blog URLs.
-- `/writing/` is retired as an archive surface and permanently redirects to `/blog/`.
+- `/writing` archive routes are retired:
+  - `/writing`, `/writing/`, `/writing/index.html` -> `301 /blog/`
+  - known historical `/writing/<slug>` aliases -> exact canonical `/blog/<slug>`
+  - unknown retired `/writing/*` paths -> `301 /blog/`
 
 ## Machine-readable surfaces
 
@@ -18,8 +21,15 @@ The following files must contain canonical URLs only:
 
 ## Redirect and routing source of truth
 
-- `content/article-routing.mjs` defines legacy writing aliases and canonical blog path logic.
-- `worker.js` enforces host/protocol normalization and permanent redirects for legacy paths.
+- `content/article-routing.mjs` is route authority for canonical article paths, legacy writing aliases, retired writing archive detection, and canonical-to-asset mapping.
+- `worker.js` enforces redirect ordering:
+  1. canonical protocol/host
+  2. exact known legacy deep-link aliases
+  3. top-level `.html` -> extensionless profile routes
+  4. `/blog/*.html` -> extensionless canonical blog routes
+  5. retired `/writing` archive redirects
+  6. unknown `/writing/*` fallback to `/blog/`
+  7. canonical route -> asset resolution
 
 ## Validation
 
@@ -27,6 +37,9 @@ Run canonicalization checks from repo root:
 
 ```bash
 node scripts/validate-canonicalization.mjs
+node scripts/assert-route-behavior.mjs
 ```
 
-This validator checks canonical/og:url consistency in HTML, and canonical URL hygiene in `sitemap.xml`, `llms.txt`, and `knowledge.json`.
+`validate-canonicalization.mjs` validates canonical/og:url consistency, retired writing route coverage, route inventory membership for `sitemap.xml` / `knowledge.json` / `llms.txt`, and canonical article asset mapping sanity.
+
+`assert-route-behavior.mjs` is a deterministic route-layer assertion script that exercises worker redirect ordering and canonical asset rewrites without live network checks.

@@ -1,4 +1,9 @@
-import { LEGACY_TO_PUBLIC, getAssetPathForCanonicalPath, normalizePath } from './content/article-routing.mjs';
+import {
+  getAssetPathForCanonicalPath,
+  getLegacyRedirectTarget,
+  isRetiredWritingArchivePath,
+  normalizePath
+} from './content/article-routing.mjs';
 
 const CANONICAL_HOST = 'www.myrobertson.com';
 const CANONICAL_PROTOCOL = 'https:';
@@ -35,36 +40,39 @@ export default {
       return redirectToCanonicalOrigin(url);
     }
 
-
     const extensionlessAliases = new Map([
       ['/ask-rich.html', '/ask-rich'],
       ['/career-arc.html', '/career-arc'],
       ['/distributed-systems-engineer.html', '/distributed-systems-engineer'],
       ['/cloud-platform-engineer.html', '/cloud-platform-engineer']
     ]);
+
+    // Preserve historical article deep-links before any broad /writing retirement fallback.
+    // This keeps intentful legacy URLs mapped to exact canonical article destinations.
+    const legacyTarget = getLegacyRedirectTarget(normalizedPath);
+    if (legacyTarget) {
+      return redirect(url, legacyTarget);
+    }
+
     if (extensionlessAliases.has(url.pathname)) {
       return redirect(url, extensionlessAliases.get(url.pathname));
     }
 
-    if (url.pathname === '/writing' || url.pathname === '/writing/' || url.pathname === '/writing/index.html') {
-      return redirect(url, '/blog/');
+    if (url.pathname.endsWith('.html') && url.pathname.startsWith('/blog/') && url.pathname !== '/blog/index.html') {
+      return redirect(url, url.pathname.slice(0, -'.html'.length));
     }
 
     if (url.pathname === '/blog/index.html') {
       return redirect(url, '/blog/');
     }
 
-    const legacyTarget = LEGACY_TO_PUBLIC.get(normalizedPath);
-    if (legacyTarget) {
-      return redirect(url, legacyTarget);
-    }
-
-    if (url.pathname.startsWith('/writing/')) {
+    if (isRetiredWritingArchivePath(url.pathname)) {
       return redirect(url, '/blog/');
     }
 
-    if (url.pathname.endsWith('.html') && url.pathname.startsWith('/blog/') && url.pathname !== '/blog/index.html') {
-      return redirect(url, url.pathname.slice(0, -'.html'.length));
+    // Unknown /writing/* routes are retired and funnel into /blog/ after exact alias checks above.
+    if (normalizedPath.startsWith('/writing/')) {
+      return redirect(url, '/blog/');
     }
 
     const assetPath = getAssetPathForCanonicalPath(url.pathname);
