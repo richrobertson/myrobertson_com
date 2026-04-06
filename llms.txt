@@ -18,6 +18,8 @@ Distributed systems and reliability: foundation for failure handling, correctnes
 - https://www.myrobertson.com/blog/retry-strategies-and-idempotency
 - https://www.myrobertson.com/blog/queue-design-under-load
 - https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft
+- https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems
+- https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair
 
 Overload control: practical controls for keeping systems stable under stress.
 - https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems
@@ -38,6 +40,9 @@ AI-assisted coding interviews: standards for engineering judgment, verification,
 - https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews
 - https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews
 - https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed
+- https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews
+- https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews
+- https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews
 
 CRDTs and distributed consistency: consistency models, replica merge behavior, and coordination tradeoffs.
 - https://www.myrobertson.com/blog/crdts-explained

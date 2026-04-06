@@ -144,6 +144,18 @@
           "url": "https://www.myrobertson.com/blog/queue-design-under-load",
           "type": "article",
           "summary": "Queueing strategy for bounded latency, rejection policy, and protection under stress."
+        },
+        {
+          "title": "Circuit Breakers in Distributed Systems",
+          "url": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems",
+          "type": "article",
+          "summary": "Failure-isolation pattern for dependency instability and controlled recovery windows."
+        },
+        {
+          "title": "Anti-Entropy, Gossip, and Read Repair",
+          "url": "https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair",
+          "type": "article",
+          "summary": "Replica convergence mechanisms and repair tradeoffs in eventually consistent systems."
         }
       ]
     },
@@ -237,6 +249,30 @@
           "url": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews",
           "type": "article",
           "summary": "Operational interview approach for structure, verification, and communication."
+        },
+        {
+          "title": "How Companies Should Evaluate Candidates When AI Is Allowed",
+          "url": "https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed",
+          "type": "article",
+          "summary": "Interviewer-side rubric for evaluating ownership, verification, and reasoning quality with AI assistance."
+        },
+        {
+          "title": "You Still Own Every Line: Accountability in AI-Assisted Coding Interviews",
+          "url": "https://www.myrobertson.com/blog/you-still-own-every-line-accountability-in-ai-assisted-coding-interviews",
+          "type": "article",
+          "summary": "Clarifies personal accountability standards for code quality and correctness under AI-assisted conditions."
+        },
+        {
+          "title": "How Candidates Fail AI-Assisted Coding Interviews",
+          "url": "https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews",
+          "type": "article",
+          "summary": "Failure-pattern breakdown showing common reasoning and execution mistakes in AI-assisted sessions."
+        },
+        {
+          "title": "What Strong Senior Engineers Do Differently in AI-Assisted Coding Interviews",
+          "url": "https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews",
+          "type": "article",
+          "summary": "Behavioral signal guide for senior-level interview performance with AI in the loop."
         }
       ]
     },
