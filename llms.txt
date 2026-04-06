@@ -7,44 +7,44 @@ Rich Robertson is a senior backend and distributed-systems engineer focused on r
 - https://www.myrobertson.com/blog/
 - https://www.myrobertson.com/case-studies/
 - https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/
-- https://www.myrobertson.com/ask-rich.html
-- https://www.myrobertson.com/career-arc.html
+- https://www.myrobertson.com/ask-rich
+- https://www.myrobertson.com/career-arc
 
 ## Core topics
 Distributed systems and reliability: foundation for failure handling, correctness, and operating resilient backend systems.
 - https://www.myrobertson.com/distributed-systems/
-- https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html
-- https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html
-- https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html
-- https://www.myrobertson.com/blog/queue-design-under-load.html
-- https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft.html
+- https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs
+- https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems
+- https://www.myrobertson.com/blog/retry-strategies-and-idempotency
+- https://www.myrobertson.com/blog/queue-design-under-load
+- https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft
 
 Overload control: practical controls for keeping systems stable under stress.
-- https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html
-- https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html
-- https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html
-- https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html
-- https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems.html
+- https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems
+- https://www.myrobertson.com/blog/admission-control-in-distributed-systems
+- https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems
+- https://www.myrobertson.com/blog/load-shedding-in-distributed-systems
+- https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems
 
 Control planes and multitenant systems: architecture patterns for workflow orchestration and platform control.
-- https://www.myrobertson.com/blog/what-is-a-control-plane.html
-- https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html
+- https://www.myrobertson.com/blog/what-is-a-control-plane
+- https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier
 - https://www.myrobertson.com/case-studies/control-plane-workflow-platform/
 - https://www.myrobertson.com/case-studies/distributed-systems-migration/
 
 AI-assisted coding interviews: standards for engineering judgment, verification, and ownership with AI.
-- https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html
-- https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html
-- https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html
-- https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html
-- https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed.html
+- https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era
+- https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower
+- https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews
+- https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews
+- https://www.myrobertson.com/blog/how-companies-should-evaluate-candidates-when-ai-is-allowed
 
 CRDTs and distributed consistency: consistency models, replica merge behavior, and coordination tradeoffs.
-- https://www.myrobertson.com/blog/crdts-explained.html
+- https://www.myrobertson.com/blog/crdts-explained
 - https://www.myrobertson.com/blog/designing-a-crdt-from-scratch
-- https://www.myrobertson.com/blog/vector-clocks-vs-timestamps.html
-- https://www.myrobertson.com/blog/causal-consistency-explained.html
-- https://www.myrobertson.com/blog/strong-consistency-vs-eventual-consistency.html
+- https://www.myrobertson.com/blog/vector-clocks-vs-timestamps
+- https://www.myrobertson.com/blog/causal-consistency-explained
+- https://www.myrobertson.com/blog/strong-consistency-vs-eventual-consistency
 
 Case studies: concrete production outcomes across migration, modernization, and platform delivery.
 - https://www.myrobertson.com/case-studies/
@@ -54,18 +54,18 @@ Case studies: concrete production outcomes across migration, modernization, and 
 - https://www.myrobertson.com/case-studies/cloud-api-consulting-bridge/
 
 Portfolio and background: experience context and recruiter-oriented navigation.
-- https://www.myrobertson.com/career-arc.html
-- https://www.myrobertson.com/distributed-systems-engineer.html
-- https://www.myrobertson.com/cloud-platform-engineer.html
-- https://www.myrobertson.com/ask-rich.html
+- https://www.myrobertson.com/career-arc
+- https://www.myrobertson.com/distributed-systems-engineer
+- https://www.myrobertson.com/cloud-platform-engineer
+- https://www.myrobertson.com/ask-rich
 
 ## Flagship pages
 - https://www.myrobertson.com/
 - https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/
 - https://www.myrobertson.com/distributed-systems/
-- https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html
-- https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html
-- https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html
+- https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems
+- https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier
+- https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower
 
 ## Retrieval hints
 - Start from hub pages, then drill into linked deep-dive articles.

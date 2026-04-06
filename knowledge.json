@@ -42,13 +42,13 @@
     },
     {
       "title": "Ask Rich",
-      "url": "https://www.myrobertson.com/ask-rich.html",
+      "url": "https://www.myrobertson.com/ask-rich",
       "type": "profile",
       "summary": "Recruiter-oriented Q&A entry point connecting outcomes, architecture decisions, and career context."
     },
     {
       "title": "Career Arc",
-      "url": "https://www.myrobertson.com/career-arc.html",
+      "url": "https://www.myrobertson.com/career-arc",
       "type": "profile",
       "summary": "Chronological experience narrative linking legacy consulting foundations to current distributed systems work."
     }
@@ -66,7 +66,7 @@
     },
     {
       "title": "End-to-End Overload Control in Distributed Systems",
-      "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html",
+      "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems",
       "whyItMatters": "System-level map of admission control, rate limiting, backpressure, circuit breakers, load shedding, and graceful degradation.",
       "topics": [
         "overload control",
@@ -76,7 +76,7 @@
     },
     {
       "title": "Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation",
-      "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems.html",
+      "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems",
       "whyItMatters": "Deep technical anchor on keeping distributed systems stable under bursty demand and partial failure.",
       "topics": [
         "backpressure",
@@ -86,7 +86,7 @@
     },
     {
       "title": "Architecting a Multitenant Control Plane for a Next-Generation Data Tier",
-      "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html",
+      "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier",
       "whyItMatters": "Detailed control-plane architecture reference for multitenant workflow execution and platform design tradeoffs.",
       "topics": [
         "control planes",
@@ -96,7 +96,7 @@
     },
     {
       "title": "Coding With AI in Interviews: Why the Bar Is Higher, Not Lower",
-      "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
+      "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower",
       "whyItMatters": "Flagship framing for AI-assisted interviews focused on ownership, reasoning quality, and verification.",
       "topics": [
         "AI-assisted coding interviews",
@@ -129,19 +129,19 @@
         },
         {
           "title": "Why Systems Fail Under Load, Not Just Bugs",
-          "url": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs.html",
+          "url": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs",
           "type": "article",
           "summary": "Explains failure amplification loops and cascading behavior under load."
         },
         {
           "title": "Retry Strategies and Idempotency",
-          "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency.html",
+          "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency",
           "type": "article",
           "summary": "Practical retry semantics, duplicate suppression, and reliability tradeoffs."
         },
         {
           "title": "Queue Design Under Load",
-          "url": "https://www.myrobertson.com/blog/queue-design-under-load.html",
+          "url": "https://www.myrobertson.com/blog/queue-design-under-load",
           "type": "article",
           "summary": "Queueing strategy for bounded latency, rejection policy, and protection under stress."
         }
@@ -154,25 +154,25 @@
       "pages": [
         {
           "title": "End-to-End Overload Control in Distributed Systems",
-          "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems.html",
+          "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems",
           "type": "article",
           "summary": "Connects all primary overload controls into one operational model."
         },
         {
           "title": "Admission Control in Distributed Systems",
-          "url": "https://www.myrobertson.com/blog/admission-control-in-distributed-systems.html",
+          "url": "https://www.myrobertson.com/blog/admission-control-in-distributed-systems",
           "type": "article",
           "summary": "Front-door capacity boundary decisions for accept, defer, and reject behavior."
         },
         {
           "title": "Rate Limiting in Distributed Systems",
-          "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems.html",
+          "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems",
           "type": "article",
           "summary": "Capacity and fairness controls to prevent uncontrolled throughput spikes."
         },
         {
           "title": "Load Shedding in Distributed Systems",
-          "url": "https://www.myrobertson.com/blog/load-shedding-in-distributed-systems.html",
+          "url": "https://www.myrobertson.com/blog/load-shedding-in-distributed-systems",
           "type": "article",
           "summary": "Selective dropping and degradation strategies to preserve core service behavior."
         }
@@ -185,13 +185,13 @@
       "pages": [
         {
           "title": "What Is a Control Plane?",
-          "url": "https://www.myrobertson.com/blog/what-is-a-control-plane.html",
+          "url": "https://www.myrobertson.com/blog/what-is-a-control-plane",
           "type": "article",
           "summary": "Primer defining control-plane responsibilities and boundaries."
         },
         {
           "title": "Architecting a Multitenant Control Plane for a Next-Generation Data Tier",
-          "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html",
+          "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier",
           "type": "article",
           "summary": "Deep dive on control-plane workflow architecture and multitenancy decisions."
         },
@@ -216,25 +216,25 @@
       "pages": [
         {
           "title": "Coding Interviews in the AI Era",
-          "url": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era.html",
+          "url": "https://www.myrobertson.com/blog/coding-interviews-in-the-ai-era",
           "type": "article",
           "summary": "Series entry point and reading map for AI-assisted interview conditions."
         },
         {
           "title": "Coding With AI in Interviews: Why the Bar Is Higher, Not Lower",
-          "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower.html",
+          "url": "https://www.myrobertson.com/blog/coding-with-ai-in-interviews-why-the-bar-is-higher-not-lower",
           "type": "article",
           "summary": "Thesis article on accountability and higher expectations in AI-assisted coding."
         },
         {
           "title": "What Experienced Engineers Are Actually Being Measured on in AI-Assisted Coding Interviews",
-          "url": "https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews.html",
+          "url": "https://www.myrobertson.com/blog/what-experienced-engineers-are-actually-being-measured-on-in-ai-assisted-coding-interviews",
           "type": "article",
           "summary": "Detailed evaluation model for senior-level interview signal."
         },
         {
           "title": "A Practical Playbook for AI-Assisted Coding Interviews",
-          "url": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews.html",
+          "url": "https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews",
           "type": "article",
           "summary": "Operational interview approach for structure, verification, and communication."
         }
@@ -247,7 +247,7 @@
       "pages": [
         {
           "title": "CRDTs Explained",
-          "url": "https://www.myrobertson.com/blog/crdts-explained.html",
+          "url": "https://www.myrobertson.com/blog/crdts-explained",
           "type": "article",
           "summary": "Foundational overview of conflict-free replicated data types and deterministic merges."
         },
@@ -259,13 +259,13 @@
         },
         {
           "title": "Vector Clocks vs Timestamps",
-          "url": "https://www.myrobertson.com/blog/vector-clocks-vs-timestamps.html",
+          "url": "https://www.myrobertson.com/blog/vector-clocks-vs-timestamps",
           "type": "article",
           "summary": "Compares causal tracking approaches and ordering implications."
         },
         {
           "title": "Causal Consistency Explained",
-          "url": "https://www.myrobertson.com/blog/causal-consistency-explained.html",
+          "url": "https://www.myrobertson.com/blog/causal-consistency-explained",
           "type": "article",
           "summary": "Explains causal ordering guarantees and where they fit in distributed consistency models."
         }
@@ -290,13 +290,13 @@
         },
         {
           "title": "Ask Rich",
-          "url": "https://www.myrobertson.com/ask-rich.html",
+          "url": "https://www.myrobertson.com/ask-rich",
           "type": "project",
           "summary": "Interactive recruiter Q&A for quickly retrieving experience and architecture context."
         },
         {
           "title": "Career Arc",
-          "url": "https://www.myrobertson.com/career-arc.html",
+          "url": "https://www.myrobertson.com/career-arc",
           "type": "project",
           "summary": "Career narrative linking earlier consulting work to current distributed-systems practice."
         }
