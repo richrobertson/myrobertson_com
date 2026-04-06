@@ -72,4 +72,5 @@ Production outcomes plus career context pages for recruiter and stakeholder disc
 - Use case studies for concrete production evidence and delivery outcomes.
 - Use writing pages for architecture reasoning, failure analysis, and tradeoff detail.
 - Treat https://www.myrobertson.com as canonical and avoid duplicate path variants.
+- Leaf pages are listed in extensionless canonical form to avoid redirect hops.
 - Use knowledge.json for broader topic completeness beyond this curated entry surface.
