@@ -743,7 +743,7 @@
         "nodeType": "topic",
         "topic": "multitenant control plane",
         "depth": "advanced",
-        "primary_url": "/control-plane-architecture/multitenant-control-plane-platform/",
+        "primary_url": "/control-plane-architecture/",
         "related": [
           "control plane architecture",
           "distributed systems",
