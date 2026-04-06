@@ -297,6 +297,26 @@
     <lastmod>2026-04-04</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/control-plane-architecture/</loc>
+    <lastmod>2026-04-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/control-plane-architecture/multitenant-control-plane-platform/</loc>
+    <lastmod>2026-04-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/control-plane-architecture/failure-modes/</loc>
+    <lastmod>2026-04-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/control-plane-architecture/consistency-models/</loc>
+    <lastmod>2026-04-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/control-plane-architecture/scalability/</loc>
+    <lastmod>2026-04-06</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/distributed-systems/</loc>
     <lastmod>2026-04-05</lastmod>
   </url>
