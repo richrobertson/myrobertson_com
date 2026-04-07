@@ -117,8 +117,8 @@
 
       <section class="section">
         <h2>What is state management in distributed control systems?</h2>
-        <p>State management in a distributed control system is the discipline of recording and governing control plane state so the system can converge toward intent under retries, partitions, and process restarts.</p>
-        <p>At minimum, a correct model separates desired state, observed state, and authoritative state; runs a reconciliation loop; and persists durable workflow state for long-running operations.</p>
+        <p>State management in distributed control systems is the discipline of recording and governing control plane state so intent can survive retries, partitions, and restarts without losing correctness.</p>
+        <p>In production terms: the control plane must separate desired state, observed state, and authoritative state; execute through a reconciliation loop; and persist durable workflow state for any operation that can outlive a single process.</p>
         <ul>
           <li><strong>Distributed control system state:</strong> decision-grade state that survives failures.</li>
           <li><strong>Control plane state:</strong> lifecycle, ownership, generation, and safety guards.</li>
@@ -133,6 +133,18 @@
         <p>In production control planes, state is not a byproduct. State is the mechanism by which intent, authority, execution, and recovery stay coherent across services.</p>
         <p>If those semantics are smeared across memory, callbacks, and operator assumptions, correctness collapses under partial failure. If those semantics are explicit, durable, and guarded, the system remains governable.</p>
         <p>For architecture context, start with the <a href="/writing/control-plane-architecture-guide/">Control Plane Architecture Guide</a> and the <a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a> breakdown.</p>
+      </section>
+
+      <section class="section">
+        <h2>Why this matters in production</h2>
+        <ul>
+          <li>Weak state semantics create duplicate execution during retries.</li>
+          <li>Late callbacks can overwrite newer generations without authoritative guards.</li>
+          <li>Split authority creates conflicting owners and unsafe failover.</li>
+          <li>Zombie workers resume stale work after lease handoff.</li>
+          <li>Desired/actual drift accumulates when observed state is treated as truth.</li>
+          <li>Ambiguous failover turns incident response into manual reconstruction.</li>
+        </ul>
       </section>
 
       <section class="section">
@@ -245,6 +257,7 @@ T2 Worker A resumes, emits callback gen 51
 T3 Callback handler compares (gen 51, epoch 9) vs (gen 52, epoch 10)
 T4 Reject stale event, increment duplicate/stale counter
 </code></pre>
+        <p>These failure paths get worse under load amplification, which is why control planes need explicit overload policy; see <a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a>.</p>
       </section>
 
       <section class="section">
@@ -286,33 +299,38 @@ T4 Reject stale event, increment duplicate/stale counter
       <section class="section">
         <h2>Recommended defaults</h2>
         <ul>
-          <li>Separate desired, observed, and authoritative state from day one.</li>
-          <li>Persist transitions before irreversible side effects.</li>
-          <li>Treat reconciliation loop as the primary execution model.</li>
-          <li>Use idempotency keys and lineage on every external action.</li>
-          <li>Keep state machines narrow; reject illegal transitions explicitly.</li>
-          <li>Use leases/fencing only where authority contention exists.</li>
-          <li>Never make worker memory the source of truth.</li>
-          <li>Instrument stuck-state detection before first production rollout.</li>
+          <li>Separate desired, observed, and authoritative state.</li>
+          <li>Persist state before irreversible side effects.</li>
+          <li>Treat reconciliation as the primary execution loop.</li>
+          <li>Attach lineage and idempotency keys to every external action.</li>
+          <li>Keep state machines narrow and reject illegal transitions.</li>
+          <li>Use leases and fencing only for real authority contention.</li>
+          <li>Never let worker memory become the source of truth.</li>
+          <li>Instrument stuck-state age before the first production rollout.</li>
         </ul>
       </section>
 
       <section class="section">
         <h2>Internal cluster links</h2>
         <ul>
-          <li><a href="/writing/control-plane-architecture-guide/">Control Plane Architecture Guide</a></li>
-          <li><a href="/case-studies/control-plane-workflow-platform/">Multitenant Control Plane Workflow Platform (Case Study)</a></li>
-          <li><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Designing a Correct Distributed Lease Service (Tenure on Raft)</a></li>
+          <li><a href="/writing/control-plane-architecture-guide/">Control-plane architecture guide</a> for system boundaries and control-surface decomposition.</li>
+          <li><a href="/case-studies/control-plane-workflow-platform/">Multitenant workflow platform case study</a> for concrete durable execution patterns.</li>
+          <li><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Distributed lease service (Tenure on Raft)</a> for ownership, fencing, and authority contention.</li>
         </ul>
+      </section>
+
+      <section class="section">
+        <h2>How this fits into the control-plane cluster</h2>
+        <p>This page is the state-semantics hub for the control-plane cluster. The architecture guide defines component boundaries, the lease-service work defines ownership correctness, and the workflow case study shows durable execution at platform scale. Together, they form one operating model for intent, authority, execution, and recovery.</p>
       </section>
 
       <section class="section">
         <h2>What to read next</h2>
         <ul>
-          <li><a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a></li>
-          <li><a href="/writing/api-design-for-control-planes/">API Design for Control Planes</a></li>
+          <li><a href="/writing/control-plane-architecture-guide/">Control Plane Architecture Guide</a></li>
+          <li><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Designing a Correct Distributed Lease Service (Tenure on Raft)</a></li>
+          <li><a href="/case-studies/control-plane-workflow-platform/">Multitenant Control Plane Workflow Platform Case Study</a></li>
           <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a></li>
-          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></li>
           <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a></li>
         </ul>
       </section>
