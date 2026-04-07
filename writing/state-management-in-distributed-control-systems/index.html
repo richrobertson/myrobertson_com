@@ -3,18 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>State Management in Distributed Control Systems | Control Plane State Semantics</title>
-    <meta name="description" content="A production-focused guide to control plane state: desired vs observed vs authoritative state, reconciliation loops, durable workflows, and correctness under partial failure." />
+    <title>Distributed Control System State Management | Control Plane Cornerstone Guide</title>
+    <meta name="description" content="Definitive control-plane guide to distributed control system state management: desired vs observed vs authoritative state, reconciliation loops, durable workflow state, and correctness under failure." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/writing/state-management-in-distributed-control-systems/" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="State Management in Distributed Control Systems" />
-    <meta property="og:description" content="How intent, authority, execution, and recovery stay coherent through explicit control plane state semantics." />
+    <meta property="og:title" content="Distributed Control System State Management" />
+    <meta property="og:description" content="How control plane state makes retries safe, ownership explicit, and recovery correct in distributed systems." />
     <meta property="og:url" content="https://www.myrobertson.com/writing/state-management-in-distributed-control-systems/" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="State Management in Distributed Control Systems" />
-    <meta name="twitter:description" content="Designing control plane state models for safe retries, failover, reconciliation, and multitenant scalability." />
+    <meta name="twitter:title" content="Distributed Control System State Management" />
+    <meta name="twitter:description" content="Control plane state design for desired/observed reconciliation, durable workflows, and partial-failure correctness." />
     <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
 
@@ -46,34 +46,26 @@
           "@id": "https://www.myrobertson.com/#website",
           "name": "Rich Robertson",
           "url": "https://www.myrobertson.com/",
-          "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ]
+          "inLanguage": "en"
         },
         {
           "@type": "TechArticle",
           "@id": "https://www.myrobertson.com/writing/state-management-in-distributed-control-systems/#main",
-          "headline": "State Management in Distributed Control Systems",
+          "headline": "Distributed Control System State Management",
           "author": {
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
           },
           "datePublished": "2026-04-07T00:00:00+00:00",
           "dateModified": "2026-04-07T00:00:00+00:00",
-          "description": "A production-focused guide to control plane state: desired vs observed vs authoritative state, reconciliation loops, durable workflows, and correctness under partial failure.",
+          "description": "Definitive control-plane guide to distributed control system state management: desired vs observed vs authoritative state, reconciliation loops, durable workflow state, and correctness under failure.",
           "keywords": [
-            "distributed control system",
-            "state management",
+            "distributed control system state management",
             "control plane state",
-            "desired state",
-            "observed state",
+            "control plane state vs data plane",
+            "desired vs observed state reconciliation",
+            "durable workflow state distributed systems",
             "authoritative state",
             "reconciliation loop",
-            "durable workflow state",
             "state transitions",
             "multitenant control plane",
             "partition-aware workers"
@@ -83,13 +75,6 @@
           },
           "url": "https://www.myrobertson.com/writing/state-management-in-distributed-control-systems/",
           "inLanguage": "en",
-          "about": [
-            "distributed systems",
-            "control planes",
-            "platform modernization",
-            "OCI migration",
-            "production reliability"
-          ],
           "isPartOf": {
             "@id": "https://www.myrobertson.com/#website"
           }
@@ -112,7 +97,7 @@
             {
               "@type": "ListItem",
               "position": 3,
-              "name": "State Management in Distributed Control Systems",
+              "name": "Distributed Control System State Management",
               "item": "https://www.myrobertson.com/writing/state-management-in-distributed-control-systems/"
             }
           ]
@@ -125,277 +110,210 @@
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">State Management in Distributed Control Systems</span></p>
-      <h1>State Management in Distributed Control Systems</h1>
-      <p class="section-intro">In distributed control systems, state is not just data to store. It is the mechanism by which intent, authority, execution, and recovery stay coherent across services. This article focuses on control-plane state semantics that keep retries safe, failover correct, and multitenant execution governable under real production failure modes.</p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Distributed Control System State Management</span></p>
+      <h1>Distributed Control System State Management</h1>
+      <p class="section-intro">Distributed control systems succeed or fail based on how they model state as the control surface for intent, authority, execution, and recovery. State is not just persistence. It is what makes retries safe, ownership explicit, and failover recoverable.</p>
       <p class="eyebrow">Cluster: control-planes-platform • Status: published • Indexing: index</p>
 
       <section class="section">
-        <h2>Why this matters in production</h2>
-        <p>Most control planes do not fail because engineers forgot consensus theory. They fail because state semantics are blurred across APIs, workflow engines, worker memory, and callback handlers. The result is familiar: duplicate execution, split authority, zombie workers, stale writes, reconciliation storms, and unsafe failover.</p>
-        <p>The operational question is not “did we store state?” It is “did we store the right state, with explicit ownership and transition discipline, before side effects?” That decision determines whether the system converges after partitions and retries, or drifts into operator-defined reality.</p>
-      </section>
-
-      <section class="section">
-        <h2>What “state” means in a distributed control system</h2>
-        <p>In this context, <strong>control plane state</strong> is the durable record used to decide what action is legal next. It is not equivalent to cache entries, worker-local structs, or downstream side effects.</p>
-        <p>A useful definition: state is whatever must survive process restarts, handoffs, and delayed callbacks for the control plane to continue safely without human reconstruction.</p>
-        <p>That usually includes:</p>
+        <h2>What is state management in distributed control systems?</h2>
+        <p>State management in a distributed control system is the discipline of recording and governing control plane state so the system can converge toward intent under retries, partitions, and process restarts.</p>
+        <p>At minimum, a correct model separates desired state, observed state, and authoritative state; runs a reconciliation loop; and persists durable workflow state for long-running operations.</p>
         <ul>
-          <li>Intent (what should exist and with what policy),</li>
-          <li>Authority (who can mutate or execute at this moment),</li>
-          <li>Progress (what has been validated, scheduled, running, compensated, or completed),</li>
-          <li>Lineage (which request, generation, or fencing epoch produced this action).</li>
+          <li><strong>Distributed control system state:</strong> decision-grade state that survives failures.</li>
+          <li><strong>Control plane state:</strong> lifecycle, ownership, generation, and safety guards.</li>
+          <li><strong>Desired vs observed state:</strong> intent compared to reality, never conflated.</li>
+          <li><strong>Reconciliation loop:</strong> repeatable convergence mechanism.</li>
+          <li><strong>Durable workflow state:</strong> resumable progress across failover and async dependencies.</li>
         </ul>
       </section>
 
       <section class="section">
-        <h2>The three state views that matter</h2>
-        <p>Control systems need three distinct views: desired state, observed state, and authoritative state. Collapsing these into one blob creates ambiguity exactly when failures happen.</p>
+        <h2>Core thesis</h2>
+        <p>In production control planes, state is not a byproduct. State is the mechanism by which intent, authority, execution, and recovery stay coherent across services.</p>
+        <p>If those semantics are smeared across memory, callbacks, and operator assumptions, correctness collapses under partial failure. If those semantics are explicit, durable, and guarded, the system remains governable.</p>
+        <p>For architecture context, start with the <a href="/writing/control-plane-architecture-guide/">Control Plane Architecture Guide</a> and the <a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a> breakdown.</p>
+      </section>
 
+      <section class="section">
+        <h2>Desired vs observed vs authoritative state</h2>
         <h3>Desired state</h3>
-        <p><strong>Desired state</strong> is intent declared by API clients, policy engines, or operators. It answers: what do we want to be true? It should be explicit, versioned, and immutable per generation.</p>
+        <p>What the control plane intends to be true. Usually written by intent APIs and policy engines. Version it by generation.</p>
 
         <h3>Observed state</h3>
-        <p><strong>Observed state</strong> is what the control plane currently sees from workers, data planes, or external dependencies. It may be delayed, partial, or stale. Treat it as evidence, not authority.</p>
+        <p>What workers and data planes currently report. It can be delayed, partial, or stale. Treat it as evidence.</p>
 
-        <h3>Authoritative control state</h3>
-        <p><strong>Authoritative state</strong> is the control system’s committed decision basis: accepted command generation, legal lifecycle phase, ownership token, and last durable transition. It is the only safe source for deciding next actions.</p>
+        <h3>Authoritative state</h3>
+        <p>What the control system has committed as valid for decision-making: legal lifecycle phase, owner epoch, and accepted generation. This is authority.</p>
 
-        <h3>Diagram: separating state views</h3>
-        <pre><code>[Intent API] --writes--> [Desired State Store]
-      |                            |
-      |                            v
-      |                    [Reconciliation Engine] <--reads-- [Observed Signals]
-      |                            |
-      |                     commits decisions to
-      v                            v
-[Audit/History] <--------- [Authoritative Control State] ------> [Workers]
+        <h3>Failure examples when blurred</h3>
+        <ul>
+          <li>Late callback overwrites newer desired generation.</li>
+          <li>Worker-local progress treated as authority; failover duplicates side effects.</li>
+          <li>Observed heartbeat mistaken for successful completion.</li>
+        </ul>
+
+        <h3>Diagram: three state views</h3>
+        <pre><code>[Intent API] ---> [Desired State]
+                        |
+                        v
+[Observed Signals] -> [Reconciler] -> [Authoritative Control State] -> [Workers]
+                             |                    |
+                             +---- audit ---------+
 </code></pre>
-        <p>The reconciliation engine compares desired and observed state, but it commits outcomes into authoritative control state before issuing irreversible actions. That ordering is what preserves recovery semantics.</p>
+        <p>The reconciler reads desired and observed inputs, but all decisions are committed to authoritative control state before irreversible action.</p>
       </section>
 
       <section class="section">
-        <h2>Why control systems fail when these are blurred</h2>
-        <p>Common production failures map directly to state-model mistakes:</p>
-        <ul>
-          <li><strong>Desired == observed:</strong> drift disappears from view, so controllers stop reconciling and operators assume success.</li>
-          <li><strong>Observed == authoritative:</strong> delayed callbacks overwrite newer generations, producing stale rollbacks.</li>
-          <li><strong>Authoritative hidden in worker memory:</strong> failover replays steps without lineage, causing duplicate side effects.</li>
-          <li><strong>Side effects as source of truth:</strong> external systems become the only durable evidence, and recovery depends on ad hoc scraping.</li>
-        </ul>
-        <p>The deeper issue is epistemic: if you cannot prove who decided what, from which generation, under which ownership token, you cannot reason about correctness under partial failure.</p>
-      </section>
-
-      <section class="section">
-        <h2>State ownership and mutation boundaries</h2>
-        <p>Every state domain needs an explicit mutator set. Without that, you get split authority.</p>
-        <ul>
-          <li><strong>Intent APIs</strong> should mutate desired state only.</li>
-          <li><strong>Reconcilers</strong> should mutate authoritative control state and schedule work.</li>
-          <li><strong>Workers</strong> should report observations and execution results, not self-promote lifecycle transitions.</li>
-          <li><strong>Operators</strong> should use explicit override paths with audit history, not direct datastore edits.</li>
-        </ul>
-        <p>Worker-local memory is execution scratch space, not control state. When workers crash, pause, or move partitions, any required recovery context must already be durable and reviewable.</p>
-        <p>Where authority contention exists, add leases and fencing tokens so stale executors cannot commit outdated intent. The lease service pattern in <a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Designing a Correct Distributed Lease Service (Tenure on Raft)</a> is a concrete ownership-control example.</p>
-      </section>
-
-      <section class="section">
-        <h2>Reconciliation loops as the core execution model</h2>
-        <p>A control plane should execute as a reconciliation loop, not as a giant one-shot orchestrator. Reconciliation narrows each iteration to one safe, explainable step.</p>
-
-        <h3>Loop contract</h3>
-        <ol>
-          <li>Read desired state generation and authoritative state snapshot.</li>
-          <li>Refresh observed signals with freshness metadata.</li>
-          <li>Compute next legal transition.</li>
-          <li>Persist transition and execution intent durably.</li>
-          <li>Invoke side effect using idempotency key and lineage.</li>
-          <li>Repeat until convergence or explicit terminal failure.</li>
-        </ol>
+        <h2>Reconciliation loop as the convergence model</h2>
+        <p>Reconciliation is the execution core of a control plane. Compare desired vs observed, compute one legal action, persist progress, execute idempotently, repeat.</p>
 
         <h3>Diagram: reconciliation loop</h3>
-        <pre><code>        +-----------------------------+
-        |  Read desired + auth state  |
-        +--------------+--------------+
-                       |
-                       v
-        +--------------+--------------+
-        |   Read observed state        |
-        +--------------+--------------+
-                       |
-                       v
-        +--------------+--------------+
-        | Compute next legal action    |
-        +--------------+--------------+
-                       |
-                 (no-op?|done?)----yes----> [Converged/Terminal]
-                       |
-                      no
-                       v
-        +--------------+--------------+
-        | Persist transition + intent  |
-        +--------------+--------------+
-                       |
-                       v
-        +--------------+--------------+
-        | Execute idempotent side fx   |
-        +--------------+--------------+
-                       |
-                       +-------> retry with backoff/jitter
+        <pre><code>Read desired + authoritative
+          -> read observed (with freshness)
+          -> choose legal transition
+          -> persist transition + lineage
+          -> perform side effect
+          -> requeue with backoff/jitter
+          -> converge or terminal fail
 </code></pre>
-        <p>Because each pass commits progress before external action, retry safety becomes a property of state semantics rather than handler luck.</p>
+        <p>This model is safer than one-shot orchestration because each pass is small, replayable, and recoverable.</p>
       </section>
 
       <section class="section">
-        <h2>Durable workflows vs implicit in-memory orchestration</h2>
-        <p>In-memory orchestration works for short, single-process operations. It breaks for long-running control workflows with asynchronous dependencies.</p>
-        <p>You need durable workflow state when operations include any of the following:</p>
+        <h2>State ownership and authority boundaries</h2>
+        <p>Control systems break when multiple components can mutate the same state without a clear contract.</p>
         <ul>
-          <li>Retries across process restarts or failover,</li>
-          <li>Human approvals, external callbacks, or eventual consistency waits,</li>
-          <li>Fan-out/fan-in across partitioned workers,</li>
-          <li>Compensation paths after partial completion.</li>
+          <li>Intent APIs mutate desired state.</li>
+          <li>Reconcilers mutate authoritative control state.</li>
+          <li>Workers emit observations and result events.</li>
+          <li>Operators use explicit override transitions with audit records.</li>
         </ul>
+        <p>Worker memory is never control state. Side effects are never the only source of truth. Authority must be explicit, durable, and reviewable.</p>
+        <p>When authority contention is real, enforce lease epochs and fencing tokens. See <a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Designing a Correct Distributed Lease Service (Tenure on Raft)</a>.</p>
+      </section>
+
+      <section class="section">
+        <h2>Durable workflow state vs in-memory orchestration</h2>
+        <p>In-memory orchestration is fragile once operations are long-running, asynchronous, or partitioned.</p>
+        <p>Durable workflow state is required when work spans restarts, human approvals, callbacks, fan-out/fan-in, or compensation paths.</p>
 
         <h3>Diagram: durable workflow progression</h3>
-        <pre><code>CommandAccepted(gen=42)
-  -> Validating
-  -> Scheduled(partition=7, attempt=1)
-  -> Running(worker=7A, leaseEpoch=104)
-  -> WaitingForCallback(callbackDeadline=T+15m)
-  -> CallbackApplied(eventId=abc123)
-  -> Succeeded
+        <pre><code>Pending -> Validating -> Scheduled -> Running -> WaitingCallback -> Succeeded
+                                        |                              
+                                        +-> Failed -> Compensating -> Compensated
 
-On restart/failover: resume from last durable node, not from memory.
+Every transition is durably persisted before the next irreversible action.
 </code></pre>
-        <p>This pattern is covered in more depth in <a href="/case-studies/control-plane-workflow-platform/">Multitenant Control Plane Workflow Platform Case Study</a> and complements the architecture model in the <a href="/writing/control-plane-architecture-guide/">Control Plane Architecture Guide</a>.</p>
+        <p>Concrete platform patterns are in the <a href="/case-studies/control-plane-workflow-platform/">Multitenant Control Plane Workflow Platform case study</a>.</p>
       </section>
 
       <section class="section">
-        <h2>Modeling state transitions explicitly</h2>
-        <p>Correctness comes from narrow state models with legal transitions and guarded edges. Wide “status blobs” invite illegal state motion.</p>
-
-        <h3>Example lifecycle</h3>
+        <h2>Explicit state machines and legal motion</h2>
+        <p>Narrow state models beat free-form status blobs.</p>
         <pre><code>Pending -> Validating -> Scheduled -> Running -> Succeeded
-                                      |             ^
-                                      v             |
-                                   Failed -> Compensating -> Compensated
+                                      |             
+                                      +-> Failed -> Compensating
 </code></pre>
-
-        <h3>Transition discipline</h3>
+        <p>Apply transition guards:</p>
         <ul>
-          <li>Attach invariants to each edge (e.g., must hold lease epoch, generation match, dependency quorum).</li>
-          <li>Reject impossible transitions (e.g., Succeeded -> Running).</li>
-          <li>Record rejection reason and actor for audit and debugging.</li>
-          <li>Use monotonic generation numbers to ignore old callbacks.</li>
+          <li>generation matches expected intent,</li>
+          <li>ownership epoch is current,</li>
+          <li>required dependencies are fresh and healthy,</li>
+          <li>illegal transitions are rejected with reason and actor.</li>
         </ul>
-        <p>When state transitions are explicit, recovery logic is tractable. When transitions are implicit in code paths, recovery becomes archaeology.</p>
       </section>
 
       <section class="section">
-        <h2>Failure modes under retries, partitions, and failover</h2>
-        <p>Failures are not edge cases in a distributed control system. They are the steady-state condition your model must absorb.</p>
-
-        <h3>Duplicate command submission</h3>
-        <p>Cause: client timeout and retry. Defense: idempotency key + desired-state generation + dedupe record in authoritative state.</p>
-
+        <h2>Failure modes under retries, stale workers, partitions, and callbacks</h2>
         <h3>Retry after timeout</h3>
-        <p>Cause: ambiguous outcome after external call timeout. Defense: persist transition before call, then reconcile by reading authoritative progress and external operation key.</p>
+        <p>Ambiguous external call results cause duplicate execution unless action lineage and idempotency keys are durable.</p>
 
-        <h3>Controller failover</h3>
-        <p>Cause: active reconciler crashes mid-flight. Defense: durable handoff state, ownership lease epoch, and replay-safe command handlers.</p>
+        <h3>Stale worker resume</h3>
+        <p>Paused worker resumes after lease handoff and tries to commit old progress. Fencing must reject stale epoch writes.</p>
 
-        <h3>Stale worker resume and late callback</h3>
-        <p>Cause: worker pauses during partition, then resumes with old lease; callback arrives after newer generation already committed. Defense: fencing token checks and generation guard on callback apply.</p>
+        <h3>Network partition</h3>
+        <p>Isolated shard continues with stale observations. Freshness guards and lease expiry boundaries contain blast radius.</p>
 
-        <h3>Diagram: stale worker and delayed callback</h3>
-        <pre><code>T0: Worker A owns partition P (leaseEpoch=9) and starts action X(gen=51)
-T1: Partition event; ownership moves to Worker B (leaseEpoch=10)
-T2: Worker B advances workflow to gen=52 and commits authoritative state
-T3: Worker A recovers and emits callback for X(gen=51)
-T4: Callback handler compares {gen=51, epoch=9} vs authoritative {gen=52, epoch=10}
-T5: Reject stale callback, keep current state, emit duplicate/stale metric
+        <h3>Delayed callback</h3>
+        <p>Old callback arrives after newer generation succeeds. Generation guard must reject the late event.</p>
+
+        <h3>Diagram: stale worker + late callback</h3>
+        <pre><code>T0 Worker A owns shard (epoch 9), starts run gen 51
+T1 Failover: Worker B owns shard (epoch 10), commits gen 52
+T2 Worker A resumes, emits callback gen 51
+T3 Callback handler compares (gen 51, epoch 9) vs (gen 52, epoch 10)
+T4 Reject stale event, increment duplicate/stale counter
 </code></pre>
-
-        <h3>Partition isolates subset of workers</h3>
-        <p>Cause: partial network failure by shard. Defense: isolate impact to owned partitions, keep global scheduler from reassigning without lease expiry semantics, surface skew explicitly.</p>
-
-        <h3>Reconciliation based on stale observations</h3>
-        <p>Cause: lagging telemetry stream appears healthy while data plane is degraded. Defense: freshness bounds, confidence windows, and “observation too old” transition guards.</p>
       </section>
 
       <section class="section">
-        <h2>Multitenancy and partition-aware state management</h2>
-        <p>Control planes scale by partitioning authority and execution, not by pretending the system is stateless.</p>
-        <p>For multitenant systems, model state as <em>tenant-scoped first</em>, then partitioned for execution:</p>
+        <h2>Multitenancy and partition-aware control plane state</h2>
+        <p>Control planes scale by partitioning authority and execution, not by centralizing all mutation paths.</p>
         <ul>
-          <li>Tenant-keyed primary state and quotas,</li>
-          <li>Partition ownership tables with explicit handoff protocol,</li>
-          <li>Worker affinity to partition routes for cache locality and reduced contention,</li>
-          <li>Per-tenant progress views that survive rebalancing and failover.</li>
+          <li>Tenant-scoped state isolation with clear quota and policy boundaries.</li>
+          <li>Partition ownership map and explicit handoff semantics.</li>
+          <li>Worker affinity for shard locality and lower contention.</li>
+          <li>Per-tenant progress visibility that survives rebalancing.</li>
         </ul>
 
-        <h3>Diagram: partition-aware multitenant control flow</h3>
-        <pre><code>[Tenant API Requests]
-        |
-        v
-[Desired State by Tenant]
-        |
-        +--> [Partition Map: hash(tenant, resource) -> shard]
-                      |
-         +------------+------------+
-         v                         v
- [Shard 3 Controller]       [Shard 4 Controller]
-         |                         |
- [Workers (affinity=3)]     [Workers (affinity=4)]
-         |                         |
- [Observed State Streams]   [Observed State Streams]
-         +------------+------------+
-                      v
-      [Global Visibility: per-tenant SLO + skew + stuck states]
+        <h3>Diagram: multitenant partition-aware control flow</h3>
+        <pre><code>[Tenant Intent API]
+        -> [Desired State by tenant_id]
+        -> [Partition Router]
+        -> [Shard Controller + Owner Epoch]
+        -> [Partition-aware Workers]
+        -> [Observed Signals]
+        -> [Authoritative State + Tenant-level visibility]
 </code></pre>
-        <p>This architecture aligns with the broader partitioning patterns in <a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers and Scalable Orchestration</a>.</p>
+        <p>Related deep dive: <a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers and Scalable Orchestration</a>.</p>
       </section>
 
       <section class="section">
-        <h2>Operational metrics and rollout checks</h2>
-        <p>Without state-centric telemetry, teams confuse low incident volume with correctness. Governable control planes expose transition quality, not just request throughput.</p>
+        <h2>Operational signals that prove the system is governable</h2>
         <ul>
-          <li><strong>State transition latency</strong> by edge (p50/p95/p99),</li>
-          <li><strong>Queued vs in-progress counts</strong> per tenant and partition,</li>
-          <li><strong>Stuck-state age</strong> distribution and top offending transitions,</li>
-          <li><strong>Reconciliation retries by reason</strong> (timeout, conflict, stale observation, dependency unavailable),</li>
-          <li><strong>Duplicate suppression events</strong> from idempotency/fencing guards,</li>
-          <li><strong>Handoff/failover recovery time</strong> per partition,</li>
-          <li><strong>Per-tenant skew</strong> between desired and authoritative progress,</li>
-          <li><strong>Callback lag</strong> and <strong>compensation rate</strong>.</li>
+          <li><strong>Stuck-state age:</strong> oldest item per lifecycle edge.</li>
+          <li><strong>Retry counts by reason:</strong> timeout, conflict, stale observation, dependency unavailable.</li>
+          <li><strong>Transition latency:</strong> p50/p95/p99 by state edge and tenant.</li>
+          <li><strong>Callback lag:</strong> event time to authoritative apply time.</li>
+          <li><strong>Duplicate suppression events:</strong> idempotency and fencing rejections.</li>
+          <li><strong>Failover recovery time:</strong> lease handoff to resumed progress.</li>
+          <li><strong>Per-tenant skew:</strong> desired-authoritative gap.</li>
+          <li><strong>Compensation rate:</strong> percent of workflows entering corrective paths.</li>
         </ul>
-        <p>For rollout safety, require pre-flight checks that prove transition guards, generation handling, and compensation paths in at least one failure-injection environment before enabling broad traffic.</p>
       </section>
 
       <section class="section">
         <h2>Recommended defaults</h2>
         <ul>
-          <li>Keep control state narrow, explicit, and durable.</li>
-          <li>Separate desired, observed, and authoritative views by design.</li>
+          <li>Separate desired, observed, and authoritative state from day one.</li>
           <li>Persist transitions before irreversible side effects.</li>
-          <li>Make retries idempotent with lineage, generation, and dedupe keys.</li>
-          <li>Use reconciliation as the primary execution loop.</li>
-          <li>Use leases and fencing only where real authority contention exists.</li>
-          <li>Never let worker memory become the source of truth.</li>
-          <li>Instrument stuck-state detection and stale-event rejection from day one.</li>
+          <li>Treat reconciliation loop as the primary execution model.</li>
+          <li>Use idempotency keys and lineage on every external action.</li>
+          <li>Keep state machines narrow; reject illegal transitions explicitly.</li>
+          <li>Use leases/fencing only where authority contention exists.</li>
+          <li>Never make worker memory the source of truth.</li>
+          <li>Instrument stuck-state detection before first production rollout.</li>
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>Internal cluster links</h2>
+        <ul>
+          <li><a href="/writing/control-plane-architecture-guide/">Control Plane Architecture Guide</a></li>
+          <li><a href="/case-studies/control-plane-workflow-platform/">Multitenant Control Plane Workflow Platform (Case Study)</a></li>
+          <li><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Designing a Correct Distributed Lease Service (Tenure on Raft)</a></li>
         </ul>
       </section>
 
       <section class="section">
         <h2>What to read next</h2>
         <ul>
-          <li><a href="/writing/control-plane-architecture-guide/">Control Plane Architecture Guide</a> for the full design map across APIs, workflows, and partitioning.</li>
-          <li><a href="/case-studies/control-plane-workflow-platform/">Multitenant Control Plane Workflow Platform Case Study</a> for practical workflow and tenant isolation patterns.</li>
-          <li><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Designing a Correct Distributed Lease Service (Tenure on Raft)</a> for explicit ownership, lease epochs, and fencing semantics.</li>
-          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a> for execution safety under ambiguous outcomes.</li>
-          <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a> for protecting reconciliation loops under pressure.</li>
+          <li><a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a></li>
+          <li><a href="/writing/api-design-for-control-planes/">API Design for Control Planes</a></li>
+          <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a></li>
+          <li><a href="/writing/retry-strategies-and-idempotency/">Retry Strategies and Idempotency</a></li>
+          <li><a href="/writing/end-to-end-overload-control-in-distributed-systems/">End-to-End Overload Control in Distributed Systems</a></li>
         </ul>
       </section>
 
@@ -405,8 +323,6 @@ T5: Reject stale callback, keep current state, emit duplicate/stale metric
           <li>Burrows, M. (2006). The Chubby lock service for loosely-coupled distributed systems. <em>Proceedings of the 7th USENIX Symposium on Operating Systems Design and Implementation (OSDI)</em>. https://research.google/pubs/pub27897/</li>
           <li>Hunt, P., Konar, M., Junqueira, F. P., &amp; Reed, B. (2010). ZooKeeper: Wait-free coordination for Internet-scale systems. <em>USENIX Annual Technical Conference</em>. https://www.usenix.org/conference/atc10/zookeeper-wait-free-coordination-internet-scale-systems</li>
           <li>Ongaro, D., &amp; Ousterhout, J. (2014). In search of an understandable consensus algorithm (Raft). <em>USENIX Annual Technical Conference</em>. https://www.usenix.org/conference/atc14/technical-sessions/presentation/ongaro</li>
-          <li>Kreps, J. (2014). Questioning the lambda architecture. https://www.confluent.io/blog/questioning-the-lambda-architecture/</li>
-          <li>Verma, A., Pedrosa, L., Korupolu, M., Oppenheimer, D., Tune, E., &amp; Wilkes, J. (2015). Large-scale cluster management at Google with Borg. <em>Proceedings of the Tenth European Conference on Computer Systems (EuroSys)</em>. https://research.google/pubs/large-scale-cluster-management-at-google-with-borg/</li>
           <li>Burns, B., Grant, B., Oppenheimer, D., Brewer, E., &amp; Wilkes, J. (2016). Borg, Omega, and Kubernetes. <em>Communications of the ACM, 59</em>(5), 50-57. https://doi.org/10.1145/2890784</li>
           <li>Kleppmann, M. (2017). <em>Designing data-intensive applications</em>. O'Reilly Media.</li>
           <li>Kubernetes Authors. (n.d.). Kubernetes documentation: Controllers. https://kubernetes.io/docs/concepts/architecture/controller/</li>
