@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Caching + Eventual Consistency Pitfalls | Rich Robertson</title>
-    <meta name="description" content="Caching pitfalls in eventually consistent systems and how stale data compounds across layers." />
+    <meta name="description" content="Practical failure modes when caches sit in front of eventually consistent storage, plus design patterns for bounded staleness and safer read paths." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.myrobertson.com/blog/caching-eventual-consistency-pitfalls" />
     <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Caching + Eventual Consistency Pitfalls" />
-    <meta property="og:description" content="Caching pitfalls in eventually consistent systems and how stale data compounds across layers." />
+    <meta property="og:description" content="How cache TTLs, replica lag, and asynchronous invalidation combine into user-visible correctness bugs in production." />
     <meta property="og:url" content="https://www.myrobertson.com/blog/caching-eventual-consistency-pitfalls" />
     <meta property="og:site_name" content="Rich Robertson" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Caching + Eventual Consistency Pitfalls" />
-    <meta name="twitter:description" content="Caching pitfalls in eventually consistent systems and how stale data compounds across layers." />
+    <meta name="twitter:description" content="How cache TTLs, replica lag, and asynchronous invalidation combine into correctness incidents." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -28,66 +28,82 @@
         <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
         <p class="eyebrow">April 2026 • Rich Robertson</p>
         <h1>Caching + Eventual Consistency Pitfalls</h1>
-        <p class="intro blog-dek"><strong>Caching plus eventual consistency</strong> can multiply staleness windows when cache TTLs and replica lag interact without coordinated invalidation.</p>
+        <p class="intro blog-dek"><strong>Caching does not remove eventual consistency.</strong> It often makes staleness harder to reason about because now reads can diverge in both the database layer and one or more cache layers.</p>
       </div>
     </header>
 
     <main>
       <article class="card blog-post" data-related-writing>
-        <h2 id="definition">Definition</h2>
-        <p><strong>Caching plus eventual consistency</strong> can multiply staleness windows when cache TTLs and replica lag interact without coordinated invalidation.</p>
+        <h2 id="what-this-page-covers">What this page covers</h2>
+        <p>This is a practical guide to the failure modes that appear when cache-aside or CDN caching sits in front of asynchronously replicated data. The goal is not to ban caching. The goal is to make staleness explicit, measurable, and bounded so users do not observe contradictory system behavior.</p>
 
-        <h2 id="key-concepts">Key Concepts</h2>
+        <h2 id="why-engineers-get-surprised">Why engineers get surprised by this combination</h2>
+        <p>Teams often model eventual consistency at the storage layer only, then treat the cache as a pure performance optimization. In production, cache freshness policy is part of the consistency model. If primary-to-replica lag is 1-3 seconds and cache TTL is 30 seconds, your user-visible staleness window is usually much closer to cache TTL than replication lag.</p>
+        <p>This gap is where incidents happen: dashboards disagree with detail pages, users read old policy state after a successful update, or tenant control-plane actions appear to "randomly" revert until caches expire.</p>
+
+        <h2 id="common-failure-modes">Common production failure modes</h2>
+        <h3>1) Dual staleness windows (replica lag + cache TTL)</h3>
+        <p>A write commits on the leader, but readers may still hit lagging replicas. If that stale value is then cached, staleness persists even after replicas catch up.</p>
+
+        <h3>2) Cache-aside read-after-write races</h3>
+        <p>Writer updates storage and invalidates cache asynchronously. Concurrent reads repopulate cache from stale replicas before invalidation propagates, extending inconsistency.</p>
+
+        <h3>3) Multi-layer cache drift</h3>
+        <p>Origin cache, service cache, and CDN each have independent eviction and purge behavior. A "successful" invalidation in one layer can still leave stale payloads in another region or edge POP.</p>
+
+        <h3>4) Stampedes that mask correctness issues</h3>
+        <p>Under miss storms, systems add aggressive TTL or stale-if-error behavior to protect origin. This can improve availability while silently increasing stale-read frequency beyond business tolerance.</p>
+
+        <h2 id="design-principles">Design principles that actually help</h2>
         <ul>
-          <li>Cache TTL may outlast replica convergence.</li>
-          <li>Write-through vs cache-aside affects freshness behavior.</li>
-          <li>Global CDNs add another replication layer.</li>
-          <li>Staleness budgets should include cache and storage paths.</li>
+          <li><strong>Define a staleness budget:</strong> state an explicit max freshness lag per endpoint (for example: "profile read may be stale up to 5s").</li>
+          <li><strong>Version cache entries:</strong> include version or logical timestamp in cache keys when write frequency is high and correctness matters.</li>
+          <li><strong>Separate read classes:</strong> serve latency-optimized reads from cache, but route strict read-after-write flows to primary/leader paths.</li>
+          <li><strong>Invalidate with ownership:</strong> tie purge logic to the write path that owns entity state instead of scattering invalidations across callers.</li>
+          <li><strong>Measure stale reads:</strong> instrument freshness age, cache age-at-hit, and replica apply lag as first-class SLO inputs.</li>
         </ul>
 
-        <h2 id="how-it-works">How It Works</h2>
-        <p>A write lands in one replica, but read paths may still hit stale cache entries, stale replicas, or both unless invalidation and refresh logic are coordinated.</p>
+        <h2 id="concrete-scenario">Concrete scenario: tenant policy updates</h2>
+        <p>Suppose a control plane stores tenant policy in a quorum store and exposes read APIs behind a regional cache.</p>
+        <ol>
+          <li>Tenant updates policy at <code>t0</code>; write commits on leader.</li>
+          <li>A read at <code>t0+200ms</code> hits a replica that has not applied the update yet.</li>
+          <li>Cache-aside logic writes that stale response with TTL 20s.</li>
+          <li>Subsequent reads across the region remain stale until TTL expiry, despite storage convergence at <code>t0+1.5s</code>.</li>
+        </ol>
+        <p>From the user perspective, this looks like control-plane non-determinism. The fix is usually policy-specific: leader reads on mutation paths, shorter/conditional TTL for hot entities, and versioned invalidation keyed by policy revision.</p>
 
-        <h2 id="comparison">Comparison Table</h2>
+        <h2 id="tradeoffs">Tradeoffs and decision points</h2>
         <table>
           <thead>
-            <tr><th>Pitfall</th><th>Symptom</th><th>Mitigation</th></tr>
+            <tr><th>Choice</th><th>Benefit</th><th>Cost / Risk</th></tr>
           </thead>
           <tbody>
-            <tr><td>Long TTL</td><td>Persistent stale reads</td><td>Versioned keys + shorter TTL</td></tr>
-            <tr><td>Cache-aside race</td><td>Write/read mismatch</td><td>Write-through + invalidation</td></tr>
-            <tr><td>Multi-layer cache drift</td><td>Regional inconsistency</td><td>Hierarchical freshness policy</td></tr>
+            <tr><td>Long global TTLs</td><td>Lower origin load</td><td>Longer stale windows and harder debugging</td></tr>
+            <tr><td>Short TTLs + jitter</td><td>Better freshness and smoother refill</td><td>Higher backend read pressure</td></tr>
+            <tr><td>Leader-only reads for critical flows</td><td>Stronger read-after-write behavior</td><td>Higher latency and hotspot risk</td></tr>
+            <tr><td>Versioned keys</td><td>Safer invalidation semantics</td><td>More key churn and memory pressure</td></tr>
           </tbody>
         </table>
 
-        <h2 id="production-implications">Production Implications</h2>
-        <p>Dynamo/Cassandra-backed systems often see incidents from cache stampedes and stale fan-out views. Adding read repair, cache versioning, and bounded TTL policies improves consistency perception.</p>
-
-        <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
-        <h3>Use It When</h3>
+        <h2 id="when-this-matters-most">When this matters most</h2>
         <ul>
-            <li>As guidance for cache policy design in async-replicated systems.</li>
-            <li>For performance reviews where correctness regressions appear.</li>
-        </ul>
-        <h3>Avoid It When</h3>
-        <ul>
-            <li>As blanket advice to disable caching.</li>
-            <li>For single-node systems without replication lag.</li>
+          <li>Control-plane operations where users expect immediate reflectivity after writes.</li>
+          <li>Billing, quotas, feature flags, and entitlement decisions.</li>
+          <li>Incident periods, where protective cache policy changes can accidentally degrade correctness.</li>
         </ul>
 
-        <h2 id="key-takeaways">Key Takeaways</h2>
+        <h2 id="related-concepts">Related concepts</h2>
         <ul>
-          <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
-          <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
-          <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency?</a> — baseline model and terminology.</li>
+          <li><a href="./why-eventual-consistency-breaks-systems.html">Why Eventual Consistency Breaks Systems</a> — where teams usually mis-specify guarantees.</li>
+          <li><a href="./designing-read-your-writes.html">Designing Read-Your-Writes Guarantees</a> — tightening user-visible consistency on critical flows.</li>
+          <li><a href="./retries-idempotency-duplicate-writes.html">Retries, Idempotency, and Duplicate Writes</a> — how retry behavior compounds stale-state risk.</li>
+          <li><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems</a> — load controls that interact with cache refill and failover paths.</li>
         </ul>
 
-        <h2 id="related-reading">Related Reading</h2>
-        <ul>
-          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
-          <li><a href="./why-eventual-consistency-breaks-systems.html">Why Eventual Consistency Breaks Systems</a></li>
-          <li><a href="./retries-idempotency-duplicate-writes.html">Retries, Idempotency, and Duplicate Writes</a></li>
-        </ul>
+        <h2 id="conclusion">Conclusion</h2>
+        <p>Cache policy is consistency policy. Treat freshness budgets, invalidation ownership, and read-path selection as explicit architecture decisions, not implementation details. That is the difference between "eventual consistency is acceptable" and recurring correctness incidents in production.</p>
       </article>
     </main>
 

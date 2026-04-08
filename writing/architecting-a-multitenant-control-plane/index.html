@@ -128,25 +128,74 @@
   <body data-page="writing">
     <main class="hero blog-post">
       <div data-site-header></div>
-      <p class="breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Multitenant Control Plane</span></p>
+      <p class="breadcrumb"><a href="/">Home</a> / <a href="/writing/">Writing</a> / <span aria-current="page">Multitenant Control Plane</span></p>
       <h1>Architecting a Multitenant Control Plane</h1>
-      <p class="section-intro">This page captures control-plane architecture patterns for durable workflow execution, state coordination, and partition-aware scaling in multitenant services.</p>
+      <p class="section-intro">A practical overview of control-plane architecture decisions that determine whether multitenant systems stay correct under concurrency, failover, and overload pressure.</p>
+
       <section class="section">
-        <h2>System framing</h2>
-        <p><strong>Summary:</strong> Multitenant control planes need explicit ownership boundaries, durable intent capture, and orchestration guardrails.</p>
-        <p>The patterns here align with workflow correctness, admission control, and operability concerns covered across the case studies and reliability writing.</p>
+        <h2>What this page is for</h2>
+        <p>This page is a destination overview for engineers designing or evaluating multitenant control planes. It summarizes the architecture shape, failure boundaries, and operational tradeoffs before you dive into the longer deep-dive article.</p>
+        <p>If your immediate need is full implementation detail, read <a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Architecting a Multitenant Control Plane for a Next-Generation Data Tier</a>. The sections below provide a condensed framework you can apply during design reviews and migration planning.</p>
       </section>
-      <p><a href="../../blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Read the full article</a>.</p>
+
+      <section class="section">
+        <h2>Core control-plane responsibilities</h2>
+        <ul>
+          <li><strong>Intent capture:</strong> accept desired-state commands with durable, replay-safe semantics.</li>
+          <li><strong>Workflow orchestration:</strong> coordinate long-running, multi-step operations with explicit state transitions.</li>
+          <li><strong>Policy enforcement:</strong> enforce tenant isolation, quotas, and admission decisions before work enters execution queues.</li>
+          <li><strong>Status projection:</strong> expose understandable operation state despite asynchronous execution and partial failure.</li>
+        </ul>
+        <p>When these concerns blur together in one service boundary, teams often get brittle systems: retries duplicate side effects, status lies to users, and noisy tenants degrade neighbors.</p>
+      </section>
+
+      <section class="section">
+        <h2>Failure modes to design around early</h2>
+        <h3>Ambiguous command completion</h3>
+        <p>Clients time out while workflow execution may still succeed. Use idempotent command keys and durable operation records so retries return consistent outcomes instead of re-executing.</p>
+
+        <h3>Cross-tenant interference</h3>
+        <p>Shared worker pools without admission controls let one tenant backlog dominate queue latency. Use per-tenant budgets, weighted fairness, and reserved lanes for critical system operations.</p>
+
+        <h3>Split ownership between API and workers</h3>
+        <p>APIs may report "accepted" while background workers fail repeatedly with no visible reconciliation. Treat workflow state as the source of truth and project user-visible status from that state machine.</p>
+      </section>
+
+      <section class="section">
+        <h2>Design tradeoffs that matter in production</h2>
+        <table>
+          <thead>
+            <tr><th>Decision</th><th>Benefit</th><th>Tradeoff</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Strict per-tenant isolation</td><td>Predictable blast radius</td><td>More capacity fragmentation and scheduling complexity</td></tr>
+            <tr><td>Shared global queues</td><td>Higher average utilization</td><td>Fairness failures during bursts unless controls are explicit</td></tr>
+            <tr><td>Durable workflow engine</td><td>Replay-safe long-running operations</td><td>Extra persistence and state-model design overhead</td></tr>
+            <tr><td>Synchronous status writes on each step</td><td>Better debuggability and user trust</td><td>Higher control-plane write volume</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="section">
+        <h2>When this matters most</h2>
+        <p>You should expect these issues to surface in any system that provisions resources, applies policy, or orchestrates fleet changes across tenants and regions. Recruiters and hiring managers evaluating distributed-systems depth usually look for exactly this reasoning: how correctness and operability are preserved under partial failure, not just how fast requests return.</p>
+      </section>
 
       <section class="section related-concepts">
-        <h2>Related Concepts</h2>
+        <h2>Related concepts and next reads</h2>
         <ul>
-          <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a> — durability and resume semantics for long-running orchestration.</li>
-          <li><a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers</a> — execution partitioning and tenant isolation.</li>
-          <li><a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a> — interface boundaries and ownership splits.</li>
-          <li><a href="../../case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a> — applied architecture under delivery pressure.</li>
-          <li><a href="../../case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a> — migration sequencing with control-plane reasoning.</li>
+          <li><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Full deep dive: Architecting a Multitenant Control Plane</a> — full architecture narrative and implementation context.</li>
+          <li><a href="/writing/designing-durable-workflow-execution/">Designing Durable Workflow Execution</a> — resume semantics and orchestration durability model.</li>
+          <li><a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers and Scalable Orchestration</a> — execution partitioning and worker-shard strategy.</li>
+          <li><a href="/writing/control-plane-vs-data-plane/">Control Plane vs Data Plane</a> — ownership boundaries that reduce accidental coupling.</li>
+          <li><a href="/blog/retry-strategies-and-idempotency">Retry Strategies and Idempotency</a> — replay safety and duplicate suppression for command APIs.</li>
+          <li><a href="/case-studies/control-plane-workflow-platform/">Control-Plane Workflow Platform Case Study</a> — applied delivery context under production constraints.</li>
         </ul>
+      </section>
+
+      <section class="section">
+        <h2>Wrap-up</h2>
+        <p>Strong multitenant control planes are built around explicit workflow state, replay-safe command handling, and overload boundaries that preserve tenant fairness. If those elements are intentional, the control plane remains understandable and operable as scale and failure complexity grow.</p>
       </section>
 
       <div data-site-footer></div>

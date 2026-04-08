@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Retries, Idempotency, and Duplicate Writes | Rich Robertson</title>
-    <meta name="description" content="Retries and idempotency patterns to prevent duplicate writes in eventually consistent systems." />
+    <meta name="description" content="How to design retries, deadlines, idempotency keys, and dedupe stores that prevent duplicate writes during transient failure and overload." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://www.myrobertson.com/blog/retries-idempotency-duplicate-writes" />
     <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="Retries, Idempotency, and Duplicate Writes" />
-    <meta property="og:description" content="Retries and idempotency patterns to prevent duplicate writes in eventually consistent systems." />
+    <meta property="og:description" content="Why retries are required, why they create duplicate side effects, and how idempotency design keeps systems correct under failure." />
     <meta property="og:url" content="https://www.myrobertson.com/blog/retries-idempotency-duplicate-writes" />
     <meta property="og:site_name" content="Rich Robertson" />
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Retries, Idempotency, and Duplicate Writes" />
-    <meta name="twitter:description" content="Retries and idempotency patterns to prevent duplicate writes in eventually consistent systems." />
+    <meta name="twitter:description" content="Designing safe retries with dedupe windows, request keys, and overload-aware budgets." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -28,66 +28,88 @@
         <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
         <p class="eyebrow">April 2026 • Rich Robertson</p>
         <h1>Retries, Idempotency, and Duplicate Writes</h1>
-        <p class="intro blog-dek"><strong>Retries and idempotency</strong> determine whether transient failures recover safely or create duplicate writes and state divergence.</p>
+        <p class="intro blog-dek"><strong>Retries are mandatory in distributed systems.</strong> Without strict idempotency and bounded retry policy, they convert transient faults into duplicate side effects and cascading load.</p>
       </div>
     </header>
 
     <main>
       <article class="card blog-post" data-related-writing>
-        <h2 id="definition">Definition</h2>
-        <p><strong>Retries and idempotency</strong> determine whether transient failures recover safely or create duplicate writes and state divergence.</p>
+        <h2 id="framing">Framing the problem</h2>
+        <p>Timeouts are ambiguous: a request may have failed before execution, failed during execution, or succeeded but lost its response. Retrying is rational, but every retry is extra work against an already unhealthy dependency. If writes are not idempotent, each replay can produce a new side effect.</p>
+        <p>This page focuses on practical controls for real production systems where network faults, failover events, and overloaded downstreams are normal operating conditions.</p>
 
-        <h2 id="key-concepts">Key Concepts</h2>
+        <h2 id="why-duplicate-writes-happen">Why duplicate writes happen</h2>
         <ul>
-          <li>Retries are required for resilience but can amplify load.</li>
-          <li>Idempotency keys turn at-least-once delivery into safe behavior.</li>
-          <li>Exactly-once semantics are usually simulated, not native.</li>
-          <li>Write de-duplication must be domain aware.</li>
+          <li><strong>Client ambiguity:</strong> client times out and retries because it cannot prove the first attempt committed.</li>
+          <li><strong>At-least-once delivery:</strong> queues and workflow engines can redeliver on worker crash or visibility timeout.</li>
+          <li><strong>Multi-layer retries:</strong> SDK, service mesh, and application code all retry the same call.</li>
+          <li><strong>Failover replay:</strong> a partially acknowledged operation is replayed after leader/election transitions.</li>
         </ul>
+        <p>The outcome is familiar: duplicate charges, repeated provisioning, double email/send actions, or state machines that jump two steps instead of one.</p>
 
-        <h2 id="how-it-works">How It Works</h2>
-        <p>Clients include idempotency keys; servers store request fingerprints and return prior outcomes when duplicate retries arrive.</p>
+        <h2 id="idempotency-design">Idempotency design that holds up in production</h2>
+        <h3>Define operation identity, not just request identity</h3>
+        <p>Idempotency keys should represent business intent (for example, "create order X for tenant Y") instead of transport-level request IDs. Otherwise retries may bypass dedupe because metadata differs while intent is the same.</p>
 
-        <h2 id="comparison">Comparison Table</h2>
+        <h3>Persist first outcome durably</h3>
+        <p>Store key + normalized request fingerprint + outcome status in a durable dedupe store. Duplicate keys should return the original outcome body and status code, not recompute side effects.</p>
+
+        <h3>Align dedupe TTL with real retry windows</h3>
+        <p>If keys expire too quickly, delayed retries from mobile clients, queues, or async workflows can still double-apply writes. TTL should cover realistic replay horizons, not only synchronous API retries.</p>
+
+        <h3>Commit write + dedupe atomically</h3>
+        <p>If the side effect commits but dedupe record does not, the next retry may execute again. Use one transaction boundary where possible, or a compensating recovery log when storage boundaries differ.</p>
+
+        <h2 id="retry-policy">Retry policy: recover without causing storms</h2>
         <table>
           <thead>
-            <tr><th>Mode</th><th>Failure behavior</th><th>Recommended control</th></tr>
+            <tr><th>Policy element</th><th>Recommended default</th><th>Why it matters</th></tr>
           </thead>
           <tbody>
-            <tr><td>Retry without key</td><td>Duplicate side effects</td><td>Reject/introduce idempotency</td></tr>
-            <tr><td>Retry with key</td><td>Safe replay</td><td>Durable key store</td></tr>
-            <tr><td>Aggressive backoff omitted</td><td>Retry storms</td><td>Exponential backoff + jitter</td></tr>
+            <tr><td>Error classification</td><td>Retry transient transport + selected 5xx/429 only</td><td>Avoid retrying deterministic failures</td></tr>
+            <tr><td>Backoff</td><td>Exponential with full/decorrelated jitter</td><td>Prevents synchronized retry bursts</td></tr>
+            <tr><td>Retry budget</td><td>Cap retries as fraction of baseline traffic</td><td>Limits load amplification during incidents</td></tr>
+            <tr><td>Deadlines</td><td>Bound total request time, not only per-attempt timeout</td><td>Avoids zombie work after caller gave up</td></tr>
+            <tr><td>Cancellation</td><td>Propagate upstream cancellation downstream</td><td>Reduces useless queued retries</td></tr>
           </tbody>
         </table>
 
-        <h2 id="production-implications">Production Implications</h2>
-        <p>On Dynamo and Cassandra data paths, retries without idempotency frequently cause duplicate side effects. Durable idempotency stores and bounded retry policies are essential for payment-like workflows.</p>
+        <h2 id="example">Example: create-and-notify workflow</h2>
+        <p>Consider an API that creates a resource and emits a notification:</p>
+        <ol>
+          <li>Client sends <code>POST /resources</code> with idempotency key <code>tenant123:create:abc</code>.</li>
+          <li>Server writes resource and idempotency record in one transaction.</li>
+          <li>Notification is emitted from an outbox consumer keyed to the same operation identity.</li>
+          <li>If client times out and retries, server returns prior response; outbox consumer dedupes notification by operation key.</li>
+        </ol>
+        <p>This keeps API correctness and asynchronous side effects aligned. Without shared operation identity, one layer may dedupe while another still duplicates.</p>
 
-        <h2 id="when-to-use-or-not">When to Use / Not Use</h2>
-        <h3>Use It When</h3>
+        <h2 id="common-mistakes">Common mistakes</h2>
         <ul>
-            <li>Payment intents, order creation, provisioning APIs.</li>
-            <li>Any endpoint exposed to flaky networks and client retries.</li>
-        </ul>
-        <h3>Avoid It When</h3>
-        <ul>
-            <li>As justification for infinite retries.</li>
-            <li>Without an expiration and eviction policy for dedupe records.</li>
-        </ul>
-
-        <h2 id="key-takeaways">Key Takeaways</h2>
-        <ul>
-          <li>Start with user-visible correctness requirements, then choose the weakest model that still preserves them.</li>
-          <li>Instrument staleness and conflict rates; treat them as first-class production metrics.</li>
-          <li>Design reconciliation and repair workflows before incidents force ad-hoc fixes.</li>
+          <li>Using idempotency keys only on public API, but not on internal workflow steps.</li>
+          <li>Allowing per-service retries plus client retries with no global budget.</li>
+          <li>Retrying after hard validation or authorization failures.</li>
+          <li>Treating "exactly once" as guaranteed instead of engineered behavior on top of at-least-once substrates.</li>
         </ul>
 
-        <h2 id="related-reading">Related Reading</h2>
+        <h2 id="when-engineers-should-care">When engineers should care most</h2>
         <ul>
-          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (pillar guide)</a></li>
-          <li><a href="./why-eventual-consistency-breaks-systems.html">Why Eventual Consistency Breaks Systems</a></li>
-          <li><a href="./designing-read-your-writes.html">Designing Read-Your-Writes Guarantees</a></li>
+          <li>Payment-like operations and quota/entitlement changes.</li>
+          <li>Control-plane mutating APIs and tenant provisioning workflows.</li>
+          <li>Any incident where timeout rate spikes and retry traffic rises faster than baseline load.</li>
         </ul>
+
+        <h2 id="related-reading">Related reading</h2>
+        <ul>
+          <li><a href="/blog/retry-strategies-and-idempotency">Retry Strategies and Idempotency</a> — deeper treatment of retry budgets and overload interaction.</li>
+          <li><a href="/blog/queue-design-under-load">Queue Design Under Load</a> — queue dynamics that amplify retries.</li>
+          <li><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems</a> — how to prevent retries from becoming cascading failure.</li>
+          <li><a href="./caching-eventual-consistency-pitfalls.html">Caching + Eventual Consistency Pitfalls</a> — stale-state interactions that compound duplicate processing risk.</li>
+          <li><a href="./what-is-idempotency.html">What Is Idempotency?</a> — conceptual baseline for teams new to the pattern.</li>
+        </ul>
+
+        <h2 id="conclusion">Conclusion</h2>
+        <p>Retries are a correctness feature only when paired with strong idempotency semantics and overload-aware budgets. Build for replay as a first-class reality: define operation identity, persist outcomes durably, and bound retry behavior so failure recovery does not create new incidents.</p>
       </article>
     </main>
 
