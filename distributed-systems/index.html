@@ -52,23 +52,24 @@
             "@type": "ItemList",
             "name": "Distributed systems topic map",
             "itemListOrder": "https://schema.org/ItemListUnordered",
-            "numberOfItems": 15,
+            "numberOfItems": 16,
             "itemListElement": [
               { "@type": "ListItem", "position": 1, "url": "https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" },
               { "@type": "ListItem", "position": 2, "url": "https://www.myrobertson.com/blog/why-systems-fail-under-load-not-just-bugs" },
-              { "@type": "ListItem", "position": 3, "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency" },
-              { "@type": "ListItem", "position": 4, "url": "https://www.myrobertson.com/blog/queue-design-under-load" },
-              { "@type": "ListItem", "position": 5, "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems" },
-              { "@type": "ListItem", "position": 6, "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier" },
-              { "@type": "ListItem", "position": 7, "url": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft" },
-              { "@type": "ListItem", "position": 8, "url": "https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions" },
-              { "@type": "ListItem", "position": 9, "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems" },
-              { "@type": "ListItem", "position": 10, "url": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems" },
-              { "@type": "ListItem", "position": 11, "url": "https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems" },
-              { "@type": "ListItem", "position": 12, "url": "https://www.myrobertson.com/blog/admission-control-in-distributed-systems" },
-              { "@type": "ListItem", "position": 13, "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems" },
-              { "@type": "ListItem", "position": 14, "url": "https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions" },
-              { "@type": "ListItem", "position": 15, "url": "https://www.myrobertson.com/blog/test-driven-ai-development" }
+              { "@type": "ListItem", "position": 3, "url": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing" },
+              { "@type": "ListItem", "position": 4, "url": "https://www.myrobertson.com/blog/retry-strategies-and-idempotency" },
+              { "@type": "ListItem", "position": 5, "url": "https://www.myrobertson.com/blog/queue-design-under-load" },
+              { "@type": "ListItem", "position": 6, "url": "https://www.myrobertson.com/blog/backpressure-stability-correctness-distributed-systems" },
+              { "@type": "ListItem", "position": 7, "url": "https://www.myrobertson.com/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier" },
+              { "@type": "ListItem", "position": 8, "url": "https://www.myrobertson.com/blog/designing-a-correct-distributed-lease-service-tenure-on-raft" },
+              { "@type": "ListItem", "position": 9, "url": "https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions" },
+              { "@type": "ListItem", "position": 10, "url": "https://www.myrobertson.com/blog/rate-limiting-in-distributed-systems" },
+              { "@type": "ListItem", "position": 11, "url": "https://www.myrobertson.com/blog/circuit-breakers-in-distributed-systems" },
+              { "@type": "ListItem", "position": 12, "url": "https://www.myrobertson.com/blog/graceful-degradation-in-distributed-systems" },
+              { "@type": "ListItem", "position": 13, "url": "https://www.myrobertson.com/blog/admission-control-in-distributed-systems" },
+              { "@type": "ListItem", "position": 14, "url": "https://www.myrobertson.com/blog/end-to-end-overload-control-in-distributed-systems" },
+              { "@type": "ListItem", "position": 15, "url": "https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions" },
+              { "@type": "ListItem", "position": 16, "url": "https://www.myrobertson.com/blog/test-driven-ai-development" }
             ]
           },
           {
@@ -100,6 +101,7 @@
         <ul>
           <li><a href="/case-studies/oracle-cns-oci-migration/">Oracle Customer Notification Service migration to OCI</a> — flagship system and rollout-safety reference.</li>
           <li><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems</a> — overload control and graceful degradation baseline.</li>
+          <li><a href="/blog/fallacies-of-distributed-computing">The Fallacies of Distributed Computing Still Break Modern Systems</a> — modern assumption failures across latency, topology, ownership, and trust boundaries.</li>
           <li><a href="/blog/end-to-end-overload-control-in-distributed-systems">End-to-End Overload Control in Distributed Systems</a> — system-level overload pipeline connecting all reliability controls.</li>
           <li><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Architecting a Multitenant Control Plane</a> — workflow execution and multitenant control patterns.</li>
         </ul>
@@ -115,6 +117,7 @@
         <h2>Topic map</h2>
         <div class="grid">
           <article class="project"><h3>Overload control and graceful service</h3><p><a href="/blog/why-systems-fail-under-load-not-just-bugs">Why Systems Fail Under Load, Not Just Bugs</a><br /><a href="/blog/retry-strategies-and-idempotency">Retry Strategies and Idempotency</a><br /><a href="/blog/queue-design-under-load">Queue Design Under Load</a><br /><a href="/blog/end-to-end-overload-control-in-distributed-systems">End-to-End Overload Control in Distributed Systems</a><br /><a href="/blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems</a><br /><a href="/blog/admission-control-in-distributed-systems">Admission Control in Distributed Systems</a><br /><a href="/blog/rate-limiting-in-distributed-systems">Rate Limiting in Distributed Systems</a><br /><a href="/blog/load-shedding-in-distributed-systems">Load Shedding in Distributed Systems</a><br /><a href="/blog/graceful-degradation-in-distributed-systems">Graceful Degradation in Distributed Systems</a></p></article>
+          <article class="project"><h3>Distributed assumptions and correctness</h3><p><a href="/blog/fallacies-of-distributed-computing">The Fallacies of Distributed Computing Still Break Modern Systems</a><br /><a href="/blog/what-is-the-cap-theorem">What Is the CAP Theorem?</a><br /><a href="/blog/what-is-eventual-consistency">What Is Eventual Consistency?</a><br /><a href="/blog/what-is-idempotency">What Is Idempotency?</a><br /><a href="/blog/what-is-a-distributed-lock-with-examples">What Is a Distributed Lock?</a><br /><a href="/blog/distributed-lock-failure-modes">Distributed Lock Failure Modes in Production</a></p></article>
           <article class="project"><h3>Control planes and orchestration</h3><p><a href="/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Architecting a Multitenant Control Plane</a><br /><a href="/case-studies/control-plane-workflow-platform/">Control-plane workflow platform case study</a></p></article>
           <article class="project"><h3>Migration safety and modernization</h3><p><a href="/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions">What It Took to Modernize a Legacy Service Across 32 Global Regions</a><br /><a href="/case-studies/java-17-global-modernization/">Java 17 modernization case study</a></p></article>
           <article class="project"><h3>Distributed coordination</h3><p><a href="/blog/what-is-a-distributed-lock-with-examples">Distributed locks: anchor overview</a><br /><a href="/blog/fencing-tokens-explained">Fencing tokens and stale-writer prevention</a><br /><a href="/blog/distributed-lock-failure-modes">Distributed lock failure modes</a><br /><a href="/blog/distributed-locks-vs-leases-vs-leader-election">Locks vs leases vs leader election</a><br /><a href="/blog/designing-a-correct-distributed-lease-service-tenure-on-raft">Distributed lease service: Tenure on Raft</a><br /><a href="/blog/crdts-explained">CRDTs Explained</a><br /><a href="/blog/designing-a-crdt-from-scratch">Designing a CRDT from Scratch</a></p></article>

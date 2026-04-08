@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Fallacies of Distributed Computing Still Break Modern Systems | Rich Robertson</title>
+    <meta
+      name="description"
+      content="A production-focused guide to the eight fallacies of distributed computing and why assumptions about reliability, latency, security, topology, and ownership still break cloud-native systems."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/fallacies-of-distributed-computing" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="The Fallacies of Distributed Computing Still Break Modern Systems" />
+    <meta
+      property="og:description"
+      content="A production-focused guide to the eight fallacies of distributed computing and why assumptions about reliability, latency, security, topology, and ownership still break cloud-native systems."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/fallacies-of-distributed-computing" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="The Fallacies of Distributed Computing Still Break Modern Systems" />
+    <meta
+      name="twitter:description"
+      content="A production-focused guide to the eight fallacies of distributed computing and why assumptions about reliability, latency, security, topology, and ownership still break cloud-native systems."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "The Fallacies of Distributed Computing Still Break Modern Systems",
+        "description": "A production-focused guide to the eight fallacies of distributed computing and why assumptions about reliability, latency, security, topology, and ownership still break cloud-native systems.",
+        "url": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing",
+        "datePublished": "2026-04-08T14:00:00Z",
+        "dateModified": "2026-04-08T14:00:00Z",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "The Fallacies of Distributed Computing Still Break Modern Systems",
+            "item": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing"
+          }
+        ]
+      }
+    </script>
+
+    <!-- AI-SCHEMA:START -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://www.myrobertson.com/#person-rich-robertson",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "jobTitle": "Senior Backend Engineer",
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ],
+          "knowsAbout": [
+            "distributed systems",
+            "control planes",
+            "platform modernization",
+            "OCI migration",
+            "production reliability"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://www.myrobertson.com/#website",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/",
+          "inLanguage": "en",
+          "about": [
+            "distributed systems",
+            "control planes",
+            "platform modernization",
+            "OCI migration",
+            "production reliability"
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing#main",
+          "headline": "The Fallacies of Distributed Computing Still Break Modern Systems",
+          "author": {
+            "@id": "https://www.myrobertson.com/#person-rich-robertson"
+          },
+          "datePublished": "2026-04-08T14:00:00Z",
+          "dateModified": "2026-04-08T14:00:00Z",
+          "description": "A production-focused guide to the eight fallacies of distributed computing and why assumptions about reliability, latency, security, topology, and ownership still break cloud-native systems.",
+          "keywords": [
+            "fallacies of distributed computing",
+            "distributed systems",
+            "reliability",
+            "control planes",
+            "backend engineering",
+            "platform engineering"
+          ],
+          "mainEntityOfPage": {
+            "@id": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing"
+          },
+          "url": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing",
+          "inLanguage": "en",
+          "about": [
+            "distributed systems",
+            "control planes",
+            "platform modernization",
+            "OCI migration",
+            "production reliability"
+          ],
+          "isPartOf": {
+            "@id": "https://www.myrobertson.com/#website"
+          },
+          "sameAs": [
+            "https://www.linkedin.com/in/royrobertson/",
+            "https://github.com/richrobertson"
+          ]
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.myrobertson.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Blog",
+              "item": "https://www.myrobertson.com/blog/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "The Fallacies of Distributed Computing Still Break Modern Systems",
+              "item": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing"
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+    <!-- AI-SCHEMA:END -->
+  </head>
+  <body data-page="writing" data-article-slug="fallacies-of-distributed-computing">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+      <div class="hero-content" data-article-meta data-article-slug="fallacies-of-distributed-computing">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Post</span></p>
+        <p class="eyebrow">April 2026 • Rich Robertson</p>
+        <h1>The Fallacies of Distributed Computing Still Break Modern Systems</h1>
+        <p class="intro blog-dek">
+          Modern outages are still old assumption failures in new clothing. Teams do not lose reliability because they have never heard of distributed-systems fallacies; they lose it because those assumptions leak into API contracts, retries, ownership seams, rollout plans, and day-two operations.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          If your architecture only works when latency is low, dependencies are healthy, ownership is clear, and behavior is uniform, it does not work. It works in a diagram. Production is where partial failure, stale state, timeout drift, and organizational boundaries expose the assumptions you did not write down.
+        </p>
+        <p>
+          That is why this topic still matters in cloud-native systems with service meshes, managed queues, and platform abstractions. Better tooling lowers friction, but it does not repeal distributed physics.
+        </p>
+
+        <h2 id="origin">Origin in One Minute</h2>
+        <p>
+          The original "fallacies of distributed computing" called out assumptions engineers repeatedly made when moving from local to networked systems. The classic eight are still the same:
+        </p>
+        <ol>
+          <li>The network is reliable.</li>
+          <li>Latency is zero.</li>
+          <li>Bandwidth is infinite.</li>
+          <li>The network is secure.</li>
+          <li>Topology does not change.</li>
+          <li>There is one administrator.</li>
+          <li>Transport cost is zero.</li>
+          <li>The network is homogeneous.</li>
+        </ol>
+        <p>
+          These are not trivia points. They are failure pattern generators.
+        </p>
+
+        <h2 id="why-still-matters">Why These Fallacies Still Matter in 2026</h2>
+        <p>
+          Managed databases, SDK retries, and meshes reduce incidental complexity. They also make it easier to forget where risk moved. A retry policy in a client library can hide duplicate writes until a dependency slows down. A service mesh can hide hop count until tail latency explodes. A queue can hide overload until backlog age turns into user-visible staleness.
+        </p>
+        <p>
+          Diagrams tell you what components exist. Incidents tell you what assumptions existed. The gap between the two is where most reliability work lives.
+        </p>
+
+        <h2 id="fallacy-reliable-network">1) The Network Is Reliable</h2>
+        <p>
+          The false assumption: if a call fails, nothing happened.
+        </p>
+        <p>
+          In real systems, requests are dropped, responses are lost, and timeouts arrive after side effects commit. "Request failed" and "operation did not happen" are different states. This is exactly why retry behavior must be paired with idempotent contracts, dedupe windows, and explicit partial-failure semantics. If you need a practical baseline, start with <a href="./what-is-idempotency.html">What Is Idempotency?</a> and then go deeper on duplicate writes in <a href="./retries-idempotency-duplicate-writes.html">Retries, Idempotency, and Duplicate Writes</a>.
+        </p>
+        <p>
+          Design implication: treat every remote mutation as ambiguous unless proven otherwise. Build APIs so callers can safely retry without creating new side effects.
+        </p>
+
+        <h2 id="fallacy-zero-latency">2) Latency Is Zero</h2>
+        <p>
+          The false assumption: a remote call is basically a local function call.
+        </p>
+        <p>
+          Fan-out trees, chatty service boundaries, cross-region dependencies, and synchronous chains multiply tail latency. At scale, p99 dominates user experience and saturation behavior. If your critical path has too many hops, one slow dependency is enough to pull everything into timeout-and-retry feedback loops.
+        </p>
+        <p>
+          Design implication: enforce latency budgets by hop, flatten critical paths, and reserve synchronous dependencies for work that must be in-band.
+        </p>
+
+        <h2 id="fallacy-infinite-bandwidth">3) Bandwidth Is Infinite</h2>
+        <p>
+          The false assumption: moving bytes is always cheap and available.
+        </p>
+        <p>
+          Polling loops, oversized payloads, verbose events, full-state synchronization, and unbounded replication streams quietly become throughput bottlenecks, cloud cost spikes, and queue-pressure incidents. Backlog growth is not just a queue problem; it is often a payload-design problem upstream. The overload consequences are visible in <a href="./api-backpressure-explained-simply.html">API Backpressure Explained Simply</a> and in the deeper system map <a href="./backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems</a>.
+        </p>
+        <p>
+          Design implication: design payload contracts and replication patterns as capacity decisions, not serialization details.
+        </p>
+
+        <h2 id="fallacy-secure-network">4) The Network Is Secure</h2>
+        <p>
+          The false assumption: internal traffic is trusted traffic.
+        </p>
+        <p>
+          Service-to-service auth drift, overprivileged tokens, secret sprawl, weak workload identity boundaries, and bad defaults in ingress or mesh policy create lateral-movement paths. "Inside the VPC" is not a security model.
+        </p>
+        <p>
+          Design implication: prefer explicit trust boundaries, workload identity, least-privilege policy, and revocation-aware token handling over ambient trust.
+        </p>
+
+        <h2 id="fallacy-static-topology">5) Topology Does Not Change</h2>
+        <p>
+          The false assumption: hosts, routes, and dependency shape are stable.
+        </p>
+        <p>
+          Autoscaling, failover, drained instances, rolling deploys, region evacuation, and service discovery churn constantly change the live graph. Static assumptions about host identity, route locality, or single-version behavior age out fast.
+        </p>
+        <p>
+          Design implication: build health-aware routing, assume mixed-version traffic during rollouts, and test failure behavior during topology change, not just steady state.
+        </p>
+
+        <h2 id="fallacy-one-admin">6) There Is One Administrator</h2>
+        <p>
+          The false assumption: one team controls policy, rollout timing, and failure response.
+        </p>
+        <p>
+          Real production systems cross platform, SRE, security, product, data, vendor, and customer-managed boundaries. Control planes are especially exposed here because ownership seams define failure seams. The architectural view in <a href="./what-is-a-control-plane.html">What Is a Control Plane?</a> and <a href="./architecting-a-multitenant-control-plane-for-a-next-generation-data-tier.html">Architecting a Multitenant Control Plane</a> shows how coordination burden grows as team count grows.
+        </p>
+        <p>
+          Design implication: design for clear ownership contracts, escalation paths, and operational handoff semantics across teams.
+        </p>
+
+        <h2 id="fallacy-zero-transport-cost">7) Transport Cost Is Zero</h2>
+        <p>
+          The false assumption: adding a network boundary is operationally free.
+        </p>
+        <p>
+          Even when infra cost is low, remote calls add coordination cost, failure-handling code, instrumentation debt, debugging complexity, and incident surface area. Service decomposition can improve velocity, but decomposition without cost accounting often creates distributed monolith behavior with worse failure modes.
+        </p>
+        <p>
+          Design implication: create remote boundaries when they buy isolation, ownership, or scaling advantage that justifies their full lifecycle cost.
+        </p>
+
+        <h2 id="fallacy-homogeneous-network">8) The Network Is Homogeneous</h2>
+        <p>
+          The false assumption: every client and path behaves the same way.
+        </p>
+        <p>
+          In practice you have mixed client versions, different timeout defaults, proxy quirks, inconsistent retry policies, serialization mismatches, language-runtime differences, and uneven observability. Your real contract is broader than the happy-path API schema.
+        </p>
+        <p>
+          Design implication: standardize platform defaults, publish compatibility windows, and treat protocol evolution as a first-class product decision.
+        </p>
+
+        <h2 id="what-they-teach">What the Fallacies Actually Teach</h2>
+        <p>
+          The point is not to memorize eight lines. The point is to build with humility. High-reliability systems encode that humility directly in design:
+        </p>
+        <ul>
+          <li>explicit timeouts and deadlines</li>
+          <li>bounded queues and bounded in-flight work</li>
+          <li>backpressure and admission control</li>
+          <li>idempotent mutation contracts</li>
+          <li>observability that separates local symptoms from upstream causes</li>
+          <li>clear interface contracts and clear ownership contracts</li>
+          <li>graceful degradation when dependencies are unhealthy</li>
+          <li>design for partial failure, not ideal-path completion</li>
+        </ul>
+        <p>
+          If you are preparing for senior-level interviews, this framing is also a useful explanation model because it maps directly to real trade-offs. The study path in <a href="./distributed-systems-interview-guide.html">Distributed Systems Interview Guide</a> goes deeper.
+        </p>
+
+        <h2 id="closing">Closing Judgment</h2>
+        <p>
+          Distributed systems do not break because the industry forgot the fallacies. They break because teams keep reintroducing them under schedule pressure, abstraction comfort, and ownership ambiguity. The engineering bar is not "can we name the eight?" It is "did we design so those assumptions cannot silently take us down in production?"
+        </p>
+
+        <h3>What to Read Next</h3>
+        <ul>
+          <li><a href="./backpressure-stability-correctness-distributed-systems.html">Backpressure in Distributed Systems: Stability, Correctness, and Graceful Degradation</a></li>
+          <li><a href="./what-is-idempotency.html">What Is Idempotency? (And Why It Matters in Distributed Systems)</a></li>
+          <li><a href="./what-is-eventual-consistency.html">What Is Eventual Consistency? (Explained Simply)</a></li>
+          <li><a href="./what-is-the-cap-theorem.html">What Is the CAP Theorem? (Explained Simply)</a></li>
+          <li><a href="./what-is-a-control-plane.html">What Is a Control Plane?</a></li>
+        </ul>
+        <p>
+          For a coordination-specific companion, continue with <a href="./what-is-a-distributed-lock-with-examples.html">What Is a Distributed Lock? (With Examples)</a> and <a href="./distributed-lock-failure-modes.html">Distributed Lock Failure Modes in Production</a>. For migration-scale evidence of ownership and operability constraints, the <a href="/case-studies/oracle-cns-oci-migration/">Oracle CNS OCI migration case study</a> is the cleanest system-level reference.
+        </p>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

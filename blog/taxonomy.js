@@ -131,6 +131,13 @@
       tags: ['Distributed Systems', 'Correctness', 'Architecture']
     },
     {
+      slug: 'fallacies-of-distributed-computing',
+      title: 'The Fallacies of Distributed Computing Still Break Modern Systems',
+      url: '/blog/fallacies-of-distributed-computing',
+      summary: 'A production-first breakdown of how classic distributed-systems assumptions still fail under real load, partial failure, and ownership complexity.',
+      tags: ['Distributed Systems', 'Reliability', 'Architecture']
+    },
+    {
       slug: 'what-is-idempotency',
       title: 'What Is Idempotency? (And Why It Matters in Distributed Systems)',
       url: '/blog/what-is-idempotency',
