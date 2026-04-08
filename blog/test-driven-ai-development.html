@@ -241,11 +241,11 @@
           <figcaption><strong>Diagram 1 — Variance injection points</strong></figcaption>
           <div class="mermaid">
             flowchart TB
-              U[User Query] --> P[Prompt Builder<br/>template drift]
-              P --> R[Retriever<br/>rank/index drift]
-              R --> L[LLM Inference<br/>sampling/model drift]
-              L --> X[Policy/Parser<br/>rule/parser drift]
-              X --> F[Final Response]
+              U[User Query] --&gt; P[Prompt Builder&lt;br/&gt;template drift]
+              P --&gt; R[Retriever&lt;br/&gt;rank/index drift]
+              R --&gt; L[LLM Inference&lt;br/&gt;sampling/model drift]
+              L --&gt; X[Policy/Parser&lt;br/&gt;rule/parser drift]
+              X --&gt; F[Final Response]
           </div>
         </figure>
         <p>
@@ -275,9 +275,9 @@
           <figcaption><strong>Diagram 2 — Assertion evolution</strong></figcaption>
           <div class="mermaid">
             flowchart LR
-              A[Exact Match<br/>output == expected] --> B[Contract Checks<br/>schema + required fields]
-              B --> C[Semantic Scoring<br/>intent + support]
-              C --> D[Policy Checks<br/>safety/compliance]
+              A[Exact Match&lt;br/&gt;output == expected] --&gt; B[Contract Checks&lt;br/&gt;schema + required fields]
+              B --&gt; C[Semantic Scoring&lt;br/&gt;intent + support]
+              C --&gt; D[Policy Checks&lt;br/&gt;safety/compliance]
           </div>
         </figure>
 
@@ -339,11 +339,11 @@
           <figcaption><strong>Diagram 3 — Layered AI test pyramid</strong></figcaption>
           <div class="mermaid">
             flowchart TB
-              R[Regression Foundation<br/>incidents + edge cases]
-              C[Deterministic Contracts<br/>schema + policy + latency]
+              R[Regression Foundation&lt;br/&gt;incidents + edge cases]
+              C[Deterministic Contracts&lt;br/&gt;schema + policy + latency]
               S[Semantic Assertions + Scoring]
               B[Behavioral / End-to-End]
-              R --> C --> S --> B
+              R --&gt; C --&gt; S --&gt; B
           </div>
         </figure>
 
@@ -363,8 +363,8 @@
           <figcaption><strong>Diagram 4 — AI TDD loop</strong></figcaption>
           <div class="mermaid">
             flowchart LR
-              W[Write Eval] --> R[Run Evals] --> A[Adjust System] --> RR[Re-run] --> L[Lock Regression]
-              L --> W
+              W[Write Eval] --&gt; R[Run Evals] --&gt; A[Adjust System] --&gt; RR[Re-run] --&gt; L[Lock Regression]
+              L --&gt; W
           </div>
         </figure>
 
@@ -400,13 +400,13 @@
           <figcaption><strong>Diagram 5 — CI/CD evaluation architecture</strong></figcaption>
           <div class="mermaid">
             flowchart TB
-              G[Git Push] --> C[CI Pipeline<br/>contract + semantic + behavioral evals]
-              C --> Q{Score Gate}
-              Q -->|pass| D[Deploy Candidate]
-              Q -->|fail| B[Block Deploy]
-              D --> S[Canary + Shadow]
-              S --> M[Drift Monitor]
-              M --> I[Incident -> Regression Feed]
+              G[Git Push] --&gt; C[CI Pipeline&lt;br/&gt;contract + semantic + behavioral evals]
+              C --&gt; Q{Score Gate}
+              Q --&gt;|pass| D[Deploy Candidate]
+              Q --&gt;|fail| B[Block Deploy]
+              D --&gt; S[Canary + Shadow]
+              S --&gt; M[Drift Monitor]
+              M --&gt; I[Incident -&gt; Regression Feed]
           </div>
         </figure>
 
