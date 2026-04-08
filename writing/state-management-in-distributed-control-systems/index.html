@@ -164,10 +164,10 @@
         </ul>
 
         <h3>Diagram: three state views</h3>
-        <pre><code>[Intent API] ---> [Desired State]
+        <pre><code>[Intent API] ---&gt; [Desired State]
                         |
                         v
-[Observed Signals] -> [Reconciler] -> [Authoritative Control State] -> [Workers]
+      [Observed Signals] -&gt; [Reconciler] -&gt; [Authoritative Control State] -&gt; [Workers]
                              |                    |
                              +---- audit ---------+
 </code></pre>
@@ -180,12 +180,12 @@
 
         <h3>Diagram: reconciliation loop</h3>
         <pre><code>Read desired + authoritative
-          -> read observed (with freshness)
-          -> choose legal transition
-          -> persist transition + lineage
-          -> perform side effect
-          -> requeue with backoff/jitter
-          -> converge or terminal fail
+          -&gt; read observed (with freshness)
+          -&gt; choose legal transition
+          -&gt; persist transition + lineage
+          -&gt; perform side effect
+          -&gt; requeue with backoff/jitter
+          -&gt; converge or terminal fail
 </code></pre>
         <p>This model is safer than one-shot orchestration because each pass is small, replayable, and recoverable.</p>
       </section>
@@ -209,9 +209,9 @@
         <p>Durable workflow state is required when work spans restarts, human approvals, callbacks, fan-out/fan-in, or compensation paths.</p>
 
         <h3>Diagram: durable workflow progression</h3>
-        <pre><code>Pending -> Validating -> Scheduled -> Running -> WaitingCallback -> Succeeded
+        <pre><code>Pending -&gt; Validating -&gt; Scheduled -&gt; Running -&gt; WaitingCallback -&gt; Succeeded
                                         |                              
-                                        +-> Failed -> Compensating -> Compensated
+                +-&gt; Failed -&gt; Compensating -&gt; Compensated
 
 Every transition is durably persisted before the next irreversible action.
 </code></pre>
@@ -221,9 +221,9 @@ Every transition is durably persisted before the next irreversible action.
       <section class="section">
         <h2>Explicit state machines and legal motion</h2>
         <p>Narrow state models beat free-form status blobs.</p>
-        <pre><code>Pending -> Validating -> Scheduled -> Running -> Succeeded
+        <pre><code>Pending -&gt; Validating -&gt; Scheduled -&gt; Running -&gt; Succeeded
                                       |             
-                                      +-> Failed -> Compensating
+                    +-&gt; Failed -&gt; Compensating
 </code></pre>
         <p>Apply transition guards:</p>
         <ul>
@@ -270,12 +270,12 @@ T4 Reject stale event, increment duplicate/stale counter
 
         <h3>Diagram: multitenant partition-aware control flow</h3>
         <pre><code>[Tenant Intent API]
-        -> [Desired State by tenant_id]
-        -> [Partition Router]
-        -> [Shard Controller + Owner Epoch]
-        -> [Partition-aware Workers]
-        -> [Observed Signals]
-        -> [Authoritative State + Tenant-level visibility]
+        -&gt; [Desired State by tenant_id]
+        -&gt; [Partition Router]
+        -&gt; [Shard Controller + Owner Epoch]
+        -&gt; [Partition-aware Workers]
+        -&gt; [Observed Signals]
+        -&gt; [Authoritative State + Tenant-level visibility]
 </code></pre>
         <p>Related deep dive: <a href="/writing/partition-aware-workers-and-scalable-orchestration/">Partition-Aware Workers and Scalable Orchestration</a>.</p>
       </section>

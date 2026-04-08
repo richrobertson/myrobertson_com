@@ -87,6 +87,37 @@
         "label": "backend reliability"
       },
       {
+        "id": "page:fallacies-of-distributed-computing",
+        "nodeType": "page",
+        "title": "The Fallacies of Distributed Computing Still Break Modern Systems",
+        "url": "https://www.myrobertson.com/blog/fallacies-of-distributed-computing",
+        "contentType": "article",
+        "summary": "A production-focused guide to the eight fallacies and how hidden assumptions still break cloud-native systems.",
+        "publishedDate": "2026-04-08",
+        "updatedDate": "2026-04-08",
+        "importance": 2,
+        "canonicalTopic": "distributed systems",
+        "related": [
+          "page:overload-control-pipeline",
+          "page:retry-strategies-and-idempotency",
+          "page:architecting-a-multitenant-control-plane",
+          "page:oracle-cns-oci-migration"
+        ],
+        "parent": "page:distributed-systems",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:architecture",
+        "nodeType": "tag",
+        "label": "architecture"
+      },
+      {
+        "id": "tag:failure-modes",
+        "nodeType": "tag",
+        "label": "failure modes"
+      },
+      {
         "id": "page:overload-control-pipeline",
         "nodeType": "page",
         "title": "End-to-End Overload Control in Distributed Systems",
@@ -263,11 +294,6 @@
         "parent": "page:distributed-systems",
         "level": "foundational",
         "status": "published"
-      },
-      {
-        "id": "tag:failure-modes",
-        "nodeType": "tag",
-        "label": "failure modes"
       },
       {
         "id": "page:retry-strategies-and-idempotency",
@@ -737,19 +763,6 @@
         "id": "tag:platform-modernization",
         "nodeType": "tag",
         "label": "platform modernization"
-      },
-      {
-        "id": "topic:multitenant-control-plane",
-        "nodeType": "topic",
-        "topic": "multitenant control plane",
-        "depth": "advanced",
-        "primary_url": "/control-plane-architecture/",
-        "related": [
-          "control plane architecture",
-          "distributed systems",
-          "workflow orchestration",
-          "multi-tenant systems"
-        ]
       }
     ],
     "edges": [
@@ -806,6 +819,26 @@
       {
         "source": "page:backpressure-in-distributed-systems",
         "target": "tag:backend-reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "tag:distributed-systems",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "tag:architecture",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "tag:failure-modes",
         "type": "hasTag"
       },
       {
@@ -1300,6 +1333,11 @@
       },
       {
         "source": "page:distributed-systems-writing",
+        "target": "page:fallacies-of-distributed-computing",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
         "target": "page:overload-control-pipeline",
         "type": "indexes"
       },
@@ -1421,6 +1459,16 @@
           "tag:distributed-systems"
         ],
         "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:fallacies-of-distributed-computing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
       },
       {
         "source": "page:distributed-systems",
@@ -1561,6 +1609,15 @@
       },
       {
         "source": "page:oracle-cns-oci-migration",
+        "target": "page:fallacies-of-distributed-computing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:oracle-cns-oci-migration",
         "target": "page:overload-control-pipeline",
         "type": "relatedByTag",
         "sharedTags": [
@@ -1693,6 +1750,152 @@
           "tag:graceful-degradation"
         ],
         "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:overload-control-pipeline",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:admission-control-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:rate-limiting-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:circuit-breakers-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:graceful-degradation-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:load-shedding-in-distributed-systems",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:why-systems-fail-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:failure-modes",
+          "tag:reliability"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:retry-strategies-and-idempotency",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:queue-design-under-load",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:architecting-a-multitenant-control-plane",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:police-records-search-architecture",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:designing-a-crdt-from-scratch",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:failures-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:failure-modes"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:distributed-systems",
+          "tag:reliability"
+        ],
+        "strength": 2
       },
       {
         "source": "page:overload-control-pipeline",

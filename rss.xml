@@ -7,6 +7,13 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>The Fallacies of Distributed Computing Still Break Modern Systems</title>
+      <link>https://www.myrobertson.com/blog/fallacies-of-distributed-computing</link>
+      <description>A production-focused guide to the eight fallacies of distributed computing and why assumptions about reliability, latency, security, topology, and ownership still break cloud-native systems.</description>
+      <guid>https://www.myrobertson.com/blog/fallacies-of-distributed-computing</guid>
+      <pubDate>Wed, 08 Apr 2026 14:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Designing a CRDT from Scratch</title>
       <link>https://www.myrobertson.com/blog/designing-a-crdt-from-scratch</link>
       <description>A practical guide to designing conflict-free replicated data types from first principles, including invariants, monotonic state, merge semantics, delete handling, and architecture integration.</description>

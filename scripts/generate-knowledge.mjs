@@ -39,6 +39,22 @@ const pages = [
     importance: 2
   },
   {
+    id: 'page:fallacies-of-distributed-computing',
+    title: 'The Fallacies of Distributed Computing Still Break Modern Systems',
+    url: articleUrl(`${site}/blog/fallacies-of-distributed-computing`),
+    contentType: 'article',
+    summary: 'A production-focused guide to the eight fallacies and how hidden assumptions still break cloud-native systems.',
+    tags: ['distributed systems', 'reliability', 'architecture', 'failure modes'],
+    publishedDate: '2026-04-08',
+    updatedDate: '2026-04-08',
+    importance: 2,
+    canonicalTopic: 'distributed systems',
+    related: ['page:overload-control-pipeline', 'page:retry-strategies-and-idempotency', 'page:architecting-a-multitenant-control-plane', 'page:oracle-cns-oci-migration'],
+    parent: 'page:distributed-systems',
+    level: 'foundational',
+    status: 'published'
+  },
+  {
     id: 'page:overload-control-pipeline',
     title: 'End-to-End Overload Control in Distributed Systems',
     url: articleUrl(`${site}/blog/end-to-end-overload-control-in-distributed-systems`),
