@@ -142,28 +142,33 @@
       <section class="section flagship-callout">
         <h2>Diagram-First Architecture View</h2>
         <figure class="architecture-diagram">
-          <svg viewBox="0 0 980 320" role="img" aria-labelledby="oci-title oci-desc">
-            <title id="oci-title">OCI migration before and after architecture</title>
-            <desc id="oci-desc">Legacy notification and API path moved to OCI ingress and routing, queueing and workers, and observability-backed operations.</desc>
+          <svg viewBox="0 0 980 360" role="img" aria-labelledby="oci-title oci-desc">
+            <title id="oci-title">OCI transition-state and steady-state architecture</title>
+            <desc id="oci-desc">Transition-state architecture uses GoldenGate bidirectional replication and tenant migration waves, while steady-state architecture runs on Kubernetes, Istio, API gateway, managed storage and databases, autoscaling, and Terraform-managed infrastructure.</desc>
             <rect x="20" y="35" width="430" height="245" rx="14" fill="rgba(30, 41, 75, 0.72)" stroke="rgba(128, 169, 255, 0.45)" />
-            <text x="45" y="67" fill="#b4bddb" font-size="17" font-weight="700">Before: Legacy operational model</text>
-            <rect x="50" y="88" width="162" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="74" y="115" fill="#e9ecf8" font-size="13">Notification API</text>
-            <rect x="240" y="88" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="266" y="115" fill="#e9ecf8" font-size="13">Legacy delivery path</text>
-            <rect x="145" y="148" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="166" y="175" fill="#e9ecf8" font-size="13">Operational bottlenecks</text>
-            <text x="50" y="236" fill="#80a9ff" font-size="12">Limited elasticity and slower incident response</text>
+            <text x="45" y="67" fill="#b4bddb" font-size="17" font-weight="700">Transition state: staged migration architecture</text>
+            <rect x="50" y="88" width="168" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="74" y="115" fill="#e9ecf8" font-size="13">Legacy + OCI data paths</text>
+            <rect x="238" y="88" width="184" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="262" y="115" fill="#e9ecf8" font-size="13">GoldenGate bi-directional</text>
+            <rect x="50" y="148" width="180" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="67" y="175" fill="#e9ecf8" font-size="13">Incremental tenant waves</text>
+            <rect x="250" y="148" width="172" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="273" y="175" fill="#e9ecf8" font-size="13">Rollback gate checks</text>
+            <rect x="145" y="206" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="164" y="233" fill="#e9ecf8" font-size="13">Prometheus health metrics</text>
+            <text x="50" y="274" fill="#80a9ff" font-size="12">Real-time replication and migration health control</text>
 
-            <rect x="530" y="35" width="430" height="245" rx="14" fill="rgba(17, 29, 54, 0.86)" stroke="rgba(128, 169, 255, 0.7)" />
-            <text x="554" y="67" fill="#b4bddb" font-size="17" font-weight="700">After: OCI migration target model</text>
-            <rect x="555" y="88" width="134" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="578" y="115" fill="#e9ecf8" font-size="13">OCI ingress</text>
-            <rect x="708" y="88" width="145" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="730" y="115" fill="#e9ecf8" font-size="13">Traffic routing</text>
-            <rect x="620" y="148" width="140" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="650" y="175" fill="#e9ecf8" font-size="13">Queueing</text>
-            <rect x="775" y="148" width="160" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="802" y="175" fill="#e9ecf8" font-size="13">Workers + metrics</text>
-            <text x="555" y="236" fill="#80a9ff" font-size="12">Controlled cutover and observability-first rollout</text>
+            <rect x="530" y="35" width="430" height="285" rx="14" fill="rgba(17, 29, 54, 0.86)" stroke="rgba(128, 169, 255, 0.7)" />
+            <text x="554" y="67" fill="#b4bddb" font-size="17" font-weight="700">Steady state: OCI target architecture</text>
+            <rect x="555" y="88" width="160" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="576" y="115" fill="#e9ecf8" font-size="13">Kubernetes runtime</text>
+            <rect x="730" y="88" width="188" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="752" y="115" fill="#e9ecf8" font-size="13">Istio service mesh</text>
+            <rect x="555" y="148" width="170" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="583" y="175" fill="#e9ecf8" font-size="13">API gateway edge</text>
+            <rect x="742" y="148" width="176" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="764" y="175" fill="#e9ecf8" font-size="13">Dynamic autoscaling</text>
+            <rect x="555" y="206" width="170" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="571" y="233" fill="#e9ecf8" font-size="13">Object + block storage</text>
+            <rect x="742" y="206" width="176" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="753" y="233" fill="#e9ecf8" font-size="13">Autonomous Oracle DB</text>
+            <rect x="650" y="264" width="168" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="685" y="291" fill="#e9ecf8" font-size="13">Terraform IaC</text>
+            <text x="555" y="332" fill="#80a9ff" font-size="12">Policy-driven platform with reproducible infrastructure operations</text>
 
-            <line x1="455" y1="158" x2="520" y2="158" stroke="#80a9ff" stroke-width="3" /><polygon points="520,158 508,151 508,165" fill="#80a9ff" />
-            <text x="458" y="144" fill="#80a9ff" font-size="12">Phased migration</text>
+            <line x1="455" y1="176" x2="520" y2="176" stroke="#80a9ff" stroke-width="3" /><polygon points="520,176 508,169 508,183" fill="#80a9ff" />
+            <text x="458" y="162" fill="#80a9ff" font-size="12">Tenant-wave cutover</text>
           </svg>
-          <figcaption>This migration became the primary reference system for rollout safety, load management, and production reliability.</figcaption>
+          <figcaption>Architecture view showing transition-state GoldenGate replication and tenant-wave migration controls flowing into the steady-state Kubernetes, Istio, and Terraform-operated OCI platform.</figcaption>
         </figure>
       </section>
 
