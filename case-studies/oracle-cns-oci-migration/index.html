@@ -189,13 +189,27 @@
         <p>I mentored engineers who were new to OCI so they could onboard quickly, operate confidently in the target environment, and contribute to migration execution without creating delivery risk.</p>
         <p>I partnered with product, operations, and leadership stakeholders to identify migration risks, define mitigation and rollback criteria, and maintain alignment during high-scrutiny milestones.</p>
         <p>After establishing a stable process and target-state operating model, I managed the migration through critical phases and handed the program off to the broader team with clear ownership, runbooks, and continuation plans.</p>
+        <h3>Migration architecture (transition state)</h3>
+        <p><strong>Summary:</strong> The transition architecture used Oracle GoldenGate for bidirectional replication so tenant traffic could be moved incrementally without forcing a high-risk one-time cutover.</p>
+        <p>Oracle GoldenGate replicated data bidirectionally between legacy data centers and OCI so writes remained synchronized during staged rollout windows. This enabled incremental tenant migrations in controlled waves, with explicit pause points between cohorts to validate health before expanding blast radius.</p>
+        <p>I added custom Prometheus migration metrics to track replication lag, tenant wave completion, queue depth, worker throughput, and error-rate drift in near real time. Those signals became hard rollout gates for continue, hold, or rollback decisions.</p>
+        <h3>Target architecture (steady state)</h3>
+        <p><strong>Summary:</strong> The final-state platform was OCI-native and Kubernetes-based, with service-mesh controls, autoscaling, and Terraform-driven infrastructure orchestration.</p>
+        <p>The steady-state architecture ran on Kubernetes with Istio service mesh for traffic policy, resilience controls, and service-to-service observability. Data and artifact paths used OCI Object Storage and Block Volume where appropriate, with Autonomous Oracle Database services for managed persistence and operational simplification.</p>
+        <p>Ingress and edge controls were implemented through API gateway patterns, while dynamic scaling policies handled demand variability for API and worker tiers. Infrastructure provisioning and environment consistency were orchestrated as code with Terraform so platform changes remained reviewable, repeatable, and auditable.</p>
         <h3>Key engineering decisions</h3>
         <ul>
           <li>Controlled traffic shifts instead of all-at-once cutover</li>
           <li>Separate architecture definition for transition-state and final-state OCI operation</li>
+          <li>Bidirectional Oracle GoldenGate replication to support safe incremental tenant migration waves</li>
           <li>Formal engineering review board checkpoints before irreversible rollout gates</li>
           <li>Queueing and worker isolation to reduce overload amplification</li>
+          <li>Custom Prometheus migration metrics for real-time go/no-go and rollback decisions</li>
           <li>Hands-on OCI onboarding and pairing to accelerate team readiness</li>
+          <li>Kubernetes + Istio service mesh as the core target-state runtime and policy layer</li>
+          <li>OCI storage and Autonomous Oracle Database adoption for managed, scalable persistence</li>
+          <li>API gateway and dynamic autoscaling policies to handle variable production load</li>
+          <li>Terraform-managed infrastructure as code for reproducible environment operations</li>
           <li>Risk register with mitigation owners, rollback criteria, and stakeholder communication cadence</li>
           <li>Fallacy-aware architecture constraints for reliability, latency, topology change, and multi-team ownership (see <a href="../../blog/fallacies-of-distributed-computing">The Fallacies of Distributed Computing Still Break Modern Systems</a>)</li>
           <li>Observability-first rollout with explicit metrics checkpoints</li>
