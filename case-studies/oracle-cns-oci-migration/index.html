@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OCI Migration Case Study | Distributed Systems (32 Data Centers)</title>
-    <meta name="description" content="Oracle Customer Notification Service migration case study covering OCI rollout safety, queueing strategy, and production reliability across 32 global data centers." />
+    <meta name="description" content="Oracle Customer Notification Service migration case study covering architecture definition, engineering governance approval, OCI team onboarding, risk management, and production reliability across 32 global data centers." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="OCI Migration Case Study | Distributed Systems (32 Data Centers)" />
-    <meta property="og:description" content="How a production notification platform moved to OCI with controlled traffic shifts and observability-first rollout." />
+    <meta property="og:description" content="How a production notification platform moved to OCI through architecture leadership, controlled traffic shifts, and observability-first rollout." />
     <meta property="og:url" content="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
     <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="OCI Migration Case Study" />
-    <meta name="twitter:description" content="Distributed systems migration across 32 global data centers with reliability-first rollout controls." />
+    <meta name="twitter:description" content="Distributed systems migration across 32 global data centers with architecture governance, risk controls, and reliability-first rollout." />
     <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
     <link rel="stylesheet" href="../../styles.css" />
   
@@ -63,8 +63,8 @@
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
           },
           "datePublished": "2026-03-28T14:54:24-07:00",
-          "dateModified": "2026-03-28T14:54:24-07:00",
-          "description": "Oracle Customer Notification Service migration case study covering OCI rollout safety, queueing strategy, and production reliability across 32 global data centers.",
+          "dateModified": "2026-04-08T12:00:00-07:00",
+          "description": "Oracle Customer Notification Service migration case study covering architecture definition, engineering governance approval, OCI onboarding, risk management, and production reliability across 32 global data centers.",
           "keywords": [
             "oracle",
             "cns",
@@ -137,7 +137,7 @@
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/case-studies/">Case Studies</a> / <span aria-current="page">Oracle CNS OCI Migration</span></p>
       <p class="flagship-label">Flagship System</p>
       <h1>Oracle Customer Notification Service OCI Migration Case Study</h1>
-      <p class="case-takeaway">Migrated a production notification platform across 32 global data centers while preserving delivery stability.</p>
+      <p class="case-takeaway">Architected and led a production notification platform migration across 32 global data centers while preserving delivery stability and enabling long-term OCI ownership.</p>
 
       <section class="section flagship-callout">
         <h2>Diagram-First Architecture View</h2>
@@ -178,24 +178,32 @@
 
       <section class="section">
         <h2>What This Migration Required</h2>
-        <p><strong>Summary:</strong> This migration prioritized controlled rollout sequencing, queue and worker isolation, and observability-driven decision points.</p>
-        <p>This case study describes a distributed systems migration to OCI across global data centers, focusing on reliability, rollout safety, and operational stability.</p>
+        <p><strong>Summary:</strong> This migration required defining both the migration architecture and the final OCI target architecture, then executing in phases with explicit governance and risk controls.</p>
+        <p>This case study describes a distributed systems migration to OCI across global data centers, with emphasis on architecture clarity, rollout safety, and operational stability.</p>
         <h3>Core problem</h3>
         <p><strong>Summary:</strong> The legacy delivery path reduced control during a customer-critical migration window.</p>
         <p>Legacy pathways constrained supportability and rollout control during a customer-critical timeline.</p>
         <h3>My role</h3>
-        <p>Led migration execution and backend implementation planning across the service transition.</p>
+        <p>I architected the migration strategy end-to-end: first defining the transition architecture for safe staged cutover, then defining the final-state OCI architecture for steady-state operations after migration.</p>
+        <p>I presented the architecture and rollout approach to the engineering review board, addressed design questions and operational concerns, and drove approval to proceed with a phased implementation plan.</p>
+        <p>I mentored engineers who were new to OCI so they could onboard quickly, operate confidently in the target environment, and contribute to migration execution without creating delivery risk.</p>
+        <p>I partnered with product, operations, and leadership stakeholders to identify migration risks, define mitigation and rollback criteria, and maintain alignment during high-scrutiny milestones.</p>
+        <p>After establishing a stable process and target-state operating model, I managed the migration through critical phases and handed the program off to the broader team with clear ownership, runbooks, and continuation plans.</p>
         <h3>Key engineering decisions</h3>
         <ul>
           <li>Controlled traffic shifts instead of all-at-once cutover</li>
+          <li>Separate architecture definition for transition-state and final-state OCI operation</li>
+          <li>Formal engineering review board checkpoints before irreversible rollout gates</li>
           <li>Queueing and worker isolation to reduce overload amplification</li>
+          <li>Hands-on OCI onboarding and pairing to accelerate team readiness</li>
+          <li>Risk register with mitigation owners, rollback criteria, and stakeholder communication cadence</li>
           <li>Observability-first rollout with explicit metrics checkpoints</li>
         </ul>
         <h3>Tradeoffs</h3>
-        <p>Balanced migration speed against production safety and support continuity.</p>
+        <p>Balanced migration speed against production safety, support continuity, and team enablement so the system could be sustained by a wider engineering group after handoff.</p>
         <h3>Outcome</h3>
-        <p><strong>Summary:</strong> The rollout held delivery stability and materially improved supportability during enterprise scrutiny.</p>
-        <p>Improved supportability and delivery stability while supporting a $2M enterprise deal.</p>
+        <p><strong>Summary:</strong> The rollout held delivery stability, secured governance approval, reduced migration risk through phased controls, and transitioned ownership cleanly to the long-term team.</p>
+        <p>The migration improved supportability and delivery stability while supporting a $2M enterprise deal and leaving behind an architecture and operating model that the OCI-enabled team could continue with confidence.</p>
       </section>
 
       <section class="section related-concepts">
