@@ -56,6 +56,50 @@
         max-width: 100% !important;
         height: auto;
       }
+
+      .hub-callout {
+        margin: 1.25rem 0;
+        border-left: 4px solid rgba(15, 23, 42, 0.72);
+        padding: 1rem 1rem 1rem 1.1rem;
+        background: rgba(15, 23, 42, 0.04);
+      }
+
+      .hub-callout h3,
+      .path-router h3,
+      .tooling-role-table h3 {
+        margin-top: 0;
+      }
+
+      .path-router,
+      .tooling-role-table {
+        margin: 1.5rem 0;
+      }
+
+      .path-router ul,
+      .tooling-role-table table {
+        margin-bottom: 0;
+      }
+
+      .path-router li + li {
+        margin-top: 0.7rem;
+      }
+
+      .tooling-role-table table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .tooling-role-table th,
+      .tooling-role-table td {
+        padding: 0.75rem;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .tooling-role-table th {
+        background: rgba(15, 23, 42, 0.06);
+      }
     </style>
     <script type="application/ld+json">
       {
@@ -150,6 +194,18 @@
           jump there directly. Otherwise, read this page end to end first so the spoke pages have the right system context.
         </p>
 
+        <section aria-labelledby="key-takeaways" class="hub-callout">
+          <h3 id="key-takeaways">Key Takeaways</h3>
+          <ul>
+            <li>Model AI-assisted delivery as a governed workflow with known stages, not as one agent absorbing the whole lifecycle.</li>
+            <li>Pass durable artifacts between stages so each decision can be traced back to requirements, evidence, and release criteria.</li>
+            <li>Use approval checkpoints and stage gates to keep risk, policy, and accountability visible instead of implicit.</li>
+            <li>Treat orchestration, task execution, and governance as separate concerns so each control boundary stays legible.</li>
+            <li>Deployment is a transition into observation, not the endpoint; production signals need a route back into planning.</li>
+            <li>Close the loop by converting support, user, and runtime evidence into requirements deltas for the next run.</li>
+          </ul>
+        </section>
+
         <figure class="diagram">
           <figcaption><strong>Closed-loop lifecycle map</strong></figcaption>
           <div class="mermaid">
@@ -164,6 +220,28 @@
               Delta --> R
           </div>
         </figure>
+
+        <section aria-labelledby="cluster-router" class="path-router">
+          <h3 id="cluster-router">Choose Your Path Through This Lifecycle</h3>
+          <ul>
+            <li>
+              <a href="/blog/ai-assisted-sdlc-orchestration-architecture">Start with architecture: stateful orchestration graph design</a>
+              for the control model, typed state, approval waits, and stage-transition contracts.
+            </li>
+            <li>
+              <a href="/blog/ai-assisted-sdlc-requirements-normalization">Start with input quality: requirements solicitation and normalization pipeline</a>
+              if your lifecycle breaks before code generation because intent is ambiguous, incomplete, or untraceable.
+            </li>
+            <li>
+              <a href="/blog/ai-assisted-sdlc-local-walkthrough">Start hands-on: local closed-loop implementation walkthrough</a>
+              to see a bounded feature move through the full workflow with artifacts, approvals, traces, and release evidence.
+            </li>
+            <li>
+              <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">Start with loop closure: feedback-to-requirements delta workflow</a>
+              if your main question is how production signals become the next set of scoped requirements.
+            </li>
+          </ul>
+        </section>
 
         <p>
           The recommended reading path is intentional: start here, then move to
@@ -225,6 +303,15 @@
           running validation commands, or collecting production signals. The control plane owns policies, eval thresholds,
           approval rules, and observability surfaces.
         </p>
+        <div class="hub-callout">
+          <h3>Workflow First, Agent Second</h3>
+          <p>
+            In current LangGraph terms, a workflow follows predetermined code paths in a defined order, while an agent decides its own
+            process and tool usage dynamically. This lifecycle is workflow-first: the stage model, control boundaries, and approval
+            checkpoints are known in advance. Dynamic agent behavior can still exist inside bounded stages, but the recommendation is
+            not to let one agent absorb responsibility for requirements, implementation, validation, release, and feedback on its own.
+          </p>
+        </div>
         <p>
           That separation matters because each layer fails differently. Executors can be replaced or upgraded without changing stage semantics.
           The orchestrator can change transition rules without rewriting every worker. Governance controls can tighten or loosen policy without
@@ -238,6 +325,40 @@
           substitute for requirements discipline or release governance. The architecture should remain portable enough that the stage model,
           artifact contracts, and approval semantics survive a tooling swap.
         </p>
+        <section aria-labelledby="tooling-role-table" class="tooling-role-table">
+          <h3 id="tooling-role-table">Compact Tooling Role Map</h3>
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Concern</th>
+                <th scope="col">Role in the lifecycle</th>
+                <th scope="col">Example tooling</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Orchestration</td>
+                <td>Owns stage transitions, typed state, approval waits, and artifact routing across the workflow.</td>
+                <td>LangGraph</td>
+              </tr>
+              <tr>
+                <td>Traces and eval visibility</td>
+                <td>Provides run inspection, trace linkage, and stage-level eval visibility across the delivery loop.</td>
+                <td>LangSmith</td>
+              </tr>
+              <tr>
+                <td>Tool and data integration</td>
+                <td>Exposes controlled external capabilities so bounded stages can fetch context or act through explicit interfaces.</td>
+                <td>MCP-compatible tools</td>
+              </tr>
+              <tr>
+                <td>Model access and local runtime</td>
+                <td>Supplies a swappable inference layer for local development, model routing, or private runtime choices.</td>
+                <td>LiteLLM, Ollama</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
 
         <h2>Human Approval Points and Policy Checkpoints</h2>
         <p>
@@ -339,11 +460,19 @@
         <section aria-labelledby="next-steps">
           <h3 id="next-steps">Read next in this lifecycle</h3>
           <p>
-            Start with <a href="/blog/ai-assisted-sdlc-orchestration-architecture">Designing the Orchestrator for an AI-Assisted Development Workflow</a>
-            for the <em>stateful orchestration graph design</em>, then move to
+            If you want the architecture layer next, read
+            <a href="/blog/ai-assisted-sdlc-orchestration-architecture">Designing the Orchestrator for an AI-Assisted Development Workflow</a>
+            for the <em>stateful orchestration graph design</em> that turns this conceptual model into concrete stage contracts and approval boundaries.
+          </p>
+          <p>
+            If you want the hands-on layer next, move to
             <a href="/blog/ai-assisted-sdlc-local-walkthrough">A Local End-to-End AI-Assisted SDLC Walkthrough</a>
-            for the <em>local closed-loop implementation walkthrough</em>.
-            Orchestration establishes control boundaries immediately after conceptual framing, and the walkthrough turns that model into an executable local pipeline.
+            for the <em>local closed-loop implementation walkthrough</em> that shows the artifacts, traces, and gates in a bounded local example.
+          </p>
+          <p>
+            If you want the loop-closure layer next, continue to
+            <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">How Production Feedback Becomes Requirements Deltas in an AI-Assisted SDLC</a>
+            for the <em>feedback-to-requirements delta workflow</em> that turns production evidence into the next planning cycle.
           </p>
           <p><a href="/blog/">← Back to all writing</a></p>
         </section>
