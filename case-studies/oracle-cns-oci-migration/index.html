@@ -4,18 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OCI Migration Case Study | Distributed Systems (32 Data Centers)</title>
-    <meta name="description" content="Oracle Customer Notification Service migration case study covering OCI rollout safety, queueing strategy, and production reliability across 32 global data centers." />
+    <meta name="description" content="Oracle Customer Notification Service migration case study covering architecture definition, engineering governance approval, OCI team onboarding, risk management, and production reliability across 32 global data centers." />
     <meta name="robots" content="index,follow" />
     <link rel="canonical" href="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="OCI Migration Case Study | Distributed Systems (32 Data Centers)" />
-    <meta property="og:description" content="How a production notification platform moved to OCI with controlled traffic shifts and observability-first rollout." />
+    <meta property="og:description" content="How a production notification platform moved to OCI through architecture leadership, controlled traffic shifts, and observability-first rollout." />
     <meta property="og:url" content="https://www.myrobertson.com/case-studies/oracle-cns-oci-migration/" />
-    <meta property="og:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta property="og:image" content="https://www.myrobertson.com/static/oci-migration-architecture-social.svg" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="OCI Migration Case Study" />
-    <meta name="twitter:description" content="Distributed systems migration across 32 global data centers with reliability-first rollout controls." />
-    <meta name="twitter:image" content="https://www.myrobertson.com/static/graphql-backpressure-latency-loop.png" />
+    <meta name="twitter:description" content="Distributed systems migration across 32 global data centers with architecture governance, risk controls, and reliability-first rollout." />
+    <meta name="twitter:image" content="https://www.myrobertson.com/static/oci-migration-architecture-social.svg" />
     <link rel="stylesheet" href="../../styles.css" />
   
     <!-- AI-SCHEMA:START -->
@@ -63,8 +63,8 @@
             "@id": "https://www.myrobertson.com/#person-rich-robertson"
           },
           "datePublished": "2026-03-28T14:54:24-07:00",
-          "dateModified": "2026-03-28T14:54:24-07:00",
-          "description": "Oracle Customer Notification Service migration case study covering OCI rollout safety, queueing strategy, and production reliability across 32 global data centers.",
+          "dateModified": "2026-04-08T12:00:00-07:00",
+          "description": "Oracle Customer Notification Service migration case study covering architecture definition, engineering governance approval, OCI onboarding, risk management, and production reliability across 32 global data centers.",
           "keywords": [
             "oracle",
             "cns",
@@ -137,33 +137,38 @@
       <p class="breadcrumb"><a href="/">Home</a> / <a href="/case-studies/">Case Studies</a> / <span aria-current="page">Oracle CNS OCI Migration</span></p>
       <p class="flagship-label">Flagship System</p>
       <h1>Oracle Customer Notification Service OCI Migration Case Study</h1>
-      <p class="case-takeaway">Migrated a production notification platform across 32 global data centers while preserving delivery stability.</p>
+      <p class="case-takeaway">Architected and led a production notification platform migration across 32 global data centers while preserving delivery stability and enabling long-term OCI ownership.</p>
 
       <section class="section flagship-callout">
-        <h2>Diagram-First Architecture View</h2>
+        <h2>Transition-State to Steady-State Architecture View</h2>
         <figure class="architecture-diagram">
-          <svg viewBox="0 0 980 320" role="img" aria-labelledby="oci-title oci-desc">
-            <title id="oci-title">OCI migration before and after architecture</title>
-            <desc id="oci-desc">Legacy notification and API path moved to OCI ingress and routing, queueing and workers, and observability-backed operations.</desc>
+          <svg viewBox="0 0 980 360" role="img" aria-labelledby="oci-title oci-desc">
+            <title id="oci-title">OCI transition-state and steady-state architecture</title>
+            <desc id="oci-desc">Transition-state architecture uses GoldenGate bidirectional replication and tenant migration waves, while steady-state architecture runs on Kubernetes, Istio, API gateway, managed storage and databases, autoscaling, and Terraform-managed infrastructure.</desc>
             <rect x="20" y="35" width="430" height="245" rx="14" fill="rgba(30, 41, 75, 0.72)" stroke="rgba(128, 169, 255, 0.45)" />
-            <text x="45" y="67" fill="#b4bddb" font-size="17" font-weight="700">Before: Legacy operational model</text>
-            <rect x="50" y="88" width="162" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="74" y="115" fill="#e9ecf8" font-size="13">Notification API</text>
-            <rect x="240" y="88" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="266" y="115" fill="#e9ecf8" font-size="13">Legacy delivery path</text>
-            <rect x="145" y="148" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="166" y="175" fill="#e9ecf8" font-size="13">Operational bottlenecks</text>
-            <text x="50" y="236" fill="#80a9ff" font-size="12">Limited elasticity and slower incident response</text>
+            <text x="45" y="67" fill="#b4bddb" font-size="17" font-weight="700">Transition state: staged migration architecture</text>
+            <rect x="50" y="88" width="168" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="74" y="115" fill="#e9ecf8" font-size="13">Legacy + OCI data paths</text>
+            <rect x="238" y="88" width="184" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="262" y="115" fill="#e9ecf8" font-size="13">GoldenGate bi-directional</text>
+            <rect x="50" y="148" width="180" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="67" y="175" fill="#e9ecf8" font-size="13">Incremental tenant waves</text>
+            <rect x="250" y="148" width="172" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="273" y="175" fill="#e9ecf8" font-size="13">Rollback gate checks</text>
+            <rect x="145" y="206" width="182" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="164" y="233" fill="#e9ecf8" font-size="13">Prometheus health metrics</text>
+            <text x="50" y="274" fill="#80a9ff" font-size="12">Real-time replication and migration health control</text>
 
-            <rect x="530" y="35" width="430" height="245" rx="14" fill="rgba(17, 29, 54, 0.86)" stroke="rgba(128, 169, 255, 0.7)" />
-            <text x="554" y="67" fill="#b4bddb" font-size="17" font-weight="700">After: OCI migration target model</text>
-            <rect x="555" y="88" width="134" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="578" y="115" fill="#e9ecf8" font-size="13">OCI ingress</text>
-            <rect x="708" y="88" width="145" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="730" y="115" fill="#e9ecf8" font-size="13">Traffic routing</text>
-            <rect x="620" y="148" width="140" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="650" y="175" fill="#e9ecf8" font-size="13">Queueing</text>
-            <rect x="775" y="148" width="160" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="802" y="175" fill="#e9ecf8" font-size="13">Workers + metrics</text>
-            <text x="555" y="236" fill="#80a9ff" font-size="12">Controlled cutover and observability-first rollout</text>
+            <rect x="530" y="35" width="430" height="285" rx="14" fill="rgba(17, 29, 54, 0.86)" stroke="rgba(128, 169, 255, 0.7)" />
+            <text x="554" y="67" fill="#b4bddb" font-size="17" font-weight="700">Steady state: OCI target architecture</text>
+            <rect x="555" y="88" width="160" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="576" y="115" fill="#e9ecf8" font-size="13">Kubernetes runtime</text>
+            <rect x="730" y="88" width="188" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="752" y="115" fill="#e9ecf8" font-size="13">Istio service mesh</text>
+            <rect x="555" y="148" width="170" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="583" y="175" fill="#e9ecf8" font-size="13">API gateway edge</text>
+            <rect x="742" y="148" width="176" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="764" y="175" fill="#e9ecf8" font-size="13">Dynamic autoscaling</text>
+            <rect x="555" y="206" width="170" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="571" y="233" fill="#e9ecf8" font-size="13">Object + block storage</text>
+            <rect x="742" y="206" width="176" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="753" y="233" fill="#e9ecf8" font-size="13">Autonomous Oracle DB</text>
+            <rect x="650" y="264" width="168" height="44" rx="8" fill="#0b1020" stroke="#243054" /><text x="685" y="291" fill="#e9ecf8" font-size="13">Terraform IaC</text>
+            <text x="555" y="332" fill="#80a9ff" font-size="12">Policy-driven platform with reproducible infrastructure operations</text>
 
-            <line x1="455" y1="158" x2="520" y2="158" stroke="#80a9ff" stroke-width="3" /><polygon points="520,158 508,151 508,165" fill="#80a9ff" />
-            <text x="458" y="144" fill="#80a9ff" font-size="12">Phased migration</text>
+            <line x1="455" y1="176" x2="520" y2="176" stroke="#80a9ff" stroke-width="3" /><polygon points="520,176 508,169 508,183" fill="#80a9ff" />
+            <text x="458" y="162" fill="#80a9ff" font-size="12">Tenant-wave cutover</text>
           </svg>
-          <figcaption>This migration became the primary reference system for rollout safety, load management, and production reliability.</figcaption>
+          <figcaption>Architecture view showing transition-state GoldenGate replication and tenant-wave migration controls flowing into the steady-state Kubernetes, Istio, and Terraform-operated OCI platform.</figcaption>
         </figure>
       </section>
 
@@ -178,32 +183,56 @@
 
       <section class="section">
         <h2>What This Migration Required</h2>
-        <p><strong>Summary:</strong> This migration prioritized controlled rollout sequencing, queue and worker isolation, and observability-driven decision points.</p>
-        <p>This case study describes a distributed systems migration to OCI across global data centers, focusing on reliability, rollout safety, and operational stability.</p>
+        <p><strong>Summary:</strong> This migration required defining both the migration architecture and the final OCI target architecture, then executing in phases with explicit governance and risk controls.</p>
+        <p>This case study describes a distributed systems migration to OCI across global data centers, with emphasis on architecture clarity, rollout safety, and operational stability.</p>
         <h3>Core problem</h3>
         <p><strong>Summary:</strong> The legacy delivery path reduced control during a customer-critical migration window.</p>
         <p>Legacy pathways constrained supportability and rollout control during a customer-critical timeline.</p>
         <h3>My role</h3>
-        <p>Led migration execution and backend implementation planning across the service transition.</p>
+        <p>I architected the migration strategy end-to-end: first defining the transition architecture for safe staged cutover, then defining the final-state OCI architecture for steady-state operations after migration.</p>
+        <p>I presented the architecture and rollout approach to the engineering review board, addressed design questions and operational concerns, and drove approval to proceed with a phased implementation plan.</p>
+        <p>I mentored engineers who were new to OCI so they could onboard quickly, operate confidently in the target environment, and contribute to migration execution without creating delivery risk.</p>
+        <p>I partnered with product, operations, and leadership stakeholders to identify migration risks, define mitigation and rollback criteria, and maintain alignment during high-scrutiny milestones.</p>
+        <p>After establishing a stable process and target-state operating model, I managed the migration through critical phases and handed the program off to the broader team with clear ownership, runbooks, and continuation plans.</p>
+        <h3>Migration architecture (transition state)</h3>
+        <p><strong>Summary:</strong> The transition architecture used Oracle GoldenGate for bidirectional replication so tenant traffic could be moved incrementally without forcing a high-risk one-time cutover.</p>
+        <p>Oracle GoldenGate replicated data bidirectionally between legacy data centers and OCI so writes remained synchronized during staged rollout windows. This enabled incremental tenant migrations in controlled waves, with explicit pause points between cohorts to validate health before expanding blast radius.</p>
+        <p>I added custom Prometheus migration metrics to track replication lag, tenant wave completion, queue depth, worker throughput, and error-rate drift in near real time. Those signals became hard rollout gates for continue, hold, or rollback decisions.</p>
+        <h3>Target architecture (steady state)</h3>
+        <p><strong>Summary:</strong> The final-state platform was OCI-native and Kubernetes-based, with service-mesh controls, autoscaling, and Terraform-driven infrastructure orchestration.</p>
+        <p>The steady-state architecture ran on Kubernetes with Istio service mesh for traffic policy, resilience controls, and service-to-service observability. Data and artifact paths used OCI Object Storage and Block Volume where appropriate, with Autonomous Oracle Database services for managed persistence and operational simplification.</p>
+        <p>Ingress and edge controls were implemented through API gateway patterns, while dynamic scaling policies handled demand variability for API and worker tiers. Infrastructure provisioning and environment consistency were orchestrated as code with Terraform so platform changes remained reviewable, repeatable, and auditable.</p>
         <h3>Key engineering decisions</h3>
         <ul>
           <li>Controlled traffic shifts instead of all-at-once cutover</li>
+          <li>Separate architecture definition for transition-state and final-state OCI operation</li>
+          <li>Bidirectional Oracle GoldenGate replication to support safe incremental tenant migration waves</li>
+          <li>Formal engineering review board checkpoints before irreversible rollout gates</li>
           <li>Queueing and worker isolation to reduce overload amplification</li>
+          <li>Custom Prometheus migration metrics for real-time go/no-go and rollback decisions</li>
+          <li>Hands-on OCI onboarding and pairing to accelerate team readiness</li>
+          <li>Kubernetes + Istio service mesh as the core target-state runtime and policy layer</li>
+          <li>OCI storage and Autonomous Oracle Database adoption for managed, scalable persistence</li>
+          <li>API gateway and dynamic autoscaling policies to handle variable production load</li>
+          <li>Terraform-managed infrastructure as code for reproducible environment operations</li>
+          <li>Risk register with mitigation owners, rollback criteria, and stakeholder communication cadence</li>
+          <li>Fallacy-aware architecture constraints for reliability, latency, topology change, and multi-team ownership (see <a href="../../blog/fallacies-of-distributed-computing">The Fallacies of Distributed Computing Still Break Modern Systems</a>)</li>
           <li>Observability-first rollout with explicit metrics checkpoints</li>
         </ul>
         <h3>Tradeoffs</h3>
-        <p>Balanced migration speed against production safety and support continuity.</p>
+        <p>Balanced migration speed against production safety, support continuity, and team enablement so the system could be sustained by a wider engineering group after handoff.</p>
         <h3>Outcome</h3>
-        <p><strong>Summary:</strong> The rollout held delivery stability and materially improved supportability during enterprise scrutiny.</p>
-        <p>Improved supportability and delivery stability while supporting a $2M enterprise deal.</p>
+        <p><strong>Summary:</strong> The rollout held delivery stability, secured governance approval, reduced migration risk through phased controls, and transitioned ownership cleanly to the long-term team.</p>
+        <p>The migration improved supportability and delivery stability while supporting a $2M enterprise deal and leaving behind an architecture and operating model that the OCI-enabled team could continue with confidence.</p>
       </section>
 
       <section class="section related-concepts">
         <h2>Related Concepts</h2>
         <ul>
           <li><a href="/distributed-systems/">Distributed Systems topic hub</a> — canonical map of adjacent material.</li>
+          <li><a href="../../blog/fallacies-of-distributed-computing">The Fallacies of Distributed Computing Still Break Modern Systems</a> — assumption checks that shaped migration-state and final-state architecture decisions.</li>
           <li><a href="../../blog/backpressure-stability-correctness-distributed-systems">Backpressure in Distributed Systems</a> — load-safety mechanics that informed migration controls.</li>
-          <li><a href="../../blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions">Designing Safe Rollouts Across Global Regions</a> — phased release and rollback constraints.</li>
+          <li><a href="../../blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions">What It Took to Modernize a Legacy Service Across 32 Global Regions</a> — phased release and rollback constraints.</li>
           <li><a href="../../blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier">Architecting a Multitenant Control Plane</a> — workflow and execution-plane reasoning.
           </li>
           <li><a href="../../case-studies/distributed-systems-migration/">Distributed Systems Migration Case Studies</a> — related modernization work.</li>
