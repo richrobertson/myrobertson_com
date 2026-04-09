@@ -259,6 +259,8 @@ How to Build a Closed-Loop AI-Assisted Software Development Lifecycle
    - **Which other spoke pages it must link to:** Orchestration, code generation, tests, feedback.
    - **Why this page deserves to exist independently:** Converts architecture into runnable practice and increases adoption.
 
+<!-- markdownlint-disable MD024 -->
+
 ## 6. Exact Page Outlines
 
 ### Page: Hub — Closed-Loop AI-Assisted SDLC
@@ -873,6 +875,8 @@ Extending the Local Walkthrough Toward Production Readiness
 - Return to hub: **How to build a closed-loop AI-assisted SDLC** (anchor: “closed-loop AI-assisted SDLC model”).
 - Why these are adjacent: After running locally, readers typically need deeper orchestration hardening and a disciplined loop-closure model to avoid treating deployment as an endpoint.
 
+<!-- markdownlint-enable MD024 -->
+
 ## 7. Internal Linking Blueprint
 
 ### Hub -> spoke links
@@ -973,16 +977,16 @@ Use exact anchors where possible:
 ### Phase 1: Establish the cluster backbone
 1. Hub — closed-loop lifecycle overview
 2. Orchestration architecture
-3. Local end-to-end walkthrough
+3. Requirements solicitation and normalization
 
-**Rationale:** Publishes conceptual model + systems backbone + practical proof quickly, creating immediate internal-link authority and implementation credibility.
+**Rationale:** Publishes the conceptual model and the two upstream dependency pages that define lifecycle entry and control boundaries before any implementation-heavy walkthrough must link to them.
 
 ### Phase 2: Strengthen build-and-validate depth
-4. Requirements solicitation and normalization
-5. Code generation strategy
-6. Test generation and validation
+4. Code generation strategy
+5. Test generation and validation
+6. Local end-to-end walkthrough
 
-**Rationale:** Covers the highest-frequency engineer workflows and reinforces the most valuable money path (requirements -> code -> tests).
+**Rationale:** Adds the execution and validation pages needed for the local walkthrough’s required links, then publishes the walkthrough once its dependency pages exist.
 
 ### Phase 3: Complete governance and loop closure
 7. Review and remediation loops
