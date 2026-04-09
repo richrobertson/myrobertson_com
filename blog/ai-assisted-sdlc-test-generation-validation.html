@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Generation and Validation for AI-Assisted Delivery | Rich Robertson</title>
+    <meta name="description" content="Build AI-generated test suites with risk-based test selection, strong oracles, blind-spot analysis, and regression evidence for release gates." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Test Generation and Validation for AI-Assisted Delivery" />
+    <meta property="og:description" content="Risk-based test selection, oracle design, blind-spot analysis, regression protection, and release evidence for AI-assisted delivery." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Test Generation and Validation for AI-Assisted Delivery" />
+    <meta name="twitter:description" content="Treat tests as release evidence for AI-assisted delivery, not as decorative output generated after the code already exists." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"AI-Generated Tests That Actually Protect the System","description":"Risk-based test selection, oracle design, blind-spot analysis, regression protection, and release evidence for AI-assisted delivery.","url":"https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation","mainEntityOfPage":"https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation","datePublished":"2026-04-09","dateModified":"2026-04-09","author":{"@type":"Person","name":"Rich Robertson","url":"https://www.myrobertson.com/"},"keywords":["ai-generated tests","oracle quality","regression protection","release evidence","validation"],"isPartOf":{"@type":"Blog","name":"Rich Robertson Writing","url":"https://www.myrobertson.com/blog/"}}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.myrobertson.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.myrobertson.com/blog/"},{"@type":"ListItem","position":3,"name":"AI-Generated Tests That Actually Protect the System","item":"https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation"}]}
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-test-generation-validation">
+    <header class="hero" id="top"><div data-site-header></div><div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-test-generation-validation"><p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p><p class="eyebrow">April 2026 • Validation Architecture</p><h1>AI-Generated Tests That Actually Protect the System</h1><p class="intro blog-dek">Use tests as lifecycle evidence: choose by risk, strengthen oracles, expose blind spots, and route failures back to the right upstream stage.</p></div></header>
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          The <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a> only becomes trustworthy when validation is a first-class stage.
+          Test generation is not there to make the pipeline look complete. It is there to produce evidence strong enough to support review and release decisions.
+          This page complements, rather than duplicates, <a href="/blog/test-driven-ai-development">Test-Driven AI Development</a> by focusing on lifecycle ownership:
+          where tests fit, what quality they must prove, and how their failures should change upstream behavior.
+        </p>
+
+        <h2>Why Test Generation Is a First-Class Stage, Not an Afterthought</h2>
+        <p>
+          If tests are generated after the diff already feels “done,” the validation stage has no real authority. The pipeline will rationalize weak evidence
+          because the code already exists and the team wants to move on. Treat tests as a first-class stage so generation and review both know that release
+          readiness depends on evidence, not on plausible implementation.
+        </p>
+
+        <h2>Selecting Test Types by Risk: Unit, Integration, Contract, and E2E</h2>
+        <p>
+          Test type selection should follow risk, not fashion. Low-risk transformation logic may need unit tests. Interface changes need contract tests.
+          Multi-component behavior needs integration coverage. User-visible journeys or rollout-critical changes may justify a narrow end-to-end path.
+          The deployment stage depends on this mapping because release risk is inseparable from evidence depth.
+        </p>
+
+        <h2>Oracle Quality: Determining Whether Generated Assertions Are Meaningful</h2>
+        <p>
+          Weak tests usually fail at the oracle layer. They assert that something happened, not that the right thing happened. Good oracles validate behavior,
+          invariants, and unacceptable states. In AI-assisted delivery, this matters even more because generated tests can look structurally valid while still
+          protecting nothing.
+        </p>
+        <p>
+          Ask whether the oracle would catch a realistic defect. If not, the test is likely decorative. This is one of the points where the
+          <a href="/blog/ai-assisted-sdlc-review-remediation-loops">review stage</a> should challenge the evidence bundle directly.
+        </p>
+
+        <h2>Coverage Blind Spots in AI-Generated Test Suites</h2>
+        <p>
+          AI-generated suites often over-index on happy paths, straightforward data shapes, and obvious boundary checks. They under-cover partial failures,
+          conflicting configuration, degraded dependencies, backward-compatibility seams, and ambiguous states. Those blind spots usually mirror the gaps
+          in the generation context or requirement packet.
+        </p>
+        <p>
+          The fix is not “generate more tests.” It is risk-based targeting and explicit negative-case prompting anchored to requirements IDs.
+          That keeps testing aligned to the <a href="/blog/ai-assisted-sdlc-code-generation-strategy">generation artifact bundle</a> instead of becoming a volume game.
+        </p>
+
+        <h2>Regression Protection: Baselines, Snapshots, and Change-Impact Selection</h2>
+        <p>
+          Regression protection should preserve prior guarantees without rerunning the universe. Use a layered approach: stable baseline tests for critical invariants,
+          selective snapshots only where outputs are intentionally structured, and change-impact selection to focus deeper coverage on touched areas. This is how teams
+          stay efficient without pretending a tiny diff cannot create systemic risk.
+        </p>
+
+        <h2>Failing Fast With Static and Dynamic Validation Layers</h2>
+        <p>
+          Validation should be ordered. Run static checks, type checks, schema checks, and fast build verification before heavier behavioral suites.
+          That shortens feedback cycles and prevents expensive downstream review of obviously invalid changes. The staged ordering also gives the orchestrator
+          clearer signals about whether a failure is syntactic, semantic, or environmental.
+        </p>
+
+        <h2>Test Artifacts as Release Evidence</h2>
+        <p>
+          The important output of testing is not just pass/fail status. It is a release evidence bundle: what tests ran, what risk they covered, what assumptions
+          remain, which requirement IDs they map to, and what unresolved areas still need human judgment. Release gates depend on evidence density, not just green checks.
+        </p>
+
+        <h2>Feeding Test Failures Back Into Requirements and Remediation</h2>
+        <p>
+          Not every failing test implies a code defect. Some failures indicate a requirement gap. Some indicate a context-packaging issue in generation.
+          Some reveal a brittle oracle. Route failures carefully: requirements problems back to
+          <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements normalization</a>,
+          implementation problems back to generation or remediation, and operational issues toward deployment or feedback stages.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-deployment-gates">Deployment Gates for AI-Assisted Software Systems</a>
+            for <em>deployment gate criteria and rollback triggers</em>, then read
+            <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">Closing the Loop With End-User Feedback and Requirements Refinement</a>
+            for the <em>feedback-to-requirements delta workflow</em>.
+            Test evidence informs release readiness directly, and production feedback confirms whether the test strategy protected real behavior.
+          </p>
+          <p>For lifecycle context, return to the <a href="/blog/ai-assisted-sdlc-closed-loop">full lifecycle architecture and control boundaries</a>.</p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+    <footer><p>© <span id="year"></span> Rich Robertson.</p><div data-site-footer></div></footer>
+    <script src="/nav.js"></script><script src="/content/content-model.js"></script><script src="/blog/taxonomy.js"></script><script src="/blog/blog.js"></script><script src="../script.js"></script>
+  </body>
+</html>

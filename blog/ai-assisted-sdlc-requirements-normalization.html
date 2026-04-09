@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Requirements Normalization for AI-Assisted SDLC Pipelines | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Define intake, ambiguity reduction, acceptance criteria, constraints, and NFR capture to produce normalized requirement packets with traceable IDs for downstream AI-assisted stages."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Requirements Normalization for AI-Assisted SDLC Pipelines" />
+    <meta
+      property="og:description"
+      content="A practical requirements discipline for AI-assisted delivery: intake, ambiguity reduction, acceptance criteria, constraints, traceability, and feedback re-entry."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Requirements Normalization for AI-Assisted SDLC Pipelines" />
+    <meta
+      name="twitter:description"
+      content="Convert ambiguous stakeholder requests into normalized requirement packets that downstream generation, testing, review, and deployment stages can trust."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Requirements Solicitation and Normalization for AI-Assisted Delivery",
+        "description": "A practical requirements discipline for AI-assisted delivery: intake, ambiguity reduction, acceptance criteria, constraints, traceability, and feedback re-entry.",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization",
+        "datePublished": "2026-04-09",
+        "dateModified": "2026-04-09",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/"
+        },
+        "keywords": [
+          "requirements normalization",
+          "acceptance criteria",
+          "non-functional requirements",
+          "traceable requirement ids",
+          "ai-assisted delivery"
+        ],
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.myrobertson.com/blog/" },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Requirements Solicitation and Normalization for AI-Assisted Delivery",
+            "item": "https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-requirements-normalization">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+      <div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-requirements-normalization">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p>
+        <p class="eyebrow">April 2026 • Lifecycle Entry</p>
+        <h1>Requirements Solicitation and Normalization for AI-Assisted Delivery</h1>
+        <p class="intro blog-dek">
+          AI-assisted delivery quality is capped by requirement quality. Normalize intent early so orchestration, generation,
+          validation, and release stages operate on durable contracts instead of inherited ambiguity.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          The <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a> only works if the lifecycle starts
+          with a reliable artifact. A vague ticket, a hallway conversation, and a few copied screenshots are not enough when downstream
+          stages will generate code, synthesize tests, enforce release gates, and later route production feedback into the next run.
+        </p>
+        <p>
+          This page owns intake discipline. It is not about prompt writing. It is about turning business intent, production learnings,
+          and operational constraints into a normalized packet that every later stage can trust.
+        </p>
+
+        <h2>Why Requirements Quality Determines Downstream AI Output Quality</h2>
+        <p>
+          Requirement ambiguity compounds as work moves downstream. If the requirements packet is weak, the generation stage has to guess.
+          If generation has to guess, the test stage can only validate guessed behavior. If tests are validating the wrong contract, review
+          and release gates become theater. That is why requirement quality is not a product-management nicety. It is the first control point
+          in the entire delivery system.
+        </p>
+        <p>
+          Teams often treat AI as if it can absorb ambiguity better than humans can. In practice, it absorbs ambiguity differently: by filling
+          gaps with plausible assumptions. That is useful when the task is low-risk scaffolding. It is dangerous when the task is a production
+          change that needs traceability to constraints, acceptance criteria, and risk boundaries. The
+          <a href="/blog/ai-assisted-sdlc-code-generation-strategy">code generation with scope controls and diff discipline</a>
+          page assumes the requirements stage already did the hard work of deciding what “correct” means.
+        </p>
+
+        <h2>Capturing Raw Inputs From Stakeholders, Incidents, and Product Signals</h2>
+        <p>
+          Intake should begin by classifying source material, not by flattening everything into one narrative. Stakeholder requests, support
+          escalations, incident follow-ups, operator findings, product analytics, compliance changes, and user research all have different
+          reliability characteristics. Keep source references attached to the intake record so later reviewers can tell whether a claim came
+          from a customer complaint, an error budget breach, or a roadmap initiative.
+        </p>
+        <p>
+          The practical rule is to preserve provenance. If a requirement exists because a production issue was observed, capture the ticket,
+          dashboard, alert ID, or support transcript that triggered it. That creates the bridge to the
+          <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">feedback-to-requirements delta workflow</a>,
+          where production signals later return to this same intake layer.
+        </p>
+
+        <h2>Ambiguity Reduction Techniques Before Any Generation Begins</h2>
+        <p>
+          Before any orchestration or generation begins, reduce ambiguity explicitly. Identify missing actors, undefined terms, conflicting
+          constraints, and unstated assumptions. When the initiating source is unclear, capture a clarification question set instead of
+          letting downstream stages infer intent from partial context.
+        </p>
+        <p>
+          Useful ambiguity-reduction patterns include an assumptions log, a bounded glossary, decision tables for branching behavior,
+          and explicit “out of scope” notes. This matters for orchestrated execution because the
+          <a href="/blog/ai-assisted-sdlc-orchestration-architecture">stateful orchestration graph design</a>
+          depends on stable stage contracts. If a requirement is ambiguous enough that the next stage cannot define a clean precondition,
+          the right move is to stop and refine the input, not to continue with hopeful generation.
+        </p>
+
+        <h2>Defining Acceptance Criteria as Executable Delivery Contracts</h2>
+        <p>
+          Acceptance criteria should be written as delivery contracts rather than approval prose. The stage after requirements needs to know
+          what behavior must be present, what failure is unacceptable, and what evidence will later prove completion. A good requirement packet
+          makes acceptance criteria testable before code exists.
+        </p>
+        <p>
+          That usually means defining expected states, edge conditions, user-visible outcomes, and operational guardrails. For example, if the
+          feature is “notification preferences,” the acceptance criteria should specify data shape, default behavior, audit expectations,
+          and what happens when a user disables a channel globally versus at a category level. That gives the
+          <a href="/blog/ai-assisted-sdlc-test-generation-validation">AI-generated tests that protect against regression</a>
+          page something concrete to validate later.
+        </p>
+
+        <h2>Capturing Constraints, Dependencies, and Non-Functional Requirements</h2>
+        <p>
+          Most downstream failures happen because hard constraints were either omitted or buried. Requirements packets should explicitly capture
+          policy boundaries, data residency constraints, performance budgets, security expectations, rollout constraints, backward-compatibility
+          requirements, operational ownership, and dependency assumptions.
+        </p>
+        <p>
+          Non-functional requirements are especially important in AI-assisted systems because generation stages can satisfy surface behavior while
+          violating hidden constraints. A change can “work” while introducing an unacceptable API assumption, breaking observability, or widening
+          blast radius. The <a href="/blog/ai-assisted-sdlc-deployment-gates">deployment gate criteria and rollback triggers</a> page depends on
+          this data being explicit before release planning starts.
+        </p>
+
+        <h2>Building a Normalized Requirements Packet for the Orchestrator</h2>
+        <p>
+          The normalized packet is the handoff artifact for the orchestrator. It should include a stable requirement ID, problem statement,
+          target scope, out-of-scope notes, acceptance criteria, constraint list, dependency list, risk classification, and source references.
+          If the change is a feedback-driven revision, include the prior run ID or release identifier so traceability remains intact.
+        </p>
+        <p>
+          This packet is what the orchestrator should route into later stages, whether the implementation is local or production-grade.
+          The <a href="/blog/ai-assisted-sdlc-local-walkthrough">local closed-loop implementation walkthrough</a>
+          shows a lightweight version of this artifact, but the shape should still reflect the production model: durable, typed, and safe to
+          re-read after the original conversation is long gone.
+        </p>
+        <pre>{
+  "requirementId": "REQ-2026-0410",
+  "title": "Add category-level notification preferences",
+  "sources": ["support-ticket-1882", "product-brief-41"],
+  "acceptanceCriteria": ["Users can opt out per category", "Audit events emitted"],
+  "constraints": ["Preserve backward compatibility", "No PII leakage in logs"],
+  "risk": "medium"
+}</pre>
+
+        <h2>Traceability: Mapping Requirement IDs to Diffs, Tests, and Releases</h2>
+        <p>
+          Requirement IDs are the thread that holds the lifecycle together. Every generated diff, test artifact, remediation loop, and release
+          record should point back to one or more requirement IDs. Without that mapping, teams cannot answer the most basic operational questions:
+          which change attempted to satisfy which intent, which evidence supported the release, and which production issue belongs to which
+          originating decision.
+        </p>
+        <p>
+          This is not bureaucratic overhead. It is the minimum trace needed for bounded remediation and safe rollback. The
+          <a href="/blog/ai-assisted-sdlc-code-generation-strategy">generation stage</a> should carry requirement IDs into emitted artifacts,
+          and the <a href="/blog/ai-assisted-sdlc-deployment-gates">deployment stage</a> should include them in release evidence bundles.
+        </p>
+
+        <h2>How Requirements Re-Enter the Lifecycle After Production Feedback</h2>
+        <p>
+          Feedback should not come back as an unstructured “we should improve this” comment. It should return as a requirements delta with a
+          source signal, revised intent, changed constraints, or updated acceptance criteria. That keeps loop closure disciplined and prevents
+          the system from accumulating unbounded informal work.
+        </p>
+        <p>
+          The <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">feedback spoke</a> owns the upstream signal architecture and triage process,
+          but this page owns the re-entry contract. A revised requirement should be distinguishable from a new requirement, linked to the prior run,
+          and precise enough that the next orchestrated execution does not repeat the same failure class.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-code-generation-strategy">Code Generation With Contracts, Boundaries, and Repository Awareness</a>
+            for <em>code generation with scope controls and diff discipline</em>, then read
+            <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">Closing the Loop With End-User Feedback and Requirements Refinement</a>
+            for the <em>feedback-to-requirements delta workflow</em>.
+            Requirements quality drives generation quality immediately, and feedback is the explicit re-entry path for revised requirements.
+          </p>
+          <p>
+            For lifecycle context, return to the
+            <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>.
+          </p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

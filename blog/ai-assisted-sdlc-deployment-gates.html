@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Deployment Gates and Rollback Controls for AI-Assisted Systems | Rich Robertson</title>
+    <meta name="description" content="Define release gates, rollout strategies, rollback criteria, and production validation checks for AI-assisted software changes." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Deployment Gates and Rollback Controls for AI-Assisted Systems" />
+    <meta property="og:description" content="A production engineering guide to release evidence, rollout strategies, rollback triggers, observation handoff, and routing learnings back into requirements." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Deployment Gates and Rollback Controls for AI-Assisted Systems" />
+    <meta name="twitter:description" content="Treat deployment as a governed transition: go/no-go evidence, phased rollout, rollback triggers, production validation, and learning handoff." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Deployment Gates for AI-Assisted Software Systems","description":"A production engineering guide to release evidence, rollout strategies, rollback triggers, observation handoff, and routing learnings back into requirements.","url":"https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates","mainEntityOfPage":"https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates","datePublished":"2026-04-09","dateModified":"2026-04-09","author":{"@type":"Person","name":"Rich Robertson","url":"https://www.myrobertson.com/"},"keywords":["deployment gates","rollout safety","rollback triggers","production validation","change management"],"isPartOf":{"@type":"Blog","name":"Rich Robertson Writing","url":"https://www.myrobertson.com/blog/"}}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.myrobertson.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.myrobertson.com/blog/"},{"@type":"ListItem","position":3,"name":"Deployment Gates for AI-Assisted Software Systems","item":"https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates"}]}
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-deployment-gates">
+    <header class="hero" id="top"><div data-site-header></div><div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-deployment-gates"><p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p><p class="eyebrow">April 2026 • Production Safety</p><h1>Deployment Gates for AI-Assisted Software Systems</h1><p class="intro blog-dek">Deployment is a transition point, not the endpoint: objective release evidence, phased rollout, rollback discipline, production validation, and learning handoff.</p></div></header>
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          In the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>, deployment is where a lifecycle claim meets reality.
+          The system is no longer asking whether a change looks reasonable. It is deciding whether the evidence bundle is strong enough to expose real users
+          and real operators to that change under bounded risk.
+        </p>
+
+        <h2>Why Deployment Is a Governance Event in AI-Assisted Delivery</h2>
+        <p>
+          Deployment should be governed because the upstream stages are probabilistic and iterative. A green build does not automatically imply safe release.
+          The deployment gate needs explicit authority to say no when evidence is weak, rollout assumptions are underspecified, or unresolved risk remains.
+        </p>
+
+        <h2>Release Readiness Criteria: Required Artifacts and Quality Evidence</h2>
+        <p>
+          A release-ready bundle should include requirement IDs, generated diff summary, test evidence, review decision, unresolved risk notes, and rollback expectations.
+          This is what separates a formal go/no-go decision from habit-driven deployment. If an artifact is missing, the answer should be “not ready yet,” not “ship anyway.”
+        </p>
+
+        <h2>Progressive Rollout Strategies: Canary, Shadow, and Phased Exposure</h2>
+        <p>
+          Rollout strategy should follow risk. Canary is useful when partial traffic exposure can reveal quality or performance drift early.
+          Shadowing is useful when behavior should be observed before user-visible impact. Phased exposure is useful when blast radius must remain bounded across cohorts,
+          regions, or tenants. Pick the strategy that matches the change, not the team’s default comfort zone.
+        </p>
+
+        <h2>Rollback Criteria and Automated Safety Triggers</h2>
+        <p>
+          Rollback should not depend on a vague feeling that “something looks off.” Define triggers in advance: error budgets, latency thresholds, policy violation signals,
+          quality-score degradation, or business-impact indicators. The orchestrator and operators both need to know what constitutes an automatic safety response.
+        </p>
+
+        <h2>Production Validation During Early Rollout Windows</h2>
+        <p>
+          Early rollout is the proving ground for the evidence bundle. Validate real behavior against the expected contract: correct output shape, sane operator signals,
+          stable resource behavior, and no unexpected side effects. This is where release evidence moves from laboratory confidence to production confidence.
+        </p>
+
+        <h2>Post-Release Observation and Incident Hand-off</h2>
+        <p>
+          Someone must own the observation window after release. Define dashboards, alerts, log views, and incident pathways before deployment starts.
+          Otherwise the system ships a change and then waits passively for users to report the problem. Observation is part of the deployment stage because it determines
+          whether the release remains healthy or must move into rollback or feedback processing.
+        </p>
+
+        <h2>Compliance, Audit, and Change Management Considerations</h2>
+        <p>
+          In controlled environments, deployment also needs auditability: who approved, what evidence existed, what changed, and when the rollout happened.
+          AI-assisted delivery does not reduce that need. If anything, it increases the need for durable change records because generated changes can move quickly across stages.
+        </p>
+
+        <h2>Routing Production Learnings Back to Requirements</h2>
+        <p>
+          Deployment only closes correctly when production outcomes are turned into structured learnings. Successes, partial degradations, support feedback, and rollout anomalies
+          all need a path into the <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">feedback-to-requirements delta workflow</a>,
+          which then re-enters the <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements solicitation and normalization pipeline</a>.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">Closing the Loop With End-User Feedback and Requirements Refinement</a>
+            for the <em>feedback-to-requirements delta workflow</em>, then read
+            <a href="/blog/ai-assisted-sdlc-requirements-normalization">Requirements Solicitation and Normalization for AI-Assisted Delivery</a>
+            for the <em>requirements solicitation and normalization pipeline</em>.
+            Deployment outcomes become actionable only after signal processing, then must be normalized into the next cycle.
+          </p>
+          <p>For lifecycle context, return to the <a href="/blog/ai-assisted-sdlc-closed-loop">full lifecycle architecture and control boundaries</a>.</p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+    <footer><p>© <span id="year"></span> Rich Robertson.</p><div data-site-footer></div></footer>
+    <script src="/nav.js"></script><script src="/content/content-model.js"></script><script src="/blog/taxonomy.js"></script><script src="/blog/blog.js"></script><script src="../script.js"></script>
+  </body>
+</html>

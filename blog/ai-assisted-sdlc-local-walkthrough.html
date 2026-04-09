@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Local End-to-End AI-Assisted SDLC Walkthrough (LangGraph) | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Build a laptop-scale closed-loop AI-assisted SDLC with staged graph execution, durable artifacts, approval checkpoints, eval traces, and feedback-to-requirements flow."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Local End-to-End AI-Assisted SDLC Walkthrough (LangGraph)" />
+    <meta
+      property="og:description"
+      content="A procedural, laptop-scale walkthrough of a closed-loop AI-assisted SDLC using staged graph execution, artifacts, approvals, traces, and feedback re-entry."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Local End-to-End AI-Assisted SDLC Walkthrough (LangGraph)" />
+    <meta
+      name="twitter:description"
+      content="Build a realistic local AI-assisted delivery loop with requirements packets, graph stages, test evidence, approval checkpoints, and requirements deltas."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .diagram {
+        margin: 1.25rem 0;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 12px;
+        padding: 1rem;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.015));
+      }
+
+      .diagram .mermaid {
+        margin-top: 0.8rem;
+        padding: 0.8rem;
+        border-radius: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: rgba(15, 23, 42, 0.08);
+        overflow: hidden;
+      }
+
+      .diagram .mermaid svg {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "A Local End-to-End AI-Assisted SDLC Walkthrough",
+        "description": "A procedural, laptop-scale walkthrough of a closed-loop AI-assisted SDLC using staged graph execution, artifacts, approvals, traces, and feedback re-entry.",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough",
+        "datePublished": "2026-04-09",
+        "dateModified": "2026-04-09",
+        "author": { "@type": "Person", "name": "Rich Robertson", "url": "https://www.myrobertson.com/" },
+        "keywords": ["LangGraph", "local AI workflow", "stage contracts", "traceable artifacts", "requirements delta"],
+        "isPartOf": { "@type": "Blog", "name": "Rich Robertson Writing", "url": "https://www.myrobertson.com/blog/" }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.myrobertson.com/blog/" },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "A Local End-to-End AI-Assisted SDLC Walkthrough",
+            "item": "https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-local-walkthrough">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-local-walkthrough">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p>
+        <p class="eyebrow">April 2026 • Hands-On Walkthrough</p>
+        <h1>A Local End-to-End AI-Assisted SDLC Walkthrough</h1>
+        <p class="intro blog-dek">
+          Build a laptop-scale version of the lifecycle using a bounded example feature, staged graph execution,
+          durable artifacts, approval checkpoints, eval traces, and a feedback-to-requirements loop.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          This page is the implementation-heavy companion to the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>.
+          The goal is not to reproduce a production platform on a laptop. The goal is to preserve the stage model while simplifying infrastructure enough
+          that one engineer can follow the whole lifecycle in a single repository.
+        </p>
+        <p>
+          The example feature is intentionally bounded: add category-level notification preferences to an existing service that already stores a single
+          “email on/off” setting. That gives us concrete acceptance criteria, a realistic schema change, tests, reviewable diffs, and production-style
+          feedback without turning the walkthrough into a toy problem.
+        </p>
+
+        <figure class="diagram">
+          <figcaption><strong>Local run loop for the walkthrough</strong></figcaption>
+          <div class="mermaid">
+            flowchart LR
+              Req[requirements.json] --> Graph[LangGraph workflow]
+              Graph --> Diff[generated-diff.md]
+              Diff --> Tests[test-evidence.json]
+              Tests --> Review[approval-checkpoint.json]
+              Review --> Release[release-decision.json]
+              Release --> Feedback[feedback.json]
+              Feedback --> Delta[requirements-delta.json]
+          </div>
+        </figure>
+
+        <h2>Walkthrough Scope: What This Local Build Includes and Excludes</h2>
+        <p>
+          This build includes a normalized requirements packet, an orchestrated stage graph, a bounded generation stage, validation evidence, a manual approval
+          checkpoint, a mock deployment decision, and feedback re-entry. It excludes multi-user coordination, real CI runners, production rollout automation,
+          and enterprise-grade secrets handling.
+        </p>
+        <p>
+          Those exclusions matter. The walkthrough is meant to preserve the lifecycle contracts from the
+          <a href="/blog/ai-assisted-sdlc-closed-loop">hub</a>, not to imply that a local file system equals a production control plane.
+        </p>
+
+        <h2>Repository Shape and Artifact Directory Structure</h2>
+        <p>
+          Keep the repository layout boring and explicit. A simple local shape might look like this:
+        </p>
+        <pre>app/
+  preferences/
+artifacts/
+  requirements/
+  runs/
+  evals/
+  releases/
+workflow/
+  graph.py
+  state.py
+tests/</pre>
+        <p>
+          The `artifacts/requirements/` directory stores normalized packets. `artifacts/runs/` stores stage outputs per run. `artifacts/evals/` stores test
+          and quality evidence. `artifacts/releases/` stores release decisions and feedback summaries. This mirrors the contract-first expectations from the
+          <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements normalization</a>
+          and <a href="/blog/ai-assisted-sdlc-orchestration-architecture">orchestration architecture</a> pages.
+        </p>
+
+        <h2>Local Tooling Stack: LangGraph, Model Interface, and Validation Tooling</h2>
+        <p>
+          LangGraph is a good local orchestration choice because it is designed for stateful, long-running agent workflows. Use it here to model the graph and state
+          transitions, not to hide lifecycle semantics behind magic defaults. LangSmith is helpful if you want trace visibility and eval logging even in local runs,
+          though the walkthrough should still work without a hosted observability dependency.
+        </p>
+        <p>
+          For model access, keep the interface swappable. LiteLLM can be useful if you want a unified local abstraction over multiple providers.
+          Ollama is useful if you want to keep the walkthrough fully local; its official docs expose a simple local API surface, which makes it easy to experiment
+          without depending on an external hosted model. If you need tool/data integration, MCP is worth understanding because the official specification frames it as
+          an open protocol for connecting LLM applications to external tools and data sources. None of these choices should dominate the lifecycle design.
+        </p>
+
+        <h2>Implementing Graph Stages and Stage Contracts</h2>
+        <p>
+          Model the graph as explicit stages:
+        </p>
+        <ol>
+          <li>load requirements packet</li>
+          <li>plan generation scope</li>
+          <li>generate code diff proposal</li>
+          <li>generate and run tests</li>
+          <li>review evidence and wait for approval</li>
+          <li>make release decision</li>
+          <li>collect feedback and emit requirements delta</li>
+        </ol>
+        <p>
+          Each stage should declare expected input and output artifacts. For example, the code generation stage consumes `requirements.json` plus a small set of repository files,
+          then emits `generated-diff.md`, `assumptions.json`, and `touched-files.json`. The test stage consumes those artifacts and emits `test-evidence.json`.
+          Keeping the stage contract explicit is more important than making the implementation elegant.
+        </p>
+
+        <h2>Adding Approval Checkpoints and Manual Overrides</h2>
+        <p>
+          Even locally, add a real stop point before release. Have the graph pause after validation and emit `approval-checkpoint.json` with the generated summary, test evidence,
+          and unresolved risks. The human operator can approve, reject, or request remediation. That preserves the control boundary from the
+          <a href="/blog/ai-assisted-sdlc-review-remediation-loops">review and remediation</a> stage.
+        </p>
+        <p>
+          Manual override should also exist. If the run reveals a broken assumption, allow the operator to send the flow back to requirements or generation with a reason code.
+          A local walkthrough that skips this step teaches the wrong lesson: that the graph is fully autonomous once started.
+        </p>
+
+        <h2>Capturing Traces, Evals, and Run Metadata</h2>
+        <p>
+          Give each run a `runId` and preserve stage timestamps, stage status, retry count, artifact references, and evaluator summaries. If you wire LangSmith in, attach the trace
+          identifiers to the same run record. If you keep everything local, write a `run-metadata.json` file that points to the artifacts created in that run.
+        </p>
+        <p>
+          The important thing is that you can answer, after the fact, which requirement packet was executed, which files were touched, what tests ran, and why the release decision
+          went one way or the other. That is what turns a local demo into a faithful lifecycle analog.
+        </p>
+
+        <h2>Running a Full Cycle: Requirements to Feedback to Revised Requirements</h2>
+        <p>
+          For the notification-preferences example, start with a requirement packet that says users can opt out of marketing notifications while retaining security notifications.
+          Generate the diff proposal, then have the test stage assert category-level persistence, backward compatibility for existing users, and audit-event emission.
+          Review the evidence, approve the change, and write a release decision that simulates phased rollout to internal accounts first.
+        </p>
+        <p>
+          Then inject feedback: for example, users expect category defaults to inherit from the global setting until they make an explicit override. Capture that in `feedback.json`,
+          rank it as a medium-severity product correctness issue, and emit `requirements-delta.json` with revised acceptance criteria. That final handoff is what makes the run closed-loop
+          instead of just a one-way pipeline demo.
+        </p>
+
+        <h2>Extending the Local Walkthrough Toward Production Readiness</h2>
+        <p>
+          The path to production is mostly about replacing local durability and operator assumptions with shared systems. Move from JSON files to a shared state store, from local command
+          execution to CI runners, from manual approval files to role-aware approval surfaces, and from local traces to shared observability. The stage contracts, artifact shapes, and gate
+          semantics should remain intact.
+        </p>
+        <p>
+          That is the real lesson of the walkthrough: the production model is not “different logic at bigger scale.” It is the same lifecycle with stronger durability, access control,
+          and operability around it.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-orchestration-architecture">Designing the Orchestrator for an AI-Assisted Development Workflow</a>
+            for the <em>stateful orchestration graph design</em>, then read
+            <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">Closing the Loop With End-User Feedback and Requirements Refinement</a>
+            for the <em>feedback-to-requirements delta workflow</em>.
+            After running locally, most teams need deeper orchestration hardening and a disciplined loop-closure model to avoid treating deployment as an endpoint.
+          </p>
+          <p>For lifecycle context, return to the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>.</p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        theme: 'neutral',
+        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+      });
+    </script>
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

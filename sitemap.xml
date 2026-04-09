@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.myrobertson.com/</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-08</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/ask-rich</loc>
@@ -19,6 +19,42 @@
   <url>
     <loc>https://www.myrobertson.com/blog/admission-control-in-distributed-systems</loc>
     <lastmod>2026-04-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops</loc>
+    <lastmod>2026-04-09</lastmod>
+  </url>
+  <url>
+    <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation</loc>
+    <lastmod>2026-04-09</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/anti-entropy-gossip-read-repair</loc>
@@ -186,7 +222,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/test-driven-ai-development</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-08</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/three-node-vs-five-node-kafka-clusters</loc>
@@ -210,7 +246,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-eventual-consistency</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-08</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-is-idempotency</loc>
@@ -222,7 +258,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-it-took-to-modernize-a-legacy-service-across-32-global-regions</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-08</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews</loc>

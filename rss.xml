@@ -7,6 +7,69 @@
     <language>en</language>
     <atom:link href="https://www.myrobertson.com/rss.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>How to Build a Closed-Loop AI-Assisted Software Development Lifecycle</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop</link>
+      <description>A staff-level guide to structuring AI-assisted delivery as a staged workflow with durable artifacts, human approval checkpoints, observability, and feedback-driven requirements deltas.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Code Generation With Contracts, Boundaries, and Repository Awareness</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy</link>
+      <description>A practical generation strategy for scope control, context packaging, diff discipline, repository awareness, and escalation thresholds.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Deployment Gates for AI-Assisted Software Systems</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates</link>
+      <description>A production engineering guide to release evidence, rollout strategies, rollback triggers, observation handoff, and routing learnings back into requirements.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Closing the Loop With End-User Feedback and Requirements Refinement</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements</link>
+      <description>A lifecycle-learning guide to feedback collection architecture, prioritization, requirements deltas, noise filtering, and loop-health metrics.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>A Local End-to-End AI-Assisted SDLC Walkthrough</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough</link>
+      <description>A procedural, laptop-scale walkthrough of a closed-loop AI-assisted SDLC using staged graph execution, artifacts, approvals, traces, and feedback re-entry.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Designing the Orchestrator for an AI-Assisted Development Workflow</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture</link>
+      <description>A system-design guide to graph state, stage contracts, retries, artifact passing, approval checkpoints, traces, and eval hooks for AI-assisted delivery.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Requirements Solicitation and Normalization for AI-Assisted Delivery</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization</link>
+      <description>A practical requirements discipline for AI-assisted delivery: intake, ambiguity reduction, acceptance criteria, constraints, traceability, and feedback re-entry.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Code Review and Issue Remediation Loops in AI-Assisted Delivery</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops</link>
+      <description>A governance-heavy review model for AI-assisted code: gate authority, rubric design, bounded retries, escalation, and auditability.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AI-Generated Tests That Actually Protect the System</title>
+      <link>https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation</link>
+      <description>Risk-based test selection, oracle design, blind-spot analysis, regression protection, and release evidence for AI-assisted delivery.</description>
+      <guid>https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation</guid>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>The Fallacies of Distributed Computing Still Break Modern Systems</title>
       <link>https://www.myrobertson.com/blog/fallacies-of-distributed-computing</link>
       <description>A production-focused guide to the eight fallacies of distributed computing and why assumptions about reliability, latency, security, topology, and ownership still break cloud-native systems.</description>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback-to-Requirements Refinement in AI-Assisted SDLC | Rich Robertson</title>
+    <meta name="description" content="Ingest production and user signals, prioritize them, and convert findings into requirements deltas that drive the next AI-assisted delivery cycle." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Feedback-to-Requirements Refinement in AI-Assisted SDLC" />
+    <meta property="og:description" content="A lifecycle-learning guide to feedback collection architecture, prioritization, requirements deltas, noise filtering, and loop-health metrics." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Feedback-to-Requirements Refinement in AI-Assisted SDLC" />
+    <meta name="twitter:description" content="Close the loop by turning production and user signals into requirements deltas with clear prioritization, ownership, and next-run planning." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Closing the Loop With End-User Feedback and Requirements Refinement","description":"A lifecycle-learning guide to feedback collection architecture, prioritization, requirements deltas, noise filtering, and loop-health metrics.","url":"https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements","mainEntityOfPage":"https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements","datePublished":"2026-04-09","dateModified":"2026-04-09","author":{"@type":"Person","name":"Rich Robertson","url":"https://www.myrobertson.com/"},"keywords":["feedback loops","requirements deltas","production signals","signal prioritization","loop health"],"isPartOf":{"@type":"Blog","name":"Rich Robertson Writing","url":"https://www.myrobertson.com/blog/"}}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.myrobertson.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.myrobertson.com/blog/"},{"@type":"ListItem","position":3,"name":"Closing the Loop With End-User Feedback and Requirements Refinement","item":"https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements"}]}
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-feedback-to-requirements">
+    <header class="hero" id="top"><div data-site-header></div><div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-feedback-to-requirements"><p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p><p class="eyebrow">April 2026 • Loop Closure</p><h1>Closing the Loop With End-User Feedback and Requirements Refinement</h1><p class="intro blog-dek">Production learning only matters when it changes the next run. Capture signals, rank them, turn them into requirements deltas, and measure loop health over time.</p></div></header>
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          This page is the lifecycle differentiator. In the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>,
+          deployment is not the ending. Production and user behavior are part of the system contract. If those signals never return to requirements,
+          the pipeline remains linear no matter how many stages it has.
+        </p>
+
+        <h2>Why Deployment Is Not the End of the Lifecycle</h2>
+        <p>
+          Release only changes the environment in which evidence is collected. Production now reveals real usage, real operator load, and real user comprehension.
+          Treating deployment as the end point traps teams in a pattern where learning is informal and selectively remembered. Closing the loop turns production into a governed input surface.
+        </p>
+
+        <h2>Feedback Collection Architecture: Product Analytics, Support, and Qualitative Signals</h2>
+        <p>
+          Collect from multiple channels on purpose: application analytics, support tickets, operator notes, on-call incidents, user interviews, and audit findings.
+          Different signals answer different questions. Analytics may reveal behavior drift. Support reveals friction and misunderstanding. Operators often see sequencing problems
+          before product dashboards do. The <a href="/blog/ai-assisted-sdlc-local-walkthrough">local walkthrough</a> uses a smaller version of this by capturing simulated run
+          feedback and converting it into a structured next-step artifact.
+        </p>
+
+        <h2>Signal Prioritization: Severity, Frequency, Revenue Impact, and Risk</h2>
+        <p>
+          Do not turn every signal into backlog noise. Rank signals using severity, frequency, impact, reversibility, and risk. A rare but safety-critical problem may outrank
+          a noisy cosmetic issue. A common but low-cost annoyance may still matter if it indicates a broken assumption in requirements. Prioritization is where operational reality
+          becomes planning discipline.
+        </p>
+
+        <h2>Converting Signals Into Requirements Deltas</h2>
+        <p>
+          A requirements delta should explain what changed in the expected behavior, why it changed, what source evidence triggered it, and what new acceptance criteria now apply.
+          This is the formal bridge back to the <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements solicitation and normalization pipeline</a>.
+        </p>
+
+        <h2>Separating Noise From Actionable Defects and Opportunities</h2>
+        <p>
+          Some feedback is not actionable. Some is duplicate expression of an already-known issue. Some reflects a training or onboarding gap rather than a product defect.
+          Some is valuable but belongs in a different lifecycle lane entirely. Noise filtering prevents every signal from becoming a distorted requirement.
+        </p>
+
+        <h2>Ownership, Triage Cadence, and Governance for Refinement Decisions</h2>
+        <p>
+          Refinement decisions need owners, cadence, and explicit authority. A weekly triage board may be enough for low-risk products. High-risk systems may need tighter loops.
+          Governance should determine when a signal becomes a requirement delta, when it stays observational, and when it forces immediate remediation.
+        </p>
+
+        <h2>Feeding Revised Requirements Into the Next Planned Run</h2>
+        <p>
+          Once accepted, the revised requirement should enter the next orchestration cycle as a first-class packet with traceability to the prior run, release, or incident.
+          That prevents repeated rediscovery and makes lifecycle learning cumulative. The next run should know it is operating on a revision, not a greenfield request.
+        </p>
+
+        <h2>Metrics for Loop Health: Learning Velocity and Defect Recurrence</h2>
+        <p>
+          Loop health is measurable. Track time from signal to normalized delta, recurrence rate of similar defects, percentage of rollout learnings converted into explicit requirements,
+          and the share of incidents that later produced durable prevention artifacts. These metrics tell you whether the system is genuinely learning or merely reacting.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-requirements-normalization">Requirements Solicitation and Normalization for AI-Assisted Delivery</a>
+            for the <em>requirements solicitation and normalization pipeline</em>, then return to
+            <a href="/blog/ai-assisted-sdlc-closed-loop">How to Build a Closed-Loop AI-Assisted Software Development Lifecycle</a>
+            for the <em>closed-loop AI-assisted SDLC model</em>.
+            Feedback must materialize as requirements deltas, and the hub helps place those outputs inside full lifecycle governance.
+          </p>
+          <p>For lifecycle context, return to the <a href="/blog/ai-assisted-sdlc-closed-loop">full lifecycle architecture and control boundaries</a>.</p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+    <footer><p>© <span id="year"></span> Rich Robertson.</p><div data-site-footer></div></footer>
+    <script src="/nav.js"></script><script src="/content/content-model.js"></script><script src="/blog/taxonomy.js"></script><script src="/blog/blog.js"></script><script src="../script.js"></script>
+  </body>
+</html>

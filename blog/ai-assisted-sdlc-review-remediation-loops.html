@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review and Remediation Loops for AI-Assisted Code Delivery | Rich Robertson</title>
+    <meta name="description" content="Apply review rubrics, static checks, bounded remediation retries, and escalation checkpoints to keep AI-assisted changes governable and auditable." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Review and Remediation Loops for AI-Assisted Code Delivery" />
+    <meta property="og:description" content="A governance-heavy review model for AI-assisted code: gate authority, rubric design, bounded retries, escalation, and auditability." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Review and Remediation Loops for AI-Assisted Code Delivery" />
+    <meta name="twitter:description" content="Keep AI-assisted code governable with review gates, policy checks, bounded remediation loops, and structured escalation." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Code Review and Issue Remediation Loops in AI-Assisted Delivery","description":"A governance-heavy review model for AI-assisted code: gate authority, rubric design, bounded retries, escalation, and auditability.","url":"https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops","mainEntityOfPage":"https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops","datePublished":"2026-04-09","dateModified":"2026-04-09","author":{"@type":"Person","name":"Rich Robertson","url":"https://www.myrobertson.com/"},"keywords":["code review","remediation loops","static analysis","auditability","ai-assisted delivery"],"isPartOf":{"@type":"Blog","name":"Rich Robertson Writing","url":"https://www.myrobertson.com/blog/"}}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.myrobertson.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.myrobertson.com/blog/"},{"@type":"ListItem","position":3,"name":"Code Review and Issue Remediation Loops in AI-Assisted Delivery","item":"https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops"}]}
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-review-remediation-loops">
+    <header class="hero" id="top"><div data-site-header></div><div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-review-remediation-loops"><p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p><p class="eyebrow">April 2026 • Governance Stage</p><h1>Code Review and Issue Remediation Loops in AI-Assisted Delivery</h1><p class="intro blog-dek">Make review a gate, not a courtesy step: structured rubric, policy checks, bounded retries, escalation rules, and durable decision records.</p></div></header>
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          The <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a> depends on review having real authority.
+          If review is only there to approve what generation already decided, the lifecycle has no meaningful human checkpoint. This page owns
+          the gate between generated artifacts and release preparation.
+        </p>
+
+        <h2>Positioning Review as a Gate, Not a Courtesy Step</h2>
+        <p>
+          Review is where the team decides whether the evidence bundle is good enough to continue. That includes code quality, correctness confidence,
+          risk clarity, and whether the change should be escalated instead of remediated automatically. In governed AI-assisted delivery, review is a
+          formal stage transition, not an optional comment pass.
+        </p>
+
+        <h2>A Practical Review Rubric for AI-Generated and Human-Written Changes</h2>
+        <p>
+          A usable rubric should cover requirement fidelity, design alignment, repository fit, failure handling, test evidence quality, rollback clarity,
+          and operational risk. Reviewers should be able to say not just “this feels wrong” but which lifecycle contract the change violates.
+        </p>
+        <p>
+          This is where the generation and test stages converge. The review rubric needs both the
+          <a href="/blog/ai-assisted-sdlc-code-generation-strategy">generation artifact bundle</a>
+          and the <a href="/blog/ai-assisted-sdlc-test-generation-validation">test evidence bundle</a>
+          in front of it.
+        </p>
+
+        <h2>Integrating Static Checks, Security Scans, and Policy Validation</h2>
+        <p>
+          Automated controls should narrow the review surface before humans spend time on it. Static analysis, dependency policy, secrets scanning,
+          schema validation, and repository rules all belong here. They do not replace human review, but they keep humans focused on architectural and
+          behavioral judgment instead of predictable machine-checkable failures.
+        </p>
+
+        <h2>Bounded Remediation Retries and Stop Conditions</h2>
+        <p>
+          Remediation loops need explicit retry caps and stop conditions. If a change fails for the same reason twice, or if attempts expand scope
+          unexpectedly, the loop should stop and escalate. Bounded retries prevent the pipeline from spending unlimited effort on a defective premise.
+        </p>
+
+        <h2>Issue Taxonomy: Prompt Fix, Context Fix, Requirement Fix, or Human Rewrite</h2>
+        <p>
+          Not every review finding is a code defect. Some issues are prompt/context packaging issues. Some are requirement defects. Some are architectural
+          mismatches that need human rewrite. Route the finding correctly so the next stage works on the real problem instead of iterating uselessly.
+        </p>
+
+        <h2>Escalation Paths to Human Engineers and Architects</h2>
+        <p>
+          Escalation should happen quickly when findings cross governance boundaries: unsafe assumptions, major design divergence, compliance-sensitive changes,
+          or repeated remediation failure. Fast escalation is a strength, not a weakness. It keeps the lifecycle honest about where human judgment still matters most.
+        </p>
+
+        <h2>Auditability: Recording Decisions, Rationales, and Artifact Lineage</h2>
+        <p>
+          Every review decision should leave a durable record: approve, reject, request remediation, or escalate. Capture rationale, reviewer identity,
+          requirement IDs, and artifact references so later investigation can reconstruct why the change moved forward or stopped.
+        </p>
+
+        <h2>Preparing Approved Changes for Release Gates</h2>
+        <p>
+          Approved changes should exit review with a release-ready evidence bundle, not just a thumbs-up. The deployment stage should receive a clear package:
+          validated diff, test evidence, review decision, unresolved risk notes, and rollout assumptions. That is the handoff into the
+          <a href="/blog/ai-assisted-sdlc-deployment-gates">deployment gate criteria and rollback triggers</a>.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-deployment-gates">Deployment Gates for AI-Assisted Software Systems</a>
+            for <em>deployment gate criteria and rollback triggers</em>, then read
+            <a href="/blog/ai-assisted-sdlc-orchestration-architecture">Designing the Orchestrator for an AI-Assisted Development Workflow</a>
+            for the <em>stateful orchestration graph design</em>.
+            Deployment is the immediate downstream decision point, and orchestration defines bounded retry and escalation behavior for remediation loops.
+          </p>
+          <p>For lifecycle context, return to the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>.</p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+    <footer><p>© <span id="year"></span> Rich Robertson.</p><div data-site-footer></div></footer>
+    <script src="/nav.js"></script><script src="/content/content-model.js"></script><script src="/blog/taxonomy.js"></script><script src="/blog/blog.js"></script><script src="../script.js"></script>
+  </body>
+</html>
