@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How to Build a Closed-Loop AI-Assisted SDLC (Requirements to Feedback) | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Architect a governed AI-assisted software lifecycle from requirements through deployment and feedback, with explicit artifacts, approval gates, observability, and practical implementation guidance."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="How to Build a Closed-Loop AI-Assisted SDLC (Requirements to Feedback)" />
+    <meta
+      property="og:description"
+      content="A staff-level guide to structuring AI-assisted delivery as a staged workflow with durable artifacts, human approval checkpoints, observability, and feedback-driven requirements deltas."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="How to Build a Closed-Loop AI-Assisted SDLC (Requirements to Feedback)" />
+    <meta
+      name="twitter:description"
+      content="Treat AI-assisted delivery as a governed lifecycle, not a single coding agent: requirements, orchestration, gates, observability, and feedback loops."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .diagram {
+        margin: 1.25rem 0;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 12px;
+        padding: 1rem;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.015));
+      }
+
+      .diagram .mermaid {
+        margin-top: 0.8rem;
+        padding: 0.8rem;
+        border-radius: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: rgba(15, 23, 42, 0.08);
+        overflow: hidden;
+      }
+
+      .diagram .mermaid svg {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "How to Build a Closed-Loop AI-Assisted Software Development Lifecycle",
+        "description": "A staff-level guide to structuring AI-assisted delivery as a staged workflow with durable artifacts, human approval checkpoints, observability, and feedback-driven requirements deltas.",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop",
+        "datePublished": "2026-04-09",
+        "dateModified": "2026-04-09",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/"
+        },
+        "keywords": [
+          "ai-assisted software development lifecycle",
+          "closed-loop ai development workflow",
+          "workflow orchestration",
+          "approval checkpoints",
+          "requirements deltas"
+        ],
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.myrobertson.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Blog",
+            "item": "https://www.myrobertson.com/blog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "How to Build a Closed-Loop AI-Assisted Software Development Lifecycle",
+            "item": "https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-closed-loop">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+
+      <div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-closed-loop">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Series Hub</span></p>
+        <p class="eyebrow">April 2026 • Series Hub</p>
+        <h1>How to Build a Closed-Loop AI-Assisted Software Development Lifecycle</h1>
+        <p class="intro blog-dek">
+          Treat AI-assisted delivery as a staged, stateful workflow with durable artifacts, approval checkpoints,
+          eval traces, and production feedback loops instead of a single autonomous coding agent.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          Most teams get value from AI quickly at the code-generation layer, then hit instability one or two stages later.
+          A change looks promising in the editor, but no one can explain which requirement it satisfies, which tests prove
+          it, which policy gate approved it, or how post-deployment evidence will flow back into the next planning cycle.
+          That gap is not a model problem. It is a lifecycle design problem.
+        </p>
+        <p>
+          The useful mental model is not “give an agent a repo and let it run.” It is “define a controlled delivery loop.”
+          Requirements become normalized artifacts. The orchestrator manages typed state and stage transitions. Executors do
+          bounded work. Governance layers enforce approval checkpoints, evals, and release gates. Feedback becomes a
+          requirements delta rather than a vague suggestion to “improve the prompt.”
+        </p>
+        <p>
+          This hub is the conceptual map for the cluster. If you already know you need the
+          <a href="/blog/ai-assisted-sdlc-orchestration-architecture">stateful orchestration graph design</a>,
+          the <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements solicitation and normalization pipeline</a>,
+          or the <a href="/blog/ai-assisted-sdlc-local-walkthrough">local closed-loop implementation walkthrough</a>,
+          jump there directly. Otherwise, read this page end to end first so the spoke pages have the right system context.
+        </p>
+
+        <figure class="diagram">
+          <figcaption><strong>Closed-loop lifecycle map</strong></figcaption>
+          <div class="mermaid">
+            flowchart LR
+              R[Requirements Packet] --> O[Orchestrator]
+              O --> G[Code Generation]
+              G --> T[Test Generation and Validation]
+              T --> V[Review and Remediation]
+              V --> D[Deployment Gates]
+              D --> F[Production Signals and User Feedback]
+              F --> Delta[Requirements Delta]
+              Delta --> R
+          </div>
+        </figure>
+
+        <p>
+          The recommended reading path is intentional: start here, then move to
+          <a href="/blog/ai-assisted-sdlc-orchestration-architecture">orchestration</a>,
+          <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements</a>,
+          <a href="/blog/ai-assisted-sdlc-code-generation-strategy">generation</a>,
+          <a href="/blog/ai-assisted-sdlc-test-generation-validation">tests</a>,
+          <a href="/blog/ai-assisted-sdlc-review-remediation-loops">review/remediation</a>,
+          <a href="/blog/ai-assisted-sdlc-deployment-gates">deployment</a>,
+          <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">feedback</a>,
+          and finally the <a href="/blog/ai-assisted-sdlc-local-walkthrough">local walkthrough</a>.
+          That ordering keeps conceptual control boundaries ahead of implementation details.
+        </p>
+
+        <h2>Why Naive Agentic Coding Pipelines Fail in Production</h2>
+        <p>
+          Naive pipelines usually collapse multiple responsibilities into one loop: infer requirements, generate code, run a few checks,
+          fix what failed, and deploy if nothing exploded. That sounds efficient until hidden state drift accumulates between steps.
+          The system can no longer explain why a file changed, which acceptance criterion it maps to, or which previous failed attempt
+          left residue in the working context.
+        </p>
+        <p>
+          Production failures usually come from four gaps. First, there is no durable state contract. Second, the agent is allowed
+          to keep retrying without meaningful stop conditions. Third, human approval points are implicit instead of explicit.
+          Fourth, deployment is treated as the finish line rather than a transition into observation and learning. The result is a
+          workflow that looks autonomous in demos but becomes un-auditable under load, incident pressure, or team turnover.
+        </p>
+        <p>
+          That is also why a governance-heavy topic like
+          <a href="/blog/reviewing-ai-generated-pull-requests-reliability-risk">reviewing AI-generated pull requests for reliability risk</a>
+          matters so much here. Review is not a cleanup phase for a clever agent. It is one of the stage gates that prevents silent
+          correctness drift from escaping downstream.
+        </p>
+
+        <h2>The Closed-Loop Lifecycle: From Requirements to Revised Requirements</h2>
+        <p>
+          A useful lifecycle begins with a normalized requirements artifact, not a free-form chat transcript. That packet should include
+          scope, acceptance criteria, constraints, non-functional requirements, identifiers, and risk flags. The
+          <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements solicitation and normalization pipeline</a>
+          goes deep on how to build that artifact, but the key idea is simple: downstream stages should consume structured intent,
+          not re-interpret stakeholder ambiguity from scratch.
+        </p>
+        <p>
+          Once normalized, work moves through design, code generation, test generation, review/remediation, and deployment.
+          Each stage should emit artifacts that the next stage can validate: prompt bundles, diffs, test evidence, decision logs,
+          rollout records, and trace IDs. When the change reaches production, the loop is still not finished. Production behavior,
+          support signals, analytics, and operator observations must be converted into a requirements delta that re-enters the next run.
+        </p>
+        <p>
+          That loop closure is the differentiator. Teams with a linear pipeline learn slowly because they only inspect failures after a release.
+          Teams with a closed loop learn continuously because they can map a production signal back to the originating requirement, the executed
+          change, the applied evals, and the missed assumption.
+        </p>
+
+        <h2>Reference System Architecture and Workflow Orchestration Patterns</h2>
+        <p>
+          The architecture should separate orchestration, execution, and governance. The orchestrator owns stage order, typed state,
+          retries, approval waiting, and artifact routing. Executors own bounded work such as generating code, producing tests,
+          running validation commands, or collecting production signals. The control plane owns policies, eval thresholds,
+          approval rules, and observability surfaces.
+        </p>
+        <p>
+          That separation matters because each layer fails differently. Executors can be replaced or upgraded without changing stage semantics.
+          The orchestrator can change transition rules without rewriting every worker. Governance controls can tighten or loosen policy without
+          pretending the workers became smarter. This is why the architecture-heavy spoke on
+          <a href="/blog/ai-assisted-sdlc-orchestration-architecture">designing the orchestrator for an AI-assisted development workflow</a>
+          treats graph state and transition contracts as first-class concerns.
+        </p>
+        <p>
+          LangGraph is a strong reference point here because its official positioning is around building stateful, long-running agent workflows,
+          which matches lifecycle orchestration better than a single stateless prompt chain. Use that as an orchestration runtime, not as a
+          substitute for requirements discipline or release governance. The architecture should remain portable enough that the stage model,
+          artifact contracts, and approval semantics survive a tooling swap.
+        </p>
+
+        <h2>Human Approval Points and Policy Checkpoints</h2>
+        <p>
+          A trustworthy lifecycle identifies where humans remain accountable. Pre-generation approval may be required when requirements are
+          incomplete or carry material risk. Pre-merge approval should validate that the generated diff, tests, and remediation history meet
+          team standards. Pre-release approval should validate that evidence is sufficient for the chosen rollout strategy.
+        </p>
+        <p>
+          Policy checkpoints should be explicit and machine-readable wherever possible: branch protection, static analysis, test evidence,
+          code-owner reviews, change-management approvals, and rollout thresholds. Human decisions are still critical, but they should happen
+          against structured evidence rather than against a persuasive chat transcript. The
+          <a href="/blog/ai-assisted-sdlc-review-remediation-loops">review rubric and bounded remediation loop</a>
+          is where those approvals become operational instead of aspirational.
+        </p>
+
+        <h2>Durable Artifact Handoffs Between Lifecycle Stages</h2>
+        <p>
+          Artifact discipline is how teams avoid hidden context loss. The requirements stage should emit a normalized packet with identifiers.
+          Generation should emit a bounded diff plus supporting metadata: what context was supplied, which repository areas were in scope,
+          which requirement IDs were targeted, and where confidence fell below threshold. Testing should emit evidence bundles rather than
+          only “pass/fail” console output. Deployment should emit rollout records, guardrail thresholds, and observation windows.
+        </p>
+        <p>
+          These handoffs make auditability practical. A release review can ask, “show me the requirement IDs, the generated diff, the tests,
+          the review decision, and the rollout evidence for this change” and get a coherent answer. That is a fundamentally different operating
+          model from “the agent touched seven files and we trust the vibe.” The
+          <a href="/blog/ai-assisted-sdlc-code-generation-strategy">code generation with contracts and repo awareness</a>
+          page and the requirements spoke go deeper on the artifact shape.
+        </p>
+
+        <h2>Evaluation and Observability Across the Delivery Loop</h2>
+        <p>
+          If your only observability surface is final test output, you are blind to most lifecycle behavior. Stage-level tracing should capture
+          which artifacts entered a stage, which decisions were taken, how long they took, what the retry history looked like, and which evals
+          passed or failed. LangSmith is useful here because its official surface area is tracing, evaluation, and observability for LLM-backed
+          workflows. In this lifecycle, traces should connect the work unit end to end instead of only the model call in the middle.
+        </p>
+        <p>
+          Evaluations should also be stage-specific. Requirement quality evals are different from code-generation evals. Test quality is different
+          again. Review/remediation quality depends on stop conditions and escalation correctness. This is exactly why the test spoke on
+          <a href="/blog/ai-assisted-sdlc-test-generation-validation">AI-generated tests that protect against regression</a>
+          should be read as release evidence design, not just as test authoring advice.
+        </p>
+
+        <h2>Deployment Gates, Rollout Safety, and Rollback Discipline</h2>
+        <p>
+          Deployment is a governance event. It should consume the full evidence bundle and produce a clear go/no-go decision. The right question
+          is not “did CI pass?” but “is there enough evidence to expose this change to real traffic under a bounded rollout plan?”
+        </p>
+        <p>
+          A sound deployment stage defines required artifacts, rollout strategy, early-life monitoring, and rollback triggers before the first
+          user ever sees the change. Canary, shadow, and phased rollout strategies should be selected by change risk, not habit. Rollback criteria
+          should be objective enough that the orchestrator or operators can act quickly. The
+          <a href="/blog/ai-assisted-sdlc-deployment-gates">deployment gate criteria and rollback triggers</a>
+          page expands that production engineering layer in detail.
+        </p>
+
+        <h2>Capturing End-User Signals and Converting Them Into Requirements Deltas</h2>
+        <p>
+          The lifecycle only becomes closed-loop when production learning returns to requirements. User feedback, support tickets, product analytics,
+          incident reports, operational anomalies, and review findings all need a path back into planning. Raw feedback is not enough. It must be
+          prioritized, normalized, and translated into a requirements delta with ownership and acceptance criteria.
+        </p>
+        <p>
+          That is why the <a href="/blog/ai-assisted-sdlc-feedback-to-requirements">feedback-to-requirements delta workflow</a> is a full spoke,
+          not an appendix. It owns signal collection architecture, noise filtering, refinement governance, and loop-health metrics. Without that
+          page, the cluster would still imply a linear pipeline that stops caring once code is in production.
+        </p>
+
+        <h2>How the Local End-to-End Walkthrough Maps to the Production Model</h2>
+        <p>
+          The local walkthrough is intentionally implementation-heavy, but it should still preserve the conceptual model. A laptop-scale example
+          can simplify storage, approvals, and deployment surfaces, yet the stage contracts should stay recognizable: requirements packet in,
+          graph state transitions, generated diff, test evidence, review checkpoint, simulated release decision, and feedback-to-requirements loop.
+        </p>
+        <p>
+          That is also where lightweight tooling choices matter. The local walkthrough can use LangGraph for stage orchestration, LangSmith for
+          traces and eval visibility, MCP-compatible tools where external context matters, and LiteLLM or Ollama only where they clarify local
+          model-routing or local-runtime tradeoffs. The walkthrough should demonstrate the architecture, not turn into a vendor roundup.
+        </p>
+        <p>
+          If you want to go hands-on next, read the
+          <a href="/blog/ai-assisted-sdlc-local-walkthrough">local closed-loop implementation walkthrough</a>
+          after the orchestration page. That sequence keeps the procedural example grounded in the lifecycle model instead of replacing it.
+        </p>
+
+        <h2>When Not to Automate: High-Risk Boundaries and Human-Only Decisions</h2>
+        <p>
+          Some boundaries are still poor candidates for autonomy-first execution: legal/compliance-sensitive changes, safety-critical behavior,
+          high-blast-radius migrations, ambiguous production incidents, or any situation where missing context would produce irreversible harm.
+          In those cases, the right design move is not “give the agent more tools.” It is “change the stage contract so a human owns the decision.”
+        </p>
+        <p>
+          Mature teams treat automation scope as a risk-management choice, not as a prestige marker. When confidence is low, ambiguity is high,
+          or the cost of a wrong action is outsized, the lifecycle should escalate early. Strong control systems are defined as much by what they
+          refuse to automate as by what they automate well.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Start with <a href="/blog/ai-assisted-sdlc-orchestration-architecture">Designing the Orchestrator for an AI-Assisted Development Workflow</a>
+            for the <em>stateful orchestration graph design</em>, then move to
+            <a href="/blog/ai-assisted-sdlc-local-walkthrough">A Local End-to-End AI-Assisted SDLC Walkthrough</a>
+            for the <em>local closed-loop implementation walkthrough</em>.
+            Orchestration establishes control boundaries immediately after conceptual framing, and the walkthrough turns that model into an executable local pipeline.
+          </p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        theme: 'neutral',
+        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+      });
+    </script>
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orchestration Architecture for AI-Assisted SDLC Workflows | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Design a stateful orchestration graph with typed state, stage contracts, artifact passing, retries, and approval checkpoints for reliable AI-assisted software delivery."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Orchestration Architecture for AI-Assisted SDLC Workflows" />
+    <meta
+      property="og:description"
+      content="A system-design guide to graph state, stage contracts, retries, artifact passing, approval checkpoints, traces, and eval hooks for AI-assisted delivery."
+    />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Orchestration Architecture for AI-Assisted SDLC Workflows" />
+    <meta
+      name="twitter:description"
+      content="Build AI-assisted delivery around stateful orchestration, typed artifacts, retries, approval gates, traces, and stage-level evals."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+      .diagram {
+        margin: 1.25rem 0;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        border-radius: 12px;
+        padding: 1rem;
+        background: linear-gradient(180deg, rgba(15, 23, 42, 0.04), rgba(15, 23, 42, 0.015));
+      }
+
+      .diagram .mermaid {
+        margin-top: 0.8rem;
+        padding: 0.8rem;
+        border-radius: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.4);
+        background: rgba(15, 23, 42, 0.08);
+        overflow: hidden;
+      }
+
+      .diagram .mermaid svg {
+        display: block;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto;
+      }
+    </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Designing the Orchestrator for an AI-Assisted Development Workflow",
+        "description": "A system-design guide to graph state, stage contracts, retries, artifact passing, approval checkpoints, traces, and eval hooks for AI-assisted delivery.",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture",
+        "mainEntityOfPage": "https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture",
+        "datePublished": "2026-04-09",
+        "dateModified": "2026-04-09",
+        "author": {
+          "@type": "Person",
+          "name": "Rich Robertson",
+          "url": "https://www.myrobertson.com/"
+        },
+        "keywords": [
+          "workflow orchestration",
+          "LangGraph",
+          "typed state",
+          "artifact passing",
+          "approval checkpoints"
+        ],
+        "isPartOf": {
+          "@type": "Blog",
+          "name": "Rich Robertson Writing",
+          "url": "https://www.myrobertson.com/blog/"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.myrobertson.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.myrobertson.com/blog/" },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Designing the Orchestrator for an AI-Assisted Development Workflow",
+            "item": "https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture"
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-orchestration-architecture">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-orchestration-architecture">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p>
+        <p class="eyebrow">April 2026 • System Architecture</p>
+        <h1>Designing the Orchestrator for an AI-Assisted Development Workflow</h1>
+        <p class="intro blog-dek">
+          Reliable AI-assisted delivery needs stateful orchestration: typed graph state, explicit stage contracts,
+          durable artifact passing, bounded retries, approval checkpoints, and traceable eval surfaces.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          In the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>, the orchestrator is not just a task launcher.
+          It is the system component that holds lifecycle state together across stages, approvals, retries, and observation points.
+          When orchestration is weak, every later control degrades: requirement packets are lost, retries become unsafe, review loops never
+          terminate cleanly, and release decisions are taken without coherent evidence.
+        </p>
+        <p>
+          This page is architecture-heavy on purpose. It treats LangGraph as a strong reference implementation because its official documentation
+          emphasizes stateful, long-running workflows, but the design principles here are tool-agnostic: typed state, explicit transitions,
+          durable artifacts, and governance-first pause points.
+        </p>
+
+        <figure class="diagram">
+          <figcaption><strong>Orchestration graph as lifecycle control plane</strong></figcaption>
+          <div class="mermaid">
+            flowchart TB
+              Req[Requirements Packet] --> Plan[Plan / Route]
+              Plan --> Code[Generate Code]
+              Code --> Test[Generate and Run Tests]
+              Test --> Review[Review / Remediate]
+              Review --> Gate[Release Gate]
+              Gate --> Observe[Observe / Collect Signals]
+              Observe --> Delta[Requirements Delta]
+              Delta --> Req
+              Review --> Approval{{Human Approval}}
+              Gate --> Approval
+          </div>
+        </figure>
+
+        <h2>Why Orchestration Is a Separate Concern From Task Execution</h2>
+        <p>
+          Executors should do work. The orchestrator should decide what work happens next and under what conditions. When teams combine those
+          responsibilities, every worker ends up re-implementing transition logic, retry policy, timeout behavior, and artifact routing in
+          slightly different ways. That destroys lifecycle consistency.
+        </p>
+        <p>
+          Separate concerns make failures easier to reason about. A generation worker can fail without redefining what “review-ready” means.
+          A deployment worker can be replaced without changing how approval checkpoints work. The orchestrator is the authority on state and stage
+          transitions, while workers remain replaceable execution adapters. This is also why the
+          <a href="/blog/ai-assisted-sdlc-code-generation-strategy">code generation</a> page is explicitly bounded to the synthesis stage instead of
+          trying to own orchestration semantics.
+        </p>
+
+        <h2>Designing Graph State: Typed Context, Artifact References, and Lineage</h2>
+        <p>
+          Graph state should carry identifiers and references, not giant blobs of uncontrolled text. A useful state object includes requirement IDs,
+          current stage, artifact references, retry counters, risk flags, approval status, trace IDs, and links to evidence bundles. Treat state
+          as the durable memory of the lifecycle, not as an oversized prompt cache.
+        </p>
+        <p>
+          Keep mutation rules explicit. Some fields are append-only, such as audit events and trace lineage. Others are stage-owned, such as the
+          latest generated diff bundle or test evidence set. Requirements artifacts should usually be immutable once the run starts, with revisions
+          arriving as a new requirements delta instead of an in-place rewrite. The
+          <a href="/blog/ai-assisted-sdlc-requirements-normalization">requirements solicitation and normalization pipeline</a>
+          should define the packet shape before the orchestrator ever starts executing.
+        </p>
+
+        <h2>Node and Edge Design: Stage Contracts and Transition Preconditions</h2>
+        <p>
+          Each node should own one lifecycle responsibility and define clear input/output contracts. “Generate code” is a node. “Run validation”
+          is a node. “Wait for human approval” is a node. “Collect feedback signals” is a node. Avoid broad nodes that do multiple lifecycle
+          responsibilities because they make policy enforcement and observability ambiguous.
+        </p>
+        <p>
+          Edges should encode preconditions explicitly. A transition from generation to testing might require a bounded diff artifact with requirement
+          IDs attached. A transition from review to deployment might require a passed evidence bundle plus an approval checkpoint. Invalid transitions
+          should be rejected, not silently coerced. That is where graph orchestration provides more leverage than a linear script: the stage model
+          becomes inspectable and enforceable.
+        </p>
+
+        <h2>Artifact Passing Contracts Between Stages</h2>
+        <p>
+          Artifact passing should be deliberate rather than incidental. The generation stage should not push arbitrary workspace state into testing.
+          It should emit a contract artifact: changed files, requirement mappings, context summary, confidence annotations, and execution metadata.
+          The test stage should in turn emit its own artifact: validations run, failures found, release evidence, and unresolved risks.
+        </p>
+        <p>
+          Contract design matters because orchestration is where stage boundaries become real. Schema evolution should be explicit so older runs
+          remain interpretable. Stable artifact contracts also make the
+          <a href="/blog/ai-assisted-sdlc-local-walkthrough">local closed-loop implementation walkthrough</a>
+          easier to build faithfully, because a local demo can store JSON files on disk while still modeling the same production handoff semantics.
+        </p>
+
+        <h2>Retry, Timeout, and Idempotency Policies for Reliable Execution</h2>
+        <p>
+          Retries should be stage-specific and bounded. A transient model timeout might justify a rerun. A policy violation or failed human approval
+          should not. If every failure is treated as retryable, the orchestrator becomes an amplifier of bad assumptions instead of a controller.
+        </p>
+        <p>
+          Idempotency is equally important. Re-entering a stage should not duplicate side effects or create ambiguous ownership. Approval notifications,
+          artifact writes, and rollout triggers should all be safe under replay or explicit resume. Timeout policy should distinguish between slow work,
+          stuck work, and invalid work. If a stage cannot safely resume, the orchestrator should escalate instead of guessing. This same logic is why
+          durable workflow systems and control planes emphasize replay-safe state transitions in production architecture.
+        </p>
+
+        <h2>Human Approval Checkpoints and Manual Override Paths</h2>
+        <p>
+          Human approval in the graph should be a first-class stage, not a side channel. The orchestrator should know that a run is waiting on
+          approval, who can approve it, which evidence bundle is under review, and what happens if the answer is reject, defer, or request changes.
+          Approval is state, not a comment on a dashboard.
+        </p>
+        <p>
+          Manual override paths are equally important. If a worker is misbehaving, if a requirement packet is invalid, or if a production issue needs
+          human triage, the orchestrator should allow a bounded override into a safe state. That safe state might mean stop the run, branch to a
+          remediation stage, or mark the requirement for human rewrite. The
+          <a href="/blog/ai-assisted-sdlc-review-remediation-loops">review rubric and bounded remediation loop</a>
+          expands the governance side of this handoff.
+        </p>
+
+        <h2>Instrumentation, Tracing, and Stage-Level Evals</h2>
+        <p>
+          Good orchestration is observable. Every stage should emit start and finish events, artifact references, elapsed time, retry reason, and
+          evaluation results. LangSmith is helpful because its official surface area is traces and evals for LLM applications, but use that as a
+          lifecycle observability layer, not just a model-call inspector. The valuable trace is the one that tells you why the run moved from
+          requirements to generation to testing and where it stopped.
+        </p>
+        <p>
+          Stage-level evals should attach directly to transitions. If code generation does not produce a bounded diff, fail before testing.
+          If testing does not produce sufficient evidence, fail before review. If review does not conclude cleanly, fail before deployment.
+          This is how orchestration turns quality checks into enforceable gates rather than after-the-fact reporting.
+        </p>
+
+        <h2>Minimal Local Graph Implementation and Migration to Production</h2>
+        <p>
+          A local implementation should preserve the stage model while simplifying infrastructure. Store graph state as files, use a small example
+          requirements packet, and model approvals with explicit command-line checkpoints or structured prompts. That gives you a faithful
+          development-scale version of the production lifecycle without pretending a laptop environment is equivalent to a deployment control plane.
+        </p>
+        <p>
+          From there, migration to production mostly means swapping durability and operational surfaces: a persistent state store instead of local files,
+          CI-driven validation instead of ad hoc commands, role-based approvals instead of CLI prompts, and shared observability instead of per-developer
+          trace views. The core graph semantics should not change, which is exactly why the local walkthrough should be read as a structural analog,
+          not a toy.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-local-walkthrough">A Local End-to-End AI-Assisted SDLC Walkthrough</a>
+            for the <em>local closed-loop implementation walkthrough</em>, then read
+            <a href="/blog/ai-assisted-sdlc-deployment-gates">Deployment Gates for AI-Assisted Software Systems</a>
+            for the <em>deployment gate criteria and rollback triggers</em>.
+            The walkthrough operationalizes orchestration quickly, while deployment defines the downstream control regime the graph must satisfy.
+          </p>
+          <p>
+            For lifecycle context, return to the
+            <a href="/blog/ai-assisted-sdlc-closed-loop">full lifecycle architecture and control boundaries</a>.
+          </p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      <p>© <span id="year"></span> Rich Robertson.</p>
+      <div data-site-footer></div>
+    </footer>
+    <script type="module">
+      import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+      mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        theme: 'neutral',
+        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis' }
+      });
+    </script>
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>

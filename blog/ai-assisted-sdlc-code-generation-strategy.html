@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Controlled Code Generation in AI-Assisted SDLC Pipelines | Rich Robertson</title>
+    <meta
+      name="description"
+      content="Implement code generation with strict scope boundaries, context packaging, diff discipline, and repository-aware constraints to produce auditable changes."
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy" />
+    <link rel="alternate" type="application/rss+xml" title="Rich Robertson RSS Feed" href="/rss.xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Controlled Code Generation in AI-Assisted SDLC Pipelines" />
+    <meta property="og:description" content="A practical generation strategy for scope control, context packaging, diff discipline, repository awareness, and escalation thresholds." />
+    <meta property="og:url" content="https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy" />
+    <meta property="og:site_name" content="Rich Robertson" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Controlled Code Generation in AI-Assisted SDLC Pipelines" />
+    <meta name="twitter:description" content="Generate code that is bounded, reviewable, repository-aware, and tied to requirement IDs instead of open-ended agent behavior." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BlogPosting","headline":"Code Generation With Contracts, Boundaries, and Repository Awareness","description":"A practical generation strategy for scope control, context packaging, diff discipline, repository awareness, and escalation thresholds.","url":"https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy","mainEntityOfPage":"https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy","datePublished":"2026-04-09","dateModified":"2026-04-09","author":{"@type":"Person","name":"Rich Robertson","url":"https://www.myrobertson.com/"},"keywords":["code generation","repository awareness","diff discipline","ai-assisted delivery","scope control"],"isPartOf":{"@type":"Blog","name":"Rich Robertson Writing","url":"https://www.myrobertson.com/blog/"}}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.myrobertson.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://www.myrobertson.com/blog/"},{"@type":"ListItem","position":3,"name":"Code Generation With Contracts, Boundaries, and Repository Awareness","item":"https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy"}]}
+    </script>
+  </head>
+  <body data-page="writing" data-article-slug="ai-assisted-sdlc-code-generation-strategy">
+    <header class="hero" id="top">
+      <div data-site-header></div>
+      <div class="hero-content" data-article-meta data-article-slug="ai-assisted-sdlc-code-generation-strategy">
+        <p class="breadcrumb" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/blog/">Blog</a> / <span aria-current="page">Article</span></p>
+        <p class="eyebrow">April 2026 • Execution Stage</p>
+        <h1>Code Generation With Contracts, Boundaries, and Repository Awareness</h1>
+        <p class="intro blog-dek">Treat generation as a bounded execution stage: scoped inputs, explicit repository constraints, reviewable diffs, and escalation when confidence is too low.</p>
+      </div>
+    </header>
+    <main>
+      <article class="card blog-post" data-related-writing>
+        <p>
+          Inside the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>, code generation is one stage, not the whole system.
+          It should consume a normalized packet, produce a bounded artifact, and hand off evidence to the validation stages. If generation owns orchestration,
+          validation, and release decisions, the lifecycle quickly turns into an opaque loop that cannot explain why a change exists.
+        </p>
+
+        <h2>What the Code Generation Stage Should and Should Not Own</h2>
+        <p>
+          This stage should own transforming a requirement packet plus bounded repository context into a proposed diff and supporting artifact bundle.
+          It should not reinterpret stakeholder intent, redefine release thresholds, or decide whether production exposure is safe. Those responsibilities
+          belong to requirements, orchestration, review, and deployment stages respectively.
+        </p>
+        <p>
+          That ownership boundary is what keeps the pipeline governable. Generation is allowed to propose, not to authorize. It is especially important
+          when the system later enters the <a href="/blog/ai-assisted-sdlc-review-remediation-loops">review rubric and bounded remediation loop</a>,
+          where reviewers need a stable understanding of what generation was asked to do and what it actually attempted.
+        </p>
+
+        <h2>Packaging Context: Requirements, Architectural Constraints, and Relevant Code</h2>
+        <p>
+          Good context packaging is narrow, explicit, and auditable. Include the normalized requirement packet, the relevant architecture constraints,
+          interface contracts, and the smallest set of repository files needed to complete the task. Avoid full-repository dumps because they widen
+          the opportunity for unrelated edits and make later diff review harder.
+        </p>
+        <p>
+          Context should also preserve structure. Requirements IDs, target file paths, known interfaces, dependency expectations, and disallowed areas
+          should be represented as named inputs rather than buried inside a long prose prompt. That keeps the generation stage aligned with the
+          <a href="/blog/ai-assisted-sdlc-orchestration-architecture">stateful orchestration graph design</a>
+          instead of turning execution context into an untyped chat transcript.
+        </p>
+
+        <h2>Scope Control: Limiting Surface Area and Preventing Unbounded Changes</h2>
+        <p>
+          Scope control is a primary safety mechanism. Limit file paths, directories, change count, and allowed operation types before generation starts.
+          If the requested change would cross those bounds, generation should escalate or return a partial plan rather than proceed autonomously.
+        </p>
+        <p>
+          This discipline matters because AI-assisted generation is very good at “helpful expansion.” A small task can unexpectedly touch migration files,
+          tests, configuration, and documentation unless the stage contract defines the allowed surface area. Controlled generation should prefer smaller,
+          composable changes over large speculative ones.
+        </p>
+
+        <h2>Diff Discipline: Small Atomic Changes With Explicit Rationale</h2>
+        <p>
+          Generated diffs should be atomic enough that a reviewer can explain them line by line. That means one coherent change intent, clear rationale,
+          and traceability back to requirement IDs. Large multi-purpose diffs increase review cost and dilute rollback clarity.
+        </p>
+        <p>
+          Diff discipline is one of the places where AI-assisted generation and production review culture have to agree. A change that is fast to produce
+          but hard to inspect is not lifecycle progress. It is deferred review debt. The downstream review and deployment stages depend on generation
+          choosing readability over local optimization.
+        </p>
+
+        <h2>Repository-Aware Generation: Conventions, Tooling, and Existing Patterns</h2>
+        <p>
+          Repository awareness means more than reading a few adjacent files. The generation stage should understand the project’s naming patterns,
+          data-flow expectations, test style, error-handling approach, and ownership boundaries. It should respect existing patterns before introducing
+          new abstractions.
+        </p>
+        <p>
+          This is why repository awareness belongs in the stage contract itself. If the repo prefers explicit data objects over framework magic, the
+          generated change should follow that convention. If the repo organizes validation in a specific layer, new code should align to that layer.
+          The <a href="/blog/ai-assisted-sdlc-local-walkthrough">local closed-loop implementation walkthrough</a> shows a simplified version of this:
+          even a small demo stays easier to reason about when it follows one repository shape consistently.
+        </p>
+
+        <h2>Protecting Against Hallucinated APIs and Invalid Assumptions</h2>
+        <p>
+          Generation should never assume that a convenient function, package, or schema already exists. Protect against hallucinated APIs by validating
+          symbol existence, checking package boundaries, and preferring compile-first or test-first verification immediately after emission.
+        </p>
+        <p>
+          Invalid assumptions also include softer errors: misreading ownership, choosing the wrong persistence pattern, or silently introducing a new
+          dependency. These are exactly the sorts of issues that the
+          <a href="/blog/ai-assisted-sdlc-test-generation-validation">AI-generated tests that protect against regression</a>
+          and review stages need to catch early, which is why generation should emit its assumptions alongside the diff instead of hiding them.
+        </p>
+
+        <h2>Emitting Generation Artifacts for Downstream Validation</h2>
+        <p>
+          The output of this stage should not be “the code changed.” It should be an artifact bundle: the proposed diff, touched files, requirement mappings,
+          rationale summary, assumption list, and any generation metadata that matters for downstream investigation. If the stage had to narrow scope or skip
+          a subtask, capture that explicitly so later validators know what was intentionally deferred.
+        </p>
+        <p>
+          That bundle gives the testing stage evidence to work against and gives the review stage context without requiring reviewers to replay the whole run.
+          It also reduces lifecycle amnesia when a change later produces a production issue and operators need to reconstruct the original execution path.
+        </p>
+
+        <h2>Escalation to Humans When Contract Confidence Is Low</h2>
+        <p>
+          Low confidence should trigger escalation, not optimistic continuation. Examples include ambiguous repository ownership, incomplete requirement packets,
+          unexpected file-scope expansion, unresolved compile assumptions, or changes that appear to touch regulated behavior. In those cases, the stage
+          should stop with a structured escalation artifact rather than hand-wave risk away.
+        </p>
+        <p>
+          This is one of the places where human oversight adds the most value: deciding whether the problem is a requirement defect, a context defect,
+          a tooling defect, or a genuinely hard implementation issue. The right next stop is often the
+          <a href="/blog/ai-assisted-sdlc-review-remediation-loops">review and remediation loop</a>,
+          not another autonomous attempt.
+        </p>
+
+        <section aria-labelledby="next-steps">
+          <h3 id="next-steps">Read next in this lifecycle</h3>
+          <p>
+            Continue to <a href="/blog/ai-assisted-sdlc-test-generation-validation">AI-Generated Tests That Actually Protect the System</a>
+            for <em>AI-generated tests that protect against regression</em>, then read
+            <a href="/blog/ai-assisted-sdlc-review-remediation-loops">Code Review and Issue Remediation Loops in AI-Assisted Delivery</a>
+            for the <em>review rubric and bounded remediation loop</em>.
+            Tests and review/remediation are the immediate control stages that validate and bound generated code before release.
+          </p>
+          <p>For lifecycle context, return to the <a href="/blog/ai-assisted-sdlc-closed-loop">closed-loop AI-assisted SDLC model</a>.</p>
+          <p><a href="/blog/">← Back to all writing</a></p>
+        </section>
+      </article>
+    </main>
+    <footer><p>© <span id="year"></span> Rich Robertson.</p><div data-site-footer></div></footer>
+    <script src="/nav.js"></script>
+    <script src="/content/content-model.js"></script>
+    <script src="/blog/taxonomy.js"></script>
+    <script src="/blog/blog.js"></script>
+    <script src="../script.js"></script>
+  </body>
+</html>
