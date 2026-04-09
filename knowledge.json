@@ -730,6 +730,242 @@
         "label": "interviewer rubric"
       },
       {
+        "id": "page:ai-assisted-sdlc-hub",
+        "nodeType": "page",
+        "title": "How to Build a Closed-Loop AI-Assisted Software Development Lifecycle",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop",
+        "contentType": "article",
+        "summary": "Conceptual hub for a governed AI-assisted delivery lifecycle spanning requirements, orchestration, generation, validation, deployment, and feedback.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-orchestration",
+          "page:ai-assisted-sdlc-requirements",
+          "page:ai-assisted-sdlc-feedback",
+          "page:ai-assisted-sdlc-walkthrough"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:ai-assisted-software-development-lifecycle",
+        "nodeType": "tag",
+        "label": "AI-assisted software development lifecycle"
+      },
+      {
+        "id": "tag:software-delivery",
+        "nodeType": "tag",
+        "label": "software delivery"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-requirements",
+        "nodeType": "page",
+        "title": "Requirements Solicitation and Normalization for AI-Assisted Delivery",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization",
+        "contentType": "article",
+        "summary": "Input-quality control for intake, ambiguity reduction, acceptance criteria, constraints, non-functional requirements, and normalized requirement packets.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-codegen",
+          "page:ai-assisted-sdlc-feedback",
+          "page:ai-assisted-sdlc-orchestration",
+          "page:ai-assisted-sdlc-hub"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "foundational",
+        "status": "published"
+      },
+      {
+        "id": "tag:requirements",
+        "nodeType": "tag",
+        "label": "requirements"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-orchestration",
+        "nodeType": "page",
+        "title": "Designing the Orchestrator for an AI-Assisted Development Workflow",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture",
+        "contentType": "article",
+        "summary": "Stateful orchestration design covering typed graph state, stage contracts, artifact passing, retries, approvals, traces, and eval hooks.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-hub",
+          "page:ai-assisted-sdlc-walkthrough",
+          "page:ai-assisted-sdlc-deployment",
+          "page:ai-assisted-sdlc-requirements"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-codegen",
+        "nodeType": "page",
+        "title": "Code Generation With Contracts, Boundaries, and Repository Awareness",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy",
+        "contentType": "article",
+        "summary": "Bounded generation strategy for scope control, context packaging, diff discipline, repository awareness, and structured escalation.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-tests",
+          "page:ai-assisted-sdlc-review",
+          "page:ai-assisted-sdlc-requirements"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "tag:code-generation",
+        "nodeType": "tag",
+        "label": "code generation"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-tests",
+        "nodeType": "page",
+        "title": "AI-Generated Tests That Actually Protect the System",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation",
+        "contentType": "article",
+        "summary": "Validation-stage guidance for risk-based test selection, stronger oracles, blind-spot analysis, regression protection, and release evidence.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-codegen",
+          "page:ai-assisted-sdlc-deployment",
+          "page:ai-assisted-sdlc-feedback"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "intermediate",
+        "status": "published"
+      },
+      {
+        "id": "tag:testing",
+        "nodeType": "tag",
+        "label": "testing"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-review",
+        "nodeType": "page",
+        "title": "Code Review and Issue Remediation Loops in AI-Assisted Delivery",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops",
+        "contentType": "article",
+        "summary": "Governance-heavy review stage covering rubric design, static checks, bounded retries, escalation, and durable decision records.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-codegen",
+          "page:ai-assisted-sdlc-tests",
+          "page:ai-assisted-sdlc-deployment",
+          "page:ai-assisted-sdlc-orchestration"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:code-review",
+        "nodeType": "tag",
+        "label": "code review"
+      },
+      {
+        "id": "tag:governance",
+        "nodeType": "tag",
+        "label": "governance"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-deployment",
+        "nodeType": "page",
+        "title": "Deployment Gates for AI-Assisted Software Systems",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates",
+        "contentType": "article",
+        "summary": "Production engineering guidance for release evidence, phased rollout, rollback triggers, observation handoff, and routing learnings upstream.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-feedback",
+          "page:ai-assisted-sdlc-review",
+          "page:ai-assisted-sdlc-tests"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:deployment",
+        "nodeType": "tag",
+        "label": "deployment"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-feedback",
+        "nodeType": "page",
+        "title": "Closing the Loop With End-User Feedback and Requirements Refinement",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements",
+        "contentType": "article",
+        "summary": "Lifecycle-learning guide for signal collection, prioritization, requirements deltas, refinement governance, and loop-health metrics.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-requirements",
+          "page:ai-assisted-sdlc-deployment",
+          "page:ai-assisted-sdlc-walkthrough",
+          "page:ai-assisted-sdlc-hub"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:feedback-loops",
+        "nodeType": "tag",
+        "label": "feedback loops"
+      },
+      {
+        "id": "page:ai-assisted-sdlc-walkthrough",
+        "nodeType": "page",
+        "title": "A Local End-to-End AI-Assisted SDLC Walkthrough",
+        "url": "https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough",
+        "contentType": "article",
+        "summary": "Implementation-heavy walkthrough of a local closed-loop pipeline with staged graph execution, artifacts, approvals, eval traces, and feedback re-entry.",
+        "publishedDate": "2026-04-09",
+        "updatedDate": "2026-04-09",
+        "importance": 2,
+        "canonicalTopic": "AI-assisted software delivery",
+        "related": [
+          "page:ai-assisted-sdlc-orchestration",
+          "page:ai-assisted-sdlc-feedback",
+          "page:ai-assisted-sdlc-codegen",
+          "page:ai-assisted-sdlc-hub"
+        ],
+        "parent": "page:distributed-systems-writing",
+        "level": "advanced",
+        "status": "published"
+      },
+      {
+        "id": "tag:langgraph",
+        "nodeType": "tag",
+        "label": "LangGraph"
+      },
+      {
         "id": "page:distributed-systems-writing",
         "nodeType": "page",
         "title": "Distributed Systems Writing",
@@ -1297,6 +1533,186 @@
         "type": "hasTag"
       },
       {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "tag:workflow-orchestration",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "tag:software-delivery",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "tag:requirements",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "tag:software-delivery",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "tag:architecture",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "tag:workflow-orchestration",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "tag:control-planes",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "tag:architecture",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "tag:code-generation",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "tag:software-delivery",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "tag:testing",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "tag:software-delivery",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "tag:code-review",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "tag:governance",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-deployment",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-deployment",
+        "target": "tag:deployment",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-deployment",
+        "target": "tag:reliability",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-deployment",
+        "target": "tag:software-delivery",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-feedback",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-feedback",
+        "target": "tag:feedback-loops",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-feedback",
+        "target": "tag:requirements",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-feedback",
+        "target": "tag:software-delivery",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-walkthrough",
+        "target": "tag:ai-assisted-software-development-lifecycle",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-walkthrough",
+        "target": "tag:langgraph",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-walkthrough",
+        "target": "tag:workflow-orchestration",
+        "type": "hasTag"
+      },
+      {
+        "source": "page:ai-assisted-sdlc-walkthrough",
+        "target": "tag:software-delivery",
+        "type": "hasTag"
+      },
+      {
         "source": "page:distributed-systems-writing",
         "target": "tag:writing",
         "type": "hasTag"
@@ -1439,6 +1855,51 @@
       {
         "source": "page:distributed-systems-writing",
         "target": "page:evaluating-candidates-ai-allowed",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-requirements",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-orchestration",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "indexes"
+      },
+      {
+        "source": "page:distributed-systems-writing",
+        "target": "page:ai-assisted-sdlc-walkthrough",
         "type": "indexes"
       },
       {
@@ -1591,6 +2052,60 @@
       {
         "source": "page:distributed-systems",
         "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:ai-assisted-sdlc-orchestration",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:control-planes"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:distributed-systems",
+        "target": "page:ai-assisted-sdlc-deployment",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:reliability"
@@ -1889,6 +2404,69 @@
       },
       {
         "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ai-assisted-sdlc-requirements",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:architecture"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ai-assisted-sdlc-orchestration",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:architecture"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:fallacies-of-distributed-computing",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2022,6 +2600,51 @@
       },
       {
         "source": "page:overload-control-pipeline",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:overload-control-pipeline",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2145,6 +2768,51 @@
       },
       {
         "source": "page:admission-control-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:admission-control-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2256,6 +2924,51 @@
       },
       {
         "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:rate-limiting-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2352,6 +3065,51 @@
       },
       {
         "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:circuit-breakers-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2442,6 +3200,51 @@
       },
       {
         "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:graceful-degradation-in-distributed-systems",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2513,6 +3316,51 @@
       {
         "source": "page:load-shedding-in-distributed-systems",
         "target": "page:ownership-ai-interviews",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:load-shedding-in-distributed-systems",
+        "target": "page:ai-assisted-sdlc-deployment",
         "type": "relatedByTag",
         "sharedTags": [
           "tag:reliability"
@@ -2598,6 +3446,51 @@
       },
       {
         "source": "page:why-systems-fail-under-load",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:why-systems-fail-under-load",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2655,6 +3548,51 @@
       },
       {
         "source": "page:retry-strategies-and-idempotency",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:retry-strategies-and-idempotency",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2701,6 +3639,51 @@
       },
       {
         "source": "page:queue-design-under-load",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:queue-design-under-load",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -2724,6 +3707,34 @@
         "type": "relatedByTag",
         "sharedTags": [
           "tag:distributed-systems"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:architecting-a-multitenant-control-plane",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:workflow-orchestration"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:architecting-a-multitenant-control-plane",
+        "target": "page:ai-assisted-sdlc-orchestration",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:control-planes",
+          "tag:workflow-orchestration"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:architecting-a-multitenant-control-plane",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:workflow-orchestration"
         ],
         "strength": 1
       },
@@ -3035,6 +4046,51 @@
       },
       {
         "source": "page:ownership-ai-interviews",
+        "target": "page:ai-assisted-sdlc-hub",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ownership-ai-interviews",
         "target": "page:distributed-systems-writing",
         "type": "relatedByTag",
         "sharedTags": [
@@ -3070,6 +4126,411 @@
         "sharedTags": [
           "tag:ai-assisted-coding-interviews",
           "tag:engineering-judgment"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-requirements",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-orchestration",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:workflow-orchestration"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability",
+          "tag:software-delivery"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability",
+          "tag:software-delivery"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability",
+          "tag:software-delivery"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery",
+          "tag:workflow-orchestration"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-hub",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "page:ai-assisted-sdlc-orchestration",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:architecture"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:requirements",
+          "tag:software-delivery"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-requirements",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "page:ai-assisted-sdlc-codegen",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-orchestration",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:workflow-orchestration"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "page:ai-assisted-sdlc-tests",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability",
+          "tag:software-delivery"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability",
+          "tag:software-delivery"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-codegen",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "page:ai-assisted-sdlc-review",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability",
+          "tag:software-delivery"
+        ],
+        "strength": 3
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-tests",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "page:ai-assisted-sdlc-deployment",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:reliability"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-review",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-deployment",
+        "target": "page:ai-assisted-sdlc-feedback",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-deployment",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
+        ],
+        "strength": 2
+      },
+      {
+        "source": "page:ai-assisted-sdlc-deployment",
+        "target": "page:distributed-systems-writing",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:reliability"
+        ],
+        "strength": 1
+      },
+      {
+        "source": "page:ai-assisted-sdlc-feedback",
+        "target": "page:ai-assisted-sdlc-walkthrough",
+        "type": "relatedByTag",
+        "sharedTags": [
+          "tag:ai-assisted-software-development-lifecycle",
+          "tag:software-delivery"
         ],
         "strength": 2
       }

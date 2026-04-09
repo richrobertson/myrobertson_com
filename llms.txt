@@ -49,6 +49,19 @@ Judgment-first interview guidance for ownership, verification, and engineering d
 - https://www.myrobertson.com/blog/how-candidates-fail-ai-assisted-coding-interviews
 - https://www.myrobertson.com/blog/what-strong-senior-engineers-do-differently-in-ai-assisted-coding-interviews
 
+### AI-assisted software delivery lifecycle
+Architecture-first guidance for treating AI-assisted delivery as a governed lifecycle with requirement packets, orchestration, stage gates, release evidence, and feedback loops.
+
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-test-generation-validation
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-review-remediation-loops
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-deployment-gates
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-feedback-to-requirements
+- https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough
+
 ### CRDTs and distributed consistency
 Consistency models and replica-convergence mechanics for distributed data correctness.
 
