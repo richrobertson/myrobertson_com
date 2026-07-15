@@ -82,6 +82,18 @@ for (const [name, inputPath, expectedPath] of assertions) {
 }
 
 {
+  const request = new Request(`${CANONICAL_ORIGIN}/blog/what-is-eventual-consistency`);
+  const response = await worker.fetch(request, getEnv());
+  const rewrittenPath = response.headers.get('x-asset-path');
+
+  assert(response.status === 200, `standalone blog asset rewrite: expected 200, got ${response.status}`);
+  assert(
+    rewrittenPath === '/blog/what-is-eventual-consistency',
+    `standalone blog asset rewrite: expected /blog/what-is-eventual-consistency, got ${rewrittenPath}`
+  );
+}
+
+{
   const wranglerConfig = JSON.parse(await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
   const runWorkerFirst = wranglerConfig.assets?.run_worker_first;
   const requiredRoutes = ['/blog', '/blog/*', '/writing', '/writing/*'];
@@ -93,4 +105,4 @@ for (const [name, inputPath, expectedPath] of assertions) {
   );
 }
 
-console.log(`Route assertions passed (${assertions.length + 4} checks).`);
+console.log(`Route assertions passed (${assertions.length + 5} checks).`);

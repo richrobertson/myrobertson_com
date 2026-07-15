@@ -35,6 +35,10 @@ function toAssetBindingPath(assetPath) {
     return assetPath.slice(0, -'index.html'.length);
   }
 
+  if (assetPath.endsWith('.html')) {
+    return assetPath.slice(0, -'.html'.length);
+  }
+
   return assetPath;
 }
 
