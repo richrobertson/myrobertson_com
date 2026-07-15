@@ -1,4 +1,5 @@
 import worker from '../worker.js';
+import { readFile } from 'node:fs/promises';
 
 const CANONICAL_ORIGIN = 'https://www.myrobertson.com';
 
@@ -63,8 +64,8 @@ for (const [name, inputPath, expectedPath] of assertions) {
 
   assert(response.status === 200, `asset rewrite: expected 200, got ${response.status}`);
   assert(
-    rewrittenPath === '/writing/end-to-end-overload-control-in-distributed-systems/index.html',
-    `asset rewrite: expected /writing/end-to-end-overload-control-in-distributed-systems/index.html, got ${rewrittenPath}`
+    rewrittenPath === '/writing/end-to-end-overload-control-in-distributed-systems/',
+    `asset rewrite: expected /writing/end-to-end-overload-control-in-distributed-systems/, got ${rewrittenPath}`
   );
 }
 
@@ -75,9 +76,21 @@ for (const [name, inputPath, expectedPath] of assertions) {
 
   assert(response.status === 200, `state-management asset rewrite: expected 200, got ${response.status}`);
   assert(
-    rewrittenPath === '/writing/state-management-in-distributed-control-systems/index.html',
-    `state-management asset rewrite: expected /writing/state-management-in-distributed-control-systems/index.html, got ${rewrittenPath}`
+    rewrittenPath === '/writing/state-management-in-distributed-control-systems/',
+    `state-management asset rewrite: expected /writing/state-management-in-distributed-control-systems/, got ${rewrittenPath}`
   );
 }
 
-console.log(`Route assertions passed (${assertions.length + 2} checks).`);
+{
+  const wranglerConfig = JSON.parse(await readFile(new URL('../wrangler.jsonc', import.meta.url), 'utf8'));
+  const runWorkerFirst = wranglerConfig.assets?.run_worker_first;
+  const requiredRoutes = ['/blog', '/blog/*', '/writing', '/writing/*'];
+
+  assert(Array.isArray(runWorkerFirst), 'wrangler assets.run_worker_first must be an array');
+  assert(
+    requiredRoutes.every((route) => runWorkerFirst.includes(route)),
+    `wrangler assets.run_worker_first must include ${requiredRoutes.join(', ')}`
+  );
+}
+
+console.log(`Route assertions passed (${assertions.length + 4} checks).`);
