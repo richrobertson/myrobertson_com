@@ -30,6 +30,14 @@ function toAbsoluteUrl(input, baseUrl) {
   }
 }
 
+function toAssetBindingPath(assetPath) {
+  if (assetPath.endsWith('/index.html')) {
+    return assetPath.slice(0, -'index.html'.length);
+  }
+
+  return assetPath;
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -84,7 +92,11 @@ export default {
       }
 
       const assetUrl = new URL(url.toString());
-      assetUrl.pathname = assetPath;
+      // Cloudflare's default HTML handling redirects direct /index.html asset
+      // requests to their directory URL. Fetch the directory form through the
+      // binding so the public /blog URL receives the asset instead of a 307 to
+      // its private /writing storage path.
+      assetUrl.pathname = toAssetBindingPath(assetPath);
       try {
         const rewrittenRequest = new Request(assetUrl.toString(), request);
         return env.ASSETS.fetch(rewrittenRequest);
