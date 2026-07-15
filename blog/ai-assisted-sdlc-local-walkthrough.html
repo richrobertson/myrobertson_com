@@ -120,13 +120,13 @@
           <figcaption><strong>Local run loop for the walkthrough</strong></figcaption>
           <div class="mermaid">
             flowchart LR
-              Req[requirements.json] --> Graph[LangGraph workflow]
-              Graph --> Diff[generated-diff.md]
-              Diff --> Tests[test-evidence.json]
-              Tests --> Review[approval-checkpoint.json]
-              Review --> Release[release-decision.json]
-              Release --> Feedback[feedback.json]
-              Feedback --> Delta[requirements-delta.json]
+              Req[requirements.json] --&gt; Graph[LangGraph workflow]
+              Graph --&gt; Diff[generated-diff.md]
+              Diff --&gt; Tests[test-evidence.json]
+              Tests --&gt; Review[approval-checkpoint.json]
+              Review --&gt; Release[release-decision.json]
+              Release --&gt; Feedback[feedback.json]
+              Feedback --&gt; Delta[requirements-delta.json]
           </div>
         </figure>
 

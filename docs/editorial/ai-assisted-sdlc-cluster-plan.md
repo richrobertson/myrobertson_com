@@ -4,9 +4,11 @@
 
 This document defines a complete hub-and-spoke editorial architecture for a multi-page cluster on building and operating a closed-loop AI-assisted software delivery system. It is planning-only and specifies page intent, page structure, linking contracts, publication order, and separation-of-concerns controls.
 
-The core thesis: AI-assisted software delivery should be engineered as a staged, stateful workflow with explicit artifact contracts, approval checkpoints, observability, and production feedback loops. A single autonomous coding agent is insufficient for reliable delivery at team scale. Effective systems separate orchestration, task execution, and governance while preserving traceability from requirement to production signal and back.
+The core thesis: AI-assisted software delivery should be engineered as a staged, stateful workflow with explicit artifact contracts, approval checkpoints, observability, and production feedback loops. A single autonomous coding agent is insufficient for reliable delivery at team scale.
+Effective systems separate orchestration, task execution, and governance while preserving traceability from requirement to production signal and back.
 
-This topic belongs on myrobertson.com because it aligns with architecture-first engineering practice: designing reliable distributed workflows with explicit control points, not thin wrappers over model calls. This cluster is more valuable than generic “AI coding tools” content because it is lifecycle-complete, operationally grounded, and directly implementable locally while preserving production-grade constraints.
+This topic belongs on myrobertson.com because it aligns with architecture-first engineering practice: designing reliable distributed workflows with explicit control points, not thin wrappers over model calls. This cluster is more valuable than generic “AI coding tools” content because it is lifecycle-complete, operationally grounded,
+and directly implementable locally while preserving production-grade constraints.
 
 ## 2. Cluster thesis
 
@@ -1009,7 +1011,7 @@ Use exact anchors where possible:
 ## 11. Final Recommended Page Inventory
 
 | Page Title | Slug | Role | Status |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | How to Build a Closed-Loop AI-Assisted Software Development Lifecycle | `/ai-assisted-sdlc-closed-loop` | Hub | planned |
 | Requirements Solicitation and Normalization for AI-Assisted Delivery | `/ai-assisted-sdlc-requirements-normalization` | Spoke | planned |
 | Designing the Orchestrator for an AI-Assisted Development Workflow | `/ai-assisted-sdlc-orchestration-architecture` | Spoke | planned |

@@ -106,7 +106,14 @@ async function loadPosts() {
       throw new Error(`Invalid datePublished for ${entry.name}: ${published}`);
     }
 
-    if (!link.startsWith(SITE_URL)) {
+    let parsedLink;
+    try {
+      parsedLink = new URL(link);
+    } catch {
+      continue;
+    }
+
+    if (parsedLink.origin !== SITE_URL) {
       continue;
     }
 
