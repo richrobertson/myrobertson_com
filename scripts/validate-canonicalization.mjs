@@ -23,6 +23,7 @@ const REQUIRED_WRITING_ALIASES = new Map([
   ['/writing/load-shedding-in-distributed-systems', '/blog/load-shedding-in-distributed-systems'],
   ['/writing/retry-strategies-and-idempotency', '/blog/retry-strategies-and-idempotency'],
   ['/writing/queue-design-under-load', '/blog/queue-design-under-load'],
+  ['/writing/state-management-in-distributed-control-systems', '/blog/state-management-in-distributed-control-systems'],
   ['/writing/why-systems-fail-under-load-not-just-bugs', '/blog/why-systems-fail-under-load-not-just-bugs']
 ]);
 
