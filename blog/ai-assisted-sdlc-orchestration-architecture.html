@@ -135,16 +135,16 @@
           <figcaption><strong>Orchestration graph as lifecycle control plane</strong></figcaption>
           <div class="mermaid">
             flowchart TB
-              Req[Requirements Packet] --> Plan[Plan / Route]
-              Plan --> Code[Generate Code]
-              Code --> Test[Generate and Run Tests]
-              Test --> Review[Review / Remediate]
-              Review --> Gate[Release Gate]
-              Gate --> Observe[Observe / Collect Signals]
-              Observe --> Delta[Requirements Delta]
-              Delta --> Req
-              Review --> Approval{{Human Approval}}
-              Gate --> Approval
+              Req[Requirements Packet] --&gt; Plan[Plan / Route]
+              Plan --&gt; Code[Generate Code]
+              Code --&gt; Test[Generate and Run Tests]
+              Test --&gt; Review[Review / Remediate]
+              Review --&gt; Gate[Release Gate]
+              Gate --&gt; Observe[Observe / Collect Signals]
+              Observe --&gt; Delta[Requirements Delta]
+              Delta --&gt; Req
+              Review --&gt; Approval{{Human Approval}}
+              Gate --&gt; Approval
           </div>
         </figure>
 

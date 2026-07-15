@@ -210,14 +210,14 @@
           <figcaption><strong>Closed-loop lifecycle map</strong></figcaption>
           <div class="mermaid">
             flowchart LR
-              R[Requirements Packet] --> O[Orchestrator]
-              O --> G[Code Generation]
-              G --> T[Test Generation and Validation]
-              T --> V[Review and Remediation]
-              V --> D[Deployment Gates]
-              D --> F[Production Signals and User Feedback]
-              F --> Delta[Requirements Delta]
-              Delta --> R
+              R[Requirements Packet] --&gt; O[Orchestrator]
+              O --&gt; G[Code Generation]
+              G --&gt; T[Test Generation and Validation]
+              T --&gt; V[Review and Remediation]
+              V --&gt; D[Deployment Gates]
+              D --&gt; F[Production Signals and User Feedback]
+              F --&gt; Delta[Requirements Delta]
+              Delta --&gt; R
           </div>
         </figure>
 
