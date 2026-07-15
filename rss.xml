@@ -77,6 +77,13 @@
       <pubDate>Wed, 08 Apr 2026 14:00:00 GMT</pubDate>
     </item>
     <item>
+      <title>State Management in Distributed Control Systems</title>
+      <link>https://www.myrobertson.com/blog/state-management-in-distributed-control-systems</link>
+      <description>Definitive guide to state management in distributed control systems, covering desired vs observed vs authoritative state, reconciliation loops, durable workflow state, and correctness under partial failure.</description>
+      <guid>https://www.myrobertson.com/blog/state-management-in-distributed-control-systems</guid>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Designing a CRDT from Scratch</title>
       <link>https://www.myrobertson.com/blog/designing-a-crdt-from-scratch</link>
       <description>A practical guide to designing conflict-free replicated data types from first principles, including invariants, monotonic state, merge semantics, delete handling, and architecture integration.</description>

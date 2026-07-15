@@ -10,6 +10,7 @@ const assertions = [
   ['legacy alias backpressure', '/writing/backpressure-in-distributed-systems', '/blog/backpressure-stability-correctness-distributed-systems'],
   ['legacy alias control-plane article', '/writing/architecting-a-multitenant-control-plane', '/blog/architecting-a-multitenant-control-plane-for-a-next-generation-data-tier'],
   ['legacy alias lease-service article', '/writing/designing-a-correct-distributed-lease-service-tenure-on-raft', '/blog/designing-a-correct-distributed-lease-service-tenure-on-raft'],
+  ['legacy alias state-management article', '/writing/state-management-in-distributed-control-systems', '/blog/state-management-in-distributed-control-systems'],
 
   ['blog html normalization test-driven-ai', '/blog/test-driven-ai-development.html', '/blog/test-driven-ai-development'],
   ['blog html normalization eventual-consistency', '/blog/what-is-eventual-consistency.html', '/blog/what-is-eventual-consistency'],
@@ -67,4 +68,16 @@ for (const [name, inputPath, expectedPath] of assertions) {
   );
 }
 
-console.log(`Route assertions passed (${assertions.length + 1} checks).`);
+{
+  const request = new Request(`${CANONICAL_ORIGIN}/blog/state-management-in-distributed-control-systems`);
+  const response = await worker.fetch(request, getEnv());
+  const rewrittenPath = response.headers.get('x-asset-path');
+
+  assert(response.status === 200, `state-management asset rewrite: expected 200, got ${response.status}`);
+  assert(
+    rewrittenPath === '/writing/state-management-in-distributed-control-systems/index.html',
+    `state-management asset rewrite: expected /writing/state-management-in-distributed-control-systems/index.html, got ${rewrittenPath}`
+  );
+}
+
+console.log(`Route assertions passed (${assertions.length + 2} checks).`);

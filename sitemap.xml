@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-09</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/a-practical-playbook-for-ai-assisted-coding-interviews</loc>
@@ -22,7 +22,7 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-closed-loop</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-07-14</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-code-generation-strategy</loc>
@@ -38,11 +38,11 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-local-walkthrough</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-07-14</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-orchestration-architecture</loc>
-    <lastmod>2026-04-09</lastmod>
+    <lastmod>2026-07-14</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/blog/ai-assisted-sdlc-requirements-normalization</loc>
@@ -217,6 +217,10 @@
     <lastmod>2026-04-05</lastmod>
   </url>
   <url>
+    <loc>https://www.myrobertson.com/blog/state-management-in-distributed-control-systems</loc>
+    <lastmod>2026-04-08</lastmod>
+  </url>
+  <url>
     <loc>https://www.myrobertson.com/blog/strong-consistency-vs-eventual-consistency</loc>
     <lastmod>2026-04-05</lastmod>
   </url>
@@ -342,10 +346,10 @@
   </url>
   <url>
     <loc>https://www.myrobertson.com/knowledge.json</loc>
-    <lastmod>2026-04-08</lastmod>
+    <lastmod>2026-04-09</lastmod>
   </url>
   <url>
     <loc>https://www.myrobertson.com/llms.txt</loc>
-    <lastmod>2026-04-05</lastmod>
+    <lastmod>2026-04-09</lastmod>
   </url>
 </urlset>
