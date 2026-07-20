@@ -121,6 +121,37 @@ Sitemap inclusion requires all of the following:
 - Build command: none
 - Build output directory: `/`
 
+### MTA-STS policy worker
+
+The dedicated Worker under `mta-sts/` serves the mail transport policy for
+`myrobertson.net`. It is intentionally separate from the portfolio Worker so
+site redirects and asset routing cannot affect the policy endpoint.
+
+Test the Worker locally:
+
+```bash
+node --test mta-sts/worker.test.mjs
+```
+
+Deploy it independently from the portfolio site:
+
+```bash
+npx wrangler deploy --config mta-sts/wrangler.jsonc
+```
+
+After deployment, verify that
+`https://mta-sts.myrobertson.net/.well-known/mta-sts.txt` returns the exact
+policy with status `200`, a valid certificate, `Content-Type: text/plain`, and
+no redirect. Only then publish or update the public Cloudflare TXT record:
+
+```text
+_mta-sts.myrobertson.net TXT "v=STSv1; id=<deployment-id>;"
+```
+
+For policy changes, deploy and verify the HTTPS body before changing the TXT
+`id`. Keep the policy in `testing` mode until TLS-RPT reports are clean enough
+to justify enforcement.
+
 ## Static analysis and CI best practices
 
 This repository now includes GitHub Actions workflows for static code analysis:
