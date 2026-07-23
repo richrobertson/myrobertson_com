@@ -3,7 +3,7 @@ const MTA_STS_PATH = '/.well-known/mta-sts.txt';
 
 export const MTA_STS_POLICY = [
   'version: STSv1',
-  'mode: testing',
+  'mode: enforce',
   'mx: mail.myrobertson.net',
   'max_age: 86400',
   ''
