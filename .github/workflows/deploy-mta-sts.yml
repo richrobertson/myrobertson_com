@@ -1,0 +1,52 @@
+---
+name: Deploy MTA-STS
+
+"on":
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/deploy-mta-sts.yml"
+      - "mta-sts/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mta-sts-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Test and deploy policy worker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+
+      - name: Test policy worker
+        run: node --test mta-sts/worker.test.mjs
+
+      - name: Deploy policy worker
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0 # v4.0.0
+        with:
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy --config wrangler.jsonc
+          workingDirectory: mta-sts
+          wranglerVersion: 4.114.0
+
+      - name: Verify production policy
+        shell: bash
+        run: |
+          curl --fail --silent --show-error --retry 5 \
+            https://mta-sts.myrobertson.net/.well-known/mta-sts.txt \
+            --output /tmp/mta-sts.txt
+          diff -u <(printf '%s\r\n' \
+            'version: STSv1' \
+            'mode: enforce' \
+            'mx: mail.myrobertson.net' \
+            'max_age: 86400') /tmp/mta-sts.txt

@@ -6,13 +6,13 @@ import worker, { MTA_STS_POLICY } from './worker.js';
 const POLICY_URL = 'https://mta-sts.myrobertson.net/.well-known/mta-sts.txt';
 const EXPECTED_POLICY = [
   'version: STSv1',
-  'mode: testing',
+  'mode: enforce',
   'mx: mail.myrobertson.net',
   'max_age: 86400',
   ''
 ].join('\r\n');
 
-test('GET serves the exact MTA-STS testing policy without redirecting', async () => {
+test('GET serves the exact MTA-STS enforcement policy without redirecting', async () => {
   const response = await worker.fetch(new Request(POLICY_URL));
 
   assert.equal(response.status, 200);
