@@ -6,11 +6,5 @@
   "workers_dev": false,
   "observability": {
     "enabled": true
-  },
-  "routes": [
-    {
-      "pattern": "mta-sts.myrobertson.net",
-      "custom_domain": true
-    }
-  ]
+  }
 }
